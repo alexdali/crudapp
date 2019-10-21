@@ -1,19 +1,19 @@
-import express from "express";
-//import schema, { graphql } from "./schema";
-//import graphql from 'graphql';
-import { ApolloServer } from "apollo-server-express";
-import bodyParser from "body-parser";
+import express from 'express';
+// import schema, { graphql } from "./schema";
+// import graphql from 'graphql';
+import { ApolloServer } from 'apollo-server-express';
+import bodyParser from 'body-parser';
 import typeDefs from './typedef';
 import resolvers from './resolvers';
 
 // Import GraphQL Schema
-//const schema = require('./schema')
+// const schema = require('./schema')
 
-//create server
+// create server
 const app = express();
 const port = 8000;
 
-//add default route "/"
+// add default route "/"
 // app.get("/", (req,res)=> {
 //   let query = `{
 //     person { name },
@@ -30,18 +30,14 @@ const server = new ApolloServer({
   introspection: true,
   typeDefs,
   resolvers,
-  formatError: error => {
-    return error
-  },
-  context: ({req,res})=> {
-    return {
-      req,res
-    }
-  }
+  formatError: (error) => error,
+  context: ({ req, res }) => ({
+    req, res,
+  }),
 });
 
-server.applyMiddleware({app, path: '/graphql'});
+server.applyMiddleware({ app, path: '/graphql' });
 
-app.listen(port, ()=>{
+app.listen(port, () => {
   console.log(`app server listening on port: ${port}`);
 });
