@@ -12,6 +12,7 @@ import resolvers from './graphql/resolvers';
 
 // const MongoClient = require('mongodb').MongoClient;
 // const uri = "mongodb+srv://dbprog:<password>@cluster0-yywck.mongodb.net/test?retryWrites=true&w=majority";
+// password: ${env:PASSWORD}
 // const client = new MongoClient(uri, { useNewUrlParser: true });
 // client.connect(err => {
 //   const collection = client.db("test").collection("devices");

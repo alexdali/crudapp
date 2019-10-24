@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
 
-type Author {
+type User {
   id: Int!
   firstName: String
   lastName: String
@@ -12,21 +12,21 @@ type Author {
 type Post {
   id: Int!
   title: String
-  authorId: String
+  userId: String
   votes: Int
   comments: [Comment]!
 }
 
 type Comment {
   id: Int!
-  authorId: String!
+  userId: String!
   post: String!
 }
 
 input PostData {
   id: Int!
   title: String
-  authorId: String
+  userId: String
   votes: Int
 }
 
@@ -37,7 +37,7 @@ type Response {
 type Query {
 
   posts: [Post]
-  author(id: Int!): Author
+  user(id: Int!): User
 }
 
 type Mutation {
