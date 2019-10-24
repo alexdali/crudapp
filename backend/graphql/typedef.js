@@ -6,7 +6,7 @@ type Author {
   id: Int!
   firstName: String
   lastName: String
-  posts: [Post]
+  posts: [Post]!
 }
 
 type Post {
@@ -14,6 +14,13 @@ type Post {
   title: String
   authorId: String
   votes: Int
+  comments: [Comment]!
+}
+
+type Comment {
+  id: Int!
+  authorId: String!
+  post: String!
 }
 
 input PostData {

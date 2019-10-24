@@ -3,11 +3,21 @@ import express from 'express';
 // import graphql from 'graphql';
 import { ApolloServer } from 'apollo-server-express';
 import bodyParser from 'body-parser';
-import typeDefs from './typedef';
-import resolvers from './resolvers';
+import typeDefs from './graphql/typedef';
+import resolvers from './graphql/resolvers';
 
 // Import GraphQL Schema
 // const schema = require('./schema')
+
+
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = "mongodb+srv://dbprog:<password>@cluster0-yywck.mongodb.net/test?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   // perform actions on the collection object
+//   client.close();
+// });
 
 // create server
 const app = express();
