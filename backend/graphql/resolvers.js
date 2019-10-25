@@ -6,6 +6,12 @@ import {
 } from 'graphql-iso-date';
 import moment from 'moment';
 import { User, Post, Comment } from '../mongodb/models';
+import {
+  getUsers, getUser, getPosts, getPost, getPostsByUser, getComments, getCommentsByPost,
+} from '../mongodb/controllersGet';
+import {
+  createUser, createPost, createComment,
+} from '../mongodb/controllersUpdate';
 
 const usersMock = [
   { id: '1', firstName: 'Tom', lastName: 'Coleman' },
@@ -46,79 +52,82 @@ const commentsMock = [
 const resolvers = {
   DateTime: GraphQLDateTime,
   Query: {
-    user: (_, { id }) => {
-      const userReq = usersMock.filter((user) => user.id === id);
-      console.log(`query UserReq: ${userReq}, id: ${id}`);
-      return userReq[0];
-    },
-    users: () => {
-      console.log('query users', usersMock);
-      return usersMock;
-    },
-    post: (_, { id }) => {
-      const postReq = postsMock.filter((post) => post.id === id);
-      console.log(`query PostReq: ${postReq}, id: ${id}`);
-      if (!postReq[0]) {
-        return null;
-      }
-      postReq[0].comments = commentsMock.filter((comment) => comment.postId === postReq[0].id);
-      console.log(`query post PostReq: ${JSON.stringify(postReq)}`);
-      return postReq[0];
-    },
-    posts: () => {
-      const postsMockReq = postsMock.map((post) => {
-        const newItem = { ...post };
-        newItem.comments = commentsMock.filter((comment) => comment.postId === post.id);
-        console.log('query posts');
-        return newItem;
-      });
-      return postsMockReq;
-    },
-    postsByUser: (_, { id }) => {
-      const postsReq = postsMock.filter((post) => post.userId === id);
-      // console.log('query users.filter', comments.id);
-      console.log(`query PostsReq: ${postsReq}, id: ${id}`);
-      return postsReq;
-    },
-    comments: () => {
-      console.log('query comments', commentsMock);
-      return commentsMock;
-    },
-    commentsByPost: (_, { id }) => {
-      const commentsReq = commentsMock.filter((comment) => comment.postId === id);
-      // console.log('query users.filter', comments.id);
-      console.log(`query CommentsReq: ${commentsReq}, id: ${id}`);
-      return commentsReq;
-    },
+    user: (_, { id }) => getUser(id),
+    // const userReq = usersMock.filter((user) => user.id === id);
+    // console.log(`query UserReq: ${userReq}, id: ${id}`);
+    // return userReq[0];
+    users: () => getUsers(), // console.log('query users', usersMock);
+    // return usersMock;
+    post: (_, { id }) => getPost(id),
+    // const postReq = postsMock.filter((post) => post.id === id);
+    // console.log(`query PostReq: ${postReq}, id: ${id}`);
+    // if (!postReq[0]) {
+    //   return null;
+    // }
+    // postReq[0].comments = commentsMock.filter((comment) => comment.postId === postReq[0].id);
+    // console.log(`query post PostReq: ${JSON.stringify(postReq)}`);
+    // return postReq[0];
+
+    posts: () => getPosts(),
+    // {
+    //   const postsMockReq = postsMock.map((post) => {
+    //     const newItem = { ...post };
+    //     newItem.comments = commentsMock.filter((comment) => comment.postId === newItem.id);
+    //     console.log('query posts');
+    //     return newItem;
+    //   });
+    //   return postsMockReq;
+    // },
+    postsByUser: (_, { id }) => getPostsByUser({ userId: id }),
+    // {
+    //   const postsReq = postsMock.filter((post) => post.userId === id);
+    //   // console.log('query users.filter', comments.id);
+    //   console.log(`query PostsReq: ${postsReq}, id: ${id}`);
+    //   return postsReq;
+    // },
+    comments: () => getComments(),
+    // {
+    //   console.log('query comments', commentsMock);
+    //   return commentsMock;
+    // },
+    commentsByPost: (_, { id }) => getCommentsByPost({ postId: id }),
+    // {
+    //   const commentsReq = commentsMock.filter((comment) => comment.postId === id);
+    //   // console.log('query users.filter', comments.id);
+    //   console.log(`query CommentsReq: ${commentsReq}, id: ${id}`);
+    //   return commentsReq;
+    // },
   },
 
   Mutation: {
-    createUser: (_, { firstName, lastName }) => {
+    createUser: async (_, { firstName, lastName }) => {
       const id = uuidv4();
-      const newUser = {
+      const dataNewUser = {
         id, firstName, lastName,
       };
-      console.log(`m createUser newUser: ${JSON.stringify(newUser)}`);
-      // return new Promise((resolve, reject) => {
-      // const len = postsMock.length;
-      // const newLen = postsMock.push(newPost);
-      usersMock.push(newUser);
-      console.log(`m createUser usersMock len: ${usersMock.length}`);
-      const newUserReq = usersMock.filter((user) => user.id === id);
-      console.log(`m createUser newUserReq: ${JSON.stringify(newUserReq[0])}`);
-      if (!newUserReq[0]) {
-        // return reject('error');
-        return null;
-      }
-      // return resolve(postsMock[len - 1]);
-      return newUserReq[0];
+      console.log(`m createUser dataNewUser: ${JSON.stringify(dataNewUser)}`);
+
+      return createUser(dataNewUser);
+      // console.log(`m createUser new: ${newU}`);
+      // return newU;
+      // usersMock.push(newUser);
+      // console.log(`m createUser usersMock len: ${usersMock.length}`);
+      // const newUserReq = usersMock.filter((user) => user.id === id);
+      // console.log(`m createUser newUserReq: ${JSON.stringify(newUserReq[0])}`);
+      // if (!newUserReq[0]) {
+      //   // return reject('error');
+      //   return null;
+      // }
+      // // return resolve(postsMock[len - 1]);
+      // return newUserReq[0];
       // });
+      // return newUser;
     },
     createPost: (_, {
       title, userId, content,
     }) => {
       const id = uuidv4();
-      // const createdDate = Date.now();
+      // const createdDate = new Date().toISOString;
       const createdDate = moment.utc().format();
       console.log(`m createPost createdDate: ${createdDate}`);
       const newPost = {
@@ -128,23 +137,24 @@ const resolvers = {
       // return new Promise((resolve, reject) => {
       // const len = postsMock.length;
       // const newLen = postsMock.push(newPost);
-      postsMock.push(newPost);
-      console.log(`m createPost postsMock len: ${postsMock.length}`);
-      const newPostReq = postsMock.filter((post) => post.id === id);
-      console.log(`m createPost newPostReq: ${JSON.stringify(newPostReq[0])}`);
-      if (!newPostReq[0]) {
-        // return reject('error');
-        return null;
-      }
-      // return resolve(postsMock[len - 1]);
-      return newPostReq[0];
+      createPost(newPost);
+      // postsMock.push(newPost);
+      // console.log(`m createPost postsMock len: ${postsMock.length}`);
+      // const newPostReq = postsMock.filter((post) => post.id === id);
+      // console.log(`m createPost newPostReq: ${JSON.stringify(newPostReq[0])}`);
+      // if (!newPostReq[0]) {
+      //   // return reject('error');
+      //   return null;
+      // }
+      // // return resolve(postsMock[len - 1]);
+      // return newPostReq[0];
       // });
     },
     createComment: (_, {
       userId, postId, content,
     }) => {
       const id = uuidv4();
-      // const createdDate = Date.now();
+      // const createdDate = new Date().toISOString;
       const createdDate = moment.utc().format();
       console.log(`m createPost createdDate: ${createdDate}`);
       const newComment = {
@@ -152,17 +162,18 @@ const resolvers = {
       };
       // const len = commentsMock.length;
       // const newLen = commentsMock.push(newComment);
-      commentsMock.push(newComment);
-      // if (newLen === len) {
+      createComment(newComment);
+      // commentsMock.push(newComment);
+      // // if (newLen === len) {
+      // //   return null;
+      // // }
+      // const newCommentReq = commentsMock.filter((comment) => comment.id === id);
+      // console.log(`m createPost newPostReq: ${JSON.stringify(newCommentReq[0])}`);
+      // if (!newCommentReq[0]) {
+      //   // return reject('error');
       //   return null;
       // }
-      const newCommentReq = commentsMock.filter((comment) => comment.id === id);
-      console.log(`m createPost newPostReq: ${JSON.stringify(newCommentReq[0])}`);
-      if (!newCommentReq[0]) {
-        // return reject('error');
-        return null;
-      }
-      return newCommentReq[0];
+      // return newCommentReq[0];
     },
   },
 

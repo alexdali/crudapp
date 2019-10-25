@@ -1,26 +1,26 @@
 import mongoose from 'mongoose';
 
-const { ObjectId } = mongoose.Schema.Types;
+// const { ObjectId } = mongoose.Schema.Types;
 
 const User = mongoose.model('User', new mongoose.Schema({
-  _id: ObjectId,
+  _id: String,
   firstName: String,
   lastName: String,
 }));
 
 const Post = mongoose.model('Post', new mongoose.Schema({
-  _id: ObjectId,
+  _id: String,
   title: String,
   content: String,
-  userId: ObjectId,
+  userId: String,
   created_date: { type: Date, default: Date.now },
 }));
 
 const Comment = mongoose.model('Comment', new mongoose.Schema({
-  _id: ObjectId,
-  userId: Number,
+  _id: String,
+  userId: String,
   content: String,
-  postId: ObjectId,
+  postId: String,
   created_date: { type: Date, default: Date.now },
 }));
 

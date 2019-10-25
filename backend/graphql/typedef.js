@@ -8,7 +8,7 @@ type User {
   id: String!
   firstName: String!
   lastName: String
-  posts: [Post]!
+  posts: [Post]
 }
 
 type Post {
