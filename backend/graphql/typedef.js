@@ -3,30 +3,29 @@ import { gql } from 'apollo-server-express';
 const typeDefs = gql`
 
 type User {
-  id: Int!
+  id: String!
   firstName: String
   lastName: String
   posts: [Post]!
 }
 
 type Post {
-  id: Int!
-  title: String
-  userId: String
+  id: String!
+  title: String!
+  userId: String!
   content: String
-  votes: Int
   comments: [Comment]!
 }
 
 type Comment {
-  id: Int!
+  id: String!
   userId: String!
   content: String
   postId: String!
 }
 
 # input PostData {
-#   id: Int!
+#   id: String!
 #   title: String
 #   userId: String
 #   votes: Int
@@ -37,16 +36,17 @@ type Comment {
 # }
 
 type Query {
-  user(id: Int!): User
+  user(id: String!): User
   users: [User]!
-  post(id: Int!): Post
+  post(id: String!): Post
   posts: [Post]!
-  commentsByPost(id: Int!): [Comment]!
+  postsByUser(id: String!): [Post]!
+  commentsByPost(id: String!): [Comment]!
 }
 
 type Mutation {
-  createPost(id: Int!, title: String, userId: String!, content: String): Post
-  createComment(id: Int!, userId: String!, postId: String!, content: String): Comment
+  createPost(userId: String!, title: String!, content: String!): Post
+  createComment(userId: String!, postId: String!, content: String!): Comment
 }
 `;
 

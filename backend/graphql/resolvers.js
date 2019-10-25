@@ -1,38 +1,38 @@
-// import { find } from "lodash";
+import uuidv4 from 'uuid/v4';
 
 const usersMock = [
-  { id: 1, firstName: 'Tom', lastName: 'Coleman' },
-  { id: 2, firstName: 'Sashko', lastName: 'Stubailo' },
-  { id: 3, firstName: 'Mikhail', lastName: 'Novikov' },
+  { id: '1', firstName: 'Tom', lastName: 'Coleman' },
+  { id: '2', firstName: 'Sashko', lastName: 'Stubailo' },
+  { id: '3', firstName: 'Mikhail', lastName: 'Novikov' },
 ];
 
 const postsMock = [
   {
-    id: 1, usersId: 1, title: 'Introduction to GraphQL', content: 'content Introduction to GraphQL',
+    id: '1', usersId: '1', title: 'Introduction to GraphQL', content: 'content Introduction to GraphQL',
   },
   {
-    id: 2, usersId: 2, title: 'Welcome to Meteor', content: 'content Welcome to Meteor',
+    id: '2', usersId: '2', title: 'Welcome to Meteor', content: 'content Welcome to Meteor',
   },
   {
-    id: 3, usersId: 2, title: 'Advanced GraphQL', content: 'content Advanced GraphQL',
+    id: '3', usersId: '2', title: 'Advanced GraphQL', content: 'content Advanced GraphQL',
   },
   {
-    id: 4, usersId: 3, title: 'Launchpad is Cool', content: 'content Launchpad is Cool',
+    id: '4', usersId: '3', title: 'Launchpad is Cool', content: 'content Launchpad is Cool',
   },
 ];
 
 const commentsMock = [
   {
-    id: 1, usersId: 1, postsId: 1, content: 'Comment Introduction to GraphQL',
+    id: '1', usersId: '1', postsId: '1', content: 'Comment Introduction to GraphQL',
   },
   {
-    id: 2, usersId: 2, postsId: 2, content: 'Comment Welcome to Meteor',
+    id: '2', usersId: '2', postsId: '2', content: 'Comment Welcome to Meteor',
   },
   {
-    id: 3, usersId: 2, postsId: 2, content: 'Comment Advanced GraphQL',
+    id: '3', usersId: '2', postsId: '2', content: 'Comment Advanced GraphQL',
   },
   {
-    id: 4, usersId: 3, postsId: 3, content: 'Comment Launchpad is Cool',
+    id: '4', usersId: '3', postsId: '3', content: 'Comment Launchpad is Cool',
   },
 ];
 
@@ -56,8 +56,14 @@ const resolvers = {
       console.log('query posts', postsMock);
       return postsMock;
     },
+    postsByUser: (_, { id }) => {
+      const postsReq = postsMock.filter((post) => post.userId === id);
+      // console.log('query users.filter', comments.id);
+      console.log(`query PostsReq: ${postsReq}, id: ${id}`);
+      return postsReq;
+    },
     commentsByPost: (_, { id }) => {
-      const commentsReq = commentsMock.filter((comments) => comments.postId === id);
+      const commentsReq = commentsMock.filter((comment) => comment.postId === id);
       // console.log('query users.filter', comments.id);
       console.log(`query CommentsReq: ${commentsReq}, id: ${id}`);
       return commentsReq;
@@ -66,26 +72,36 @@ const resolvers = {
 
   Mutation: {
     createPost: (_, {
-      id, title, userId, content,
+      title, userId, content,
     }) => {
+      const id = uuidv4();
       const newPost = {
         id, title, userId, content,
       };
-      postsMock.push(newPost);
+      // return new Promise((resolve, reject) => {
       const len = postsMock.length;
-      const result = len === 0 ? {} : postsMock[len - 1];
-      return result;
+      const newLen = postsMock.push(newPost);
+      if (newLen === len) {
+        // return reject('error');
+        return null;
+      }
+      // return resolve(postsMock[len - 1]);
+      return postsMock[len - 1];
+      // });
     },
     createComment: (_, {
-      id, userId, postId, content,
+      userId, postId, content,
     }) => {
+      const id = uuidv4();
       const newComment = {
         id, userId, postId, content,
       };
-      commentsMock.push(newComment);
       const len = commentsMock.length;
-      const result = len === 0 ? {} : commentsMock[len - 1];
-      return result;
+      const newLen = commentsMock.push(newComment);
+      if (newLen === len) {
+        return null;
+      }
+      return commentsMock[len - 1];
     },
   },
 
