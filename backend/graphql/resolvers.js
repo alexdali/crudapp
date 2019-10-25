@@ -8,31 +8,31 @@ const usersMock = [
 
 const postsMock = [
   {
-    id: '1', usersId: '1', title: 'Introduction to GraphQL', content: 'content Introduction to GraphQL',
+    id: '1', userId: '1', title: 'Introduction to GraphQL', content: 'content Introduction to GraphQL',
   },
   {
-    id: '2', usersId: '2', title: 'Welcome to Meteor', content: 'content Welcome to Meteor',
+    id: '2', userId: '2', title: 'Welcome to Meteor', content: 'content Welcome to Meteor',
   },
   {
-    id: '3', usersId: '2', title: 'Advanced GraphQL', content: 'content Advanced GraphQL',
+    id: '3', userId: '2', title: 'Advanced GraphQL', content: 'content Advanced GraphQL',
   },
   {
-    id: '4', usersId: '3', title: 'Launchpad is Cool', content: 'content Launchpad is Cool',
+    id: '4', userId: '3', title: 'Launchpad is Cool', content: 'content Launchpad is Cool',
   },
 ];
 
 const commentsMock = [
   {
-    id: '1', usersId: '1', postsId: '1', content: 'Comment Introduction to GraphQL',
+    id: '1', userId: '1', postId: '1', content: 'Comment Introduction to GraphQL',
   },
   {
-    id: '2', usersId: '2', postsId: '2', content: 'Comment Welcome to Meteor',
+    id: '2', userId: '2', postId: '2', content: 'Comment Welcome to Meteor',
   },
   {
-    id: '3', usersId: '2', postsId: '2', content: 'Comment Advanced GraphQL',
+    id: '3', userId: '2', postId: '2', content: 'Comment Advanced GraphQL',
   },
   {
-    id: '4', usersId: '3', postsId: '3', content: 'Comment Launchpad is Cool',
+    id: '4', userId: '3', postId: '3', content: 'Comment Launchpad is Cool',
   },
 ];
 
@@ -50,17 +50,31 @@ const resolvers = {
     post: (_, { id }) => {
       const postReq = postsMock.filter((post) => post.id === id);
       console.log(`query PostReq: ${postReq}, id: ${id}`);
+      if (!postReq[0]) {
+        return null;
+      }
+      postReq[0].comments = commentsMock.filter((comment) => comment.postId === postReq[0].id);
+      console.log(`query post PostReq: ${JSON.stringify(postReq)}`);
       return postReq[0];
     },
     posts: () => {
-      console.log('query posts', postsMock);
-      return postsMock;
+      const postsMockReq = postsMock.map((post) => {
+        const newItem = { ...post };
+        newItem.comments = commentsMock.filter((comment) => comment.postId === post.id);
+        console.log('query posts');
+        return newItem;
+      });
+      return postsMockReq;
     },
     postsByUser: (_, { id }) => {
       const postsReq = postsMock.filter((post) => post.userId === id);
       // console.log('query users.filter', comments.id);
       console.log(`query PostsReq: ${postsReq}, id: ${id}`);
       return postsReq;
+    },
+    comments: () => {
+      console.log('query comments', commentsMock);
+      return commentsMock;
     },
     commentsByPost: (_, { id }) => {
       const commentsReq = commentsMock.filter((comment) => comment.postId === id);
@@ -78,15 +92,20 @@ const resolvers = {
       const newPost = {
         id, title, userId, content,
       };
+      console.log(`m createPost newPost: ${JSON.stringify(newPost)}`);
       // return new Promise((resolve, reject) => {
-      const len = postsMock.length;
-      const newLen = postsMock.push(newPost);
-      if (newLen === len) {
+      // const len = postsMock.length;
+      // const newLen = postsMock.push(newPost);
+      postsMock.push(newPost);
+      console.log(`m createPost postsMock len: ${postsMock.length}`);
+      const newPostReq = postsMock.filter((post) => post.id === id);
+      console.log(`m createPost newPostReq: ${JSON.stringify(newPostReq[0])}`);
+      if (!newPostReq[0]) {
         // return reject('error');
         return null;
       }
       // return resolve(postsMock[len - 1]);
-      return postsMock[len - 1];
+      return newPostReq[0];
       // });
     },
     createComment: (_, {
@@ -96,12 +115,19 @@ const resolvers = {
       const newComment = {
         id, userId, postId, content,
       };
-      const len = commentsMock.length;
-      const newLen = commentsMock.push(newComment);
-      if (newLen === len) {
+      // const len = commentsMock.length;
+      // const newLen = commentsMock.push(newComment);
+      commentsMock.push(newComment);
+      // if (newLen === len) {
+      //   return null;
+      // }
+      const newCommentReq = commentsMock.filter((comment) => comment.id === id);
+      console.log(`m createPost newPostReq: ${JSON.stringify(newCommentReq[0])}`);
+      if (!newCommentReq[0]) {
+        // return reject('error');
         return null;
       }
-      return commentsMock[len - 1];
+      return newCommentReq[0];
     },
   },
 

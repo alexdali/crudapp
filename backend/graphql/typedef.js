@@ -41,6 +41,7 @@ type Query {
   post(id: String!): Post
   posts: [Post]!
   postsByUser(id: String!): [Post]!
+  comments: [Comment]!
   commentsByPost(id: String!): [Comment]!
 }
 
