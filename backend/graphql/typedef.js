@@ -13,6 +13,7 @@ type Post {
   id: Int!
   title: String
   userId: String
+  content: String
   votes: Int
   comments: [Comment]!
 }
@@ -20,28 +21,32 @@ type Post {
 type Comment {
   id: Int!
   userId: String!
-  post: String!
+  content: String
+  postId: String!
 }
 
-input PostData {
-  id: Int!
-  title: String
-  userId: String
-  votes: Int
-}
+# input PostData {
+#   id: Int!
+#   title: String
+#   userId: String
+#   votes: Int
+# }
 
-type Response {
-  success: Boolean
-}
+# type Response {
+#   success: Boolean
+# }
 
 type Query {
-
-  posts: [Post]
   user(id: Int!): User
+  users: [User]!
+  post(id: Int!): Post
+  posts: [Post]!
+  commentsByPost(id: Int!): [Comment]!
 }
 
 type Mutation {
-  createPost(post: PostData): Response
+  createPost(id: Int!, title: String, userId: String!, content: String): Post
+  createComment(id: Int!, userId: String!, postId: String!, content: String): Comment
 }
 `;
 
