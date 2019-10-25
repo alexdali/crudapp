@@ -9,6 +9,11 @@ import resolvers from './graphql/resolvers';
 // Import GraphQL Schema
 // const schema = require('./schema')
 
+const schema = {
+  typeDefs,
+  resolvers,
+};
+
 
 // const MongoClient = require('mongodb').MongoClient;
 // const uri = "mongodb+srv://dbprog:<password>@cluster0-yywck.mongodb.net/test?retryWrites=true&w=majority";
