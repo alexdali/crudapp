@@ -1,4 +1,11 @@
 import uuidv4 from 'uuid/v4';
+import {
+  GraphQLDate,
+  GraphQLTime,
+  GraphQLDateTime,
+} from 'graphql-iso-date';
+import moment from 'moment';
+import { User, Post, Comment } from '../mongodb/models';
 
 const usersMock = [
   { id: '1', firstName: 'Tom', lastName: 'Coleman' },
@@ -37,6 +44,7 @@ const commentsMock = [
 ];
 
 const resolvers = {
+  DateTime: GraphQLDateTime,
   Query: {
     user: (_, { id }) => {
       const userReq = usersMock.filter((user) => user.id === id);
@@ -85,12 +93,36 @@ const resolvers = {
   },
 
   Mutation: {
+    createUser: (_, { firstName, lastName }) => {
+      const id = uuidv4();
+      const newUser = {
+        id, firstName, lastName,
+      };
+      console.log(`m createUser newUser: ${JSON.stringify(newUser)}`);
+      // return new Promise((resolve, reject) => {
+      // const len = postsMock.length;
+      // const newLen = postsMock.push(newPost);
+      usersMock.push(newUser);
+      console.log(`m createUser usersMock len: ${usersMock.length}`);
+      const newUserReq = usersMock.filter((user) => user.id === id);
+      console.log(`m createUser newUserReq: ${JSON.stringify(newUserReq[0])}`);
+      if (!newUserReq[0]) {
+        // return reject('error');
+        return null;
+      }
+      // return resolve(postsMock[len - 1]);
+      return newUserReq[0];
+      // });
+    },
     createPost: (_, {
       title, userId, content,
     }) => {
       const id = uuidv4();
+      // const createdDate = Date.now();
+      const createdDate = moment.utc().format();
+      console.log(`m createPost createdDate: ${createdDate}`);
       const newPost = {
-        id, title, userId, content,
+        id, title, userId, content, createdDate,
       };
       console.log(`m createPost newPost: ${JSON.stringify(newPost)}`);
       // return new Promise((resolve, reject) => {
@@ -112,8 +144,11 @@ const resolvers = {
       userId, postId, content,
     }) => {
       const id = uuidv4();
+      // const createdDate = Date.now();
+      const createdDate = moment.utc().format();
+      console.log(`m createPost createdDate: ${createdDate}`);
       const newComment = {
-        id, userId, postId, content,
+        id, userId, postId, content, createdDate,
       };
       // const len = commentsMock.length;
       // const newLen = commentsMock.push(newComment);

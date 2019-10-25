@@ -1,10 +1,12 @@
+
 import { gql } from 'apollo-server-express';
 
-const typeDefs = gql`
 
+const typeDefs = gql`
+scalar DateTime
 type User {
   id: String!
-  firstName: String
+  firstName: String!
   lastName: String
   posts: [Post]!
 }
@@ -14,6 +16,7 @@ type Post {
   title: String!
   userId: String!
   content: String
+  createdDate: DateTime!
   comments: [Comment]!
 }
 
@@ -21,6 +24,7 @@ type Comment {
   id: String!
   userId: String!
   content: String
+  createdDate: DateTime!
   postId: String!
 }
 
@@ -46,6 +50,7 @@ type Query {
 }
 
 type Mutation {
+  createUser(firstName: String, lastName: String): User
   createPost(userId: String!, title: String!, content: String!): Post
   createComment(userId: String!, postId: String!, content: String!): Comment
 }

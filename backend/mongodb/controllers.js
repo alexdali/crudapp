@@ -9,7 +9,7 @@ const getUsers = async () => {
 // Get single User
 const getUser = async (req) => {
   const { id } = req.params;
-  const user = await User.find({ userId: id });
+  const user = await User.find({ _id: id });
   return user;
 };
 
@@ -22,7 +22,7 @@ const getPosts = async () => {
 // Get single Post
 const getPost = async (req) => {
   const { id } = req.params;
-  const post = await Post.find({ postId: id });
+  const post = await Post.find({ _id: id });
   return post;
 };
 
