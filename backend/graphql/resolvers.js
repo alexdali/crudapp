@@ -7,11 +7,13 @@ import {
 import moment from 'moment';
 import { User, Post, Comment } from '../mongodb/models';
 import {
-  getUsers, getUser, getPosts, getPost, getPostsByUser, getComments, getCommentsByPost,
+  getUsers, getUser, getPosts, getPost, getComment, getPostsByUser, getCommentsByPost, getCommentsByUser,
 } from '../mongodb/controllersGet';
 import {
   createUser, createPost, createComment,
-} from '../mongodb/controllersUpdate';
+} from '../mongodb/controllersSet';
+
+/* eslint no-underscore-dangle: [1, { "allow": ["__id"] }] */
 
 const usersMock = [
   { id: '1', firstName: 'Tom', lastName: 'Coleman' },
@@ -52,13 +54,44 @@ const commentsMock = [
 const resolvers = {
   DateTime: GraphQLDateTime,
   Query: {
-    user: (_, { id }) => getUser(id),
+    user: async (_, { id }) => {
+      const result = await getUser(id);
+      const posts = await getPostsByUser({ userId: result.id });
+      const comments = await getCommentsByUser({ userId: result.id });
+      return {
+        ...result,
+        posts,
+        comments,
+      };
+    },
     // const userReq = usersMock.filter((user) => user.id === id);
     // console.log(`query UserReq: ${userReq}, id: ${id}`);
     // return userReq[0];
-    users: () => getUsers(), // console.log('query users', usersMock);
+    users: async () => getUsers(), // console.log('query users', usersMock);
     // return usersMock;
-    post: (_, { id }) => getPost(id),
+    post: async (_, { id }) => {
+      const resPost = await getPost(id);
+      console.log(`query post resPost: ${JSON.stringify(resPost)}`);
+      const commentsByPost = await getCommentsByPost({ postId: resPost.id });
+      // return resPost;
+      console.log(`query post comments: ${JSON.stringify(commentsByPost)}`);
+      return {
+        ...resPost,
+        commentsByPost,
+      };
+    },
+    // comment: async (_, { id }) => {
+    //   const resComment = await getComment(id);
+    //   console.log(`query comment resComment: ${JSON.stringify(resComment)}`);
+    //   return resComment;
+    // },
+    // comments: async (_, { postId, userId }) => {
+    //   if (!postId === '') {
+    //     const resCommentsByPost = await getCommentsByPost(postId);
+    //     console.log(`query comments resCommentsByPost: ${JSON.stringify(resCommentsByPost)}`);
+    //     return resComment;
+    //   }
+    // },
     // const postReq = postsMock.filter((post) => post.id === id);
     // console.log(`query PostReq: ${postReq}, id: ${id}`);
     // if (!postReq[0]) {
@@ -68,7 +101,21 @@ const resolvers = {
     // console.log(`query post PostReq: ${JSON.stringify(postReq)}`);
     // return postReq[0];
 
-    posts: () => getPosts(),
+    posts: async () => {
+      const result = await getPosts();
+      // const resPostsByUser = result;
+      if (!result === []) {
+        return result.map(async (resPost) => {
+        // const res = resPost;
+          const comments = await getCommentsByPost({ postId: resPost.id });
+          return {
+            ...resPost,
+            comments,
+          };
+        });
+      }
+      return result;
+    },
     // {
     //   const postsMockReq = postsMock.map((post) => {
     //     const newItem = { ...post };
@@ -78,36 +125,78 @@ const resolvers = {
     //   });
     //   return postsMockReq;
     // },
-    postsByUser: (_, { id }) => getPostsByUser({ userId: id }),
+    postsByUser: async (_, { id }) => {
+      const result = await getPostsByUser({ userId: id });
+      // const resPostsByUser = result;
+      if (!result === []) {
+        return result.map(async (resPost) => {
+        // const res = resPost;
+          const comments = await getCommentsByPost({ postId: resPost.id });
+          // res.comments = [...comments];
+          // return res;
+          return {
+            ...resPost,
+            comments,
+          };
+        });
+      }
+      // if result === [] empty array
+      return result;
+
+      // const resComments = result.map((comment) => {
+      //   const resItem = {
+      //     id: comment._id,
+      //     userId: comment.userId,
+      //     postId: comment.postId,
+      //     content: comment.content,
+      //     createdDate: comment.createdDate,
+      //   };
+      //   console.log(`c getUser resItem: ${JSON.stringify(resItem)}`);
+      //   return resItem;
+      // });
+      // return resComments;
+    },
     // {
     //   const postsReq = postsMock.filter((post) => post.userId === id);
     //   // console.log('query users.filter', comments.id);
     //   console.log(`query PostsReq: ${postsReq}, id: ${id}`);
     //   return postsReq;
     // },
-    comments: () => getComments(),
-    // {
-    //   console.log('query comments', commentsMock);
-    //   return commentsMock;
-    // },
-    commentsByPost: (_, { id }) => getCommentsByPost({ postId: id }),
+    // comments: () => getComments(),
+    commentsByPost: async (_, { id }) => getCommentsByPost({ postId: id }), // {
+    // const result = getCommentsByPost({ postId: id });
+    // return result.map((comment) => ({
+    //   id: comment._id,
+    //   userId: comment.userId,
+    //   postId: comment.postId,
+    //   content: comment.content,
+    //   createdDate: comment.createdDate,
+    // }));
+    // return resComments;
+    // }
+
     // {
     //   const commentsReq = commentsMock.filter((comment) => comment.postId === id);
     //   // console.log('query users.filter', comments.id);
     //   console.log(`query CommentsReq: ${commentsReq}, id: ${id}`);
     //   return commentsReq;
     // },
+    commentsByUser: async (_, { id }) => getCommentsByUser({ userId: id }),
   },
 
   Mutation: {
     createUser: async (_, { firstName, lastName }) => {
       const id = uuidv4();
-      const dataNewUser = {
+      const newUserData = {
         id, firstName, lastName,
       };
-      console.log(`m createUser dataNewUser: ${JSON.stringify(dataNewUser)}`);
+      console.log(`m createUser dataNewUser: ${JSON.stringify(newUserData)}`);
 
-      return createUser(dataNewUser);
+      const newUser = await createUser(newUserData);
+      return {
+        ...newUser,
+        posts: [],
+      };
       // console.log(`m createUser new: ${newU}`);
       // return newU;
       // usersMock.push(newUser);
@@ -123,21 +212,27 @@ const resolvers = {
       // });
       // return newUser;
     },
-    createPost: (_, {
-      title, userId, content,
+    createPost: async (_, {
+      userId, title, content,
     }) => {
       const id = uuidv4();
       // const createdDate = new Date().toISOString;
       const createdDate = moment.utc().format();
       console.log(`m createPost createdDate: ${createdDate}`);
-      const newPost = {
+      const newPostData = {
         id, title, userId, content, createdDate,
       };
-      console.log(`m createPost newPost: ${JSON.stringify(newPost)}`);
+      console.log(`m createPost newPost: ${JSON.stringify(newPostData)}`);
       // return new Promise((resolve, reject) => {
       // const len = postsMock.length;
       // const newLen = postsMock.push(newPost);
-      createPost(newPost);
+      // return createPost(newPost);
+
+      const newPost = await createPost(newPostData);
+      return {
+        ...newPost,
+        comments: [],
+      };
       // postsMock.push(newPost);
       // console.log(`m createPost postsMock len: ${postsMock.length}`);
       // const newPostReq = postsMock.filter((post) => post.id === id);
@@ -150,7 +245,7 @@ const resolvers = {
       // return newPostReq[0];
       // });
     },
-    createComment: (_, {
+    createComment: async (_, {
       userId, postId, content,
     }) => {
       const id = uuidv4();
@@ -162,7 +257,7 @@ const resolvers = {
       };
       // const len = commentsMock.length;
       // const newLen = commentsMock.push(newComment);
-      createComment(newComment);
+      return createComment(newComment);
       // commentsMock.push(newComment);
       // // if (newLen === len) {
       // //   return null;

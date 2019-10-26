@@ -17,7 +17,7 @@ type Post {
   userId: String!
   content: String
   createdDate: DateTime!
-  comments: [Comment]!
+  # commentsByPost: [Comment]!
 }
 
 type Comment {
@@ -28,25 +28,14 @@ type Comment {
   postId: String!
 }
 
-# input PostData {
-#   id: String!
-#   title: String
-#   userId: String
-#   votes: Int
-# }
-
-# type Response {
-#   success: Boolean
-# }
-
 type Query {
   user(id: String!): User
   users: [User]!
   post(id: String!): Post
   posts: [Post]!
   postsByUser(id: String!): [Post]!
-  comments: [Comment]!
   commentsByPost(id: String!): [Comment]!
+  commentsByUser(id: String!): [Comment]!
 }
 
 type Mutation {

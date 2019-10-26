@@ -13,7 +13,7 @@ const Post = mongoose.model('Post', new mongoose.Schema({
   title: String,
   content: String,
   userId: String,
-  created_date: { type: Date, default: Date.now },
+  createdDate: { type: Date, default: Date.now },
 }));
 
 const Comment = mongoose.model('Comment', new mongoose.Schema({
@@ -21,7 +21,7 @@ const Comment = mongoose.model('Comment', new mongoose.Schema({
   userId: String,
   content: String,
   postId: String,
-  created_date: { type: Date, default: Date.now },
+  createdDate: { type: Date, default: Date.now },
 }));
 
 export { User, Post, Comment };
