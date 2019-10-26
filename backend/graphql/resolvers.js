@@ -10,7 +10,7 @@ import {
   getUsers, getUser, getPosts, getPost, getComment, getPostsByUser, getCommentsByPost, getCommentsByUser,
 } from '../mongodb/controllersGet';
 import {
-  createUser, createPost, createComment,
+  createUser, deleteUser, createPost, deletePost, createComment, deleteComment,
 } from '../mongodb/controllersSet';
 
 /* eslint no-underscore-dangle: [1, { "allow": ["__id"] }] */
@@ -104,7 +104,7 @@ const resolvers = {
     posts: async () => {
       const result = await getPosts();
       // const resPostsByUser = result;
-      if (!result === []) {
+      if (result !== []) {
         return result.map(async (resPost) => {
         // const res = resPost;
           const comments = await getCommentsByPost({ postId: resPost.id });
@@ -128,7 +128,7 @@ const resolvers = {
     postsByUser: async (_, { id }) => {
       const result = await getPostsByUser({ userId: id });
       // const resPostsByUser = result;
-      if (!result === []) {
+      if (result !== []) {
         return result.map(async (resPost) => {
         // const res = resPost;
           const comments = await getCommentsByPost({ postId: resPost.id });
@@ -212,6 +212,12 @@ const resolvers = {
       // });
       // return newUser;
     },
+    deleteUser: async (_, { id }) => {
+      // console.log(`m deleteUser id: ${JSON.stringify(id)}`);
+      const delUser = await deleteUser(id);
+      console.log(`m deleteUser delUser: ${JSON.stringify(delUser)}`);
+      if (delUser) return { message: 'Success' };
+    },
     createPost: async (_, {
       userId, title, content,
     }) => {
@@ -245,6 +251,15 @@ const resolvers = {
       // return newPostReq[0];
       // });
     },
+    deletePost: async (_, { userId, postId }) => {
+      // console.log(`m deletePost id: ${JSON.stringify(id)}`);
+      const delPost = await deletePost({ userId, postId });
+      console.log(`m deletePost delPost: ${JSON.stringify(delPost)}`);
+      if (delPost !== null) {
+        return { message: 'Success' };
+      }
+      throw new Error('Вы не можете удалять чужие  посты!');
+    },
     createComment: async (_, {
       userId, postId, content,
     }) => {
@@ -269,6 +284,15 @@ const resolvers = {
       //   return null;
       // }
       // return newCommentReq[0];
+    },
+    deleteComment: async (_, { id, userId }) => {
+      // console.log(`m deleteComment id: ${JSON.stringify(id)}`);
+      const delComment = await deleteComment({ id, userId });
+      console.log(`m deleteComment delComment: ${JSON.stringify(delComment)}`);
+      if (delComment !== null) {
+        return { message: 'Success' };
+      }
+      throw new Error('Вы не можете удалять чужие  комментарии!');
     },
   },
 

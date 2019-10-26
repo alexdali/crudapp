@@ -9,7 +9,10 @@ import typeDefs from './graphql/typedef';
 import resolvers from './graphql/resolvers';
 import uri from './mongodb/db';
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(uri, {
+  useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true,
+});
+
 
 mongoose.connection.once('open', () => {
   console.log('connected to MongoDB');

@@ -23,6 +23,27 @@ const createUser = async (arg) => {
     .catch((err) => console.error('Error db: ', err));
 };
 
+// Delete User
+const deleteUser = async (arg) => {
+  console.log(`c deleteUser arg: ${JSON.stringify(arg)}`);
+  return User.findByIdAndRemove(arg)
+    .then(async (result) => {
+      console.log(`c deleteUser findByIdAndRemove: ${JSON.stringify(result)}`);
+      // delete all posts by the userId
+      if (result !== null) {
+        const { _id } = result;
+        const delPostsByUser = await Post.deleteMany({ userId: _id });
+        console.log(`c deleteUser delPostsByUser: ${JSON.stringify(delPostsByUser)}`);
+
+        // delete all comments by the userId
+        const delCommentsByUser = await Comment.deleteMany({ userId: _id });
+        console.log(`c deleteUser delCommentsByUser: ${JSON.stringify(delCommentsByUser)}`);
+      }
+      return result;
+    })
+    .catch((err) => console.error('Error db: ', err));
+};
+
 // Create Post
 const createPost = async (arg) => {
   const {
@@ -43,6 +64,23 @@ const createPost = async (arg) => {
       };
       console.log(`c createPost newPost: ${JSON.stringify(newPost)}`);
       return newPost;
+    })
+    .catch((err) => console.error('Error db: ', err));
+};
+
+// Delete Post
+const deletePost = async (arg) => {
+  console.log(`c deletePost arg: ${JSON.stringify(arg)}`);
+  const { userId, postId } = arg;
+  return Post.findOneAndDelete({ userId, _id: postId })
+    .then(async (result) => {
+      console.log(`c deletePost findOneAndDelete: ${JSON.stringify(result)}`);
+      // delete all comments by the postId
+      if (result !== null) {
+        const delCommentByPost = await Comment.deleteMany({ postId: result._id });
+        console.log(`c deletePost delCommentByPost: ${JSON.stringify(delCommentByPost)}`);
+      }
+      return result;
     })
     .catch((err) => console.error('Error db: ', err));
 };
@@ -76,6 +114,19 @@ const createComment = async (arg) => {
     .catch((err) => console.error('Error db: ', err));
 };
 
+// Delete Comment
+const deleteComment = async (arg) => {
+  console.log(`c deleteComment arg: ${JSON.stringify(arg)}`);
+  const { id, userId } = arg;
+  return Comment.findOneAndDelete({ userId, _id: id })
+    .then((result) => {
+      console.log(`c deleteComment findByIdAndRemove: ${JSON.stringify(result)}`);
+      return result;
+    })
+    .catch((err) => console.error('Error db: ', err));
+};
+
+
 export {
-  createUser, createPost, createComment,
+  createUser, deleteUser, createPost, deletePost, createComment, deleteComment,
 };
