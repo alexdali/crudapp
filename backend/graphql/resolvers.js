@@ -15,42 +15,6 @@ import {
 
 /* eslint no-underscore-dangle: [1, { "allow": ["__id"] }] */
 
-const usersMock = [
-  { id: '1', firstName: 'Tom', lastName: 'Coleman' },
-  { id: '2', firstName: 'Sashko', lastName: 'Stubailo' },
-  { id: '3', firstName: 'Mikhail', lastName: 'Novikov' },
-];
-
-const postsMock = [
-  {
-    id: '1', userId: '1', title: 'Introduction to GraphQL', content: 'content Introduction to GraphQL',
-  },
-  {
-    id: '2', userId: '2', title: 'Welcome to Meteor', content: 'content Welcome to Meteor',
-  },
-  {
-    id: '3', userId: '2', title: 'Advanced GraphQL', content: 'content Advanced GraphQL',
-  },
-  {
-    id: '4', userId: '3', title: 'Launchpad is Cool', content: 'content Launchpad is Cool',
-  },
-];
-
-const commentsMock = [
-  {
-    id: '1', userId: '1', postId: '1', content: 'Comment Introduction to GraphQL',
-  },
-  {
-    id: '2', userId: '2', postId: '2', content: 'Comment Welcome to Meteor',
-  },
-  {
-    id: '3', userId: '2', postId: '2', content: 'Comment Advanced GraphQL',
-  },
-  {
-    id: '4', userId: '3', postId: '3', content: 'Comment Launchpad is Cool',
-  },
-];
-
 const resolvers = {
   DateTime: GraphQLDateTime,
   Query: {
@@ -67,8 +31,7 @@ const resolvers = {
     // const userReq = usersMock.filter((user) => user.id === id);
     // console.log(`query UserReq: ${userReq}, id: ${id}`);
     // return userReq[0];
-    users: async () => getUsers(), // console.log('query users', usersMock);
-    // return usersMock;
+    users: async () => getUsers(),
     post: async (_, { id }) => {
       const resPost = await getPost(id);
       console.log(`query post resPost: ${JSON.stringify(resPost)}`);
