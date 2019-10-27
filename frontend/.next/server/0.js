@@ -1,288 +1,10 @@
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = require('../../../ssr-module-cache.js');
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		var threw = true;
-/******/ 		try {
-/******/ 			modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 			threw = false;
-/******/ 		} finally {
-/******/ 			if(threw) delete installedModules[moduleId];
-/******/ 		}
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ({
+exports.ids = [0];
+exports.modules = {
 
-/***/ "./components/Header.js":
-/*!******************************!*\
-  !*** ./components/Header.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "styled-components");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/router */ "next/router");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! semantic-ui-react */ "semantic-ui-react");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _NavBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./NavBar */ "./components/NavBar.js");
-var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/Header.js";
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
-
- //import NProgress from 'nprogress';
-
-
-
- // const handleRouteChangeStart = () => {
-//   NProgress.start();
-// };
-// const handleRouteChangeCompleteAndError = () => {
-//   NProgress.done();
-// };
-// Router.events.on('routeChangeStart', handleRouteChangeStart);
-// Router.events.on('routeChangeComplete', handleRouteChangeCompleteAndError);
-// Router.events.on('routeChangeError', handleRouteChangeCompleteAndError);
-
-const HeaderDiv = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
-  displayName: "Header__HeaderDiv",
-  componentId: "ypfh50-0"
-})(["background:#fff;width:100%;z-index:1;box-shadow:0 4px 6px rgba(0,0,0,0.05);position:absolute;top:0;.home-page{height:100%;max-width:1200px;position:relative;margin:auto;}.logo{float:left;margin:0 25px 0;cursor:pointer;}img.image{width:11rem;}}.ui.floated.header{}.ui.menu{font-family:'Montserrat Alternates','Roboto','Open Sans',sans-serif,'Arial';}.ui.right.floated.menu{margin:0.8rem 2rem 0 0.5rem;}.ui.secondary.menu .dropdown.item:hover,.ui.secondary.menu .link.item:hover,.ui.secondary.menu a.item:hover{background:none;}.MenuItem{cursor:pointer;&:after{height:2px;background:#1ab394;content:'';width:0;position:absolute;transform:translateX(-50%);transition:width 0.4s;transition-timing-function:cubic-bezier(1,-0.65,0,2.31);left:50%;margin-top:0.5rem;}&:hover,&:focus{background:none;outline:none;color:#1ab394;font-weight:600;&:after{width:calc(100% - 10px);}@media (max-width:700px){width:calc(100% - 10px);}}a{padding:0 0.5rem;display:flex;align-items:center;position:relative;background:none;border:0;cursor:pointer;@media (max-width:700px){padding:0 10px;}}}"]);
-
-class HeaderBar extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-  constructor(props) {
-    super(props);
-    this.state = {// activeItem: 'home',
-      // activeItem: '',
-    };
-  } // handleItemClick = (e, { name }) => {
-  //   console.log('HeaderBar handleItemClick: ', e);
-  //   console.log('HeaderBar handleItemClick: ', name);
-  //   // this.setState({ activeItem: name });
-  // };
-  // componentDidMount() {
-  //   // For phone screen
-  //   enquireScreen(b => {
-  //     this.setState({ isMobile: !!b });
-  //   });
-  //   // console.log('Header this.state: ', this.state);
-  // }
-
-
-  render() {
-    // console.log('Header render this.state: ', this.state.isMobile);
-    // console.log('Header render  this.props: ', this.props.isMobile);
-    // const { activeItem } = this.state;
-    return __jsx(HeaderDiv, {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 156
-      },
-      __self: this
-    }, __jsx("div", {
-      className: "home-page",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 157
-      },
-      __self: this
-    }, __jsx("header", {
-      className: "logo",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 158
-      },
-      __self: this
-    }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-      href: "/",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 159
-      },
-      __self: this
-    }, __jsx("img", {
-      src: "/logo.jpg",
-      width: "50px",
-      alt: "logo",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 165
-      },
-      __self: this
-    }))), __jsx(_NavBar__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 169
-      },
-      __self: this
-    })));
-  }
-
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (HeaderBar);
-
-/***/ }),
-
-/***/ "./components/Meta.js":
+/***/ "./components/Item.js":
 /*!****************************!*\
-  !*** ./components/Meta.js ***!
+  !*** ./components/Item.js ***!
   \****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/head */ "next/head");
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_1__);
-var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/Meta.js";
-
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
- // import '../static/nprogress.css';
-
-const Meta = () => __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, {
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 5
-  },
-  __self: undefined
-}, __jsx("meta", {
-  name: "viewport",
-  content: "width=device-width, initial-scale=1",
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 6
-  },
-  __self: undefined
-}), __jsx("meta", {
-  charSet: "utf-8",
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 7
-  },
-  __self: undefined
-}), __jsx("link", {
-  rel: "icon",
-  type: "image/x-icon",
-  href: "/favicon.ico",
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 8
-  },
-  __self: undefined
-}), __jsx("link", {
-  rel: "stylesheet",
-  href: "//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css",
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 18
-  },
-  __self: undefined
-}), __jsx("title", {
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 22
-  },
-  __self: undefined
-}, "app_CRUD"));
-
-/* harmony default export */ __webpack_exports__["default"] = (Meta);
-
-/***/ }),
-
-/***/ "./components/NavBar.js":
-/*!******************************!*\
-  !*** ./components/NavBar.js ***!
-  \******************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -291,411 +13,103 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-apollo */ "react-apollo");
-/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! graphql-tag */ "graphql-tag");
-/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "styled-components");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! next/router */ "next/router");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! semantic-ui-react */ "semantic-ui-react");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "prop-types");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_4__);
 
-var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/NavBar.js";
+var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/Item.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
 
 
+ // import Title from './styles/Title';
+// import ItemStyles from './styles/ItemStyles';
+//import BlockStyles from './styles/BlockStyles';
+// import PriceTag from './styles/PriceTag';
+// import formatMoney from '../lib/formatMoney';
+// import DeleteItem from './DeleteItem';
+// import AddToCart from './AddToCart';
 
- //import NProgress from 'nprogress';
+const Block = styled_components__WEBPACK_IMPORTED_MODULE_4___default.a.div.withConfig({
+  displayName: "Item__Block",
+  componentId: "sc-6p5ikn-0"
+})(["background:white;border:1px solid rgba(0,0,0,0.1)};border-radius:5px;box-shadow:", ";position:relative;display:block;margin:1.8rem auto;padding:5px 0 10px;img{width:100%;height:400px;object-fit:scale-down;}p{}.buttonList{display:grid;width:100%;border-top:1px solid ", ";grid-template-columns:repeat(auto-fit,minmax(100px,1fr));grid-gap:1px;background:", ";& > *{background:white;border:0;font-size:1rem;padding:1rem;}}"], props => props.theme.bs, props => props.theme.lightgrey, props => props.theme.lightgrey);
+const Title = styled_components__WEBPACK_IMPORTED_MODULE_4___default.a.h3.withConfig({
+  displayName: "Item__Title",
+  componentId: "sc-6p5ikn-1"
+})(["margin:2px 1rem;text-align:left;text-shadow:2px 2px 0 rgba(0,0,0,0.1);a{background:", ";display:inline;line-height:1.3;font-size:1.1rem;text-align:center;padding:0 1rem;}"], props => props.theme.green);
+const Description = styled_components__WEBPACK_IMPORTED_MODULE_4___default.a.p.withConfig({
+  displayName: "Item__Description",
+  componentId: "sc-6p5ikn-2"
+})(["text-align:justify;line-height:2;font-weight:300;padding:0 2rem;font-size:0.85rem;"]);
 
-
- //import User, { CURRENT_USER_QUERY } from './User';
-//import SigninModal from './SigninModal';
-//import Signout from './Signout';
-// const handleRouteChangeStart = () => {
-//   NProgress.start();
-// };
-// const handleRouteChangeCompleteAndError = () => {
-//   NProgress.done();
-// };
-// Router.events.on('routeChangeStart', handleRouteChangeStart);
-// Router.events.on('routeChangeComplete', handleRouteChangeCompleteAndError);
-// Router.events.on('routeChangeError', handleRouteChangeCompleteAndError);
-
-const RowDiv = styled_components__WEBPACK_IMPORTED_MODULE_5___default.a.div.withConfig({
-  displayName: "NavBar__RowDiv",
-  componentId: "sc-14mmg1w-0"
-})([".logo{float:left;margin:0 25px 0;img.image{width:11rem;}}.ui.floated.header{}.ui.menu{font-family:'Montserrat Alternates','Roboto','Open Sans',sans-serif,'Arial';}.ui.right.floated.menu{margin:0.8rem 2rem 0 0.5rem;}.ui.secondary.menu{.dropdown.item:hover,.link.item:hover,a.item:hover{background:none;}.ui.menu .ui.dropdown .menu > .item:hover{background:none !important;}.dropdown-sub-menu:active{display:none;}}.MenuItem{cursor:pointer;&:after{height:2px;background:#1ab394;content:'';width:0;position:absolute;transform:translateX(-50%);transition:width 0.4s;transition-timing-function:cubic-bezier(1,-0.65,0,2.31);left:50%;margin-top:0.5rem;}&:hover,&:focus{background:none;outline:none;color:#1ab394;font-weight:600;&:after{width:calc(100% - 10px);}@media (max-width:700px){width:calc(100% - 10px);}}a{padding:0 0.5rem;display:flex;align-items:center;position:relative;background:none;border:0;cursor:pointer;@media (max-width:700px){padding:0 10px;}}}"]);
-const MenuDiv = styled_components__WEBPACK_IMPORTED_MODULE_5___default.a.div.withConfig({
-  displayName: "NavBar__MenuDiv",
-  componentId: "sc-14mmg1w-1"
-})([".ui.simple.dropdown .menu{opacity:0;}.ui.simple.active.dropdown > .menu,.ui.simple.dropdown:hover > .menu{opacity:1;top:95% !important;margin-top:0;}.ui.menu .ui.dropdown .menu > .selected.item:active{color:rgba(0,0,0,0.95) !important;}"]);
-
-class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
-  constructor(props) {
-    super(props);
-
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "handleItemClick", (e, data) => {
-      // console.log('NavBar handleItemClick: e', e);
-      console.log('NavBar handleItemClick data: ', data);
-      const {
-        name
-      } = data;
-
-      if (name === 'login') {// this.setState({
-        //   signinModal: true,
-        // });
-      }
-
-      if (name === 'taxservice') {// Router.push({
-        //   pathname: '/categorytplist',
-        // });
-      }
-    });
-
-    this.state = {
-      activeItem: ''
-    };
-  }
-
+class Item extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
   render() {
-    // console.log('NavBar render this.state: ', this.state);
-    // console.log('Header render  this.props: ', this.props.isMobile);
-    // const { activeItem } = this.state;
-    return __jsx(MenuDiv, {
+    const {
+      item
+    } = this.props; // console.log('item component this.props', this.props);
+
+    return __jsx(Block, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 184
+        lineNumber: 92
       },
       __self: this
-    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"], {
-      secondary: true,
-      borderless: true,
-      floated: "right",
+    }, __jsx(Title, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 185
+        lineNumber: 94
       },
       __self: this
-    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Menu, {
-      position: "right",
-      as: "ul",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 186
+    }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      href: {
+        pathname: '/user',
+        query: {
+          id: item.id
+        }
       },
-      __self: this
-    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
-      name: "home",
-      as: "li",
-      onClick: this.handleItemClick,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 187
-      },
-      __self: this
-    }, __jsx("div", {
-      className: "MenuItem",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 192
-      },
-      __self: this
-    }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-      href: "/",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 193
+        lineNumber: 95
       },
       __self: this
     }, __jsx("a", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 194
+        lineNumber: 101
       },
       __self: this
-    }, "\u0413\u043B\u0430\u0432\u043D\u0430\u044F")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
-      name: "tariffs",
-      as: "li",
-      onClick: this.handleItemClick,
+    }, item.title))), __jsx(Description, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 199
+        lineNumber: 104
       },
       __self: this
-    }, __jsx("div", {
-      className: "MenuItem",
+    }, item.userId), __jsx(Description, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 205
+        lineNumber: 105
       },
       __self: this
-    }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-      href: "/tariffs",
+    }, item.createdDate), __jsx("div", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 206
+        lineNumber: 107
       },
       __self: this
-    }, __jsx("a", {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 207
-      },
-      __self: this
-    }, "\u041F\u0440\u043E\u0444\u0438\u043B\u044C")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
-      name: "tools",
-      as: "li",
-      onClick: this.handleItemClick,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 211
-      },
-      __self: this
-    }, __jsx("div", {
-      className: "MenuItem",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 217
-      },
-      __self: this
-    }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-      href: "/tools",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 218
-      },
-      __self: this
-    }, __jsx("a", {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 219
-      },
-      __self: this
-    }, "\u0421\u0435\u0440\u0432\u0438\u0441\u044B")))))));
+    }, item.content));
   }
 
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (NavBar);
+Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Item, "propTypes", {
+  item: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object.isRequired
+});
 
-/***/ }),
-
-/***/ "./components/Page.js":
-/*!****************************!*\
-  !*** ./components/Page.js ***!
-  \****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "styled-components");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Header */ "./components/Header.js");
-/* harmony import */ var _Meta__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Meta */ "./components/Meta.js");
-var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/Page.js";
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
-
-
-
-const theme = {
-  red: '#FF0000',
-  black: '#393939',
-  grey: '#3A3A3A',
-  lightgrey: '#E1E1E1',
-  offWhite: '#EDEDED',
-  maxWidth: '1000px',
-  bs: '0 12px 24px 0 rgba(0, 0, 0, 0.09)'
-};
-const StyledPage = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
-  displayName: "Page__StyledPage",
-  componentId: "peqh5w-0"
-})(["background:white;color:", ";"], props => props.theme.black);
-const Inner = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
-  displayName: "Page__Inner",
-  componentId: "peqh5w-1"
-})(["max-width:", ";margin:0 auto;padding:2rem;"], props => props.theme.maxWidth); // injectGlobal`
-//     @font-face {
-//         font-family: 'radnika_next';
-//         src: url('/static/radnikanext-medium-webfont.woff2') format('woff2');
-//         font-weight: normal;
-//         font-style: normal;
-//     }
-//     html {
-//         box-sizing: border-box;
-//         font-size: 10px;
-//     }
-//     *, *:before, *:after {
-//         box-sizing: inherit;
-//     }
-//     body {
-//         padding: 0;
-//         margin: 0;
-//         font-size: 1.5rem;
-//         line-height: 2;
-//         font-family: 'radnika_next';
-//     }
-//     a {
-//         text-decoration: none;
-//         color: ${theme.black};
-//     }
-// `;
-
-const GlobalStyle = styled_components__WEBPACK_IMPORTED_MODULE_1__["createGlobalStyle"]`
-     html {
-        box-sizing: border-box;
-        font-size: 10px;
-    }
-    *, *:before, *:after {
-        box-sizing: inherit;
-    }
-    body {
-        padding: 0;
-        margin: 0;
-        font-size: 1.5rem;
-        line-height: 2;
-        ${''
-/* font-family: 'radnika_next'; */
-}
-    }
-    a {
-        text-decoration: none;
-        color: ${theme.black};
-    }
-`;
-
-class Page extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
-  render() {
-    return __jsx(styled_components__WEBPACK_IMPORTED_MODULE_1__["ThemeProvider"], {
-      theme: theme,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 78
-      },
-      __self: this
-    }, __jsx(StyledPage, {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 79
-      },
-      __self: this
-    }, __jsx(_Meta__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 80
-      },
-      __self: this
-    }), __jsx(_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 81
-      },
-      __self: this
-    }), __jsx(Inner, {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 82
-      },
-      __self: this
-    }, this.props.children), __jsx(GlobalStyle, {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 83
-      },
-      __self: this
-    })));
-  }
-
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (Page);
-
-/***/ }),
-
-/***/ "./config.js":
-/*!*******************!*\
-  !*** ./config.js ***!
-  \*******************/
-/*! exports provided: endpoint */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "endpoint", function() { return endpoint; });
-const endpoint = `http://localhost:8000`;
-
-/***/ }),
-
-/***/ "./lib/withData.js":
-/*!*************************!*\
-  !*** ./lib/withData.js ***!
-  \*************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var next_with_apollo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! next-with-apollo */ "next-with-apollo");
-/* harmony import */ var next_with_apollo__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(next_with_apollo__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! apollo-boost */ "apollo-boost");
-/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(apollo_boost__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../config */ "./config.js");
-
-
- //import { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION } from '../components/Cart';
-
-function createClient({
-  headers
-}) {
-  return new apollo_boost__WEBPACK_IMPORTED_MODULE_1___default.a({
-    // uri: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
-    uri: _config__WEBPACK_IMPORTED_MODULE_2__["endpoint"],
-    request: operation => {
-      operation.setContext({
-        fetchOptions: {
-          credentials: 'include'
-        },
-        headers
-      });
-    },
-    // local state
-    clientState: {
-      resolvers: {// Mutation: {
-        //   toggleCart(_, variables, { cache }) {
-        //     // read the cartOpen value from the cache
-        //     const { cartOpen } = cache.readQuery({
-        //       query: LOCAL_STATE_QUERY,
-        //     });
-        //     // console.log('cache - ', cache);
-        //     // console.log('cartOpen - ', cartOpen);
-        //     // console.log('cache.data - ', cache.data);
-        //     // write the cart state to the opposite
-        //     const data = {
-        //       data: { cartOpen: !cartOpen },
-        //     };
-        //     // write the data variable onto the cache
-        //     cache.writeData(data);
-        //     // console.log('withData data - ', data);
-        //     return data;
-        //   },
-        // },
-      },
-      defaults: {
-        cartOpen: false
-      }
-    }
-  });
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (next_with_apollo__WEBPACK_IMPORTED_MODULE_0___default()(createClient));
+/* harmony default export */ __webpack_exports__["default"] = (Item);
 
 /***/ }),
 
@@ -776,55 +190,6 @@ module.exports = __webpack_require__(/*! core-js/library/fn/promise */ "core-js/
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime-corejs2/helpers/asyncToGenerator.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@babel/runtime-corejs2/helpers/asyncToGenerator.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _Promise = __webpack_require__(/*! ../core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js");
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-  try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
-  }
-
-  if (info.done) {
-    resolve(value);
-  } else {
-    _Promise.resolve(value).then(_next, _throw);
-  }
-}
-
-function _asyncToGenerator(fn) {
-  return function () {
-    var self = this,
-        args = arguments;
-    return new _Promise(function (resolve, reject) {
-      var gen = fn.apply(self, args);
-
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-      }
-
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-      }
-
-      _next(undefined);
-    });
-  };
-}
-
-module.exports = _asyncToGenerator;
-
-/***/ }),
-
 /***/ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js":
 /*!***************************************************************************!*\
   !*** ./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js ***!
@@ -851,39 +216,6 @@ function _defineProperty(obj, key, value) {
   }
 
   return obj;
-}
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime-corejs2/helpers/esm/extends.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@babel/runtime-corejs2/helpers/esm/extends.js ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _extends; });
-/* harmony import */ var _core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js");
-/* harmony import */ var _core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__);
-
-function _extends() {
-  _extends = _core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default.a || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
 }
 
 /***/ }),
@@ -973,18 +305,6 @@ function _interopRequireWildcard(obj) {
 }
 
 module.exports = _interopRequireWildcard;
-
-/***/ }),
-
-/***/ "./node_modules/next/app.js":
-/*!**********************************!*\
-  !*** ./node_modules/next/app.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! ./dist/pages/_app */ "./node_modules/next/dist/pages/_app.js")
-
 
 /***/ }),
 
@@ -2499,164 +1819,6 @@ exports.SUPPORTS_PERFORMANCE_USER_TIMING = exports.SUPPORTS_PERFORMANCE && typeo
 
 /***/ }),
 
-/***/ "./node_modules/next/dist/pages/_app.js":
-/*!**********************************************!*\
-  !*** ./node_modules/next/dist/pages/_app.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "./node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.Container = Container;
-exports.createUrl = createUrl;
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/extends */ "./node_modules/@babel/runtime-corejs2/helpers/extends.js"));
-
-var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/asyncToGenerator */ "./node_modules/@babel/runtime-corejs2/helpers/asyncToGenerator.js"));
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
-
-var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "prop-types"));
-
-var _utils = __webpack_require__(/*! ../next-server/lib/utils */ "./node_modules/next/dist/next-server/lib/utils.js");
-
-exports.AppInitialProps = _utils.AppInitialProps;
-
-var _router = __webpack_require__(/*! ../client/router */ "./node_modules/next/dist/client/router.js");
-/**
-* `App` component is used for initialize of pages. It allows for overwriting and full control of the `page` initialization.
-* This allows for keeping state between navigation, custom error handling, injecting additional data.
-*/
-
-
-function appGetInitialProps(_x) {
-  return _appGetInitialProps.apply(this, arguments);
-}
-
-function _appGetInitialProps() {
-  _appGetInitialProps = (0, _asyncToGenerator2.default)(function* (_ref) {
-    let {
-      Component,
-      ctx
-    } = _ref;
-    const pageProps = yield (0, _utils.loadGetInitialProps)(Component, ctx);
-    return {
-      pageProps
-    };
-  });
-  return _appGetInitialProps.apply(this, arguments);
-}
-
-class App extends _react.default.Component {
-  getChildContext() {
-    return {
-      router: (0, _router.makePublicRouterInstance)(this.props.router)
-    };
-  } // Kept here for backwards compatibility.
-  // When someone ended App they could call `super.componentDidCatch`.
-  // @deprecated This method is no longer needed. Errors are caught at the top level
-
-
-  componentDidCatch(error, _errorInfo) {
-    throw error;
-  }
-
-  render() {
-    const {
-      router,
-      Component,
-      pageProps
-    } = this.props;
-    const url = createUrl(router);
-    return _react.default.createElement(Component, (0, _extends2.default)({}, pageProps, {
-      url: url
-    }));
-  }
-
-}
-
-exports.default = App;
-App.childContextTypes = {
-  router: _propTypes.default.object
-};
-App.origGetInitialProps = appGetInitialProps;
-App.getInitialProps = appGetInitialProps;
-let warnContainer;
-let warnUrl;
-
-if (true) {
-  warnContainer = (0, _utils.execOnce)(() => {
-    console.warn("Warning: the `Container` in `_app` has been deprecated and should be removed. https://err.sh/zeit/next.js/app-container-deprecated");
-  });
-  warnUrl = (0, _utils.execOnce)(() => {
-    console.error("Warning: the 'url' property is deprecated. https://err.sh/zeit/next.js/url-deprecated");
-  });
-} // @deprecated noop for now until removal
-
-
-function Container(p) {
-  if (true) warnContainer();
-  return p.children;
-}
-
-function createUrl(router) {
-  // This is to make sure we don't references the router object at call time
-  const {
-    pathname,
-    asPath,
-    query
-  } = router;
-  return {
-    get query() {
-      if (true) warnUrl();
-      return query;
-    },
-
-    get pathname() {
-      if (true) warnUrl();
-      return pathname;
-    },
-
-    get asPath() {
-      if (true) warnUrl();
-      return asPath;
-    },
-
-    back: () => {
-      if (true) warnUrl();
-      router.back();
-    },
-    push: (url, as) => {
-      if (true) warnUrl();
-      return router.push(url, as);
-    },
-    pushTo: (href, as) => {
-      if (true) warnUrl();
-      const pushRoute = as ? href : '';
-      const pushUrl = as || href;
-      return router.push(pushRoute, pushUrl);
-    },
-    replace: (url, as) => {
-      if (true) warnUrl();
-      return router.replace(url, as);
-    },
-    replaceTo: (href, as) => {
-      if (true) warnUrl();
-      const replaceRoute = as ? href : '';
-      const replaceUrl = as || href;
-      return router.replace(replaceRoute, replaceUrl);
-    }
-  };
-}
-
-/***/ }),
-
 /***/ "./node_modules/next/link.js":
 /*!***********************************!*\
   !*** ./node_modules/next/link.js ***!
@@ -2667,321 +1829,7 @@ function createUrl(router) {
 module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/next/dist/client/link.js")
 
 
-/***/ }),
-
-/***/ "./pages/_app.js":
-/*!***********************!*\
-  !*** ./pages/_app.js ***!
-  \***********************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/extends */ "./node_modules/@babel/runtime-corejs2/helpers/esm/extends.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/app */ "./node_modules/next/app.js");
-/* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_app__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-apollo */ "react-apollo");
-/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_Page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Page */ "./components/Page.js");
-/* harmony import */ var _lib_withData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../lib/withData */ "./lib/withData.js");
-
-var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/pages/_app.js";
-
-var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
-
-
-
-
-
-class MyApp extends next_app__WEBPACK_IMPORTED_MODULE_2___default.a {
-  static async getInitialProps({
-    Component,
-    ctx
-  }) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    } // this exposes the query to the user
-
-
-    pageProps.query = ctx.query;
-    return {
-      pageProps
-    };
-  }
-
-  render() {
-    const {
-      Component,
-      apollo,
-      pageProps
-    } = this.props;
-    return (// <Container>
-      __jsx(react_apollo__WEBPACK_IMPORTED_MODULE_3__["ApolloProvider"], {
-        client: apollo,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 22
-        },
-        __self: this
-      }, __jsx(_components_Page__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 23
-        },
-        __self: this
-      }, __jsx(Component, Object(_babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, pageProps, {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 24
-        },
-        __self: this
-      })))) //</Container>
-
-    );
-  }
-
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(_lib_withData__WEBPACK_IMPORTED_MODULE_5__["default"])(MyApp));
-
-/***/ }),
-
-/***/ 0:
-/*!****************************************!*\
-  !*** multi private-next-pages/_app.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! private-next-pages/_app.js */"./pages/_app.js");
-
-
-/***/ }),
-
-/***/ "apollo-boost":
-/*!*******************************!*\
-  !*** external "apollo-boost" ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("apollo-boost");
-
-/***/ }),
-
-/***/ "core-js/library/fn/map":
-/*!*****************************************!*\
-  !*** external "core-js/library/fn/map" ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/library/fn/map");
-
-/***/ }),
-
-/***/ "core-js/library/fn/object/assign":
-/*!***************************************************!*\
-  !*** external "core-js/library/fn/object/assign" ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/library/fn/object/assign");
-
-/***/ }),
-
-/***/ "core-js/library/fn/object/create":
-/*!***************************************************!*\
-  !*** external "core-js/library/fn/object/create" ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/library/fn/object/create");
-
-/***/ }),
-
-/***/ "core-js/library/fn/object/define-property":
-/*!************************************************************!*\
-  !*** external "core-js/library/fn/object/define-property" ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/library/fn/object/define-property");
-
-/***/ }),
-
-/***/ "core-js/library/fn/object/get-own-property-descriptor":
-/*!************************************************************************!*\
-  !*** external "core-js/library/fn/object/get-own-property-descriptor" ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/library/fn/object/get-own-property-descriptor");
-
-/***/ }),
-
-/***/ "core-js/library/fn/object/keys":
-/*!*************************************************!*\
-  !*** external "core-js/library/fn/object/keys" ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/library/fn/object/keys");
-
-/***/ }),
-
-/***/ "core-js/library/fn/promise":
-/*!*********************************************!*\
-  !*** external "core-js/library/fn/promise" ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/library/fn/promise");
-
-/***/ }),
-
-/***/ "graphql-tag":
-/*!******************************!*\
-  !*** external "graphql-tag" ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("graphql-tag");
-
-/***/ }),
-
-/***/ "next-with-apollo":
-/*!***********************************!*\
-  !*** external "next-with-apollo" ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("next-with-apollo");
-
-/***/ }),
-
-/***/ "next/head":
-/*!****************************!*\
-  !*** external "next/head" ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("next/head");
-
-/***/ }),
-
-/***/ "next/router":
-/*!******************************!*\
-  !*** external "next/router" ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("next/router");
-
-/***/ }),
-
-/***/ "prop-types":
-/*!*****************************!*\
-  !*** external "prop-types" ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("prop-types");
-
-/***/ }),
-
-/***/ "prop-types-exact":
-/*!***********************************!*\
-  !*** external "prop-types-exact" ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("prop-types-exact");
-
-/***/ }),
-
-/***/ "react":
-/*!************************!*\
-  !*** external "react" ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("react");
-
-/***/ }),
-
-/***/ "react-apollo":
-/*!*******************************!*\
-  !*** external "react-apollo" ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("react-apollo");
-
-/***/ }),
-
-/***/ "react-is":
-/*!***************************!*\
-  !*** external "react-is" ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("react-is");
-
-/***/ }),
-
-/***/ "semantic-ui-react":
-/*!************************************!*\
-  !*** external "semantic-ui-react" ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("semantic-ui-react");
-
-/***/ }),
-
-/***/ "styled-components":
-/*!************************************!*\
-  !*** external "styled-components" ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("styled-components");
-
-/***/ }),
-
-/***/ "url":
-/*!**********************!*\
-  !*** external "url" ***!
-  \**********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("url");
-
 /***/ })
 
-/******/ });
-//# sourceMappingURL=_app.js.map
+};;
+//# sourceMappingURL=0.js.map

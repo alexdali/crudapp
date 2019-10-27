@@ -158,11 +158,12 @@ class HeaderBar extends React.Component {
           <header className="logo">
             <Link href="/">
               {/* <Image
-                src="../public/static/logo.jpg"
+                src="/logo.jpg"
                 avatar
-                size="small"
+                size="tiny"
               /> */}
-              <a>LOGO</a>
+              <img src="/logo.jpg" width="50px" alt="logo" />
+              {/* <a>LOGO</a> */}
             </Link>
           </header>
           <NavBar />

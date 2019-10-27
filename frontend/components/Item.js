@@ -98,11 +98,13 @@ class Item extends Component {
               query: { id: item.id },
             }}
           >
-            <a>{item.firstName}</a>
+            <a>{item.title}</a>
           </Link>
         </Title>
+        <Description>{item.userId}</Description>
+        <Description>{item.createdDate}</Description>
         {/* <PriceTag>{formatMoney(item.price)}</PriceTag> */}
-        <Description>{item.lastName}</Description>
+        <div>{item.content}</div>
         {/* <div className="buttonList">
           <Link
             href={{

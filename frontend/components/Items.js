@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import dynamic from 'next/dynamic'
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
-import Item from './Item';
+//import Item from './Item';
 //import Pagination from './Pagination';
 //import { perPage } from '../config';
 
@@ -12,6 +13,18 @@ const ALL_USERS_QUERY = gql`
       id
       firstName
       lastName
+    }
+  }
+`;
+
+const ALL_POSTS_QUERY = gql`
+  query ALL_POSTS_QUERY {
+    posts {
+      id
+      title
+      userId
+      content
+      createdDate
     }
   }
 `;
@@ -33,6 +46,11 @@ const ItemsList = styled.div`
   }
 `;
 
+const DynamicComponentWithNoSSR = dynamic(
+  () => import('../components/Item'),
+  { ssr: false }
+)
+
 class Items extends Component {
   render() {
     // console.log('Items component this.props', this.props);
@@ -40,15 +58,15 @@ class Items extends Component {
       <Center>
         {/* <Pagination page={this.props.page} /> */}
         <Query
-          query={ALL_USERS_QUERY}
+          query={ALL_POSTS_QUERY}
         >
           {({ data, error, loading }) => {
             if (loading) return <p>Загрузка...</p>;
             if (error) return <p>Error: {error.message}</p>;
             return (
               <ItemsList>
-                {data.users.map(user => (
-                  <Item item={user} key={user.id} />
+                {data.posts.map(post => (
+                  <DynamicComponentWithNoSSR item={post} key={post.id} />
                 ))}
               </ItemsList>
             );
