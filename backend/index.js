@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
 // import schema, { graphql } from "./schema";
 // import graphql from 'graphql';
@@ -23,6 +24,7 @@ mongoose.connection.once('open', () => {
 const app = express();
 const port = 8000;
 
+app.use(cors());
 app.use(bodyParser.json());
 
 const server = new ApolloServer({
