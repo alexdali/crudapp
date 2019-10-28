@@ -6,21 +6,21 @@ import { User, Post, Comment } from './models';
 const getUser = async (arg) => {
   console.log(`c getUser arg: ${JSON.stringify(arg)}`);
   return User.findById(arg)
-    .then((result) => {
-      if (result.length === 0) return null;
-      return {
+    .then((result) =>
+      // if (result.length === 0) return null;
+      ({
         id: result._id,
         name: result.name,
         email: result.email,
-      };
-    })
+      }))
     .catch((err) => console.error('Error db: ', err));
 };
 // console.log(`c getUser reqUser: ${JSON.stringify(reqUser)}`); // return reqUser;
 
 // Get single User by email
 const getUserByArg = async (arg) => {
-  console.log(`c getUser arg: ${JSON.stringify(arg)}`);
+  // console.log(`c getUser arg: ${JSON.stringify(arg)}`);
+  console.log(`c getUserByArg arg: ${arg}`);
   // const filter = {};
   // const prop = arg[0];
   const [prop, val] = arg;

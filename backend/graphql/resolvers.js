@@ -20,6 +20,28 @@ import {
 const resolvers = {
   DateTime: GraphQLDateTime,
   Query: {
+    // me: async (parent, arg, context) => {
+    //   // console.log('Query:  me -> ctx.request.userId', ctx.request.userId);
+    //   console.log('Query: me -> context', context);
+    //   // check if there is a current userId in request
+    //   if (!context.request.user) {
+    //     return null;
+    //   }
+    //   // run query for User by userId from database
+    //   // return ctx.db.query.user(
+    //   //   {
+    //   //     where: { id: ctx.request.userId },
+    //   //   },
+    //   //   info
+    //   // );
+    //   const { id } = context.request.user;
+    //   const user = await getUser(id);
+    //   if (!user) {
+    //     return null;
+    //   }
+    //   console.log(`query me req.user: ${JSON.stringify(context.request.user)}`);
+    //   return user;
+    // },
     user: async (_, { id }) => {
       const result = await getUser(id);
       const posts = await getPostsByUser({ userId: result.id });
@@ -180,7 +202,8 @@ const resolvers = {
         httpOnly: true,
         maxAge: 1000 * 60 * 30, // Expiry - 30 min
       });
-      return { token: jToken };
+      // return { token: jToken };
+      return user;
       // console.log(`m createUser new: ${newU}`);
       // return newU;
       // usersMock.push(newUser);
@@ -197,7 +220,8 @@ const resolvers = {
       // return newUser;
     },
     signIn: async (_, { email, password }, context) => {
-      // console.log(`m createUser context: ${JSON.stringify(context)}`);
+      console.log(`m signIn context.res: ${context.res[0]}`);
+      // console.log(`m signIn context.req.user: ${JSON.stringify(context.req.user)}`);
       console.log(`m signIn context: ${context.secret}`);
 
       const AuthArg = ['email', email];
@@ -221,12 +245,18 @@ const resolvers = {
       delete user.password;
       const expiresIn = '30m'; // '12h';
       // const jToken = await jwt.sign(user, context.secret, { expiresIn });
-      const jToken = await jwt.sign(user, context.secret);
-      context.response.cookie('token', jToken, {
+      const jToken = jwt.sign(user, context.secret);
+      console.log(`m signIn jToken: ${JSON.stringify(jToken)}`);
+      // if (!context.response.cookie) context.response.cookie = {};
+      // context.response.cookie('token', jToken, {
+      context.res.cookie('token', jToken, {
         httpOnly: true,
-        maxAge: 1000 * 60 * 30, // Expiry - 30 min
+        maxAge: 1000 * 60 * 60 * 24 * 31, // Expiry - 30 min
       });
-      return { token: jToken };
+      console.log(`m signIn cookie context.response: ${context.res}`);
+      // console.log(`m signIn context.req: ${JSON.stringify(context.req)}`);
+      // return { token: jToken };
+      return user;
     },
     deleteUser: async (_, { id }) => {
       // console.log(`m deleteUser id: ${JSON.stringify(id)}`);

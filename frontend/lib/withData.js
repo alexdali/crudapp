@@ -1,48 +1,32 @@
 import withApollo from 'next-with-apollo';
-import ApolloClient from 'apollo-boost';
+//import ApolloClient from 'apollo-boost';
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { HttpLink } from 'apollo-link-http';
+import { onError } from 'apollo-link-error';
+import { ApolloLink } from 'apollo-link';
 import { endpoint, prodEndpoint } from '../config';
 //import { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION } from '../components/Cart';
 
-function createClient({ headers }) {
-  return new ApolloClient({
-    // uri: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
-    uri: endpoint,
-    request: operation => {
-      operation.setContext({
-        fetchOptions: {
-          credentials: 'include',
-        },
-        headers,
-      });
-    },
-    // local state
-    clientState: {
-      resolvers: {
-        // Mutation: {
-        //   toggleCart(_, variables, { cache }) {
-        //     // read the cartOpen value from the cache
-        //     const { cartOpen } = cache.readQuery({
-        //       query: LOCAL_STATE_QUERY,
-        //     });
-        //     // console.log('cache - ', cache);
-        //     // console.log('cartOpen - ', cartOpen);
-        //     // console.log('cache.data - ', cache.data);
-        //     // write the cart state to the opposite
-        //     const data = {
-        //       data: { cartOpen: !cartOpen },
-        //     };
-        //     // write the data variable onto the cache
-        //     cache.writeData(data);
-        //     // console.log('withData data - ', data);
-        //     return data;
-        //   },
-        // },
-      },
-      defaults: {
-        cartOpen: false,
-      },
-    },
-  });
+//const createClient = new ApolloClient({
+function createClient() {
+    return new ApolloClient({
+  link: ApolloLink.from([
+    onError(({ graphQLErrors, networkError }) => {
+      if (graphQLErrors)
+        graphQLErrors.forEach(({ message, locations, path }) =>
+          console.log(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+          ),
+        );
+      if (networkError) console.log(`[Network error]: ${networkError}`);
+    }),
+    new HttpLink({
+      uri: endpoint,
+      credentials: 'include'
+    })
+  ]),
+  cache: new InMemoryCache()
+});
 }
-
 export default withApollo(createClient);

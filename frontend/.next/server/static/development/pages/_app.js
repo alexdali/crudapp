@@ -211,6 +211,359 @@ class HeaderBar extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 
 /***/ }),
 
+/***/ "./components/Login.js":
+/*!*****************************!*\
+  !*** ./components/Login.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-apollo */ "react-apollo");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! graphql-tag */ "graphql-tag");
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! semantic-ui-react */ "semantic-ui-react");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _styles_Form__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/Form */ "./components/styles/Form.js");
+/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./User */ "./components/User.js");
+
+var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/Login.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
+
+ //import { adopt } from 'react-adopt';
+//import CartStyles from './styles/CartStyles';
+//import CloseButton from './styles/CloseButton';
+
+
+
+ //import NProgress from 'nprogress';
+
+
+ //import Spinner from './styles/Spinner';
+//import Error from './ErrorMessage';
+
+ // const LOCAL_STATE_QUERY = gql`
+//   query {
+//     cartOpen @client
+//   }
+// `;
+// const TOGGLE_CART_MUTATION = gql`
+//   mutation {
+//     toggleCart @client
+//   }
+// `;
+
+const SIGNIN_MUTATION = graphql_tag__WEBPACK_IMPORTED_MODULE_3___default.a`
+  mutation SIGNIN_MUTATION($email: String!, $password: String!) {
+    signIn(email: $email, password: $password) {
+      id
+      email
+      name
+    }
+  }
+`;
+const SignupPromt = styled_components__WEBPACK_IMPORTED_MODULE_7___default.a.div.withConfig({
+  displayName: "Login__SignupPromt",
+  componentId: "sc-1lb86wh-0"
+})([""]);
+const RowDiv = styled_components__WEBPACK_IMPORTED_MODULE_7___default.a.div.withConfig({
+  displayName: "Login__RowDiv",
+  componentId: "sc-1lb86wh-1"
+})([""]);
+const FormDiv = styled_components__WEBPACK_IMPORTED_MODULE_7___default.a.div.withConfig({
+  displayName: "Login__FormDiv",
+  componentId: "sc-1lb86wh-2"
+})(["box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-size:14px;font-variant:tabular-nums;line-height:1.5;list-style:none;font-feature-settings:'tnum';form{max-height:300px;box-shadow:0 0 5px 3px rgba(0,0,0,0.05);background:rgba(0,0,0,0.02);border:5px solid white;padding:5px;font-size:1.5rem;line-height:1.5;font-weight:600;fieldset::before{height:1px;margin-bottom:25px;margin-top:10px;}}.formItem{position:relative;height:auto;display:block;box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-size:14px;font-variant:tabular-nums;line-height:1.5;list-style:none;font-feature-settings:'tnum';margin-bottom:24px;.formItem-control{position:relative;line-height:40px;.input-wrapper{box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-size:14px;font-variant:tabular-nums;line-height:1.5;list-style:none;font-feature-settings:'tnum';position:relative;display:inline-block;width:100%;text-align:start;input:not(:first-child){padding-left:30px;}input{position:relative;min-height:100%;}.input-prefix{position:absolute;margin-left:10px;top:50%;z-index:2;display:flex;-webkit-box-align:center;align-items:center;color:rgba(0,0,0,0.65);line-height:0;transform:translateY(-50%);}}input{box-sizing:border-box;margin:0;font-variant:tabular-nums;list-style:none;font-feature-settings:'tnum';display:inline-block;width:100%;height:32px;padding:4px 11px;color:rgba(0,0,0,0.65);font-size:14px;line-height:1.5;background-color:#fff;background-image:none;border:1px solid #d9d9d9;border-radius:4px;transition:all 0.3s;}}}.form-item-children{position:relative;}label{font-size:14px;}.checkbox-wrapper{box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-variant:tabular-nums;list-style:none;font-feature-settings:'tnum';display:inline-block;line-height:unset;cursor:pointer;}span.checkbox{box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-size:13px;font-variant:tabular-nums;list-style:none;font-feature-settings:'tnum';position:relative;top:-0.09em;display:inline-block;line-height:1;white-space:nowrap;vertical-align:middle;outline:none;cursor:pointer;+ span{padding-right:8px;padding-left:8px;}}input[type='checkbox']{line-height:normal;width:14px;height:14px;box-sizing:border-box;padding:0;}.checkbox-inner{position:relative;top:0;left:0;display:block;width:16px;height:16px;border:1px solid #d9d9d9;border-radius:2px;border-collapse:separate;transition:all 0.3s;}.login-form-forgot{float:right;font-size:13px;}a{color:rgba(0,0,0,0.65);font-size:13px;text-decoration:none;background-color:transparent;outline:none;cursor:pointer;transition:color 0.3s;font-style:normal;font-weight:400;&:hover{color:#1ab394;font-weight:600;}}.login-form-button{width:100%;}"]);
+/* eslint-disable */
+// const Composed = adopt({
+//   user: ({render}) => <User>{render}</User>,
+//   toggleCart: ({render}) => <Mutation mutation={TOGGLE_CART_MUTATION}>{render}</Mutation>,
+//   localState: ({render}) => <Query query={LOCAL_STATE_QUERY}>{render}</Query>,
+// });
+
+/* eslint-enable */
+
+class Login extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
+  constructor(...args) {
+    super(...args);
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "state", {
+      email: '',
+      //name: '',
+      password: '',
+      loading: false
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "saveToState", e => {
+      this.setState({
+        [e.target.name]: e.target.value
+      });
+    });
+  }
+
+  render() {
+    // console.log('Signin this.props: ', this.props);
+    // console.log('Signin this.state: ', this.state);
+    return __jsx(react_apollo__WEBPACK_IMPORTED_MODULE_2__["Mutation"], {
+      mutation: SIGNIN_MUTATION,
+      variables: {
+        email: this.state.email,
+        password: this.state.password
+      } //refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+      ,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 266
+      },
+      __self: this
+    }, (signIn, {
+      error,
+      loading
+    }) => __jsx(RowDiv, {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 272
+      },
+      __self: this
+    }, __jsx(FormDiv, {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 273
+      },
+      __self: this
+    }, __jsx(_styles_Form__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      method: "post",
+      onSubmit: async e => {
+        console.log('Signin onSubmit-> e ', e);
+        e.preventDefault(); // if (loading) {
+        //   this.setState({ loading });
+        // }
+
+        console.log('Signin this.state: ', this.state);
+        const res = await signIn();
+        console.log('signIn -> render -> res', res);
+        console.log('Signin this.props: ', this.props);
+        this.props.handleRes(res);
+        this.setState({
+          email: '',
+          name: '',
+          password: ''
+        }, () => {// console.log('TCL: signin -> setState clear');
+          // Router.push({
+          //   pathname: '/',
+          // });
+        });
+      },
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 274
+      },
+      __self: this
+    }, __jsx("fieldset", {
+      disabled: loading,
+      "aria-busy": loading,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 295
+      },
+      __self: this
+    }, __jsx("div", {
+      className: "formItem",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 297
+      },
+      __self: this
+    }, __jsx("label", {
+      htmlFor: "email",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 298
+      },
+      __self: this
+    }, __jsx("div", {
+      className: "formItem-control",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 299
+      },
+      __self: this
+    }, __jsx("span", {
+      className: "input-wrapper",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 300
+      },
+      __self: this
+    }, __jsx("span", {
+      className: "input-prefix",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 301
+      },
+      __self: this
+    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__["Icon"], {
+      name: "mail",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 302
+      },
+      __self: this
+    })), __jsx("input", {
+      type: "text",
+      name: "email",
+      placeholder: "email",
+      value: this.state.email,
+      onChange: this.saveToState,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 304
+      },
+      __self: this
+    }))))), __jsx("div", {
+      className: "formItem",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 315
+      },
+      __self: this
+    }, __jsx("label", {
+      htmlFor: "password",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 316
+      },
+      __self: this
+    }, __jsx("div", {
+      className: "formItem-control",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 317
+      },
+      __self: this
+    }, __jsx("span", {
+      className: "input-wrapper",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 318
+      },
+      __self: this
+    }, __jsx("span", {
+      className: "input-prefix",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 319
+      },
+      __self: this
+    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__["Icon"], {
+      name: "lock",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 320
+      },
+      __self: this
+    })), __jsx("input", {
+      type: "password",
+      name: "password",
+      placeholder: "\u043F\u0430\u0440\u043E\u043B\u044C",
+      value: this.state.password,
+      onChange: this.saveToState,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 322
+      },
+      __self: this
+    }))))), __jsx("div", {
+      className: "formItem",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 333
+      },
+      __self: this
+    }, __jsx("div", {
+      className: "formItem-control",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 334
+      },
+      __self: this
+    }, __jsx("span", {
+      className: "form-item-children",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 335
+      },
+      __self: this
+    }, __jsx("button", {
+      type: "submit",
+      className: "ant-btn ant-btn-primary login-form-button ",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 336
+      },
+      __self: this
+    }, __jsx("span", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 340
+      },
+      __self: this
+    }, "\u0412\u043E\u0439\u0442\u0438"))))))))));
+  }
+
+} //const Login = () => (
+// <Composed>
+//   {({ user, toggleCart, localState }) => {
+//     const { me } = user.data;
+//     if (!me) return null;
+//     return (
+//       <CartStyles open={localState.data.cartOpen}>
+//         <header>
+//           <CloseButton onClick={toggleCart} title="close">
+//             ❌
+//           </CloseButton>
+//           <Supreme>{me.name}'s Cart</Supreme>
+//           <p>
+//             You Have {me.cart.length} Item
+//             {me.cart.length === 1 ? '' : 's'} in your cart
+//           </p>
+//         </header>
+//         <ul>
+//           {me.cart.map(cartItem => (
+//             <CartItem key={cartItem.id} cartItem={cartItem} />
+//           ))}
+//         </ul>
+//         <footer>
+//           <p>{formatMoney(calcTotalPrice(me.cart))}</p>
+//           {me.cart.length && (
+//             <TakeMyMoney>
+//               <SickButton>Checkout</SickButton>
+//             </TakeMyMoney>
+//           )}
+//         </footer>
+//       </CartStyles>
+//     );
+//   }}
+// </Composed>
+//);
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Login); //export { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION };
+
+/***/ }),
+
 /***/ "./components/Meta.js":
 /*!****************************!*\
   !*** ./components/Meta.js ***!
@@ -303,6 +656,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! semantic-ui-react */ "semantic-ui-react");
 /* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Login */ "./components/Login.js");
 
 var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/NavBar.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
@@ -315,8 +669,8 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
  //import User, { CURRENT_USER_QUERY } from './User';
 //import SigninModal from './SigninModal';
-//import Signout from './Signout';
-// const handleRouteChangeStart = () => {
+
+ // const handleRouteChangeStart = () => {
 //   NProgress.start();
 // };
 // const handleRouteChangeCompleteAndError = () => {
@@ -339,6 +693,16 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
   constructor(props) {
     super(props);
 
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "handleRes", res => {
+      console.log('NavBar handleRes res: ', res);
+
+      if (res) {
+        this.setState({
+          login: false
+        });
+      }
+    });
+
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "handleItemClick", (e, data) => {
       // console.log('NavBar handleItemClick: e', e);
       console.log('NavBar handleItemClick data: ', data);
@@ -358,18 +722,22 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
     });
 
     this.state = {
-      activeItem: ''
+      activeItem: '',
+      login: true
     };
   }
 
   render() {
     // console.log('NavBar render this.state: ', this.state);
     // console.log('Header render  this.props: ', this.props.isMobile);
-    // const { activeItem } = this.state;
-    return __jsx(MenuDiv, {
+    const {
+      activeItem,
+      login
+    } = this.state;
+    return __jsx(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, __jsx(MenuDiv, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 184
+        lineNumber: 195
       },
       __self: this
     }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"], {
@@ -378,7 +746,7 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
       floated: "right",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 185
+        lineNumber: 196
       },
       __self: this
     }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Menu, {
@@ -386,7 +754,7 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
       as: "ul",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 186
+        lineNumber: 197
       },
       __self: this
     }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
@@ -395,27 +763,27 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
       onClick: this.handleItemClick,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 187
+        lineNumber: 198
       },
       __self: this
     }, __jsx("div", {
       className: "MenuItem",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 192
+        lineNumber: 203
       },
       __self: this
     }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
       href: "/",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 193
+        lineNumber: 204
       },
       __self: this
     }, __jsx("a", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 194
+        lineNumber: 205
       },
       __self: this
     }, "\u0413\u043B\u0430\u0432\u043D\u0430\u044F")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
@@ -424,27 +792,27 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
       onClick: this.handleItemClick,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 199
+        lineNumber: 210
       },
       __self: this
     }, __jsx("div", {
       className: "MenuItem",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 205
+        lineNumber: 216
       },
       __self: this
     }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
       href: "/tariffs",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 206
+        lineNumber: 217
       },
       __self: this
     }, __jsx("a", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 207
+        lineNumber: 218
       },
       __self: this
     }, "\u041F\u0440\u043E\u0444\u0438\u043B\u044C")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
@@ -453,30 +821,37 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
       onClick: this.handleItemClick,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 211
+        lineNumber: 222
       },
       __self: this
     }, __jsx("div", {
       className: "MenuItem",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 217
+        lineNumber: 228
       },
       __self: this
     }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
       href: "/tools",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 218
+        lineNumber: 229
       },
       __self: this
     }, __jsx("a", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 219
+        lineNumber: 230
       },
       __self: this
-    }, "\u0421\u0435\u0440\u0432\u0438\u0441\u044B")))))));
+    }, "\u0421\u0435\u0440\u0432\u0438\u0441\u044B"))))))), login && __jsx(_Login__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      handleRes: this.handleRes,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 239
+      },
+      __self: this
+    }));
   }
 
 }
@@ -620,6 +995,80 @@ class Page extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 
 /***/ }),
 
+/***/ "./components/User.js":
+/*!****************************!*\
+  !*** ./components/User.js ***!
+  \****************************/
+/*! exports provided: default, CURRENT_USER_QUERY */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CURRENT_USER_QUERY", function() { return CURRENT_USER_QUERY; });
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/extends */ "./node_modules/@babel/runtime-corejs2/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-apollo */ "react-apollo");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! graphql-tag */ "graphql-tag");
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "prop-types");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+
+var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/User.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
+
+
+const CURRENT_USER_QUERY = graphql_tag__WEBPACK_IMPORTED_MODULE_3___default.a`
+  query {
+    me {
+      id
+      email
+      name
+    }
+  }
+`;
+
+const User = props => __jsx(react_apollo__WEBPACK_IMPORTED_MODULE_2__["Query"], Object(_babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+  query: CURRENT_USER_QUERY,
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 16
+  },
+  __self: undefined
+}), payload => props.children(payload));
+
+User.propTypes = {
+  children: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func.isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (User);
+
+
+/***/ }),
+
+/***/ "./components/styles/Form.js":
+/*!***********************************!*\
+  !*** ./components/styles/Form.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_0__);
+
+const loading = Object(styled_components__WEBPACK_IMPORTED_MODULE_0__["keyframes"])(["from{background-position:0 0;}to{background-position:100% 100%;}"]);
+const Form = styled_components__WEBPACK_IMPORTED_MODULE_0___default.a.form.withConfig({
+  displayName: "Form",
+  componentId: "w01fwi-0"
+})(["box-shadow:0 0 5px 3px rgba(0,0,0,0.05);background:rgba(0,0,0,0.02);border:5px solid white;padding:20px;font-size:1.5rem;line-height:1.5;font-weight:600;label{display:block;margin-bottom:1rem;}input,textarea,select{width:100%;padding:0.5rem;font-size:1rem;border:1px solid black;&:focus{outline:0;border-color:", ";}}button,input[type='submit']{width:auto;background:#1ab394;color:white;border:0;font-weight:600;padding:0.5rem 1.2rem;}fieldset{border:0;padding:0;&[disabled]{opacity:0.5;}&::before{height:10px;content:'';display:block;background-image:linear-gradient( to right,#19a488 11%,#1aa8b3 41%,#1ab3a2 100% );}&[aria-busy='true']::before{background-size:50% auto;animation:", " 0.5s linear infinite;}}"], props => props.theme.green, loading);
+/* harmony default export */ __webpack_exports__["default"] = (Form);
+
+/***/ }),
+
 /***/ "./config.js":
 /*!*******************!*\
   !*** ./config.js ***!
@@ -645,53 +1094,44 @@ const endpoint = `http://localhost:8000`;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_with_apollo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! next-with-apollo */ "next-with-apollo");
 /* harmony import */ var next_with_apollo__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(next_with_apollo__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! apollo-boost */ "apollo-boost");
-/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(apollo_boost__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../config */ "./config.js");
+/* harmony import */ var apollo_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! apollo-client */ "apollo-client");
+/* harmony import */ var apollo_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(apollo_client__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! apollo-cache-inmemory */ "apollo-cache-inmemory");
+/* harmony import */ var apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var apollo_link_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! apollo-link-http */ "apollo-link-http");
+/* harmony import */ var apollo_link_http__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(apollo_link_http__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var apollo_link_error__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! apollo-link-error */ "apollo-link-error");
+/* harmony import */ var apollo_link_error__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(apollo_link_error__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var apollo_link__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! apollo-link */ "apollo-link");
+/* harmony import */ var apollo_link__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(apollo_link__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../config */ "./config.js");
+ //import ApolloClient from 'apollo-boost';
+
+
+
+
 
 
  //import { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION } from '../components/Cart';
+//const createClient = new ApolloClient({
 
-function createClient({
-  headers
-}) {
-  return new apollo_boost__WEBPACK_IMPORTED_MODULE_1___default.a({
-    // uri: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
-    uri: _config__WEBPACK_IMPORTED_MODULE_2__["endpoint"],
-    request: operation => {
-      operation.setContext({
-        fetchOptions: {
-          credentials: 'include'
-        },
-        headers
-      });
-    },
-    // local state
-    clientState: {
-      resolvers: {// Mutation: {
-        //   toggleCart(_, variables, { cache }) {
-        //     // read the cartOpen value from the cache
-        //     const { cartOpen } = cache.readQuery({
-        //       query: LOCAL_STATE_QUERY,
-        //     });
-        //     // console.log('cache - ', cache);
-        //     // console.log('cartOpen - ', cartOpen);
-        //     // console.log('cache.data - ', cache.data);
-        //     // write the cart state to the opposite
-        //     const data = {
-        //       data: { cartOpen: !cartOpen },
-        //     };
-        //     // write the data variable onto the cache
-        //     cache.writeData(data);
-        //     // console.log('withData data - ', data);
-        //     return data;
-        //   },
-        // },
-      },
-      defaults: {
-        cartOpen: false
-      }
-    }
+function createClient() {
+  return new apollo_client__WEBPACK_IMPORTED_MODULE_1__["ApolloClient"]({
+    link: apollo_link__WEBPACK_IMPORTED_MODULE_5__["ApolloLink"].from([Object(apollo_link_error__WEBPACK_IMPORTED_MODULE_4__["onError"])(({
+      graphQLErrors,
+      networkError
+    }) => {
+      if (graphQLErrors) graphQLErrors.forEach(({
+        message,
+        locations,
+        path
+      }) => console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`));
+      if (networkError) console.log(`[Network error]: ${networkError}`);
+    }), new apollo_link_http__WEBPACK_IMPORTED_MODULE_3__["HttpLink"]({
+      uri: _config__WEBPACK_IMPORTED_MODULE_6__["endpoint"],
+      credentials: 'include'
+    })]),
+    cache: new apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_2__["InMemoryCache"]()
   });
 }
 
@@ -2763,14 +3203,58 @@ module.exports = __webpack_require__(/*! private-next-pages/_app.js */"./pages/_
 
 /***/ }),
 
-/***/ "apollo-boost":
-/*!*******************************!*\
-  !*** external "apollo-boost" ***!
-  \*******************************/
+/***/ "apollo-cache-inmemory":
+/*!****************************************!*\
+  !*** external "apollo-cache-inmemory" ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("apollo-boost");
+module.exports = require("apollo-cache-inmemory");
+
+/***/ }),
+
+/***/ "apollo-client":
+/*!********************************!*\
+  !*** external "apollo-client" ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("apollo-client");
+
+/***/ }),
+
+/***/ "apollo-link":
+/*!******************************!*\
+  !*** external "apollo-link" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("apollo-link");
+
+/***/ }),
+
+/***/ "apollo-link-error":
+/*!************************************!*\
+  !*** external "apollo-link-error" ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("apollo-link-error");
+
+/***/ }),
+
+/***/ "apollo-link-http":
+/*!***********************************!*\
+  !*** external "apollo-link-http" ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("apollo-link-http");
 
 /***/ }),
 

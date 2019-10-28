@@ -28,47 +28,82 @@ mongoose.connection.once('open', () => {
 //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 // };
 
-const corsOptions = {
-  origin: 'http://localhost:3333',
-  credentials: true,
-};
-
-// create server
-const app = express();
-const port = 8000;
-
-app.use(cors(corsOptions));
-
-app.use(bodyParser.json());
-
 const server = new ApolloServer({
   introspection: true,
   // schema,
   typeDefs,
   resolvers,
   formatError: (error) => error,
-  context: ({ req, res }) => ({
-    req,
-    res,
-    secret: process.env.SECRET,
-  }),
+  context: ({ req, res }) =>
+    // const user = await getMe(req);
+    // req.user = user;
+    // if (!res.cookie) res.cookie = {};
+    ({
+      ...req,
+      res,
+      secret: process.env.SECRET,
+    })
+  ,
 });
 
+
+// create server
+const app = express();
+const port = 8000;
+
+const corsOptions = {
+  origin: 'http://localhost:3333',
+  credentials: true,
+};
+
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
+// app.use(bodyParser.json());
+
 app.use((req, res, next) => {
+  // console.log(`app.use req.cookies: ${req.cookies}`);
+  console.log(`app.use res.cookies: ${res.cookies}`);
   // extract token from request
-  const { jToken } = req.cookies;
+  const { token } = req.cookies;
+  // console.log(`app.use res.cookies token: ${token}`);
+  // console.log(`app.use process.env.SECRET: ${process.env.SECRET}`);
   // extract the user ID from the token
-  if (jToken) {
-    const { user: me } = jwt.verify(jToken, process.env.SECRET);
-    console.log(`app.use jwt.verify jToken me: ${JSON.stringify(me)}`);
+  if (token) {
+    const { id, name, email } = jwt.verify(token, process.env.SECRET);
+    // jwt.verify( token, new Buffer( 'ThisStringIsASecret', 'base64' ), function ( err, decoded ) { /**/ });
+    // const secret = Buffer.from(process.env.SECRET, 'base64');
+    // const { user } = jwt.verify(token, Buffer.from(process.env.SECRET, 'base64'));
+    // const { user } = jwt.verify(token, secret);
+    console.log(`app.use jwt.verify token user: ${id}, ${name}, ${email}`);
     // put the userId onto the req for future requests to access
     // req.userId = id;
-    req.me = { ...me };
+    req.user = { id, name, email };
+    console.log(`app.use req.user: ${JSON.stringify(req.user)}`);
   }
   next();
 });
+
+// const getMe = async (req) => {
+//   // const token = req.headers['x-token'];
+//   const { token } = req.cookies;
+//   console.log(`app.use req.cookies: ${JSON.stringify(req.cookies)}`);
+//   if (!token) return null;
+//   // try {
+//   //   return await jwt.verify(token, process.env.SECRET);
+//   // } catch (e) {
+//   //   throw new AuthenticationError(
+//   //     'Your session expired. Sign in again.',
+//   //   );
+//   // }
+//   const { user } = jwt.verify(token, process.env.SECRET);
+//   console.log(`app.use jwt.verify token me: ${JSON.stringify(user)}`);
+//   // put the userId onto the req for future requests to access
+//   // req.userId = id;
+//   // req.user = { ...user };
+//   return user;
+// };
 
 
 // The GraphQL endpoint

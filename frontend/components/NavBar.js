@@ -16,7 +16,7 @@ import {
 } from 'semantic-ui-react';
 //import User, { CURRENT_USER_QUERY } from './User';
 //import SigninModal from './SigninModal';
-//import Signout from './Signout';
+import Login from './Login';
 
 // const handleRouteChangeStart = () => {
 //   NProgress.start();
@@ -154,8 +154,18 @@ class NavBar extends React.Component {
     super(props);
     this.state = {
       activeItem: '',
+      login: true,
     };
   }
+
+  handleRes=(res) => {
+    console.log('NavBar handleRes res: ', res);
+    if (res) {
+      this.setState({
+        login: false,
+      });
+    }
+  };
 
   handleItemClick = (e, data) => {
     // console.log('NavBar handleItemClick: e', e);
@@ -177,10 +187,11 @@ class NavBar extends React.Component {
   render() {
     // console.log('NavBar render this.state: ', this.state);
     // console.log('Header render  this.props: ', this.props.isMobile);
-    // const { activeItem } = this.state;
+    const { activeItem, login } = this.state;
 
 
     return (
+            <>
             <MenuDiv>
               <Menu secondary borderless floated="right">
                 <Menu.Menu position="right" as="ul">
@@ -224,7 +235,9 @@ class NavBar extends React.Component {
                 </Menu.Menu>
               </Menu>
             </MenuDiv>
-
+            {login &&
+            <Login handleRes={this.handleRes}/>}
+            </>
     );
   }
 }
