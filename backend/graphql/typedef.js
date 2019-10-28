@@ -47,6 +47,7 @@ type Query {
 
 type Mutation {
   signUp(name: String!, email: String!, password: String!): Token!
+  signIn(email: String!, password: String!): Token!
   deleteUser(id: String!): SuccessMessage
   createPost(userId: String!, title: String!, content: String!): Post
   deletePost(postId: String!, userId: String!): SuccessMessage

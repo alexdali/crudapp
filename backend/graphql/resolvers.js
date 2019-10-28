@@ -1,5 +1,6 @@
 import uuidv4 from 'uuid/v4';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import {
   GraphQLDate,
   GraphQLTime,
@@ -8,7 +9,7 @@ import {
 import moment from 'moment';
 import { User, Post, Comment } from '../mongodb/models';
 import {
-  getUsers, getUser, getPosts, getPost, getComment, getPostsByUser, getCommentsByPost, getCommentsByUser,
+  getUsers, getUser, getUserByArg, getPosts, getPost, getComment, getPostsByUser, getCommentsByPost, getCommentsByUser,
 } from '../mongodb/controllersGet';
 import {
   createUser, deleteUser, createPost, deletePost, createComment, deleteComment,
@@ -188,6 +189,33 @@ const resolvers = {
       // return newUserReq[0];
       // });
       // return newUser;
+    },
+    signIn: async (_, { email, password }, context) => {
+      // console.log(`m createUser context: ${JSON.stringify(context)}`);
+      console.log(`m signIn context: ${context.secret}`);
+
+      const AuthArg = ['email', email];
+      console.log(`m signIn AuthArg: ${JSON.stringify(AuthArg)}`);
+
+      const user = await getUserByArg(AuthArg);
+      console.log(`m signIn user: ${JSON.stringify(user)}`);
+      if (!user) {
+        throw new Error(
+          'Пользователя с таким email не существует!',
+        );
+      }
+
+      const isValidPass = await bcrypt.compare(password, user.password);
+      console.log(`m signIn isValidPass: ${isValidPass}`);
+      if (!isValidPass) {
+        throw new Error(
+          'Неверный пароль! Попробуйте еще раз.',
+        );
+      }
+      delete user.password;
+      const expiresIn = '30m'; // '12h';
+      const jwtToken = await jwt.sign(user, context.secret, { expiresIn });
+      return { token: jwtToken };
     },
     deleteUser: async (_, { id }) => {
       // console.log(`m deleteUser id: ${JSON.stringify(id)}`);

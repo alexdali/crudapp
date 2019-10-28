@@ -8,6 +8,17 @@ const createUser = async (arg) => {
   const {
     id, name, email, password,
   } = arg;
+
+  // check if the user exists
+  const nameExist = await User.find({ name });
+  if (nameExist.length !== 0) {
+    throw new Error('Пользователь с таким логином уже существует!');
+  }
+  const emailExist = await User.find({ email });
+  if (emailExist.length !== 0) {
+    throw new Error('Пользователь с таким email уже существует!');
+  }
+
   const hashPassword = await bcrypt.hash(password, 10);
   const user = new User({
     _id: id, name, email, password: hashPassword,

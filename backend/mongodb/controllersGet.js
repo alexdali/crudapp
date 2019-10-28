@@ -2,18 +2,44 @@ import { User, Post, Comment } from './models';
 
 /* eslint no-underscore-dangle: [1, { "allow": ["__id"] }] */
 
-// Get single User
+// Get single User by Id
 const getUser = async (arg) => {
   console.log(`c getUser arg: ${JSON.stringify(arg)}`);
   return User.findById(arg)
-    .then((result) => ({
-      id: result._id,
-      firstName: result.firstName,
-      lastName: result.lastName,
-    }))
+    .then((result) => {
+      if (result.length === 0) return null;
+      return {
+        id: result._id,
+        name: result.name,
+        email: result.email,
+      };
+    })
     .catch((err) => console.error('Error db: ', err));
 };
 // console.log(`c getUser reqUser: ${JSON.stringify(reqUser)}`); // return reqUser;
+
+// Get single User by email
+const getUserByArg = async (arg) => {
+  console.log(`c getUser arg: ${JSON.stringify(arg)}`);
+  // const filter = {};
+  // const prop = arg[0];
+  const [prop, val] = arg;
+  // const filter = { [prop]: arg[1] };
+  const filter = { [prop]: val };
+  console.log(`c getUserByArg filter: ${JSON.stringify(filter)}`);
+  return User.find(filter)
+    .then((result) => {
+      console.log(`c getUserByArg result: ${JSON.stringify(result)}`);
+      if (result.length === 0) return null;
+      const {
+        _id: id, name, email, password,
+      } = result[0];
+      return {
+        id, name, email, password,
+      };
+    })
+    .catch((err) => console.error('Error db: ', err));
+};
 
 // Get all Users
 const getUsers = async () => User.find()
@@ -21,8 +47,8 @@ const getUsers = async () => User.find()
     console.log(`c getUsers find: ${JSON.stringify(result)}`);
     return result.map((user) => ({
       id: user._id,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      name: user.name,
+      email: user.email,
     }));
   })
   .catch((err) => console.error('Error db: ', err));
@@ -148,5 +174,5 @@ const getCommentsByUser = async (arg) => Comment.find({ userId: arg.userId })
   .catch((err) => console.error('Error db: ', err));
 
 export {
-  getUsers, getUser, getPosts, getPost, getComment, getPostsByUser, getCommentsByPost, getCommentsByUser,
+  getUsers, getUser, getUserByArg, getPosts, getPost, getComment, getPostsByUser, getCommentsByPost, getCommentsByUser,
 };
