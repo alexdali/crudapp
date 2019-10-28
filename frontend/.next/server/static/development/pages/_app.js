@@ -1105,7 +1105,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var apollo_link__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! apollo-link */ "apollo-link");
 /* harmony import */ var apollo_link__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(apollo_link__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../config */ "./config.js");
- //import ApolloClient from 'apollo-boost';
 
 
 

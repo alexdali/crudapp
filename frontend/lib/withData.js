@@ -1,5 +1,4 @@
 import withApollo from 'next-with-apollo';
-//import ApolloClient from 'apollo-boost';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
