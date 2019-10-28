@@ -1,4 +1,5 @@
 import uuidv4 from 'uuid/v4';
+import jwt from 'jsonwebtoken';
 import {
   GraphQLDate,
   GraphQLTime,
@@ -148,18 +149,31 @@ const resolvers = {
   },
 
   Mutation: {
-    createUser: async (_, { firstName, lastName }) => {
+    // createUser: async (_, { firstName, lastName }) => {
+    //   const id = uuidv4();
+    //   const newUserData = {
+    //     id, firstName, lastName,
+    //   };
+    //   console.log(`m createUser dataNewUser: ${JSON.stringify(newUserData)}`);
+
+    //   const newUser = await createUser(newUserData);
+    //   return {
+    //     ...newUser,
+    //     posts: [],
+    //   };
+    signUp: async (_, { name, email, password }, context) => {
+      // console.log(`m createUser context: ${JSON.stringify(context)}`);
+      console.log(`m createUser context: ${context.secret}`);
       const id = uuidv4();
       const newUserData = {
-        id, firstName, lastName,
+        id, name, email, password,
       };
       console.log(`m createUser dataNewUser: ${JSON.stringify(newUserData)}`);
 
       const newUser = await createUser(newUserData);
-      return {
-        ...newUser,
-        posts: [],
-      };
+      const expiresIn = '30m'; // '12h';
+      const jwtToken = await jwt.sign(newUser, context.secret, { expiresIn });
+      return { token: jwtToken };
       // console.log(`m createUser new: ${newU}`);
       // return newU;
       // usersMock.push(newUser);

@@ -4,13 +4,17 @@ import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
 scalar DateTime
+type Token {
+  token: String!
+}
 type SuccessMessage {
   message: String
 }
 type User {
   id: String!
-  firstName: String!
-  lastName: String
+  name: String!
+  email: String!
+  password: String!
   posts: [Post]
 }
 
@@ -42,7 +46,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(firstName: String, lastName: String): User
+  signUp(name: String!, email: String!, password: String!): Token!
   deleteUser(id: String!): SuccessMessage
   createPost(userId: String!, title: String!, content: String!): Post
   deletePost(postId: String!, userId: String!): SuccessMessage

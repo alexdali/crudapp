@@ -1,21 +1,25 @@
+import bcrypt from 'bcrypt';
 import { User, Post, Comment } from './models';
 
 /* eslint no-underscore-dangle: [1, { "allow": ["__id"] }] */
 // Create User
 const createUser = async (arg) => {
   console.log(`c createUser arg: ${JSON.stringify(arg)}`);
-  const { id, firstName, lastName } = arg;
+  const {
+    id, name, email, password,
+  } = arg;
+  const hashPassword = await bcrypt.hash(password, 10);
   const user = new User({
-    _id: id, firstName, lastName,
+    _id: id, name, email, password: hashPassword,
   });
+  console.log(`c createUser user: ${JSON.stringify(user)}`);
   return user.save()
     .then((result) => {
       console.log(`c createUser SaveOne: ${JSON.stringify(result)}`);
       const newUser = {
         id: result._id,
-        firstName: result.firstName,
-        lastName: result.lastName,
-        // posts: [],
+        name: result.name,
+        email: result.email,
       };
       console.log(`c createUser newUser: ${JSON.stringify(newUser)}`);
       return newUser;

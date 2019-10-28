@@ -46,7 +46,9 @@ const server = new ApolloServer({
   resolvers,
   formatError: (error) => error,
   context: ({ req, res }) => ({
-    req, res,
+    req,
+    res,
+    secret: process.env.SECRET,
   }),
 });
 

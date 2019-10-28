@@ -4,8 +4,9 @@ import mongoose from 'mongoose';
 
 const User = mongoose.model('User', new mongoose.Schema({
   _id: String,
-  firstName: String,
-  lastName: String,
+  name: String,
+  email: String,
+  password: String,
 }));
 
 const Post = mongoose.model('Post', new mongoose.Schema({
