@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
+import jwt from 'jsonwebtoken';
 // import schema, { graphql } from "./schema";
 // import graphql from 'graphql';
 // import { makeExecutableSchema } from 'graphql-tools';
@@ -50,6 +52,22 @@ const server = new ApolloServer({
     res,
     secret: process.env.SECRET,
   }),
+});
+
+app.use(cookieParser());
+
+app.use((req, res, next) => {
+  // extract token from request
+  const { jToken } = req.cookies;
+  // extract the user ID from the token
+  if (jToken) {
+    const { user: me } = jwt.verify(jToken, process.env.SECRET);
+    console.log(`app.use jwt.verify jToken me: ${JSON.stringify(me)}`);
+    // put the userId onto the req for future requests to access
+    // req.userId = id;
+    req.me = { ...me };
+  }
+  next();
 });
 
 

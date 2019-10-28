@@ -171,10 +171,16 @@ const resolvers = {
       };
       console.log(`m createUser dataNewUser: ${JSON.stringify(newUserData)}`);
 
-      const newUser = await createUser(newUserData);
+      const user = await createUser(newUserData);
       const expiresIn = '30m'; // '12h';
-      const jwtToken = await jwt.sign(newUser, context.secret, { expiresIn });
-      return { token: jwtToken };
+      // const jwtToken = await jwt.sign(newUser, context.secret, { expiresIn });
+      const jToken = await jwt.sign(user, context.secret);
+      // set the jwt as a cookie on the response
+      context.response.cookie('token', jToken, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 30, // Expiry - 30 min
+      });
+      return { token: jToken };
       // console.log(`m createUser new: ${newU}`);
       // return newU;
       // usersMock.push(newUser);
@@ -214,8 +220,13 @@ const resolvers = {
       }
       delete user.password;
       const expiresIn = '30m'; // '12h';
-      const jwtToken = await jwt.sign(user, context.secret, { expiresIn });
-      return { token: jwtToken };
+      // const jToken = await jwt.sign(user, context.secret, { expiresIn });
+      const jToken = await jwt.sign(user, context.secret);
+      context.response.cookie('token', jToken, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 30, // Expiry - 30 min
+      });
+      return { token: jToken };
     },
     deleteUser: async (_, { id }) => {
       // console.log(`m deleteUser id: ${JSON.stringify(id)}`);
