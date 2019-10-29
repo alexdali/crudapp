@@ -7,10 +7,11 @@ import jwt from 'jsonwebtoken';
 // import graphql from 'graphql';
 // import { makeExecutableSchema } from 'graphql-tools';
 import { ApolloServer } from 'apollo-server-express';
-import bodyParser from 'body-parser';
+// import bodyParser from 'body-parser';
 import typeDefs from './graphql/typedef';
 import resolvers from './graphql/resolvers';
 import uri from './mongodb/db';
+import { getUser } from './mongodb/controllersGet';
 
 require('dotenv').config({ path: 'variables.env' });
 
@@ -101,10 +102,17 @@ const getMe = async (req) => {
   //     'Your session expired. Sign in again.',
   //   );
   // }
-  const user = jwt.verify(token, process.env.SECRET, (err, decoded) =>
-  // console.log(decoded); // bar
-    ({ id: decoded.id, name: decoded.name, email: decoded.email }));
-  console.log(`app.use getMe user: ${JSON.stringify(user)}`);
+  // const user = jwt.verify(token, process.env.SECRET, (err, decoded) =>
+  // // console.log(decoded); // bar
+  //   ({ id: decoded.id, name: decoded.name, email: decoded.email }));
+  // console.log(`app.use getMe user: ${JSON.stringify(user)}`);
+
+
+  const userId = jwt.verify(token, process.env.SECRET, (err, decoded) => decoded.id);
+  console.log(`app.use getMe userId: ${userId}`);
+
+  const user = await getUser(userId);
+  console.log(`app.use getMe MongoDB user: ${JSON.stringify(user)}`);
   // put the userId onto the req for future requests to access
   // req.userId = id;
   // req.user = { ...user };

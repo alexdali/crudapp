@@ -668,7 +668,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
 /* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./User */ "./components/User.js");
-/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Login */ "./components/Login.js");
+/* harmony import */ var _SignOut__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./SignOut */ "./components/SignOut.js");
+/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Login */ "./components/Login.js");
 
 
 
@@ -686,7 +687,7 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement;
 
 
 
- //import SigninModal from './SigninModal';
+
 
  // const handleRouteChangeStart = () => {
 //   NProgress.start();
@@ -705,7 +706,20 @@ var RowDiv = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div.with
 var MenuDiv = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div.withConfig({
   displayName: "NavBar__MenuDiv",
   componentId: "sc-14mmg1w-1"
-})([".ui.simple.dropdown .menu{opacity:0;}.ui.simple.active.dropdown > .menu,.ui.simple.dropdown:hover > .menu{opacity:1;top:95% !important;margin-top:0;}.ui.menu .ui.dropdown .menu > .selected.item:active{color:rgba(0,0,0,0.95) !important;}"]);
+})([".ui.simple.dropdown .menu{opacity:0;}.ui.simple.active.dropdown > .menu,.ui.simple.dropdown:hover > .menu{opacity:1;top:95% !important;margin-top:0;}.ui.menu .ui.dropdown .menu > .selected.item:active{color:rgba(0,0,0,0.95) !important;}"]); // function Authenticator({ apiKey, render }) {
+//   return (
+//     <Mutation mutation={AUTH_MUTATION} variables={{ apiKey }}>
+//       {(login, { data, error }) => {
+//         const token = (data && data.login.token) || undefined;
+//         return (
+//           <CallLogin login={login}>
+//             {render({ error, token })}
+//           </CallLogin>
+//         )
+//       }}
+//     </Mutation>
+//   );
+// }
 
 var NavBar =
 /*#__PURE__*/
@@ -772,17 +786,28 @@ function (_React$Component) {
         query: _User__WEBPACK_IMPORTED_MODULE_14__["CURRENT_USER_QUERY"],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 197
+          lineNumber: 212
         },
         __self: this
       }, function (_ref) {
-        var me = _ref.data.me,
+        var data = _ref.data,
             loading = _ref.loading;
-        //console.log('NavBar render Query data: ', data);
+
+        /* if (data!==undefined) {
+          console.log('NavBar render Query data: ', data);
+          console.log('NavBar render Query data loading: ', loading);
+          const {me} = data;
+          }
+        else {
+          console.log('NavBar render Query me loading: ', loading);
+          const me = false;
+          console.log('NavBar render Query me', me);
+          } */
+        //loading ? const me = false : const me = false;
         return __jsx(react__WEBPACK_IMPORTED_MODULE_7___default.a.Fragment, null, __jsx(MenuDiv, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 202
+            lineNumber: 230
           },
           __self: this
         }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__["Menu"], {
@@ -791,7 +816,7 @@ function (_React$Component) {
           floated: "right",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 203
+            lineNumber: 231
           },
           __self: this
         }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__["Menu"].Menu, {
@@ -799,7 +824,7 @@ function (_React$Component) {
           as: "ul",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 204
+            lineNumber: 232
           },
           __self: this
         }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__["Menu"].Item, {
@@ -808,27 +833,27 @@ function (_React$Component) {
           onClick: _this2.handleItemClick,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 205
+            lineNumber: 233
           },
           __self: this
         }, __jsx("div", {
           className: "MenuItem",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 210
+            lineNumber: 238
           },
           __self: this
         }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_10___default.a, {
           href: "/",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 211
+            lineNumber: 239
           },
           __self: this
         }, __jsx("a", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 212
+            lineNumber: 240
           },
           __self: this
         }, "\u0413\u043B\u0430\u0432\u043D\u0430\u044F")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__["Menu"].Item, {
@@ -837,27 +862,27 @@ function (_React$Component) {
           onClick: _this2.handleItemClick,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 217
+            lineNumber: 245
           },
           __self: this
         }, __jsx("div", {
           className: "MenuItem",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 223
+            lineNumber: 251
           },
           __self: this
         }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_10___default.a, {
           href: "/tariffs",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 224
+            lineNumber: 252
           },
           __self: this
         }, __jsx("a", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 225
+            lineNumber: 253
           },
           __self: this
         }, "\u041F\u0440\u043E\u0444\u0438\u043B\u044C")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__["Menu"].Item, {
@@ -866,65 +891,7 @@ function (_React$Component) {
           onClick: _this2.handleItemClick,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 229
-          },
-          __self: this
-        }, __jsx("div", {
-          className: "MenuItem",
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 235
-          },
-          __self: this
-        }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_10___default.a, {
-          href: "/tools",
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 236
-          },
-          __self: this
-        }, __jsx("a", {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 237
-          },
-          __self: this
-        }, "\u0421\u0435\u0440\u0432\u0438\u0441\u044B")))), me && __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__["Menu"].Item, {
-          name: "logout",
-          as: "li",
-          onClick: _this2.handleItemClick,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 242
-          },
-          __self: this
-        }, __jsx("div", {
-          className: "MenuItem",
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 247
-          },
-          __self: this
-        }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_10___default.a, {
-          href: "#",
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 248
-          },
-          __self: this
-        }, __jsx("a", {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 249
-          },
-          __self: this
-        }, "\u0412\u044B\u0439\u0442\u0438")))), !me && __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__["Menu"].Item, {
-          name: "login",
-          as: "li",
-          onClick: _this2.handleItemClick,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 258
+            lineNumber: 257
           },
           __self: this
         }, __jsx("div", {
@@ -935,7 +902,7 @@ function (_React$Component) {
           },
           __self: this
         }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_10___default.a, {
-          href: "#",
+          href: "/tools",
           __source: {
             fileName: _jsxFileName,
             lineNumber: 264
@@ -947,24 +914,83 @@ function (_React$Component) {
             lineNumber: 265
           },
           __self: this
-        }, loading ? __jsx("i", {
+        }, "\u0421\u0435\u0440\u0432\u0438\u0441\u044B")))), loading ? __jsx("i", {
           className: "spinner icon",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 265
+            lineNumber: 271
           },
           __self: this
-        }) : __jsx("span", {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 266
-          },
-          __self: this
-        }, "\u0412\u043E\u0439\u0442\u0438")))))))), login && __jsx(_Login__WEBPACK_IMPORTED_MODULE_15__["default"], {
-          handleRes: _this2.handleRes,
+        }) : __jsx(react__WEBPACK_IMPORTED_MODULE_7___default.a.Fragment, null, data.me && __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__["Menu"].Item, {
+          name: "logout",
+          as: "li",
+          onClick: _this2.handleItemClick,
           __source: {
             fileName: _jsxFileName,
             lineNumber: 275
+          },
+          __self: this
+        }, __jsx("div", {
+          className: "MenuItem",
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 280
+          },
+          __self: this
+        }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_10___default.a, {
+          href: "#",
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 281
+          },
+          __self: this
+        }, __jsx("a", {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 282
+          },
+          __self: this
+        }, __jsx(_SignOut__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 283
+          },
+          __self: this
+        }))))), !data.me && __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__["Menu"].Item, {
+          name: "login",
+          as: "li",
+          onClick: _this2.handleItemClick,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 291
+          },
+          __self: this
+        }, __jsx("div", {
+          className: "MenuItem",
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 296
+          },
+          __self: this
+        }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_10___default.a, {
+          href: "#",
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 297
+          },
+          __self: this
+        }, __jsx("a", {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 298
+          },
+          __self: this
+        }, "\u0412\u043E\u0439\u0442\u0438"))))) //<a>{loading ? <i className="spinner icon"></i> : <span>Войти</span>}</a>
+        ))), login && __jsx(_Login__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          handleRes: _this2.handleRes,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 310
           },
           __self: this
         }));
@@ -1132,6 +1158,72 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_6__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Page);
+
+/***/ }),
+
+/***/ "./components/SignOut.js":
+/*!*******************************!*\
+  !*** ./components/SignOut.js ***!
+  \*******************************/
+/*! exports provided: default, SIGN_OUT_MUTATION */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SIGN_OUT_MUTATION", function() { return SIGN_OUT_MUTATION; });
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/taggedTemplateLiteral */ "./node_modules/@babel/runtime-corejs2/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-apollo */ "./node_modules/react-apollo/lib/react-apollo.esm.js");
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! graphql-tag */ "./node_modules/graphql-tag/src/index.js");
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./User */ "./components/User.js");
+
+var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/SignOut.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
+function _templateObject() {
+  var data = Object(_babel_runtime_corejs2_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  mutation SIGN_OUT_MUTATION {\n    signOut {\n      message\n    }\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+
+
+
+var SIGN_OUT_MUTATION = graphql_tag__WEBPACK_IMPORTED_MODULE_3___default()(_templateObject());
+
+var Signout = function Signout(props) {
+  return __jsx(react_apollo__WEBPACK_IMPORTED_MODULE_2__["Mutation"], {
+    mutation: SIGN_OUT_MUTATION,
+    refetchQueries: [{
+      query: _User__WEBPACK_IMPORTED_MODULE_4__["CURRENT_USER_QUERY"]
+    }],
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 14
+    },
+    __self: this
+  }, function (signout) {
+    return __jsx("span", {
+      onClick: signout,
+      role: "button",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 19
+      },
+      __self: this
+    }, "\u0412\u044B\u0439\u0442\u0438");
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Signout);
+
 
 /***/ }),
 

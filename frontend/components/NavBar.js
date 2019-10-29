@@ -15,7 +15,7 @@ import {
   Icon,
 } from 'semantic-ui-react';
 import User, { CURRENT_USER_QUERY } from './User';
-//import SigninModal from './SigninModal';
+import SignOut from './SignOut';
 import Login from './Login';
 
 // const handleRouteChangeStart = () => {
@@ -148,6 +148,21 @@ const MenuDiv = styled.div`
   }
 `;
 
+// function Authenticator({ apiKey, render }) {
+//   return (
+//     <Mutation mutation={AUTH_MUTATION} variables={{ apiKey }}>
+//       {(login, { data, error }) => {
+//         const token = (data && data.login.token) || undefined;
+//         return (
+//           <CallLogin login={login}>
+//             {render({ error, token })}
+//           </CallLogin>
+//         )
+//       }}
+//     </Mutation>
+//   );
+// }
+
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -195,8 +210,21 @@ class NavBar extends React.Component {
     const { activeItem, login } = this.state;
     return (
       <Query query={CURRENT_USER_QUERY}>
-        {({ data: {me}, loading }) => {
-          //console.log('NavBar render Query data: ', data);
+        {({ data, loading }) => {
+
+          /* if (data!==undefined) {
+            console.log('NavBar render Query data: ', data);
+            console.log('NavBar render Query data loading: ', loading);
+            const {me} = data;
+            }
+          else {
+            console.log('NavBar render Query me loading: ', loading);
+            const me = false;
+            console.log('NavBar render Query me', me);
+            } */
+
+
+          //loading ? const me = false : const me = false;
           return (
             <>
             <MenuDiv>
@@ -238,7 +266,12 @@ class NavBar extends React.Component {
                       </Link>
                     </div>
                   </Menu.Item>
-                  {me && (
+                  { loading
+                    ?
+                    <i className="spinner icon"></i> :
+                    <>
+                  {data.me  &&
+                    (
                     <Menu.Item
                       name="logout"
                       as="li"
@@ -247,14 +280,14 @@ class NavBar extends React.Component {
                       <div className="MenuItem">
                         <Link href="#">
                           <a>
-                          Выйти
-                            {/* <Signout /> */}
+                            <SignOut />
                           </a>
                         </Link>
                       </div>
                     </Menu.Item>
                   )}
-                  {!me && (
+                  {!data.me &&
+                  (
                     <Menu.Item
                       name="login"
                       as="li"
@@ -262,12 +295,14 @@ class NavBar extends React.Component {
                     >
                       <div className="MenuItem">
                         <Link href="#">
-                        <a>{loading ? <i className="spinner icon"></i> :
-                        <span>Войти</span>}</a>
+                        <a>Войти</a>
                         </Link>
                       </div>
                     </Menu.Item>
                   )}
+                    </>
+                    //<a>{loading ? <i className="spinner icon"></i> : <span>Войти</span>}</a>
+                  }
                 </Menu.Menu>
               </Menu>
             </MenuDiv>

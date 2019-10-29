@@ -667,7 +667,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! semantic-ui-react */ "semantic-ui-react");
 /* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./User */ "./components/User.js");
-/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Login */ "./components/Login.js");
+/* harmony import */ var _SignOut__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./SignOut */ "./components/SignOut.js");
+/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Login */ "./components/Login.js");
 
 var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/NavBar.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
@@ -679,7 +680,7 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
 
 
- //import SigninModal from './SigninModal';
+
 
  // const handleRouteChangeStart = () => {
 //   NProgress.start();
@@ -698,7 +699,20 @@ const RowDiv = styled_components__WEBPACK_IMPORTED_MODULE_5___default.a.div.with
 const MenuDiv = styled_components__WEBPACK_IMPORTED_MODULE_5___default.a.div.withConfig({
   displayName: "NavBar__MenuDiv",
   componentId: "sc-14mmg1w-1"
-})([".ui.simple.dropdown .menu{opacity:0;}.ui.simple.active.dropdown > .menu,.ui.simple.dropdown:hover > .menu{opacity:1;top:95% !important;margin-top:0;}.ui.menu .ui.dropdown .menu > .selected.item:active{color:rgba(0,0,0,0.95) !important;}"]);
+})([".ui.simple.dropdown .menu{opacity:0;}.ui.simple.active.dropdown > .menu,.ui.simple.dropdown:hover > .menu{opacity:1;top:95% !important;margin-top:0;}.ui.menu .ui.dropdown .menu > .selected.item:active{color:rgba(0,0,0,0.95) !important;}"]); // function Authenticator({ apiKey, render }) {
+//   return (
+//     <Mutation mutation={AUTH_MUTATION} variables={{ apiKey }}>
+//       {(login, { data, error }) => {
+//         const token = (data && data.login.token) || undefined;
+//         return (
+//           <CallLogin login={login}>
+//             {render({ error, token })}
+//           </CallLogin>
+//         )
+//       }}
+//     </Mutation>
+//   );
+// }
 
 class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
   constructor(props) {
@@ -755,20 +769,28 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
       query: _User__WEBPACK_IMPORTED_MODULE_8__["CURRENT_USER_QUERY"],
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 197
+        lineNumber: 212
       },
       __self: this
     }, ({
-      data: {
-        me
-      },
+      data,
       loading
     }) => {
-      //console.log('NavBar render Query data: ', data);
+      /* if (data!==undefined) {
+        console.log('NavBar render Query data: ', data);
+        console.log('NavBar render Query data loading: ', loading);
+        const {me} = data;
+        }
+      else {
+        console.log('NavBar render Query me loading: ', loading);
+        const me = false;
+        console.log('NavBar render Query me', me);
+        } */
+      //loading ? const me = false : const me = false;
       return __jsx(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, __jsx(MenuDiv, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 202
+          lineNumber: 230
         },
         __self: this
       }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"], {
@@ -777,7 +799,7 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
         floated: "right",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 203
+          lineNumber: 231
         },
         __self: this
       }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Menu, {
@@ -785,7 +807,7 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
         as: "ul",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 204
+          lineNumber: 232
         },
         __self: this
       }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
@@ -794,27 +816,27 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
         onClick: this.handleItemClick,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 205
+          lineNumber: 233
         },
         __self: this
       }, __jsx("div", {
         className: "MenuItem",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 210
+          lineNumber: 238
         },
         __self: this
       }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
         href: "/",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 211
+          lineNumber: 239
         },
         __self: this
       }, __jsx("a", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 212
+          lineNumber: 240
         },
         __self: this
       }, "\u0413\u043B\u0430\u0432\u043D\u0430\u044F")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
@@ -823,27 +845,27 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
         onClick: this.handleItemClick,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 217
+          lineNumber: 245
         },
         __self: this
       }, __jsx("div", {
         className: "MenuItem",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 223
+          lineNumber: 251
         },
         __self: this
       }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
         href: "/tariffs",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 224
+          lineNumber: 252
         },
         __self: this
       }, __jsx("a", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 225
+          lineNumber: 253
         },
         __self: this
       }, "\u041F\u0440\u043E\u0444\u0438\u043B\u044C")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
@@ -852,65 +874,7 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
         onClick: this.handleItemClick,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 229
-        },
-        __self: this
-      }, __jsx("div", {
-        className: "MenuItem",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 235
-        },
-        __self: this
-      }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-        href: "/tools",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 236
-        },
-        __self: this
-      }, __jsx("a", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 237
-        },
-        __self: this
-      }, "\u0421\u0435\u0440\u0432\u0438\u0441\u044B")))), me && __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
-        name: "logout",
-        as: "li",
-        onClick: this.handleItemClick,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 242
-        },
-        __self: this
-      }, __jsx("div", {
-        className: "MenuItem",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 247
-        },
-        __self: this
-      }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-        href: "#",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 248
-        },
-        __self: this
-      }, __jsx("a", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 249
-        },
-        __self: this
-      }, "\u0412\u044B\u0439\u0442\u0438")))), !me && __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
-        name: "login",
-        as: "li",
-        onClick: this.handleItemClick,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 258
+          lineNumber: 257
         },
         __self: this
       }, __jsx("div", {
@@ -921,7 +885,7 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
         },
         __self: this
       }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-        href: "#",
+        href: "/tools",
         __source: {
           fileName: _jsxFileName,
           lineNumber: 264
@@ -933,24 +897,83 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
           lineNumber: 265
         },
         __self: this
-      }, loading ? __jsx("i", {
+      }, "\u0421\u0435\u0440\u0432\u0438\u0441\u044B")))), loading ? __jsx("i", {
         className: "spinner icon",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 265
+          lineNumber: 271
         },
         __self: this
-      }) : __jsx("span", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 266
-        },
-        __self: this
-      }, "\u0412\u043E\u0439\u0442\u0438")))))))), login && __jsx(_Login__WEBPACK_IMPORTED_MODULE_9__["default"], {
-        handleRes: this.handleRes,
+      }) : __jsx(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, data.me && __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
+        name: "logout",
+        as: "li",
+        onClick: this.handleItemClick,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 275
+        },
+        __self: this
+      }, __jsx("div", {
+        className: "MenuItem",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 280
+        },
+        __self: this
+      }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
+        href: "#",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 281
+        },
+        __self: this
+      }, __jsx("a", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 282
+        },
+        __self: this
+      }, __jsx(_SignOut__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 283
+        },
+        __self: this
+      }))))), !data.me && __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
+        name: "login",
+        as: "li",
+        onClick: this.handleItemClick,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 291
+        },
+        __self: this
+      }, __jsx("div", {
+        className: "MenuItem",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 296
+        },
+        __self: this
+      }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
+        href: "#",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 297
+        },
+        __self: this
+      }, __jsx("a", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 298
+        },
+        __self: this
+      }, "\u0412\u043E\u0439\u0442\u0438"))))) //<a>{loading ? <i className="spinner icon"></i> : <span>Войти</span>}</a>
+      ))), login && __jsx(_Login__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        handleRes: this.handleRes,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 310
         },
         __self: this
       }));
@@ -1095,6 +1118,62 @@ class Page extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Page);
+
+/***/ }),
+
+/***/ "./components/SignOut.js":
+/*!*******************************!*\
+  !*** ./components/SignOut.js ***!
+  \*******************************/
+/*! exports provided: default, SIGN_OUT_MUTATION */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SIGN_OUT_MUTATION", function() { return SIGN_OUT_MUTATION; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-apollo */ "react-apollo");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! graphql-tag */ "graphql-tag");
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./User */ "./components/User.js");
+var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/SignOut.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+const SIGN_OUT_MUTATION = graphql_tag__WEBPACK_IMPORTED_MODULE_2___default.a`
+  mutation SIGN_OUT_MUTATION {
+    signOut {
+      message
+    }
+  }
+`;
+
+const Signout = props => __jsx(react_apollo__WEBPACK_IMPORTED_MODULE_1__["Mutation"], {
+  mutation: SIGN_OUT_MUTATION,
+  refetchQueries: [{
+    query: _User__WEBPACK_IMPORTED_MODULE_3__["CURRENT_USER_QUERY"]
+  }],
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 14
+  },
+  __self: undefined
+}, signout => __jsx("span", {
+  onClick: signout,
+  role: "button",
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 19
+  },
+  __self: undefined
+}, "\u0412\u044B\u0439\u0442\u0438"));
+
+/* harmony default export */ __webpack_exports__["default"] = (Signout);
+
 
 /***/ }),
 
