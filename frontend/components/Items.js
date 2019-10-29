@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
-//import Item from './Item';
+import Item from './Item';
 //import Pagination from './Pagination';
 //import { perPage } from '../config';
 
@@ -46,10 +46,10 @@ const ItemsList = styled.div`
   }
 `;
 
-const DynamicComponentWithNoSSR = dynamic(
-  () => import('../components/Item'),
-  { ssr: false }
-)
+// const DynamicComponentWithNoSSR = dynamic(
+//   () => import('../components/Item'),
+//   { ssr: false }
+// )
 
 class Items extends Component {
   render() {
@@ -66,7 +66,7 @@ class Items extends Component {
             return (
               <ItemsList>
                 {data.posts.map(post => (
-                  <DynamicComponentWithNoSSR item={post} key={post.id} />
+                  <Item item={post} key={post.id} />
                 ))}
               </ItemsList>
             );

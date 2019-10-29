@@ -20,28 +20,30 @@ import {
 const resolvers = {
   DateTime: GraphQLDateTime,
   Query: {
-    // me: async (parent, arg, context) => {
-    //   // console.log('Query:  me -> ctx.request.userId', ctx.request.userId);
-    //   console.log('Query: me -> context', context);
-    //   // check if there is a current userId in request
-    //   if (!context.request.user) {
-    //     return null;
-    //   }
-    //   // run query for User by userId from database
-    //   // return ctx.db.query.user(
-    //   //   {
-    //   //     where: { id: ctx.request.userId },
-    //   //   },
-    //   //   info
-    //   // );
-    //   const { id } = context.request.user;
-    //   const user = await getUser(id);
-    //   if (!user) {
-    //     return null;
-    //   }
-    //   console.log(`query me req.user: ${JSON.stringify(context.request.user)}`);
-    //   return user;
-    // },
+    me: async (parent, arg, context, resolveInfo) => {
+      // console.log('Query:  me -> ctx.request.userId', ctx.request.userId);
+      console.log('Query: me -> context', context);
+      console.log(`query me ctx.user: ${JSON.stringify(context.user)}`);
+      // console.log(`query me ctx.req: ${JSON.stringify(ctx.req)}`);
+      // console.log(`query me ctx.request: ${JSON.stringify(ctx.request)}`);
+      // check if there is a current userId in request
+      if (!context.user) {
+        return null;
+      }
+      // run query for User by userId from database
+      // return ctx.db.query.user(
+      //   {
+      //     where: { id: ctx.request.userId },
+      //   },
+      //   info
+      // );
+      const { id } = context.user;
+      const user = await getUser(id);
+      console.log(`query me getUser user: ${JSON.stringify(user)}`);
+      if (!user) return null;
+      // console.log(`query me req.user: ${JSON.stringify(context.req.user)}`);
+      return user;
+    },
     user: async (_, { id }) => {
       const result = await getUser(id);
       const posts = await getPostsByUser({ userId: result.id });
@@ -251,12 +253,20 @@ const resolvers = {
       // context.response.cookie('token', jToken, {
       context.res.cookie('token', jToken, {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 31, // Expiry - 30 min
+        maxAge: 1000 * 60 * 60 * 24 * 31, // Expiry - 1 year
       });
       console.log(`m signIn cookie context.response: ${context.res}`);
       // console.log(`m signIn context.req: ${JSON.stringify(context.req)}`);
       // return { token: jToken };
       return user;
+    },
+    signOut: async (_, args, context) => {
+      console.log(`m signOut args: ${JSON.stringify(args)}`);
+
+      context.res.clearCookie('token');
+      console.log(`m signOut cookie context.response: ${context.res}`);
+
+      return { message: 'success' };
     },
     deleteUser: async (_, { id }) => {
       // console.log(`m deleteUser id: ${JSON.stringify(id)}`);

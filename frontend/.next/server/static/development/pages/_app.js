@@ -281,11 +281,11 @@ const SignupPromt = styled_components__WEBPACK_IMPORTED_MODULE_7___default.a.div
 const RowDiv = styled_components__WEBPACK_IMPORTED_MODULE_7___default.a.div.withConfig({
   displayName: "Login__RowDiv",
   componentId: "sc-1lb86wh-1"
-})([""]);
+})(["position:fixed;display:block;overflow:hidden;margin-left:70%;margin-top:45px;background:white;padding:20px;width:300px;z-index:100;}"]);
 const FormDiv = styled_components__WEBPACK_IMPORTED_MODULE_7___default.a.div.withConfig({
   displayName: "Login__FormDiv",
   componentId: "sc-1lb86wh-2"
-})(["box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-size:14px;font-variant:tabular-nums;line-height:1.5;list-style:none;font-feature-settings:'tnum';form{max-height:300px;box-shadow:0 0 5px 3px rgba(0,0,0,0.05);background:rgba(0,0,0,0.02);border:5px solid white;padding:5px;font-size:1.5rem;line-height:1.5;font-weight:600;fieldset::before{height:1px;margin-bottom:25px;margin-top:10px;}}.formItem{position:relative;height:auto;display:block;box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-size:14px;font-variant:tabular-nums;line-height:1.5;list-style:none;font-feature-settings:'tnum';margin-bottom:24px;.formItem-control{position:relative;line-height:40px;.input-wrapper{box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-size:14px;font-variant:tabular-nums;line-height:1.5;list-style:none;font-feature-settings:'tnum';position:relative;display:inline-block;width:100%;text-align:start;input:not(:first-child){padding-left:30px;}input{position:relative;min-height:100%;}.input-prefix{position:absolute;margin-left:10px;top:50%;z-index:2;display:flex;-webkit-box-align:center;align-items:center;color:rgba(0,0,0,0.65);line-height:0;transform:translateY(-50%);}}input{box-sizing:border-box;margin:0;font-variant:tabular-nums;list-style:none;font-feature-settings:'tnum';display:inline-block;width:100%;height:32px;padding:4px 11px;color:rgba(0,0,0,0.65);font-size:14px;line-height:1.5;background-color:#fff;background-image:none;border:1px solid #d9d9d9;border-radius:4px;transition:all 0.3s;}}}.form-item-children{position:relative;}label{font-size:14px;}.checkbox-wrapper{box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-variant:tabular-nums;list-style:none;font-feature-settings:'tnum';display:inline-block;line-height:unset;cursor:pointer;}span.checkbox{box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-size:13px;font-variant:tabular-nums;list-style:none;font-feature-settings:'tnum';position:relative;top:-0.09em;display:inline-block;line-height:1;white-space:nowrap;vertical-align:middle;outline:none;cursor:pointer;+ span{padding-right:8px;padding-left:8px;}}input[type='checkbox']{line-height:normal;width:14px;height:14px;box-sizing:border-box;padding:0;}.checkbox-inner{position:relative;top:0;left:0;display:block;width:16px;height:16px;border:1px solid #d9d9d9;border-radius:2px;border-collapse:separate;transition:all 0.3s;}.login-form-forgot{float:right;font-size:13px;}a{color:rgba(0,0,0,0.65);font-size:13px;text-decoration:none;background-color:transparent;outline:none;cursor:pointer;transition:color 0.3s;font-style:normal;font-weight:400;&:hover{color:#1ab394;font-weight:600;}}.login-form-button{width:100%;}"]);
+})(["box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-size:14px;font-variant:tabular-nums;line-height:1.5;list-style:none;font-feature-settings:'tnum';form{max-height:300px;box-shadow:0 0 5px 3px rgba(0,0,0,0.05);background:rgba(0,0,0,0.02);border:5px solid white;font-size:1.5rem;line-height:1.5;font-weight:600;fieldset::before{height:1px;margin-bottom:25px;margin-top:10px;}}.formItem{position:relative;height:auto;display:block;box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-size:14px;font-variant:tabular-nums;line-height:1.5;list-style:none;font-feature-settings:'tnum';margin-bottom:24px;.formItem-control{position:relative;line-height:40px;.input-wrapper{box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-size:14px;font-variant:tabular-nums;line-height:1.5;list-style:none;font-feature-settings:'tnum';position:relative;display:inline-block;width:100%;text-align:start;input:not(:first-child){padding-left:30px;}input{position:relative;min-height:100%;}.input-prefix{position:absolute;margin-left:10px;top:50%;z-index:2;display:flex;-webkit-box-align:center;align-items:center;color:rgba(0,0,0,0.65);line-height:0;transform:translateY(-50%);}}input{box-sizing:border-box;margin:0;font-variant:tabular-nums;list-style:none;font-feature-settings:'tnum';display:inline-block;width:100%;height:32px;padding:4px 11px;color:rgba(0,0,0,0.65);font-size:14px;line-height:1.5;background-color:#fff;background-image:none;border:1px solid #d9d9d9;border-radius:4px;transition:all 0.3s;}}}.form-item-children{position:relative;}label{font-size:14px;}.checkbox-wrapper{box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-variant:tabular-nums;list-style:none;font-feature-settings:'tnum';display:inline-block;line-height:unset;cursor:pointer;}span.checkbox{box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,0.65);font-size:13px;font-variant:tabular-nums;list-style:none;font-feature-settings:'tnum';position:relative;top:-0.09em;display:inline-block;line-height:1;white-space:nowrap;vertical-align:middle;outline:none;cursor:pointer;+ span{padding-right:8px;padding-left:8px;}}input[type='checkbox']{line-height:normal;width:14px;height:14px;box-sizing:border-box;padding:0;}.checkbox-inner{position:relative;top:0;left:0;display:block;width:16px;height:16px;border:1px solid #d9d9d9;border-radius:2px;border-collapse:separate;transition:all 0.3s;}.login-form-forgot{float:right;font-size:13px;}a{color:rgba(0,0,0,0.65);font-size:13px;text-decoration:none;background-color:transparent;outline:none;cursor:pointer;transition:color 0.3s;font-style:normal;font-weight:400;&:hover{color:#1ab394;font-weight:600;}}.login-form-button{width:100%;}"]);
 /* eslint-disable */
 // const Composed = adopt({
 //   user: ({render}) => <User>{render}</User>,
@@ -321,26 +321,36 @@ class Login extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       variables: {
         email: this.state.email,
         password: this.state.password
-      } //refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-      ,
+      },
+      refetchQueries: [{
+        query: _User__WEBPACK_IMPORTED_MODULE_9__["CURRENT_USER_QUERY"]
+      }],
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 266
+        lineNumber: 289
       },
       __self: this
     }, (signIn, {
       error,
       loading
     }) => __jsx(RowDiv, {
+      className: "login-background",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 272
+        lineNumber: 295
+      },
+      __self: this
+    }, __jsx("div", {
+      className: "blur",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 296
       },
       __self: this
     }, __jsx(FormDiv, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 273
+        lineNumber: 297
       },
       __self: this
     }, __jsx(_styles_Form__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -368,7 +378,7 @@ class Login extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 274
+        lineNumber: 298
       },
       __self: this
     }, __jsx("fieldset", {
@@ -376,49 +386,49 @@ class Login extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       "aria-busy": loading,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 295
+        lineNumber: 319
       },
       __self: this
     }, __jsx("div", {
       className: "formItem",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 297
+        lineNumber: 321
       },
       __self: this
     }, __jsx("label", {
       htmlFor: "email",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 298
+        lineNumber: 322
       },
       __self: this
     }, __jsx("div", {
       className: "formItem-control",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 299
+        lineNumber: 323
       },
       __self: this
     }, __jsx("span", {
       className: "input-wrapper",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 300
+        lineNumber: 324
       },
       __self: this
     }, __jsx("span", {
       className: "input-prefix",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 301
+        lineNumber: 325
       },
       __self: this
     }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__["Icon"], {
       name: "mail",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 302
+        lineNumber: 326
       },
       __self: this
     })), __jsx("input", {
@@ -429,49 +439,49 @@ class Login extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       onChange: this.saveToState,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 304
+        lineNumber: 328
       },
       __self: this
     }))))), __jsx("div", {
       className: "formItem",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 315
+        lineNumber: 339
       },
       __self: this
     }, __jsx("label", {
       htmlFor: "password",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 316
+        lineNumber: 340
       },
       __self: this
     }, __jsx("div", {
       className: "formItem-control",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 317
+        lineNumber: 341
       },
       __self: this
     }, __jsx("span", {
       className: "input-wrapper",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 318
+        lineNumber: 342
       },
       __self: this
     }, __jsx("span", {
       className: "input-prefix",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 319
+        lineNumber: 343
       },
       __self: this
     }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__["Icon"], {
       name: "lock",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 320
+        lineNumber: 344
       },
       __self: this
     })), __jsx("input", {
@@ -482,28 +492,28 @@ class Login extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       onChange: this.saveToState,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 322
+        lineNumber: 346
       },
       __self: this
     }))))), __jsx("div", {
       className: "formItem",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 333
+        lineNumber: 357
       },
       __self: this
     }, __jsx("div", {
       className: "formItem-control",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 334
+        lineNumber: 358
       },
       __self: this
     }, __jsx("span", {
       className: "form-item-children",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 335
+        lineNumber: 359
       },
       __self: this
     }, __jsx("button", {
@@ -511,16 +521,16 @@ class Login extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       className: "ant-btn ant-btn-primary login-form-button ",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 336
+        lineNumber: 360
       },
       __self: this
     }, __jsx("span", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 340
+        lineNumber: 364
       },
       __self: this
-    }, "\u0412\u043E\u0439\u0442\u0438"))))))))));
+    }, "\u0412\u043E\u0439\u0442\u0438")))))))))));
   }
 
 } //const Login = () => (
@@ -656,7 +666,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! semantic-ui-react */ "semantic-ui-react");
 /* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Login */ "./components/Login.js");
+/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./User */ "./components/User.js");
+/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Login */ "./components/Login.js");
 
 var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/NavBar.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
@@ -667,8 +678,8 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
  //import NProgress from 'nprogress';
 
 
- //import User, { CURRENT_USER_QUERY } from './User';
-//import SigninModal from './SigninModal';
+
+ //import SigninModal from './SigninModal';
 
  // const handleRouteChangeStart = () => {
 //   NProgress.start();
@@ -710,8 +721,14 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
         name
       } = data;
 
-      if (name === 'login') {// this.setState({
-        //   signinModal: true,
+      if (name === 'login') {
+        this.setState({
+          login: true
+        });
+      }
+
+      if (name === 'logout') {// this.setState({
+        //   login: e,
         // });
       }
 
@@ -723,7 +740,7 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
 
     this.state = {
       activeItem: '',
-      login: true
+      login: false
     };
   }
 
@@ -734,124 +751,210 @@ class NavBar extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
       activeItem,
       login
     } = this.state;
-    return __jsx(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, __jsx(MenuDiv, {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 195
-      },
-      __self: this
-    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"], {
-      secondary: true,
-      borderless: true,
-      floated: "right",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 196
-      },
-      __self: this
-    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Menu, {
-      position: "right",
-      as: "ul",
+    return __jsx(react_apollo__WEBPACK_IMPORTED_MODULE_2__["Query"], {
+      query: _User__WEBPACK_IMPORTED_MODULE_8__["CURRENT_USER_QUERY"],
       __source: {
         fileName: _jsxFileName,
         lineNumber: 197
       },
       __self: this
-    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
-      name: "home",
-      as: "li",
-      onClick: this.handleItemClick,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 198
+    }, ({
+      data: {
+        me
       },
-      __self: this
-    }, __jsx("div", {
-      className: "MenuItem",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 203
-      },
-      __self: this
-    }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-      href: "/",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 204
-      },
-      __self: this
-    }, __jsx("a", {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 205
-      },
-      __self: this
-    }, "\u0413\u043B\u0430\u0432\u043D\u0430\u044F")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
-      name: "tariffs",
-      as: "li",
-      onClick: this.handleItemClick,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 210
-      },
-      __self: this
-    }, __jsx("div", {
-      className: "MenuItem",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 216
-      },
-      __self: this
-    }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-      href: "/tariffs",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 217
-      },
-      __self: this
-    }, __jsx("a", {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 218
-      },
-      __self: this
-    }, "\u041F\u0440\u043E\u0444\u0438\u043B\u044C")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
-      name: "tools",
-      as: "li",
-      onClick: this.handleItemClick,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 222
-      },
-      __self: this
-    }, __jsx("div", {
-      className: "MenuItem",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 228
-      },
-      __self: this
-    }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-      href: "/tools",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 229
-      },
-      __self: this
-    }, __jsx("a", {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 230
-      },
-      __self: this
-    }, "\u0421\u0435\u0440\u0432\u0438\u0441\u044B"))))))), login && __jsx(_Login__WEBPACK_IMPORTED_MODULE_8__["default"], {
-      handleRes: this.handleRes,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 239
-      },
-      __self: this
-    }));
+      loading
+    }) => {
+      //console.log('NavBar render Query data: ', data);
+      return __jsx(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, __jsx(MenuDiv, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 202
+        },
+        __self: this
+      }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"], {
+        secondary: true,
+        borderless: true,
+        floated: "right",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 203
+        },
+        __self: this
+      }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Menu, {
+        position: "right",
+        as: "ul",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 204
+        },
+        __self: this
+      }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
+        name: "home",
+        as: "li",
+        onClick: this.handleItemClick,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 205
+        },
+        __self: this
+      }, __jsx("div", {
+        className: "MenuItem",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 210
+        },
+        __self: this
+      }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
+        href: "/",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 211
+        },
+        __self: this
+      }, __jsx("a", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 212
+        },
+        __self: this
+      }, "\u0413\u043B\u0430\u0432\u043D\u0430\u044F")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
+        name: "tariffs",
+        as: "li",
+        onClick: this.handleItemClick,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 217
+        },
+        __self: this
+      }, __jsx("div", {
+        className: "MenuItem",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 223
+        },
+        __self: this
+      }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
+        href: "/tariffs",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 224
+        },
+        __self: this
+      }, __jsx("a", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 225
+        },
+        __self: this
+      }, "\u041F\u0440\u043E\u0444\u0438\u043B\u044C")))), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
+        name: "tools",
+        as: "li",
+        onClick: this.handleItemClick,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 229
+        },
+        __self: this
+      }, __jsx("div", {
+        className: "MenuItem",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 235
+        },
+        __self: this
+      }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
+        href: "/tools",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 236
+        },
+        __self: this
+      }, __jsx("a", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 237
+        },
+        __self: this
+      }, "\u0421\u0435\u0440\u0432\u0438\u0441\u044B")))), me && __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
+        name: "logout",
+        as: "li",
+        onClick: this.handleItemClick,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 242
+        },
+        __self: this
+      }, __jsx("div", {
+        className: "MenuItem",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 247
+        },
+        __self: this
+      }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
+        href: "#",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 248
+        },
+        __self: this
+      }, __jsx("a", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 249
+        },
+        __self: this
+      }, "\u0412\u044B\u0439\u0442\u0438")))), !me && __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__["Menu"].Item, {
+        name: "login",
+        as: "li",
+        onClick: this.handleItemClick,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 258
+        },
+        __self: this
+      }, __jsx("div", {
+        className: "MenuItem",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 263
+        },
+        __self: this
+      }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
+        href: "#",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 264
+        },
+        __self: this
+      }, __jsx("a", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 265
+        },
+        __self: this
+      }, loading ? __jsx("i", {
+        className: "spinner icon",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 265
+        },
+        __self: this
+      }) : __jsx("span", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 266
+        },
+        __self: this
+      }, "\u0412\u043E\u0439\u0442\u0438")))))))), login && __jsx(_Login__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        handleRes: this.handleRes,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 275
+        },
+        __self: this
+      }));
+    });
   }
 
 }
@@ -1092,19 +1195,24 @@ const endpoint = `http://localhost:8000`;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var next_with_apollo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! next-with-apollo */ "next-with-apollo");
-/* harmony import */ var next_with_apollo__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(next_with_apollo__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var apollo_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! apollo-client */ "apollo-client");
-/* harmony import */ var apollo_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(apollo_client__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! apollo-cache-inmemory */ "apollo-cache-inmemory");
-/* harmony import */ var apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var apollo_link_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! apollo-link-http */ "apollo-link-http");
-/* harmony import */ var apollo_link_http__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(apollo_link_http__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/objectSpread */ "./node_modules/@babel/runtime-corejs2/helpers/esm/objectSpread.js");
+/* harmony import */ var next_with_apollo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next-with-apollo */ "next-with-apollo");
+/* harmony import */ var next_with_apollo__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_with_apollo__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var apollo_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! apollo-client */ "apollo-client");
+/* harmony import */ var apollo_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(apollo_client__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! apollo-cache-inmemory */ "apollo-cache-inmemory");
+/* harmony import */ var apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var apollo_link_error__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! apollo-link-error */ "apollo-link-error");
 /* harmony import */ var apollo_link_error__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(apollo_link_error__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var apollo_link__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! apollo-link */ "apollo-link");
 /* harmony import */ var apollo_link__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(apollo_link__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../config */ "./config.js");
+/* harmony import */ var apollo_link_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! apollo-link-http */ "apollo-link-http");
+/* harmony import */ var apollo_link_http__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(apollo_link_http__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var apollo_link_context__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! apollo-link-context */ "apollo-link-context");
+/* harmony import */ var apollo_link_context__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(apollo_link_context__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../config */ "./config.js");
+
+
 
 
 
@@ -1112,11 +1220,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
  //import { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION } from '../components/Cart';
+
+const httpLink = Object(apollo_link_http__WEBPACK_IMPORTED_MODULE_6__["createHttpLink"])({
+  uri: _config__WEBPACK_IMPORTED_MODULE_8__["endpoint"],
+  credentials: 'include'
+});
+const authLink = Object(apollo_link_context__WEBPACK_IMPORTED_MODULE_7__["setContext"])((_, {
+  headers
+}) => {
+  // get the authentication token from local storage if it exists
+  //const token = localStorage.getItem('token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({}, headers)
+  };
+}); // const authLink = new ApolloLink((operation, forward) => {
+//   operation.setContext(({ headers }) => ({ headers: {
+//     //authorization: Meteor.userId(), // however you get your token
+//     ...headers
+//   }}));
+//   return forward(operation);
+// });
 //const createClient = new ApolloClient({
 
-function createClient() {
-  return new apollo_client__WEBPACK_IMPORTED_MODULE_1__["ApolloClient"]({
-    link: apollo_link__WEBPACK_IMPORTED_MODULE_5__["ApolloLink"].from([Object(apollo_link_error__WEBPACK_IMPORTED_MODULE_4__["onError"])(({
+function createClient({
+  headers
+}) {
+  return new apollo_client__WEBPACK_IMPORTED_MODULE_2__["ApolloClient"]({
+    //credentials: 'include',
+    link: apollo_link__WEBPACK_IMPORTED_MODULE_5__["ApolloLink"].from([authLink, Object(apollo_link_error__WEBPACK_IMPORTED_MODULE_4__["onError"])(({
       graphQLErrors,
       networkError
     }) => {
@@ -1126,15 +1258,16 @@ function createClient() {
         path
       }) => console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`));
       if (networkError) console.log(`[Network error]: ${networkError}`);
-    }), new apollo_link_http__WEBPACK_IMPORTED_MODULE_3__["HttpLink"]({
-      uri: _config__WEBPACK_IMPORTED_MODULE_6__["endpoint"],
-      credentials: 'include'
-    })]),
-    cache: new apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_2__["InMemoryCache"]()
+    }), httpLink // new HttpLink({
+    //   uri: endpoint,
+    //   credentials: 'include',
+    //  })
+    ]),
+    cache: new apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_3__["InMemoryCache"]()
   });
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (next_with_apollo__WEBPACK_IMPORTED_MODULE_0___default()(createClient));
+/* harmony default export */ __webpack_exports__["default"] = (next_with_apollo__WEBPACK_IMPORTED_MODULE_1___default()(createClient));
 
 /***/ }),
 
@@ -1190,6 +1323,17 @@ module.exports = __webpack_require__(/*! core-js/library/fn/object/define-proper
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(/*! core-js/library/fn/object/get-own-property-descriptor */ "core-js/library/fn/object/get-own-property-descriptor");
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime-corejs2/core-js/object/get-own-property-symbols.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/@babel/runtime-corejs2/core-js/object/get-own-property-symbols.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! core-js/library/fn/object/get-own-property-symbols */ "core-js/library/fn/object/get-own-property-symbols");
 
 /***/ }),
 
@@ -1323,6 +1467,49 @@ function _extends() {
   };
 
   return _extends.apply(this, arguments);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime-corejs2/helpers/esm/objectSpread.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@babel/runtime-corejs2/helpers/esm/objectSpread.js ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _objectSpread; });
+/* harmony import */ var _core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core-js/object/get-own-property-descriptor */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-own-property-descriptor.js");
+/* harmony import */ var _core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core-js/object/get-own-property-symbols */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-own-property-symbols.js");
+/* harmony import */ var _core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _core_js_object_keys__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../core-js/object/keys */ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js");
+/* harmony import */ var _core_js_object_keys__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_core_js_object_keys__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _defineProperty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
+
+
+
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    var ownKeys = _core_js_object_keys__WEBPACK_IMPORTED_MODULE_2___default()(source);
+
+    if (typeof _core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_1___default.a === 'function') {
+      ownKeys = ownKeys.concat(_core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_1___default()(source).filter(function (sym) {
+        return _core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_0___default()(source, sym).enumerable;
+      }));
+    }
+
+    ownKeys.forEach(function (key) {
+      Object(_defineProperty__WEBPACK_IMPORTED_MODULE_3__["default"])(target, key, source[key]);
+    });
+  }
+
+  return target;
 }
 
 /***/ }),
@@ -3235,6 +3422,17 @@ module.exports = require("apollo-link");
 
 /***/ }),
 
+/***/ "apollo-link-context":
+/*!**************************************!*\
+  !*** external "apollo-link-context" ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("apollo-link-context");
+
+/***/ }),
+
 /***/ "apollo-link-error":
 /*!************************************!*\
   !*** external "apollo-link-error" ***!
@@ -3309,6 +3507,17 @@ module.exports = require("core-js/library/fn/object/define-property");
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/library/fn/object/get-own-property-descriptor");
+
+/***/ }),
+
+/***/ "core-js/library/fn/object/get-own-property-symbols":
+/*!*********************************************************************!*\
+  !*** external "core-js/library/fn/object/get-own-property-symbols" ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/library/fn/object/get-own-property-symbols");
 
 /***/ }),
 

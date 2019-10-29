@@ -14,7 +14,7 @@ import {
   // Header,
   Icon,
 } from 'semantic-ui-react';
-//import User, { CURRENT_USER_QUERY } from './User';
+import User, { CURRENT_USER_QUERY } from './User';
 //import SigninModal from './SigninModal';
 import Login from './Login';
 
@@ -154,7 +154,7 @@ class NavBar extends React.Component {
     super(props);
     this.state = {
       activeItem: '',
-      login: true,
+      login: false,
     };
   }
 
@@ -172,8 +172,13 @@ class NavBar extends React.Component {
     console.log('NavBar handleItemClick data: ', data);
     const { name } = data;
     if (name === 'login') {
+      this.setState({
+        login: true,
+      });
+    }
+    if (name === 'logout') {
       // this.setState({
-      //   signinModal: true,
+      //   login: e,
       // });
     }
     if (name === 'taxservice') {
@@ -188,9 +193,11 @@ class NavBar extends React.Component {
     // console.log('NavBar render this.state: ', this.state);
     // console.log('Header render  this.props: ', this.props.isMobile);
     const { activeItem, login } = this.state;
-
-
     return (
+      <Query query={CURRENT_USER_QUERY}>
+        {({ data: {me}, loading }) => {
+          //console.log('NavBar render Query data: ', data);
+          return (
             <>
             <MenuDiv>
               <Menu secondary borderless floated="right">
@@ -231,13 +238,45 @@ class NavBar extends React.Component {
                       </Link>
                     </div>
                   </Menu.Item>
-
+                  {me && (
+                    <Menu.Item
+                      name="logout"
+                      as="li"
+                      onClick={this.handleItemClick}
+                    >
+                      <div className="MenuItem">
+                        <Link href="#">
+                          <a>
+                          Выйти
+                            {/* <Signout /> */}
+                          </a>
+                        </Link>
+                      </div>
+                    </Menu.Item>
+                  )}
+                  {!me && (
+                    <Menu.Item
+                      name="login"
+                      as="li"
+                      onClick={this.handleItemClick}
+                    >
+                      <div className="MenuItem">
+                        <Link href="#">
+                        <a>{loading ? <i className="spinner icon"></i> :
+                        <span>Войти</span>}</a>
+                        </Link>
+                      </div>
+                    </Menu.Item>
+                  )}
                 </Menu.Menu>
               </Menu>
             </MenuDiv>
             {login &&
             <Login handleRes={this.handleRes}/>}
             </>
+          );
+          }}
+      </Query>
     );
   }
 }

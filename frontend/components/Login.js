@@ -55,7 +55,30 @@ const SignupPromt = styled.div`
 `;
 
 const RowDiv = styled.div`
-  /* padding: 24px; */
+position: fixed;
+display: block;
+overflow: hidden;
+    margin-left: 70%;
+    margin-top: 45px;
+    background: white;
+    padding: 20px;
+    width: 300px;
+    z-index: 100;
+    /* color: #fff;
+    text-align: center;
+    text-shadow: 0 0 5px rgba(0,0,0,.5); */
+    /* .login-background {
+    transition: .6s filter;
+    }
+    .login-background.de-emphasized {
+    filter: blur(5px);
+    } */
+    /* .blur {
+    z-index: 99;
+    background-image: url(image.png);
+    background-size: cover;
+    background-repeat: no-repeat; */
+}
 `;
 
 const FormDiv = styled.div`
@@ -74,7 +97,7 @@ const FormDiv = styled.div`
     box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
     background: rgba(0, 0, 0, 0.02);
     border: 5px solid white;
-    padding: 5px;
+    /* padding: 5px; */
     font-size: 1.5rem;
     line-height: 1.5;
     font-weight: 600;
@@ -266,10 +289,11 @@ class Login extends Component {
       <Mutation
         mutation={SIGNIN_MUTATION}
         variables={{email: this.state.email, password: this.state.password,}}
-        //refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
         {(signIn, { error, loading }) => (
-          <RowDiv>
+          <RowDiv className="login-background">
+          <div className="blur">
             <FormDiv>
               <Form
                 method="post"
@@ -345,6 +369,7 @@ class Login extends Component {
                 </fieldset>
               </Form>
             </FormDiv>
+            </div>
           </RowDiv>
         )}
       </Mutation>

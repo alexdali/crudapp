@@ -36,7 +36,7 @@ type Comment {
 }
 
 type Query {
-  # me: User
+  me: User
   user(id: String!): User
   users: [User]!
   post(id: String!): Post
@@ -49,6 +49,7 @@ type Query {
 type Mutation {
   signUp(name: String!, email: String!, password: String!): User!
   signIn(email: String!, password: String!): User
+  signOut: SuccessMessage
   deleteUser(id: String!): SuccessMessage
   createPost(userId: String!, title: String!, content: String!): Post
   deletePost(postId: String!, userId: String!): SuccessMessage
