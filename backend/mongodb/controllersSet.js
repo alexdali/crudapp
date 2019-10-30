@@ -83,6 +83,43 @@ const createPost = async (arg) => {
     .catch((err) => console.error('Error db: ', err));
 };
 
+// Update Post
+const updatePost = async (arg) => {
+  const {
+    id: _id, title, userId, content, createdDate,
+  } = arg;
+  console.log(`c updatePost arg: ${JSON.stringify(arg)}`);
+  const filter = { _id };
+  return Post.findOneAndUpdate(filter, { title, content, createdDate },
+    // If `new` isn't true, `findOneAndUpdate()` will return the
+    // document as it was _before_ it was updated.
+    { new: true })
+    .then((result) => {
+      console.log(`c updatePost findOneAndUpdate: ${JSON.stringify(result)}`);
+      const updatedPost = {
+        id: result._id,
+        title: result.title,
+        userId: result.userId,
+        content: result.content,
+        createdDate: result.createdDate,
+      };
+      // console.log(`c updatePost updatedPost: ${JSON.stringify(updatedPost)}`);
+      return updatedPost;
+    })
+    .catch((err) => console.error('Error db: ', err));
+
+  // return post.findById(id, (err, doc) => {
+  //   if (err) return err;
+  //   // if (userId !== post.userId) return err.messages('Вы')
+  //   const post = new Post({
+  //     _id: id, title, userId, content, createdDate,
+  //   });
+  //   doc.title = title;
+  //   doc.content = content;
+  //   return doc.save();
+  // });
+};
+
 // Delete Post
 const deletePost = async (arg) => {
   console.log(`c deletePost arg: ${JSON.stringify(arg)}`);
@@ -143,5 +180,5 @@ const deleteComment = async (arg) => {
 
 
 export {
-  createUser, deleteUser, createPost, deletePost, createComment, deleteComment,
+  createUser, deleteUser, createPost, updatePost, deletePost, createComment, deleteComment,
 };

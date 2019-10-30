@@ -51,7 +51,8 @@ type Mutation {
   signIn(email: String!, password: String!): User
   signOut: SuccessMessage
   deleteUser(id: String!): SuccessMessage
-  createPost(userId: String!, title: String!, content: String!): Post
+  createPost(userId: String!, title: String!, content: String!): Post!
+  updatePost(userId: String!, postId: String!, title: String!, content: String!): Post!
   deletePost(postId: String!, userId: String!): SuccessMessage
   createComment(userId: String!, postId: String!, content: String!): Comment
   deleteComment(id: String!, userId: String!): SuccessMessage

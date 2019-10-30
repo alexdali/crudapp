@@ -12,7 +12,7 @@ import {
   getUsers, getUser, getUserByArg, getPosts, getPost, getComment, getPostsByUser, getCommentsByPost, getCommentsByUser,
 } from '../mongodb/controllersGet';
 import {
-  createUser, deleteUser, createPost, deletePost, createComment, deleteComment,
+  createUser, deleteUser, createPost, updatePost, deletePost, createComment, deleteComment,
 } from '../mongodb/controllersSet';
 
 /* eslint no-underscore-dangle: [1, { "allow": ["__id"] }] */
@@ -306,6 +306,23 @@ const resolvers = {
       // // return resolve(postsMock[len - 1]);
       // return newPostReq[0];
       // });
+    },
+    updatePost: async (_, {
+      userId, postId: id, title, content,
+    }, context) => {
+      const { id } = context.user;
+      if (id !== userId) {
+        throw new Error('Вы не можете редактировать чужие посты!');
+      }
+      // const createdDate = new Date().toISOString;
+      const createdDate = moment.utc().format();
+      console.log(`m updatePost createdDate: ${createdDate}`);
+      const updatePostData = {
+        id, title, userId, content, createdDate,
+      };
+      console.log(`m updatePost updatePostData: ${JSON.stringify(updatePostData)}`);
+      const updatedPost = await updatePost(updatePostData);
+      return updatedPost;
     },
     deletePost: async (_, { userId, postId }) => {
       // console.log(`m deletePost id: ${JSON.stringify(id)}`);
