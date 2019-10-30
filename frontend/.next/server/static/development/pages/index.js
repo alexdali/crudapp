@@ -107,9 +107,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "styled-components");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Items__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Items */ "./components/Items.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! semantic-ui-react */ "semantic-ui-react");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _PostList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PostList */ "./components/PostList.js");
 var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/Index.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 
 
 
@@ -129,26 +132,111 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     return __jsx(IndexDiv, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 21
-      },
-      __self: this
-    }, __jsx(_Items__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      __source: {
-        fileName: _jsxFileName,
         lineNumber: 22
       },
       __self: this
-    }));
+    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
+      celled: "internally",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 24
+      },
+      __self: this
+    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Grid"].Row, {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 25
+      },
+      __self: this
+    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Grid"].Column, {
+      width: 3,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 26
+      },
+      __self: this
+    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Segment"], {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 27
+      },
+      __self: this
+    }, "1"), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Segment"], {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 28
+      },
+      __self: this
+    }, "2"), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Segment"], {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 29
+      },
+      __self: this
+    }, "1"), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Segment"], {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 30
+      },
+      __self: this
+    }, "2")), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Grid"].Column, {
+      width: 10,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 32
+      },
+      __self: this
+    }, __jsx(_PostList__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 33
+      },
+      __self: this
+    })), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Grid"].Column, {
+      width: 3,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 35
+      },
+      __self: this
+    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Segment"], {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 36
+      },
+      __self: this
+    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Image"], {
+      src: "https://react.semantic-ui.com/images/wireframe/image.png",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 37
+      },
+      __self: this
+    }), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Image"], {
+      src: "https://react.semantic-ui.com/images/wireframe/paragraph.png",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 38
+      },
+      __self: this
+    }), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Image"], {
+      src: "https://react.semantic-ui.com/images/wireframe/paragraph.png",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 39
+      },
+      __self: this
+    }))))));
   }
 
 }
 
 /***/ }),
 
-/***/ "./components/Item.js":
-/*!****************************!*\
-  !*** ./components/Item.js ***!
-  \****************************/
+/***/ "./components/PostCard.js":
+/*!********************************!*\
+  !*** ./components/PostCard.js ***!
+  \********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -163,141 +251,287 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "styled-components");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! semantic-ui-react */ "semantic-ui-react");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__);
 
-var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/Item.js";
+var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/PostCard.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
 
 
- // import Title from './styles/Title';
-// import ItemStyles from './styles/ItemStyles';
+
+ // import ItemStyles from './styles/ItemStyles';
 //import BlockStyles from './styles/BlockStyles';
-// import PriceTag from './styles/PriceTag';
-// import formatMoney from '../lib/formatMoney';
-// import DeleteItem from './DeleteItem';
-// import AddToCart from './AddToCart';
+// const Block = styled.div`
+//   background: white;
+//   border: 1px solid rgba(0, 0, 0, 0.1)};
+//   /* ${props => props.theme.offWhite}; */
+//   border-radius: 5px;
+//   box-shadow: ${props => props.theme.bs};
+//   position: relative;
+//   /* display: flex;
+//   flex-direction: column; */
+//   display: block;
+//   margin: 1.8rem auto;
+//   padding: 5px 0 10px;
+//   img {
+//     width: 100%;
+//     height: 400px;
+//     object-fit: scale-down;
+//     /* object-fit: cover; */
+//   }
+//   p {
+//     /* text-align: left;
+//     font-size: 12px;
+//     line-height: 2;
+//     font-weight: 300;
+//     /* flex-grow: 1; */
+//     /* padding: 0 3rem; */
+//     /* font-size: 1.5rem; */
+//   }
+//   .buttonList {
+//     display: grid;
+//     width: 100%;
+//     border-top: 1px solid ${props => props.theme.lightgrey};
+//     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+//     grid-gap: 1px;
+//     background: ${props => props.theme.lightgrey};
+//     & > * {
+//       background: white;
+//       border: 0;
+//       font-size: 1rem;
+//       padding: 1rem;
+//     }
+//   }
+// `;
+// const Title = styled.h3`
+//   margin: 2px 1rem;
+//   text-align: left;
+//   /* margin-top: -0.5rem; */
+//   /* transform: skew(-5deg) rotate(-1deg); */
+//   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+//   a {
+//     background: ${props => props.theme.green};
+//     display: inline;
+//     line-height: 1.3;
+//     font-size: 1.1rem;
+//     text-align: center;
+//     /* color: white; */
+//     padding: 0 1rem;
+//   }
+// `;
+// const Description = styled.p`
+//   text-align: justify;
+//   /* font-size: 12px; */
+//   line-height: 2;
+//   font-weight: 300;
+//   padding: 0 2rem;
+//   font-size: 0.85rem;
+// `;
 
-const Block = styled_components__WEBPACK_IMPORTED_MODULE_4___default.a.div.withConfig({
-  displayName: "Item__Block",
-  componentId: "sc-6p5ikn-0"
-})(["background:white;border:1px solid rgba(0,0,0,0.1)};border-radius:5px;box-shadow:", ";position:relative;display:block;margin:1.8rem auto;padding:5px 0 10px;img{width:100%;height:400px;object-fit:scale-down;}p{}.buttonList{display:grid;width:100%;border-top:1px solid ", ";grid-template-columns:repeat(auto-fit,minmax(100px,1fr));grid-gap:1px;background:", ";& > *{background:white;border:0;font-size:1rem;padding:1rem;}}"], props => props.theme.bs, props => props.theme.lightgrey, props => props.theme.lightgrey);
-const Title = styled_components__WEBPACK_IMPORTED_MODULE_4___default.a.h3.withConfig({
-  displayName: "Item__Title",
-  componentId: "sc-6p5ikn-1"
-})(["margin:2px 1rem;text-align:left;text-shadow:2px 2px 0 rgba(0,0,0,0.1);a{background:", ";display:inline;line-height:1.3;font-size:1.1rem;text-align:center;padding:0 1rem;}"], props => props.theme.green);
-const Description = styled_components__WEBPACK_IMPORTED_MODULE_4___default.a.p.withConfig({
-  displayName: "Item__Description",
-  componentId: "sc-6p5ikn-2"
-})(["text-align:justify;line-height:2;font-weight:300;padding:0 2rem;font-size:0.85rem;"]);
-
-class Item extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
+class PostCard extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
   render() {
     const {
-      item
-    } = this.props; // console.log('item component this.props', this.props);
-
-    return __jsx(Block, {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 92
-      },
-      __self: this
-    }, __jsx(Title, {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 94
-      },
-      __self: this
-    }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
-      href: {
-        pathname: '/user',
-        query: {
-          id: item.id
-        }
-      },
+      id,
+      userId,
+      title,
+      content,
+      createdDate
+    } = this.props.postcard;
+    console.log('PostCard this.props', this.props);
+    return __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Item"], {
       __source: {
         fileName: _jsxFileName,
         lineNumber: 95
       },
       __self: this
-    }, __jsx("a", {
+    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Item"].Content, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 101
+        lineNumber: 97
       },
       __self: this
-    }, item.title))), __jsx(Description, {
+    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Item"].Header, {
+      as: "a",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 98
+      },
+      __self: this
+    }, title), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Divider"], {
+      clearing: true,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 99
+      },
+      __self: this
+    }), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Label"], {
+      as: "span",
+      color: "orange",
+      ribbon: "right",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 100
+      },
+      __self: this
+    }, createdDate), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Item"].Meta, {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 103
+      },
+      __self: this
+    }, userId), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Item"].Description, {
       __source: {
         fileName: _jsxFileName,
         lineNumber: 104
       },
       __self: this
-    }, item.userId), __jsx(Description, {
+    }, __jsx("p", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 105
+        lineNumber: 104
       },
       __self: this
-    }, item.createdDate), __jsx("div", {
+    }, content)), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Divider"], {
+      horizontal: true,
       __source: {
         fileName: _jsxFileName,
         lineNumber: 107
       },
       __self: this
-    }, item.content));
+    }), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Item"].Extra, {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 109
+      },
+      __self: this
+    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Label"], {
+      size: "medium",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 114
+      },
+      __self: this
+    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Icon"], {
+      name: "comment alternate outline",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 115
+      },
+      __self: this
+    }), " 12"))))
+    /*  <Card fluid raised>
+    <Card.Content>
+     <Card.Header>{title}</Card.Header>
+     <Card.Meta>{userId}</Card.Meta>
+     <Card.Meta>{createdDate}</Card.Meta>
+     <Card.Description>{content}</Card.Description>
+    </Card.Content>
+    <Card.Content extra>
+     <a>
+       <Icon name='comment alternate outline' />
+       10 комментариев
+     </a>
+    </Card.Content>
+    </Card>
+    <Block>
+       <Title>
+         <Link
+           href={{
+             pathname: '/user',
+             query: { id: item.id },
+           }}
+         >
+           <a>{item.title}</a>
+         </Link>
+       </Title>
+       <Description>{item.userId}</Description>
+       <Description>{item.createdDate}</Description>
+       <div>{item.content}</div>
+     </Block> */
+    ;
   }
 
 }
 
-Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Item, "propTypes", {
-  item: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object.isRequired
+Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(PostCard, "propTypes", {
+  postcard: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.shape({
+    id: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string,
+    userId: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string,
+    title: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string,
+    content: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string,
+    createdDate: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string
+  }).isRequired
 });
 
-/* harmony default export */ __webpack_exports__["default"] = (Item);
+/* harmony default export */ __webpack_exports__["default"] = (PostCard);
 
 /***/ }),
 
-/***/ "./components/Items.js":
-/*!*****************************!*\
-  !*** ./components/Items.js ***!
-  \*****************************/
-/*! exports provided: default, ALL_USERS_QUERY */
+/***/ "./components/PostList.js":
+/*!********************************!*\
+  !*** ./components/PostList.js ***!
+  \********************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ALL_USERS_QUERY", function() { return ALL_USERS_QUERY; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var next_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/dynamic */ "next/dynamic");
-/* harmony import */ var next_dynamic__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_dynamic__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-apollo */ "react-apollo");
-/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! graphql-tag */ "graphql-tag");
-/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "styled-components");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _Item__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Item */ "./components/Item.js");
-var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/Items.js";
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-apollo */ "react-apollo");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! graphql-tag */ "graphql-tag");
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "prop-types");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! semantic-ui-react */ "semantic-ui-react");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _PostCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./PostCard */ "./components/PostCard.js");
+var _jsxFileName = "/media/n2_3TB/EDU/GraphQL/crudapp/frontend/components/PostList.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
 
 
- //import Pagination from './Pagination';
-//import { perPage } from '../config';
+ //import NProgress from 'nprogress';
+//import CreateFormCategoryTP from './CreateFormCategoryTP';
 
-const ALL_USERS_QUERY = graphql_tag__WEBPACK_IMPORTED_MODULE_3___default.a`
-  query ALL_USERS_QUERY {
-    users {
-      id
-      firstName
-      lastName
-    }
-  }
-`;
-const ALL_POSTS_QUERY = graphql_tag__WEBPACK_IMPORTED_MODULE_3___default.a`
+ // import Error from './ErrorMessage';
+
+const RowDiv = styled_components__WEBPACK_IMPORTED_MODULE_5___default.a.div.withConfig({
+  displayName: "PostList__RowDiv",
+  componentId: "j2ms20-0"
+})(["margin:52px 0px;padding:30px 10px;"]); // const FormTab = styled.div`
+//   form {
+//     > div.inline.fields.radio-buttons {
+//       /* margin: 0 0 1em; */
+//       border: 1px solid rgba(34, 36, 38, 0.15);
+//       padding: 1em 1em;
+//     }
+//     /* div.radio-buttons {
+//       padding: 10px 0;
+//     } */
+//     div.fields.form-group-submit {
+//       /* display: none; */
+//       display: ${props => props.submitShow};
+//     }
+//     div.fields.form-group-edit {
+//       /* display: flex; */
+//       display: ${props => props.editShow};
+//     }
+//   }
+// `;
+
+const ItemsList = styled_components__WEBPACK_IMPORTED_MODULE_5___default.a.div.withConfig({
+  displayName: "PostList__ItemsList",
+  componentId: "j2ms20-1"
+})(["display:block;max-width:", ";margin:2.5rem 3rem;padding:0 4em;@media (max-width:700px){margin:2.5rem 1rem;}"], props => props.theme.maxWidth); // const perScreen = 5;
+
+const ALL_POSTS_QUERY = graphql_tag__WEBPACK_IMPORTED_MODULE_2___default.a`
   query ALL_POSTS_QUERY {
     posts {
       id
@@ -307,76 +541,98 @@ const ALL_POSTS_QUERY = graphql_tag__WEBPACK_IMPORTED_MODULE_3___default.a`
       createdDate
     }
   }
-`;
-const Center = styled_components__WEBPACK_IMPORTED_MODULE_4___default.a.div.withConfig({
-  displayName: "Items__Center",
-  componentId: "ssjke4-0"
-})(["text-align:center;"]);
-const ItemsList = styled_components__WEBPACK_IMPORTED_MODULE_4___default.a.div.withConfig({
-  displayName: "Items__ItemsList",
-  componentId: "ssjke4-1"
-})(["display:block;max-width:", ";margin:2.5rem 3rem;padding:0 4em;@media (max-width:700px){margin:2.5rem 1rem;}"], props => props.theme.maxWidth); // const DynamicComponentWithNoSSR = dynamic(
-//   () => import('../components/Item'),
-//   { ssr: false }
-// )
+`; // const UPDATE_POST_MUTATION = gql`
+//   mutation UPDATE_POST_MUTATION(
+//     $userId: String!
+//     $postId: String!
+//     $title: String!
+//     $content: String!
+//   ) {
+//     updatePost(
+//       userId: $userId
+//       postId: $postId
+//       title: $title
+//       content: $content)
+//       {
+//         id
+//         title
+//         userId
+//         content
+//         createdDate
+//     }
+//   }
+// `;
 
-class Items extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
-  render() {
-    // console.log('Items component this.props', this.props);
-    return __jsx(Center, {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 58
-      },
-      __self: this
-    }, __jsx(react_apollo__WEBPACK_IMPORTED_MODULE_2__["Query"], {
-      query: ALL_POSTS_QUERY,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 60
-      },
-      __self: this
-    }, ({
-      data,
-      error,
-      loading
-    }) => {
-      if (loading) return __jsx("p", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 64
-        },
-        __self: this
-      }, "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...");
-      if (error) return __jsx("p", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 65
-        },
-        __self: this
-      }, "Error: ", error.message);
-      return __jsx(ItemsList, {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 67
-        },
-        __self: this
-      }, data.posts.map(post => __jsx(_Item__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        item: post,
-        key: post.id,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 69
-        },
-        __self: this
-      })));
-    }));
-  }
+const PostList = props => __jsx(react_apollo__WEBPACK_IMPORTED_MODULE_1__["Query"], {
+  query: ALL_POSTS_QUERY,
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 99
+  },
+  __self: undefined
+}, ({
+  data,
+  loading: loadingQuery
+}) => {
+  return loadingQuery ? __jsx("div", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 104
+    },
+    __self: undefined
+  }, __jsx("p", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 105
+    },
+    __self: undefined
+  }, "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...", __jsx("i", {
+    className: "spinner icon",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 107
+    },
+    __self: undefined
+  }))) : //console.log('query PostList posts: ', posts);
 
-}
+  /* (!posts) {
+    return <p>Постов нет</p>; }*/
+  // console.log('const PostList: props:', props);
+  //<RowDiv>
+  //<div>
+  //<Segment.Group>
+  // <Segment>
+  __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__["Item"].Group, {
+    divided: true,
+    relaxed: "very",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 124
+    },
+    __self: undefined
+  }, data.posts.map(post => __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__["Segment"], {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 126
+    },
+    __self: undefined
+  }, __jsx(_PostCard__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    postcard: post,
+    key: post.id,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 127
+    },
+    __self: undefined
+  })))) // <CreateFormCategoryTP />
+  //</Segment>
+  // </Segment.Group>
+  //</div>
+  //</RowDiv>
+  ;
+});
 
-/* harmony default export */ __webpack_exports__["default"] = (Items);
-
+/* harmony default export */ __webpack_exports__["default"] = (PostList);
 
 /***/ }),
 
@@ -2227,17 +2483,6 @@ module.exports = require("graphql-tag");
 
 /***/ }),
 
-/***/ "next/dynamic":
-/*!*******************************!*\
-  !*** external "next/dynamic" ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("next/dynamic");
-
-/***/ }),
-
 /***/ "prop-types":
 /*!*****************************!*\
   !*** external "prop-types" ***!
@@ -2290,6 +2535,17 @@ module.exports = require("react-apollo");
 /***/ (function(module, exports) {
 
 module.exports = require("react-is");
+
+/***/ }),
+
+/***/ "semantic-ui-react":
+/*!************************************!*\
+  !*** external "semantic-ui-react" ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("semantic-ui-react");
 
 /***/ }),
 

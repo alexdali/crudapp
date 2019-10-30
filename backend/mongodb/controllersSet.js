@@ -86,7 +86,7 @@ const createPost = async (arg) => {
 // Update Post
 const updatePost = async (arg) => {
   const {
-    id: _id, title, userId, content, createdDate,
+    postId: _id, title, userId, content, createdDate,
   } = arg;
   console.log(`c updatePost arg: ${JSON.stringify(arg)}`);
   const filter = { _id };

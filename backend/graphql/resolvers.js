@@ -308,7 +308,7 @@ const resolvers = {
       // });
     },
     updatePost: async (_, {
-      userId, postId: id, title, content,
+      userId, postId, title, content,
     }, context) => {
       const { id } = context.user;
       if (id !== userId) {
@@ -318,7 +318,7 @@ const resolvers = {
       const createdDate = moment.utc().format();
       console.log(`m updatePost createdDate: ${createdDate}`);
       const updatePostData = {
-        id, title, userId, content, createdDate,
+        postId, title, userId, content, createdDate,
       };
       console.log(`m updatePost updatePostData: ${JSON.stringify(updatePostData)}`);
       const updatedPost = await updatePost(updatePostData);
