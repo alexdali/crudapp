@@ -92,35 +92,42 @@ class PostCard extends Component {
     const { id, userId, title, content, createdDate } = this.props.postcard;
     console.log('PostCard this.props', this.props);
     return (
-      <Item>
-      {/* <Item.Image size='tiny' src='https://react.semantic-ui.com/images/wireframe/image.png' /> */}
-      <Item.Content>
-        <Item.Header as='a'>{title}</Item.Header>
-        <Divider clearing />
-        <Label as='span' color='orange' ribbon='right'>
-        {createdDate}
-        </Label>
-        <Item.Meta>{userId}</Item.Meta>
-        <Item.Description><p>{content}</p></Item.Description>
-        {/* <Item.Extra>{createdDate}</Item.Extra> */}
+      <Link
+        href={{
+            pathname: './post',
+            query: { id },
+          }}
+      >
+        <a>
+          <Item>
+          {/* <Item.Image size='tiny' src='https://react.semantic-ui.com/images/wireframe/image.png' /> */}
+            <Item.Content>
+            <Item.Header as='h3'>{title}</Item.Header>
+            <Divider clearing />
+            <Label as='span' color='orange' ribbon='right'>
+            {createdDate}
+            </Label>
+            <Item.Meta>{userId}</Item.Meta>
+            <Item.Description><p>{content}</p></Item.Description>
+            {/* <Item.Extra>{createdDate}</Item.Extra> */}
+            <Divider horizontal></Divider>
+            <Item.Extra>
+            {/* <Icon name='comment alternate outline' /> Комментарии
+          <Label size='medium' color='teal' floating>
+            22
+          </Label> */}
+            <Label  size="medium" >
+              <Icon name='comment alternate outline'/> 12
+            </Label>
 
-        <Divider horizontal></Divider>
+            {/* <Icon name='comment alternate outline'  corner='top right' />
+            10 комментариев */}
 
-        <Item.Extra>
-        {/* <Icon name='comment alternate outline' /> Комментарии
-      <Label size='medium' color='teal' floating>
-        22
-      </Label> */}
-      <Label  size="medium" >
-    <Icon name='comment alternate outline'/> 12
-  </Label>
-
-        {/* <Icon name='comment alternate outline'  corner='top right' />
-        10 комментариев */}
-
-        </Item.Extra>
-      </Item.Content>
-    </Item>
+            </Item.Extra>
+            </Item.Content>
+          </Item>
+        </a>
+      </Link>
      /*  <Card fluid raised>
     <Card.Content>
       <Card.Header>{title}</Card.Header>

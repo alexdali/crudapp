@@ -98,7 +98,7 @@ const ALL_POSTS_QUERY = gql`
 const PostList = props => (
   <Query query={ALL_POSTS_QUERY}>
     {({ data, loading: loadingQuery }) => {
-
+      console.log('ALL_POSTS_QUERY data', data);
       return (
       loadingQuery ? (
           <div>
@@ -107,37 +107,22 @@ const PostList = props => (
             <i className="spinner icon"></i>
             {/* <Icon loading name="spinner" /> */}
             </p>
-
           </div>
         )
         :
         (
-          //console.log('query PostList posts: ', posts);
-      /* (!posts) {
-        return <p>Постов нет</p>; }*/
-      // console.log('const PostList: props:', props);
-          //<RowDiv>
-          //<div>
-             //<Segment.Group>
-              // <Segment>
-
-              <Item.Group divided relaxed='very'>
-                {data.posts.map(post => (
-                  <Segment>
-                  <PostCard postcard={post} key={post.id} />
-                  </Segment>
-                ))}
-                </Item.Group>
-
-                // <CreateFormCategoryTP />
-              //</Segment>
-            // </Segment.Group>
-          //</div>
-          //</RowDiv>
+          <Item.Group divided relaxed='very'>
+            {data.posts.map(post => (
+              <Segment key={post.id}>
+                <PostCard postcard={post}  />
+              </Segment>
+            ))}
+          </Item.Group>
       )
       );
     }}
   </Query>
 );
 
+export { ALL_POSTS_QUERY };
 export default PostList

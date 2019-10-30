@@ -22,7 +22,7 @@ const resolvers = {
   Query: {
     me: async (parent, arg, context, resolveInfo) => {
       // console.log('Query:  me -> ctx.request.userId', ctx.request.userId);
-      console.log('Query: me -> context', context);
+      // console.log('Query: me -> context', context);
       console.log(`query me ctx.user: ${JSON.stringify(context.user)}`);
       // console.log(`query me ctx.req: ${JSON.stringify(ctx.req)}`);
       // console.log(`query me ctx.request: ${JSON.stringify(ctx.request)}`);
@@ -60,13 +60,14 @@ const resolvers = {
     users: async () => getUsers(),
     post: async (_, { id }) => {
       const resPost = await getPost(id);
+      console.log(`query post id: ${id}`);
       console.log(`query post resPost: ${JSON.stringify(resPost)}`);
       const commentsByPost = await getCommentsByPost({ postId: resPost.id });
       // return resPost;
       console.log(`query post comments: ${JSON.stringify(commentsByPost)}`);
       return {
         ...resPost,
-        commentsByPost,
+        // commentsByPost,
       };
     },
     // comment: async (_, { id }) => {

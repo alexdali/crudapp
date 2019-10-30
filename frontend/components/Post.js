@@ -2,20 +2,12 @@ import React, { Component } from 'react';
 import { Mutation, Query, ApolloConsumer } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-import {
-  Radio,
-  Header,
-  Segment,
-  Button,
-  Checkbox,
-  Icon,
-  Table,
-  Form,
+import { Message, Segment, Button, Icon, Form,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 //import NProgress from 'nprogress';
-import CreateFormCategoryTP from './CreateFormCategoryTP';
-import Item from './PostCard';
+//import CreateFormCategoryTP from './CreateFormCategoryTP';
+import { ALL_POSTS_QUERY } from './PostList';
 // import Error from './ErrorMessage';
 
 const RowDiv = styled.div`
@@ -55,16 +47,36 @@ const FormTab = styled.div`
   }
 `;
 
-// const perScreen = 5;
-
-const ALL_POSTS_QUERY = gql`
-  query ALL_POSTS_QUERY {
-    posts {
+const POST_QUERY = gql`
+  query POST_QUERY(
+    $id: String!
+  ) {
+    post(id: $id) {
       id
       title
       userId
       content
       createdDate
+    }
+  }
+`;
+
+const CREATE_POST_MUTATION = gql`
+  mutation CREATE_POST_MUTATION(
+    $userId: String!
+    $title: String!
+    $content: String!
+  ) {
+    createPost(
+      userId: $userId
+      title: $title
+      content: $content
+      ) {
+        id
+        title
+        userId
+        content
+        createdDate
     }
   }
 `;
@@ -80,8 +92,8 @@ const UPDATE_POST_MUTATION = gql`
       userId: $userId
       postId: $postId
       title: $title
-      content: $content)
-      {
+      content: $content
+      ) {
         id
         title
         userId
@@ -91,40 +103,93 @@ const UPDATE_POST_MUTATION = gql`
   }
 `;
 
-const PostList = props => (
-  <Query query={ALL_POSTS_QUERY}>
-    {({ data: { posts }, loading: loadingQuery }) => {
-      console.log('query PostList posts: ', posts);
-      if (loadingQuery)
-        return (
-          <div>
-            <p>Загрузка...</p>
-            <Icon loading name="spinner" />
-          </div>
-        );
-      if (!posts) {
-        return <p>Постов нет</p>;
-      }
-      // console.log('const PostList: props:', props);
+const ItemsList = styled.div`
+  /* display: grid; */
+  display: block;
+  /* grid-template-columns: 1fr 1fr;
+  grid-gap: 60px; */
+  max-width: ${props => props.theme.maxWidth};
+  margin: 2.5rem 3rem;
+  padding: 0 4em;
+  @media (max-width: 700px) {
+    margin: 2.5rem 1rem;
+  }
+`;
+
+// const Post = props => (
+//   <Query query={ALL_POSTS_QUERY}>
+//     {({ data: { posts }, loading: loadingQuery }) => {
+//       console.log('query PostList posts: ', posts);
+//       if (loadingQuery)
+//         return (
+//           <div>
+//             <p>Загрузка...</p>
+//             <Icon loading name="spinner" />
+//           </div>
+//         );
+//       if (!posts) {
+//         return <p>Постов нет</p>;
+//       }
+//       // console.log('const PostList: props:', props);
+//       return (
+//         <RowDiv>
+//           <div>
+//             <Segment.Group>
+//               <Segment>
+//               <ItemsList>
+//                 {data.posts.map(post => (
+//                   <PostBlock postItem={postItem} key={post.id} />
+//                 ))}
+//               </ItemsList>
+//                 <CreateFormCategoryTP />
+//               </Segment>
+//             </Segment.Group>
+//           </div>
+//         </RowDiv>
+//       );
+//     }}
+//   </Query>
+// );
+
+const Post = props => {
+  console.log('const Post props: ', props);
+  return (
+  <Query query={POST_QUERY}
+    variables={{
+          id: props.id,
+        }}
+  >
+    {({ data, loading: loadingQuery }) => {
+      console.log('query Post data: ', data);
       return (
-        <RowDiv>
+      loadingQuery ? (
+          <div>
+            <p>
+            Загрузка...
+            <i className="spinner icon"></i>
+            {/* <Icon loading name="spinner" /> */}
+            </p>
+          </div>
+        )
+        :
+        (
+          <RowDiv>
           <div>
             <Segment.Group>
               <Segment>
-              <ItemsList>
-                {data.posts.map(post => (
-                  <PostBlock postItem={postItem} key={post.id} />
-                ))}
-              </ItemsList>
-                <CreateFormCategoryTP />
+
+                  <PostBlock postItem={data.post} key={data.post.id} />
+
+                {/* <CreateFormCategoryTP /> */}
               </Segment>
             </Segment.Group>
           </div>
         </RowDiv>
+        )
       );
     }}
   </Query>
-);
+  )};
 
 class PostBlock extends Component {
   static propTypes = {
@@ -192,13 +257,13 @@ class PostBlock extends Component {
       postItem
     );
     const res = await updatePost({
-      userId: postItem.userId,
-      postId: postItem.postId,
-      title: postItem.title,
-      content: postItem.content,
+      variables: {
+        userId: postItem.userId,
+        postId: postItem.id,
+        title: postItem.title,
+        content: postItem.content,
       },
-      // refetchQueries: [{ query: ALL_POSTS_QUERY, variables: {} }],
-    })
+      });
     console.log('updatePostItem UPDATED!!!! res: ', res);
     this.setState({
       postItem: this.props.postItem,
@@ -226,17 +291,28 @@ class PostBlock extends Component {
     return (
       <Mutation
         mutation={UPDATE_POST_MUTATION}
-        variables={
-          postItem
-          // {postItem: this.state.postItem,categoryTaxPayerId: this.props.postItem.id,}
-        }
+        variables={{
+          userId: postItem.userId,
+          postId: postItem.id,
+          title: postItem.title,
+          content: postItem.content,
+        }}
         refetchQueries={() => ['ALL_POSTS_QUERY']}
       >
-        {({
-          updatePost, loading: loadingUpdate, error: errorUpdate }
-        ) => (
-          <Table.Row>
-            <Table.Cell>
+        {(
+          updatePost, { loading: loadingUpdate, error: errorUpdate }
+        ) => {
+            if (errorUpdate) {            //console.log('query Post errorUpdate: ', errorUpdate);
+            //console.log('query Post errorUpdate: ', errorUpdate.message.replace('GraphQL error: ', ''));
+            return (
+              <Message negative>                <Message.Header>Ошибка!</Message.Header>
+              <p>{errorUpdate.message.replace('GraphQL error: ', '')}           </p>
+              </Message>);
+            }
+            return (
+            <Segment>
+            <div>
+            <h2>
               <Form.Input
                 fluid
                 name="title"
@@ -247,9 +323,9 @@ class PostBlock extends Component {
                 onChange={this.handleChange}
                 // width={required
               />
-            </Table.Cell>
-            <Table.Cell>
-              <Form.Input
+              </h2>
+            <p>{postItem.userId}</p>
+              {/* <Form.Input
                 fluid
                 name="userId"
                 readOnly={readOnly}
@@ -261,56 +337,36 @@ class PostBlock extends Component {
                 onChange={this.handleChange}
                 // width={8}
                 required
-              />
-            </Table.Cell>
-            <Table.Cell>
-              <Form.Input
-
+              /> */}
+              <p>{postItem.createdDate}</p>
+              {/* <Form.Input
                 fluid
                 name="createdDate"
                 readOnly={readOnly}
                 disabled={loadingUpdate}
                 loading={loadingUpdate}
-                // value={
-                //   readOnly ? postItem.createdDate : categoryTP.createdDate
-                // }
                 defaultValue={postItem.createdDate}
                 onChange={this.handleChange}
                 // width={8}
                 required
-              />
-            </Table.Cell>
-            <Table.Cell>
+              /> */}
+            </div>
+            <div>
               <Form.Input
-
                 fluid
                 name="content"
                 readOnly={readOnly}
                 disabled={loadingUpdate}
                 loading={loadingUpdate}
-                // value={readOnly ? postItem.content : categoryTP.content}
                 defaultValue={postItem.content}
                 onChange={this.handleChange}
                 // width={8}
                 required
               />
-            </Table.Cell>
-            <Table.Cell>
-              <Checkbox
-
-                toggle
-                name="isActive"
-                readOnly={readOnly}
-                disabled={loadingUpdate}
-                // checked={readOnly ? postItem.isActive : categoryTP.isActive}
-                checked={postItem.isActive}
-                onChange={this.handleChange}
-                // required
-              />
-            </Table.Cell>
+            </div>
 
             {showEdit === '' ? (
-              <Table.Cell collapsing colSpan="2">
+              <Segment>
                 <Button
                   // TODO tooltip
                   icon
@@ -322,22 +378,23 @@ class PostBlock extends Component {
                 <Button icon size="large">
                   <Icon name="trash alternate outline" />
                 </Button>
-              </Table.Cell>
+              </Segment>
             ) : (
-              <Table.Cell collapsing colSpan="2">
+              <Segment>
                 <Button
                   onClick={() => this.updatePostItem(updatePost)}
-
+                  >
                   Обнов{loadingUpdate ? 'ление' : 'ить'}
                 </Button>
                 <Button onClick={() => this.enableEdit('')}>Отмена</Button>
-              </Table.Cell>
+              </Segment>
             )}
-          </Table.Row>
-        )}
-      </Mutation
+          </Segment>
+            );
+        }}
+      </Mutation>
     );
   }
 }
 
-export default Post
+export default Post;

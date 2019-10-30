@@ -289,30 +289,48 @@ function (_Component) {
           content = _this$props$postcard.content,
           createdDate = _this$props$postcard.createdDate;
       console.log('PostCard this.props', this.props);
-      return __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__["Item"], {
+      return __jsx(next_link__WEBPACK_IMPORTED_MODULE_8___default.a, {
+        href: {
+          pathname: './post',
+          query: {
+            id: id
+          }
+        },
         __source: {
           fileName: _jsxFileName,
           lineNumber: 95
         },
         __self: this
+      }, __jsx("a", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 101
+        },
+        __self: this
+      }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__["Item"], {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 102
+        },
+        __self: this
       }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__["Item"].Content, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 97
+          lineNumber: 104
         },
         __self: this
       }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__["Item"].Header, {
-        as: "a",
+        as: "h3",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 98
+          lineNumber: 105
         },
         __self: this
       }, title), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__["Divider"], {
         clearing: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 99
+          lineNumber: 106
         },
         __self: this
       }), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__["Label"], {
@@ -321,55 +339,55 @@ function (_Component) {
         ribbon: "right",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 100
+          lineNumber: 107
         },
         __self: this
       }, createdDate), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__["Item"].Meta, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 103
+          lineNumber: 110
         },
         __self: this
       }, userId), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__["Item"].Description, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 104
+          lineNumber: 111
         },
         __self: this
       }, __jsx("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 104
+          lineNumber: 111
         },
         __self: this
       }, content)), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__["Divider"], {
         horizontal: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 107
+          lineNumber: 113
         },
         __self: this
       }), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__["Item"].Extra, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 109
+          lineNumber: 114
         },
         __self: this
       }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__["Label"], {
         size: "medium",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 114
+          lineNumber: 119
         },
         __self: this
       }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__["Icon"], {
         name: "comment alternate outline",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 115
+          lineNumber: 120
         },
         __self: this
-      }), " 12"))))
+      }), " 12"))))))
       /*  <Card fluid raised>
       <Card.Content>
        <Card.Header>{title}</Card.Header>
@@ -424,11 +442,12 @@ Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODUL
 /*!********************************!*\
   !*** ./components/PostList.js ***!
   \********************************/
-/*! exports provided: default */
+/*! exports provided: ALL_POSTS_QUERY, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ALL_POSTS_QUERY", function() { return ALL_POSTS_QUERY; });
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/taggedTemplateLiteral */ "./node_modules/@babel/runtime-corejs2/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
@@ -528,6 +547,7 @@ var PostList = function PostList(props) {
   }, function (_ref) {
     var data = _ref.data,
         loadingQuery = _ref.loading;
+    console.log('ALL_POSTS_QUERY data', data);
     return loadingQuery ? __jsx("div", {
       __source: {
         fileName: _jsxFileName,
@@ -547,47 +567,34 @@ var PostList = function PostList(props) {
         lineNumber: 107
       },
       __self: this
-    }))) : //console.log('query PostList posts: ', posts);
-
-    /* (!posts) {
-      return <p>Постов нет</p>; }*/
-    // console.log('const PostList: props:', props);
-    //<RowDiv>
-    //<div>
-    //<Segment.Group>
-    // <Segment>
-    __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Item"].Group, {
+    }))) : __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Item"].Group, {
       divided: true,
       relaxed: "very",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 124
+        lineNumber: 114
       },
       __self: this
     }, data.posts.map(function (post) {
       return __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Segment"], {
+        key: post.id,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 126
+          lineNumber: 116
         },
         __self: this
       }, __jsx(_PostCard__WEBPACK_IMPORTED_MODULE_7__["default"], {
         postcard: post,
-        key: post.id,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 127
+          lineNumber: 117
         },
         __self: this
       }));
-    })) // <CreateFormCategoryTP />
-    //</Segment>
-    // </Segment.Group>
-    //</div>
-    //</RowDiv>
-    ;
+    }));
   });
 };
+
 
 /* harmony default export */ __webpack_exports__["default"] = (PostList);
 
