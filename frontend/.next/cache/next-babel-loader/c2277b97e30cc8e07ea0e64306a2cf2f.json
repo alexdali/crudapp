@@ -1,1 +1,0 @@
-{"ast":null,"code":"export const endpoint = `http://localhost:8000`;","map":{"version":3,"sources":["/media/n2_3TB/EDU/GraphQL/crudapp/frontend/config.js"],"names":["endpoint"],"mappings":"AAAA,OAAO,MAAMA,QAAQ,GAAI,uBAAlB","sourcesContent":["export const endpoint = `http://localhost:8000`"]},"metadata":{},"sourceType":"module"}

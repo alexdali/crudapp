@@ -333,8 +333,8 @@ class PostBlock extends Component {
               <>
 
             <Segment>
-            <Label attached='top right'>
-            <Icon name='trash alternate outline' size='big' /></Label>
+            {/* <Label attached='top right'>
+            <Icon name='trash alternate outline' size='big' /></Label> */}
 
               {/* <Form.Input
                 as='div'
