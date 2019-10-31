@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -132,11 +132,27 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 const RowDiv = styled_components__WEBPACK_IMPORTED_MODULE_6___default.a.div.withConfig({
   displayName: "Post__RowDiv",
   componentId: "sc-1g58j7m-0"
-})(["margin:52px 0px;padding:30px 10px;border:1px solid rgba(34,36,38,0.15);border-radius:0.28571429rem;box-shadow:0 1px 2px 0 rgba(34,36,38,0.15);.menu-account-info{font-family:'Montserrat Alternates','Roboto','Open Sans',sans-serif,'Arial';}.segment.segment-bottom{display:flex;justify-content:space-between;}"]);
-const FormTab = styled_components__WEBPACK_IMPORTED_MODULE_6___default.a.div.withConfig({
-  displayName: "Post__FormTab",
-  componentId: "sc-1g58j7m-1"
-})(["form{> div.inline.fields.radio-buttons{border:1px solid rgba(34,36,38,0.15);padding:1em 1em;}div.fields.form-group-submit{display:", ";}div.fields.form-group-edit{display:", ";}}"], props => props.submitShow, props => props.editShow);
+})(["margin:52px 0px;padding:30px 10px;.menu-account-info{font-family:'Montserrat Alternates','Roboto','Open Sans',sans-serif,'Arial';}.segment.segment-bottom{display:flex;justify-content:space-between;}input.title-view{font-size:2.5em;padding:0.5em;border:none;border-bottom:1px solid rgba(34,36,38,0.15);}.post-meta{display:flexbox;justify-content:space-between;padding:1em 2em 0;border-bottom:1px solid rgba(34,36,38,0.15);}.ui.form textarea.post-content{font-size:1.5em;border:none;}"]); // const FormTab = styled.div`
+//   form {
+//     > div.inline.fields.radio-buttons {
+//       /* margin: 0 0 1em; */
+//       border: 1px solid rgba(34, 36, 38, 0.15);
+//       padding: 1em 1em;
+//     }
+//     /* div.radio-buttons {
+//       padding: 10px 0;
+//     } */
+//     div.fields.form-group-submit {
+//       /* display: none; */
+//       display: ${props => props.submitShow};
+//     }
+//     div.fields.form-group-edit {
+//       /* display: flex; */
+//       display: ${props => props.editShow};
+//     }
+//   }
+// `;
+
 const POST_QUERY = graphql_tag__WEBPACK_IMPORTED_MODULE_3___default.a`
   query POST_QUERY(
     $id: String!
@@ -192,7 +208,7 @@ const UPDATE_POST_MUTATION = graphql_tag__WEBPACK_IMPORTED_MODULE_3___default.a`
 `;
 const ItemsList = styled_components__WEBPACK_IMPORTED_MODULE_6___default.a.div.withConfig({
   displayName: "Post__ItemsList",
-  componentId: "sc-1g58j7m-2"
+  componentId: "sc-1g58j7m-1"
 })(["display:block;max-width:", ";margin:2.5rem 3rem;padding:0 4em;@media (max-width:700px){margin:2.5rem 1rem;}"], props => props.theme.maxWidth); // const Post = props => (
 //   <Query query={ALL_POSTS_QUERY}>
 //     {({ data: { posts }, loading: loadingQuery }) => {
@@ -237,7 +253,7 @@ const Post = props => {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 157
+      lineNumber: 174
     },
     __self: undefined
   }, ({
@@ -248,44 +264,26 @@ const Post = props => {
     return loadingQuery ? __jsx("div", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 166
+        lineNumber: 183
       },
       __self: undefined
     }, __jsx("p", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 167
+        lineNumber: 184
       },
       __self: undefined
     }, "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...", __jsx("i", {
       className: "spinner icon",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 169
+        lineNumber: 186
       },
       __self: undefined
     }))) : __jsx(RowDiv, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 176
-      },
-      __self: undefined
-    }, __jsx("div", {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 177
-      },
-      __self: undefined
-    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Segment"].Group, {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 178
-      },
-      __self: undefined
-    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Segment"], {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 179
+        lineNumber: 193
       },
       __self: undefined
     }, __jsx(PostBlock, {
@@ -293,10 +291,21 @@ const Post = props => {
       key: data.post.id,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 181
+        lineNumber: 194
       },
       __self: undefined
-    })))));
+    }))
+    /* <RowDiv>
+    <div>
+      <Segment.Group>
+        <Segment>
+             <PostBlock postItem={data.post} key={data.post.id} />
+           {/* <CreateFormCategoryTP /> */
+    //</Query></Segment>
+    //</Segment.Group>
+    //</div>
+    //</RowDiv> */}
+    ;
   });
 };
 
@@ -405,7 +414,7 @@ class PostBlock extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       refetchQueries: () => ['ALL_POSTS_QUERY'],
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 292
+        lineNumber: 313
       },
       __self: this
     }, (updatePost, {
@@ -413,99 +422,105 @@ class PostBlock extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       error: errorUpdate
     }) => {
       if (errorUpdate) {
-        //console.log('query Post errorUpdate: ', errorUpdate);
-        //console.log('query Post errorUpdate: ', errorUpdate.message.replace('GraphQL error: ', ''));
         return __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Message"], {
           negative: true,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 308
+            lineNumber: 328
           },
           __self: this
         }, "                ", __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Message"].Header, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 308
+            lineNumber: 328
           },
           __self: this
         }, "\u041E\u0448\u0438\u0431\u043A\u0430!"), __jsx("p", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 309
+            lineNumber: 329
           },
           __self: this
         }, errorUpdate.message.replace('GraphQL error: ', ''), "           "));
       }
 
-      return __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Segment"], {
+      return __jsx(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Segment"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 313
+          lineNumber: 335
         },
         __self: this
-      }, __jsx("div", {
+      }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Label"], {
+        attached: "top right",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 314
+          lineNumber: 336
         },
         __self: this
-      }, __jsx("h2", {
+      }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Icon"], {
+        name: "trash alternate outline",
+        size: "big",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 315
+          lineNumber: 337
         },
         __self: this
-      }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Form"].Input, {
-        fluid: true,
+      })), __jsx("input", {
+        className: "title-view",
         name: "title",
         readOnly: readOnly,
         disabled: loadingUpdate,
-        loading: loadingUpdate,
         defaultValue: postItem.title,
-        onChange: this.handleChange // width={required
-        ,
+        onChange: this.handleChange,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 316
+          lineNumber: 350
         },
         __self: this
-      })), __jsx("p", {
+      }), __jsx("div", {
+        className: "post-meta",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 327
+          lineNumber: 359
+        },
+        __self: this
+      }, __jsx("p", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 360
         },
         __self: this
       }, postItem.userId), __jsx("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 341
+          lineNumber: 361
         },
         __self: this
-      }, postItem.createdDate)), __jsx("div", {
+      }, postItem.createdDate)), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Form"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 354
+          lineNumber: 374
         },
         __self: this
-      }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Form"].Input, {
-        fluid: true,
+      }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["TextArea"], {
+        className: "post-content",
         name: "content",
         readOnly: readOnly,
         disabled: loadingUpdate,
         loading: loadingUpdate,
         defaultValue: postItem.content,
-        onChange: this.handleChange // width={8}
-        ,
-        required: true,
+        onChange: this.handleChange,
+        placeholder: "\u0422\u0435\u043A\u0441\u0442 \u043F\u043E\u0441\u0442\u0430",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 355
+          lineNumber: 375
         },
         __self: this
       })), showEdit === '' ? __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Segment"], {
+        attached: "bottom",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 369
+          lineNumber: 387
         },
         __self: this
       }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Button"] // TODO tooltip
@@ -515,14 +530,14 @@ class PostBlock extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
         onClick: () => this.enableEdit('1'),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 370
+          lineNumber: 388
         },
         __self: this
       }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Icon"], {
         name: "edit outline",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 376
+          lineNumber: 394
         },
         __self: this
       })), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Button"], {
@@ -530,37 +545,38 @@ class PostBlock extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
         size: "large",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 378
+          lineNumber: 396
         },
         __self: this
       }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Icon"], {
         name: "trash alternate outline",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 379
+          lineNumber: 397
         },
         __self: this
       }))) : __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Segment"], {
+        attached: "bottom",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 383
+          lineNumber: 401
         },
         __self: this
       }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Button"], {
         onClick: () => this.updatePostItem(updatePost),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 384
+          lineNumber: 402
         },
         __self: this
       }, "\u041E\u0431\u043D\u043E\u0432", loadingUpdate ? 'ление' : 'ить'), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__["Button"], {
         onClick: () => this.enableEdit(''),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 389
+          lineNumber: 407
         },
         __self: this
-      }, "\u041E\u0442\u043C\u0435\u043D\u0430")));
+      }, "\u041E\u0442\u043C\u0435\u043D\u0430"))));
     });
   }
 
@@ -2740,7 +2756,7 @@ const PostPage = ({
 
 /***/ }),
 
-/***/ 5:
+/***/ 4:
 /*!*****************************!*\
   !*** multi ./pages/post.js ***!
   \*****************************/

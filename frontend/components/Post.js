@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Mutation, Query, ApolloConsumer } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-import { Message, Segment, Button, Icon, Form,
+import { Message, Segment, Button, Icon, Form, TextArea, Label
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 //import NProgress from 'nprogress';
@@ -13,9 +13,9 @@ import { ALL_POSTS_QUERY } from './PostList';
 const RowDiv = styled.div`
   margin: 52px 0px;
   padding: 30px 10px;
-  border: 1px solid rgba(34, 36, 38, 0.15);
-  border-radius: 0.28571429rem;
-  box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
+  /* border: 1px solid rgba(34, 36, 38, 0.15);
+  border-radius: 0.28571429rem; */
+  /* box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15); */
   .menu-account-info {
     font-family: 'Montserrat Alternates', 'Roboto', 'Open Sans', sans-serif,
       'Arial';
@@ -24,28 +24,45 @@ const RowDiv = styled.div`
     display: flex;
     justify-content: space-between;
   }
-`;
-
-const FormTab = styled.div`
-  form {
-    > div.inline.fields.radio-buttons {
-      /* margin: 0 0 1em; */
-      border: 1px solid rgba(34, 36, 38, 0.15);
-      padding: 1em 1em;
-    }
-    /* div.radio-buttons {
-      padding: 10px 0;
-    } */
-    div.fields.form-group-submit {
-      /* display: none; */
-      display: ${props => props.submitShow};
-    }
-    div.fields.form-group-edit {
-      /* display: flex; */
-      display: ${props => props.editShow};
-    }
+  input.title-view {
+    font-size: 2.5em;
+    padding: 0.5em;
+    border: none;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+  }
+  .post-meta {
+    display: flexbox;
+    justify-content: space-between;
+    padding: 1em 2em 0;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+  }
+  .ui.form textarea.post-content {
+    font-size: 1.5em;
+    border: none;
+    /* padding: 0.5em; */
   }
 `;
+
+// const FormTab = styled.div`
+//   form {
+//     > div.inline.fields.radio-buttons {
+//       /* margin: 0 0 1em; */
+//       border: 1px solid rgba(34, 36, 38, 0.15);
+//       padding: 1em 1em;
+//     }
+//     /* div.radio-buttons {
+//       padding: 10px 0;
+//     } */
+//     div.fields.form-group-submit {
+//       /* display: none; */
+//       display: ${props => props.submitShow};
+//     }
+//     div.fields.form-group-edit {
+//       /* display: flex; */
+//       display: ${props => props.editShow};
+//     }
+//   }
+// `;
 
 const POST_QUERY = gql`
   query POST_QUERY(
@@ -174,17 +191,21 @@ const Post = props => {
         :
         (
           <RowDiv>
+                  <PostBlock postItem={data.post} key={data.post.id} />
+                {/* <CreateFormCategoryTP /> */}
+        </RowDiv>
+          /* <RowDiv>
           <div>
             <Segment.Group>
               <Segment>
 
                   <PostBlock postItem={data.post} key={data.post.id} />
 
-                {/* <CreateFormCategoryTP /> */}
-              </Segment>
-            </Segment.Group>
-          </div>
-        </RowDiv>
+                {/* <CreateFormCategoryTP /> */
+              //</Query></Segment>
+            //</Segment.Group>
+          //</div>
+        //</RowDiv> */}
         )
       );
     }}
@@ -302,18 +323,21 @@ class PostBlock extends Component {
         {(
           updatePost, { loading: loadingUpdate, error: errorUpdate }
         ) => {
-            if (errorUpdate) {            //console.log('query Post errorUpdate: ', errorUpdate);
-            //console.log('query Post errorUpdate: ', errorUpdate.message.replace('GraphQL error: ', ''));
+            if (errorUpdate) {
             return (
               <Message negative>                <Message.Header>Ошибка!</Message.Header>
               <p>{errorUpdate.message.replace('GraphQL error: ', '')}           </p>
               </Message>);
             }
             return (
+              <>
+
             <Segment>
-            <div>
-            <h2>
-              <Form.Input
+            <Label attached='top right'>
+            <Icon name='trash alternate outline' size='big' /></Label>
+
+              {/* <Form.Input
+                as='div'
                 fluid
                 name="title"
                 readOnly={readOnly}
@@ -322,37 +346,21 @@ class PostBlock extends Component {
                 defaultValue={postItem.title}
                 onChange={this.handleChange}
                 // width={required
+              /> */}
+              <input
+              className='title-view'
+                name="title"
+                readOnly={readOnly}
+                disabled={loadingUpdate}
+                defaultValue={postItem.title}
+                onChange={this.handleChange}
               />
-              </h2>
-            <p>{postItem.userId}</p>
+
+              <div className="post-meta">
+                <p>{postItem.userId}</p>
+                <p>{postItem.createdDate}</p>
+              </div>
               {/* <Form.Input
-                fluid
-                name="userId"
-                readOnly={readOnly}
-                disabled={loadingUpdate}
-                loading={loadingUpdate}
-                // defaultValue={postItem.userId}
-                // value={readOnly ? postItem.userId : categoryTP.userId}
-                defaultValue={postItem.userId}
-                onChange={this.handleChange}
-                // width={8}
-                required
-              /> */}
-              <p>{postItem.createdDate}</p>
-              {/* <Form.Input
-                fluid
-                name="createdDate"
-                readOnly={readOnly}
-                disabled={loadingUpdate}
-                loading={loadingUpdate}
-                defaultValue={postItem.createdDate}
-                onChange={this.handleChange}
-                // width={8}
-                required
-              /> */}
-            </div>
-            <div>
-              <Form.Input
                 fluid
                 name="content"
                 readOnly={readOnly}
@@ -362,11 +370,21 @@ class PostBlock extends Component {
                 onChange={this.handleChange}
                 // width={8}
                 required
-              />
-            </div>
+              /> */}
+              <Form>
+    <TextArea
+    className='post-content'
+                name="content"
+                readOnly={readOnly}
+                disabled={loadingUpdate}
+                loading={loadingUpdate}
+                defaultValue={postItem.content}
+                onChange={this.handleChange}
+    placeholder='Текст поста' />
+  </Form>
 
             {showEdit === '' ? (
-              <Segment>
+              <Segment attached='bottom'>
                 <Button
                   // TODO tooltip
                   icon
@@ -380,7 +398,7 @@ class PostBlock extends Component {
                 </Button>
               </Segment>
             ) : (
-              <Segment>
+              <Segment attached='bottom'>
                 <Button
                   onClick={() => this.updatePostItem(updatePost)}
                   >
@@ -390,6 +408,7 @@ class PostBlock extends Component {
               </Segment>
             )}
           </Segment>
+          </>
             );
         }}
       </Mutation>

@@ -86,21 +86,33 @@ function _templateObject() {
 var RowDiv = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div.withConfig({
   displayName: "Post__RowDiv",
   componentId: "sc-1g58j7m-0"
-})(["margin:52px 0px;padding:30px 10px;border:1px solid rgba(34,36,38,0.15);border-radius:0.28571429rem;box-shadow:0 1px 2px 0 rgba(34,36,38,0.15);.menu-account-info{font-family:'Montserrat Alternates','Roboto','Open Sans',sans-serif,'Arial';}.segment.segment-bottom{display:flex;justify-content:space-between;}"]);
-var FormTab = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div.withConfig({
-  displayName: "Post__FormTab",
-  componentId: "sc-1g58j7m-1"
-})(["form{> div.inline.fields.radio-buttons{border:1px solid rgba(34,36,38,0.15);padding:1em 1em;}div.fields.form-group-submit{display:", ";}div.fields.form-group-edit{display:", ";}}"], function (props) {
-  return props.submitShow;
-}, function (props) {
-  return props.editShow;
-});
+})(["margin:52px 0px;padding:30px 10px;.menu-account-info{font-family:'Montserrat Alternates','Roboto','Open Sans',sans-serif,'Arial';}.segment.segment-bottom{display:flex;justify-content:space-between;}input.title-view{font-size:2.5em;padding:0.5em;border:none;border-bottom:1px solid rgba(34,36,38,0.15);}.post-meta{display:flexbox;justify-content:space-between;padding:1em 2em 0;border-bottom:1px solid rgba(34,36,38,0.15);}.ui.form textarea.post-content{font-size:1.5em;border:none;}"]); // const FormTab = styled.div`
+//   form {
+//     > div.inline.fields.radio-buttons {
+//       /* margin: 0 0 1em; */
+//       border: 1px solid rgba(34, 36, 38, 0.15);
+//       padding: 1em 1em;
+//     }
+//     /* div.radio-buttons {
+//       padding: 10px 0;
+//     } */
+//     div.fields.form-group-submit {
+//       /* display: none; */
+//       display: ${props => props.submitShow};
+//     }
+//     div.fields.form-group-edit {
+//       /* display: flex; */
+//       display: ${props => props.editShow};
+//     }
+//   }
+// `;
+
 var POST_QUERY = graphql_tag__WEBPACK_IMPORTED_MODULE_12___default()(_templateObject());
 var CREATE_POST_MUTATION = graphql_tag__WEBPACK_IMPORTED_MODULE_12___default()(_templateObject2());
 var UPDATE_POST_MUTATION = graphql_tag__WEBPACK_IMPORTED_MODULE_12___default()(_templateObject3());
 var ItemsList = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div.withConfig({
   displayName: "Post__ItemsList",
-  componentId: "sc-1g58j7m-2"
+  componentId: "sc-1g58j7m-1"
 })(["display:block;max-width:", ";margin:2.5rem 3rem;padding:0 4em;@media (max-width:700px){margin:2.5rem 1rem;}"], function (props) {
   return props.theme.maxWidth;
 }); // const Post = props => (
@@ -147,7 +159,7 @@ var Post = function Post(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 157
+      lineNumber: 174
     },
     __self: this
   }, function (_ref) {
@@ -157,44 +169,26 @@ var Post = function Post(props) {
     return loadingQuery ? __jsx("div", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 166
+        lineNumber: 183
       },
       __self: this
     }, __jsx("p", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 167
+        lineNumber: 184
       },
       __self: this
     }, "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...", __jsx("i", {
       className: "spinner icon",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 169
+        lineNumber: 186
       },
       __self: this
     }))) : __jsx(RowDiv, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 176
-      },
-      __self: this
-    }, __jsx("div", {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 177
-      },
-      __self: this
-    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Segment"].Group, {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 178
-      },
-      __self: this
-    }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Segment"], {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 179
+        lineNumber: 193
       },
       __self: this
     }, __jsx(PostBlock, {
@@ -202,10 +196,21 @@ var Post = function Post(props) {
       key: data.post.id,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 181
+        lineNumber: 194
       },
       __self: this
-    })))));
+    }))
+    /* <RowDiv>
+    <div>
+      <Segment.Group>
+        <Segment>
+             <PostBlock postItem={data.post} key={data.post.id} />
+           {/* <CreateFormCategoryTP /> */
+    //</Query></Segment>
+    //</Segment.Group>
+    //</div>
+    //</RowDiv> */}
+    ;
   });
 };
 
@@ -357,7 +362,7 @@ function (_Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 292
+          lineNumber: 313
         },
         __self: this
       }, function (updatePost, _ref3) {
@@ -365,99 +370,105 @@ function (_Component) {
             errorUpdate = _ref3.error;
 
         if (errorUpdate) {
-          //console.log('query Post errorUpdate: ', errorUpdate);
-          //console.log('query Post errorUpdate: ', errorUpdate.message.replace('GraphQL error: ', ''));
           return __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Message"], {
             negative: true,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 308
+              lineNumber: 328
             },
             __self: this
           }, "                ", __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Message"].Header, {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 308
+              lineNumber: 328
             },
             __self: this
           }, "\u041E\u0448\u0438\u0431\u043A\u0430!"), __jsx("p", {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 309
+              lineNumber: 329
             },
             __self: this
           }, errorUpdate.message.replace('GraphQL error: ', ''), "           "));
         }
 
-        return __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Segment"], {
+        return __jsx(react__WEBPACK_IMPORTED_MODULE_10___default.a.Fragment, null, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Segment"], {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 313
+            lineNumber: 335
           },
           __self: this
-        }, __jsx("div", {
+        }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Label"], {
+          attached: "top right",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 314
+            lineNumber: 336
           },
           __self: this
-        }, __jsx("h2", {
+        }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Icon"], {
+          name: "trash alternate outline",
+          size: "big",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 315
+            lineNumber: 337
           },
           __self: this
-        }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Form"].Input, {
-          fluid: true,
+        })), __jsx("input", {
+          className: "title-view",
           name: "title",
           readOnly: readOnly,
           disabled: loadingUpdate,
-          loading: loadingUpdate,
           defaultValue: postItem.title,
-          onChange: _this2.handleChange // width={required
-          ,
+          onChange: _this2.handleChange,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 316
+            lineNumber: 350
           },
           __self: this
-        })), __jsx("p", {
+        }), __jsx("div", {
+          className: "post-meta",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 327
+            lineNumber: 359
+          },
+          __self: this
+        }, __jsx("p", {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 360
           },
           __self: this
         }, postItem.userId), __jsx("p", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 341
+            lineNumber: 361
           },
           __self: this
-        }, postItem.createdDate)), __jsx("div", {
+        }, postItem.createdDate)), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Form"], {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 354
+            lineNumber: 374
           },
           __self: this
-        }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Form"].Input, {
-          fluid: true,
+        }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["TextArea"], {
+          className: "post-content",
           name: "content",
           readOnly: readOnly,
           disabled: loadingUpdate,
           loading: loadingUpdate,
           defaultValue: postItem.content,
-          onChange: _this2.handleChange // width={8}
-          ,
-          required: true,
+          onChange: _this2.handleChange,
+          placeholder: "\u0422\u0435\u043A\u0441\u0442 \u043F\u043E\u0441\u0442\u0430",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 355
+            lineNumber: 375
           },
           __self: this
         })), showEdit === '' ? __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Segment"], {
+          attached: "bottom",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 369
+            lineNumber: 387
           },
           __self: this
         }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Button"] // TODO tooltip
@@ -469,14 +480,14 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 370
+            lineNumber: 388
           },
           __self: this
         }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Icon"], {
           name: "edit outline",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 376
+            lineNumber: 394
           },
           __self: this
         })), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Button"], {
@@ -484,20 +495,21 @@ function (_Component) {
           size: "large",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 378
+            lineNumber: 396
           },
           __self: this
         }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Icon"], {
           name: "trash alternate outline",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 379
+            lineNumber: 397
           },
           __self: this
         }))) : __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Segment"], {
+          attached: "bottom",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 383
+            lineNumber: 401
           },
           __self: this
         }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Button"], {
@@ -506,7 +518,7 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 384
+            lineNumber: 402
           },
           __self: this
         }, "\u041E\u0431\u043D\u043E\u0432", loadingUpdate ? 'ление' : 'ить'), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__["Button"], {
@@ -515,10 +527,10 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 389
+            lineNumber: 407
           },
           __self: this
-        }, "\u041E\u0442\u043C\u0435\u043D\u0430")));
+        }, "\u041E\u0442\u043C\u0435\u043D\u0430"))));
       });
     }
   }]);
@@ -76701,7 +76713,7 @@ var PostPage = function PostPage(_ref) {
 
 /***/ }),
 
-/***/ 2:
+/***/ 1:
 /*!*********************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2Fpost&absolutePagePath=%2Fmedia%2Fn2_3TB%2FEDU%2FGraphQL%2Fcrudapp%2Ffrontend%2Fpages%2Fpost.js ***!
   \*********************************************************************************************************************************************/
@@ -76724,5 +76736,5 @@ module.exports = dll_ea92a4d9664833a26066;
 
 /***/ })
 
-},[[2,"static/runtime/webpack.js"]]]);
+},[[1,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=post.js.map
