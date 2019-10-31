@@ -63,6 +63,7 @@ overflow: hidden;
     background: white;
     padding: 20px;
     width: 300px;
+    height: 100vh;
     z-index: 100;
     /* color: #fff;
     text-align: center;
@@ -84,7 +85,7 @@ overflow: hidden;
 const FormDiv = styled.div`
   /* max-width: 300px; */
   box-sizing: border-box;
-  margin: 0;
+  margin: 50px 0;
   padding: 0;
   color: rgba(0, 0, 0, 0.65);
   font-size: 14px;
@@ -278,6 +279,22 @@ class Login extends Component {
     loading: false,
   };
 
+  enableEdit = val => {
+    console.log('Login enableEdit');
+    // if (val === '1') {
+    //   this.setState({
+    //     showEdit: '1',
+    //     readOnly: false,
+    //   });
+    // } else {
+    //   this.setState({
+    //     showEdit: '',
+    //     readOnly: true,
+    //     postItem: this.props.postItem,
+    //   });
+    // }
+  };
+
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -357,16 +374,35 @@ class Login extends Component {
                   <div className="formItem">
                     <div className="formItem-control">
                       <span className="form-item-children">
-                        <button
+                      <Button.Group compact fluid>
+                        <Button
+                        type="submit"
+                        positive
+                        >
+                        <span>Войти</span>
+                        </Button>
+                        <Button.Or text=' ' />
+                        <Button
+                        onClick={() => this.enableEdit('1')}
+                         //positive
+                         >
+                         <span>Зарегистрироваться</span>
+                         </Button>
+                      </Button.Group>
+                        {/* <button
                           type="submit"
                           className="ant-btn ant-btn-primary login-form-button "
                         >
                           <span>Войти</span>
-                        </button>
+                        </button> */}
+                        {/* <Link href="#">
+                          <a>Зарегистрироваться</a>
+                        </Link> */}
                       </span>
                     </div>
                   </div>
                 </fieldset>
+
               </Form>
             </FormDiv>
             </div>

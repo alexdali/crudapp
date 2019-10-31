@@ -384,8 +384,18 @@ class PostBlock extends Component {
   </Form>
 
             {showEdit === '' ? (
-              <Segment attached='bottom'>
-                <Button
+              //<Segment attached='bottom'>
+              <Button.Group basic attached='bottom'>
+              <Button
+              icon
+              size="large"
+              onClick={() => this.enableEdit('1')}
+              ><Icon name="edit outline" /></Button>
+              <Button
+              icon size="large"
+              ><Icon name="trash alternate outline" /></Button>
+            </Button.Group>
+                /* <Button
                   // TODO tooltip
                   icon
                   size="large"
@@ -395,8 +405,8 @@ class PostBlock extends Component {
                 </Button>
                 <Button icon size="large">
                   <Icon name="trash alternate outline" />
-                </Button>
-              </Segment>
+                </Button> */
+              //</Segment>
             ) : (
               <Segment attached='bottom'>
                 <Button
