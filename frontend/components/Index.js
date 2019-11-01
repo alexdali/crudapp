@@ -1,7 +1,9 @@
 import React from 'react';
+import { Query } from 'react-apollo';
 import styled from 'styled-components';
-import { Grid, Segment, Image } from 'semantic-ui-react';
+import { Grid, Segment, Image, Icon } from 'semantic-ui-react';
 import PostList from './PostList';
+import User, { CURRENT_USER_QUERY } from './User';
 
 const IndexDiv = styled.div`
   margin: 52px 0 0;
@@ -19,8 +21,11 @@ export default class Index extends React.Component {
 
   render() {
     return (
-    <IndexDiv>
+      <Query query={CURRENT_USER_QUERY}>
+        {({ data, loading }) => {
 
+          return (
+    <IndexDiv>
       <Grid celled='internally'>
     <Grid.Row>
       <Grid.Column width={3}>
@@ -34,13 +39,28 @@ export default class Index extends React.Component {
       </Grid.Column>
       <Grid.Column width={3}>
         <Segment>
-        <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+        {loading ?
+        <i className="spinner icon"></i> :
+        (data.me &&
+        /* <Segment circular raised style={{width: 100, marginLeft: 10, marginRight: 10}} className="account"> */
+        <Segment textAlign='center'>
+          <div><Icon name="user outline" circular size='big' /></div>
+          <div>{data.me.name}</div>
+          </Segment>
+        /* </Segment> */
+        )
+        }
+        {/* <Image src='https://react.semantic-ui.com/images/wireframe/image.png' /> */}
           <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
           <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
         </Segment>
       </Grid.Column>
     </Grid.Row>
   </Grid>
-    </IndexDiv>);
+    </IndexDiv>
+          );
+  }}
+      </Query>
+    );
   }
 }

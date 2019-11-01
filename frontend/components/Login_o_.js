@@ -14,6 +14,19 @@ import Form from './styles/Form';
 //import Error from './ErrorMessage';
 import User,{ CURRENT_USER_QUERY } from './User';
 
+
+// const LOCAL_STATE_QUERY = gql`
+//   query {
+//     cartOpen @client
+//   }
+// `;
+
+// const TOGGLE_CART_MUTATION = gql`
+//   mutation {
+//     toggleCart @client
+//   }
+// `;
+
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
     signIn(email: $email, password: $password) {
@@ -22,21 +35,22 @@ const SIGNIN_MUTATION = gql`
       name
     }
   }
-`;
+`,
+  ;
 
-  // const Login = graphql(gql`
-  //     mutation SIGNIN_MUTATION($email: String!, $password: String!) {
-  //   signIn(email: $email, password: $password) {
-  //     id
-  //     email
-  //     name
-  //   }
-  // }`,
-  // {
-  //   options: {
-  //     refetchQueries: () => [ 'CURRENT_USER_QUERY' ]
-  //   },
-  // })(LoginComponent);
+  const Login = graphql(gql`
+      mutation SIGNIN_MUTATION($email: String!, $password: String!) {
+    signIn(email: $email, password: $password) {
+      id
+      email
+      name
+    }
+  }`,
+  {
+    options: {
+      refetchQueries: () => [ 'CURRENT_USER_QUERY' ]
+    },
+  })(LoginComponent);
 
 
 
@@ -50,22 +64,22 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-// const SignupPromt = styled.div`
-//   /* text-align: center;
-//   font-size: 1rem;
-//   margin: 1rem 0;
-//   p {
-//     margin: 0;
-//   }
-//   a {
-//     background: lightgrey;
-//     text-transform: uppercase;
-//     font-weight: 800;
-//     font-size: 1em;
-//     cursor: pointer;
-//     color: ${props => props.theme.black};
-//   } */
-// `;
+const SignupPromt = styled.div`
+  /* text-align: center;
+  font-size: 1rem;
+  margin: 1rem 0;
+  p {
+    margin: 0;
+  }
+  a {
+    background: lightgrey;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 1em;
+    cursor: pointer;
+    color: ${props => props.theme.black};
+  } */
+`;
 
 const RowDiv = styled.div`
 position: fixed;
@@ -278,14 +292,54 @@ const FormDiv = styled.div`
 
 /* eslint-disable */
 const Composed = adopt({
-  currentUser: ({render}) => <Query query={CURRENT_USER_QUERY}>{render}</Query>,
+  user: ({render}) => <User>{render}</User>,
   signupMutate: ({render}) => <Mutation mutation={SIGNUP_MUTATION}>{render}</Mutation>,
   signinMutate: ({render}) => <Mutation mutation={SIGNIN_MUTATION}>{render}</Mutation>,
 });
 /* eslint-enable */
 
+// const Signin = props => {
+//   <>
+//   <div className="formItem">
+//     <label htmlFor="email">
+//       <div className="formItem-control">
+//         <span className="input-wrapper">
+//           <span className="input-prefix">
+//             <Icon name="mail" />
+//           </span>
+//           <input
+//             type="text"
+//             name="email"
+//             placeholder="email"
+//             value={this.state.email}
+//             onChange={this.saveToState}
+//           />
+//         </span>
+//       </div>
+//     </label>
+//   </div>
+//   <div className="formItem">
+//     <label htmlFor="password">
+//       <div className="formItem-control">
+//         <span className="input-wrapper">
+//           <span className="input-prefix">
+//             <Icon name="lock" />
+//           </span>
+//           <input
+//             type="password"
+//             name="password"
+//             placeholder="пароль"
+//             value={this.state.password}
+//             onChange={this.saveToState}
+//           />
+//         </span>
+//       </div>
+//     </label>
+//   </div>
+//   </>
+// }
 
-class Login extends Component {
+class LoginComponent extends Component {
   state = {
     name: '',
     email: '',
@@ -296,23 +350,35 @@ class Login extends Component {
 
   showSignUp = () => {
     console.log('Login showSignUp');
+    // if (val === '1') {
       this.setState({
         name: '',
         email: '',
         password: '',
         signup: true,
       });
+    // } else {
+    //   this.setState({
+    //     showEdit: '',
+    //     readOnly: true,
+    //     postItem: this.props.postItem,
+    //   });
+    // }
   };
 
-  createAccount = async (e, signupMutate, currentUser) => {
+  createAccount = async (e, client) => {
     e.preventDefault();
     console.log('Login SignUp this.state: ', this.state);
-    const {name, email, password } = this.state;
-      const res = await signupMutate({
-        variables:{name, email, password},
-        refetchQueries: [{
-          query: CURRENT_USER_QUERY,
-        }],
+    const newAcc = {name: this.state.name, email: this.state.email, password: this.state.password,};
+    // if (val === '1') {
+      const res = await client.query({
+        mutate: SIGNUP_MUTATION,
+        variables:{newAcc},
+        // refetchQueries: [{
+        //   query: CURRENT_USER_QUERY,
+        // }],
+        //refetchQueries={() => [ 'CURRENT_USER_QUERY' ]},
+        //{[{ query: CURRENT_USER_QUERY }]}
       });
       console.log('createAccount res', res);
 
@@ -323,23 +389,35 @@ class Login extends Component {
         signup: false,
       },
       ()=>{
-        console.log('Login createAccount this.state: ', this.state);
+        console.log('Signin createAccount this.state: ', this.state);
         this.props.handleRes(res);
       }
       );
+
+    // } else {
+    //   this.setState({
+    //     showEdit: '',
+    //     readOnly: true,
+    //     postItem: this.props.postItem,
+    //   });
+    // }
   };
 
-  signInHandle = async (e, signinMutate, currentUser) => {
+  signInHandle = async (e, client) => {
     e.preventDefault();
     console.log('Login signInHandle this.state: ', this.state);
-    //console.log('Login signInHandle client: ', client);
+    console.log('Login signInHandle client: ', client);
     const { email, password } = this.state;
-    //const login = {email: this.state.email, password: this.state.password,};
-      const res = await signinMutate({
+    const login = {email: this.state.email, password: this.state.password,};
+    // if (val === '1') {
+      const res = await client.query({
+        mutate: SIGNIN_MUTATION,
         variables:{email, password},
         refetchQueries: [{
           query: CURRENT_USER_QUERY,
         }],
+        //refetchQueries={() => [ 'CURRENT_USER_QUERY' ]},
+        //{[{ query: CURRENT_USER_QUERY }]}
       });
       console.log('signInHandle res', res);
 
@@ -351,9 +429,17 @@ class Login extends Component {
       },
       ()=>{
         console.log('Signin signInHandle this.state: ', this.state);
-        this.props.handleRes(res);
+        //this.props.handleRes(res);
       }
       );
+
+    // } else {
+    //   this.setState({
+    //     showEdit: '',
+    //     readOnly: true,
+    //     postItem: this.props.postItem,
+    //   });
+    // }
   };
 
 
@@ -366,10 +452,15 @@ class Login extends Component {
     // console.log('Signin this.state: ', this.state);
     const { signup } = this.state;
     return (
+
+      /* <Mutation
+        mutation={SIGNIN_MUTATION}
+        variables={{email: this.state.email, password: this.state.password,}}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+      >
+        {(signIn, { error, loading }) => ( */
           <Composed>
-          {({ currentUser, signinMutate, signupMutate }) => {
-            const {loading} = signinMutate;
-            return (
+          {({ user, toggleCart, localState }) => {
           <RowDiv className="login-background">
           <div className="blur">
             <FormDiv>
@@ -458,22 +549,22 @@ class Login extends Component {
 
                         {
                           signup ?
-                          //<ApolloConsumer>
-                           // {client => (
+                          <ApolloConsumer>
+                            {client => (
                               <Button compact fluid
-                                onClick={(e) => this.createAccount(e, signupMutate, currentUser)}
+                                onClick={(e) => this.createAccount(e, client)}
                                 positive
                                 >
                                 <span>Создать аккаунт</span>
                               </Button>
-                           // )}
-                          //</ApolloConsumer>
+                            )}
+                          </ApolloConsumer>
                          :
-                         //<ApolloConsumer>
-                         //   {client => (
+                         <ApolloConsumer>
+                            {client => (
                          <Button.Group compact fluid>
                             <Button
-                            onClick={(e) => this.signInHandle(e, signinMutate, currentUser)}
+                            onClick={(e) => this.signInHandle(e, client)}
                             //type="submit"
                             positive
                             >
@@ -482,13 +573,23 @@ class Login extends Component {
                             <Button.Or text=' ' />
                               <Button
                             onClick={() => this.showSignUp()}
+                            //positive
                             >
                             <span>Зарегистрироваться</span>
                             </Button>
                           </Button.Group>
-                          //)}
-                          //</ApolloConsumer>
+                          )}
+                          </ApolloConsumer>
                         }
+                        {/* <button
+                          type="submit"
+                          className="ant-btn ant-btn-primary login-form-button "
+                        >
+                          <span>Войти</span>
+                        </button> */}
+                        {/* <Link href="#">
+                          <a>Зарегистрироваться</a>
+                        </Link> */}
                       </span>
                     </div>
                   </div>
@@ -498,12 +599,51 @@ class Login extends Component {
             </FormDiv>
             </div>
           </RowDiv>
-            );
         }}
   </Composed>
+        //)}
+      //</Mutation>
     );
   }
 }
+
+
+//const Login = () => (
+  // <Composed>
+  //   {({ user, toggleCart, localState }) => {
+  //     const { me } = user.data;
+  //     if (!me) return null;
+  //     return (
+  //       <CartStyles open={localState.data.cartOpen}>
+  //         <header>
+  //           <CloseButton onClick={toggleCart} title="close">
+  //             ❌
+  //           </CloseButton>
+  //           <Supreme>{me.name}'s Cart</Supreme>
+  //           <p>
+  //             You Have {me.cart.length} Item
+  //             {me.cart.length === 1 ? '' : 's'} in your cart
+  //           </p>
+  //         </header>
+  //         <ul>
+  //           {me.cart.map(cartItem => (
+  //             <CartItem key={cartItem.id} cartItem={cartItem} />
+  //           ))}
+  //         </ul>
+  //         <footer>
+  //           <p>{formatMoney(calcTotalPrice(me.cart))}</p>
+  //           {me.cart.length && (
+  //             <TakeMyMoney>
+  //               <SickButton>Checkout</SickButton>
+  //             </TakeMyMoney>
+  //           )}
+  //         </footer>
+  //       </CartStyles>
+  //     );
+  //   }}
+  // </Composed>
+//);
+
 
 export default Login;
 //export { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION };

@@ -201,7 +201,7 @@ const resolvers = {
       // const jwtToken = await jwt.sign(newUser, context.secret, { expiresIn });
       const jToken = await jwt.sign(user, context.secret);
       // set the jwt as a cookie on the response
-      context.response.cookie('token', jToken, {
+      context.res.cookie('token', jToken, {
         httpOnly: true,
         maxAge: 1000 * 60 * 30, // Expiry - 30 min
       });
@@ -256,7 +256,7 @@ const resolvers = {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 31, // Expiry - 1 year
       });
-      console.log(`m signIn cookie context.response: ${context.res}`);
+      console.log(`m signIn cookie context.res: ${context.res}`);
       // console.log(`m signIn context.req: ${JSON.stringify(context.req)}`);
       // return { token: jToken };
       return user;
@@ -265,7 +265,7 @@ const resolvers = {
       console.log(`m signOut args: ${JSON.stringify(args)}`);
 
       context.res.clearCookie('token');
-      console.log(`m signOut cookie context.response: ${context.res}`);
+      console.log(`m signOut cookie context.res: ${context.res}`);
 
       return { message: 'success' };
     },
