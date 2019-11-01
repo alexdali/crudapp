@@ -7,6 +7,7 @@ import { Message, Segment, Button, Icon, Form, TextArea, Label
 import styled from 'styled-components';
 //import NProgress from 'nprogress';
 //import CreateFormCategoryTP from './CreateFormCategoryTP';
+import PostBlock from "./PostBlock";
 import { ALL_POSTS_QUERY } from './PostList';
 // import Error from './ErrorMessage';
 
@@ -42,27 +43,6 @@ const RowDiv = styled.div`
     /* padding: 0.5em; */
   }
 `;
-
-// const FormTab = styled.div`
-//   form {
-//     > div.inline.fields.radio-buttons {
-//       /* margin: 0 0 1em; */
-//       border: 1px solid rgba(34, 36, 38, 0.15);
-//       padding: 1em 1em;
-//     }
-//     /* div.radio-buttons {
-//       padding: 10px 0;
-//     } */
-//     div.fields.form-group-submit {
-//       /* display: none; */
-//       display: ${props => props.submitShow};
-//     }
-//     div.fields.form-group-edit {
-//       /* display: flex; */
-//       display: ${props => props.editShow};
-//     }
-//   }
-// `;
 
 const POST_QUERY = gql`
   query POST_QUERY(
@@ -120,54 +100,6 @@ const UPDATE_POST_MUTATION = gql`
   }
 `;
 
-const ItemsList = styled.div`
-  /* display: grid; */
-  display: block;
-  /* grid-template-columns: 1fr 1fr;
-  grid-gap: 60px; */
-  max-width: ${props => props.theme.maxWidth};
-  margin: 2.5rem 3rem;
-  padding: 0 4em;
-  @media (max-width: 700px) {
-    margin: 2.5rem 1rem;
-  }
-`;
-
-// const Post = props => (
-//   <Query query={ALL_POSTS_QUERY}>
-//     {({ data: { posts }, loading: loadingQuery }) => {
-//       console.log('query PostList posts: ', posts);
-//       if (loadingQuery)
-//         return (
-//           <div>
-//             <p>Загрузка...</p>
-//             <Icon loading name="spinner" />
-//           </div>
-//         );
-//       if (!posts) {
-//         return <p>Постов нет</p>;
-//       }
-//       // console.log('const PostList: props:', props);
-//       return (
-//         <RowDiv>
-//           <div>
-//             <Segment.Group>
-//               <Segment>
-//               <ItemsList>
-//                 {data.posts.map(post => (
-//                   <PostBlock postItem={postItem} key={post.id} />
-//                 ))}
-//               </ItemsList>
-//                 <CreateFormCategoryTP />
-//               </Segment>
-//             </Segment.Group>
-//           </div>
-//         </RowDiv>
-//       );
-//     }}
-//   </Query>
-// );
-
 const Post = props => {
   console.log('const Post props: ', props);
   return (
@@ -194,236 +126,225 @@ const Post = props => {
                   <PostBlock postItem={data.post} key={data.post.id} />
                 {/* <CreateFormCategoryTP /> */}
         </RowDiv>
-          /* <RowDiv>
-          <div>
-            <Segment.Group>
-              <Segment>
-
-                  <PostBlock postItem={data.post} key={data.post.id} />
-
-                {/* <CreateFormCategoryTP /> */
-              //</Query></Segment>
-            //</Segment.Group>
-          //</div>
-        //</RowDiv> */}
         )
       );
     }}
   </Query>
   )};
 
-class PostBlock extends Component {
-  static propTypes = {
-    postItem: PropTypes.shape({
-      id: PropTypes.string,
-      userId: PropTypes.string,
-      title: PropTypes.string,
-      content: PropTypes.string,
-      createdDate: PropTypes.string,
-    }).isRequired,
-  };
 
-  state = {
-    postItem: this.props.postItem,
-    // showCreate: '',
-    readOnly: true,
-    showEdit: '',
-  };
+// class PostBlock extends Component {
+//   static propTypes = {
+//     postItem: PropTypes.shape({
+//       id: PropTypes.string,
+//       userId: PropTypes.string,
+//       title: PropTypes.string,
+//       content: PropTypes.string,
+//       createdDate: PropTypes.string,
+//     }).isRequired,
+//   };
 
-  enableEdit = val => {
-    console.log('PostBlock enableEdit');
-    if (val === '1') {
-      this.setState({
-        showEdit: '1',
-        readOnly: false,
-      });
-    } else {
-      this.setState({
-        showEdit: '',
-        readOnly: true,
-        postItem: this.props.postItem,
-      });
-    }
-  };
+//   state = {
+//     postItem: this.props.postItem,
+//     // showCreate: '',
+//     readOnly: true,
+//     showEdit: '',
+//   };
 
-  handleChange = (e, data) => {
-    const { name, type, value } = e.target;
-    // console.log(`handleChange: e: `, e);
-    console.log(`handleChange: data: `, data);
-    console.log(
-      `handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${
-        data.checked
-      }, data.name: ${data.name}`
-    );
+//   enableEdit = val => {
+//     console.log('PostBlock enableEdit');
+//     if (val === '1') {
+//       this.setState({
+//         showEdit: '1',
+//         readOnly: false,
+//       });
+//     } else {
+//       this.setState({
+//         showEdit: '',
+//         readOnly: true,
+//         postItem: this.props.postItem,
+//       });
+//     }
+//   };
 
-    let val = value;
-    let nam = name;
+//   handleChange = (e, data) => {
+//     const { name, type, value } = e.target;
+//     // console.log(`handleChange: e: `, e);
+//     console.log(`handleChange: data: `, data);
+//     console.log(
+//       `handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${
+//         data.checked
+//       }, data.name: ${data.name}`
+//     );
 
-    if (data.name === 'isActive') {
-      val = data.checked;
-      nam = data.name;
-    }
+//     let val = value;
+//     let nam = name;
 
-    const { postItem } = this.state;
-    postItem[nam] = val;
-    this.setState({ postItem });
-  };
+//     if (data.name === 'isActive') {
+//       val = data.checked;
+//       nam = data.name;
+//     }
 
-  updatePostItem = async updatePost => {
-    // console.log('updatePostItem e: ', e);
-    // console.log('PostList updatePostItem this.state: ', this.state);
-    const { postItem } = this.state;
-    console.log(
-      'PostList updatePostItem this.state.postItem: ',
-      postItem
-    );
-    const res = await updatePost({
-      variables: {
-        userId: postItem.userId,
-        postId: postItem.id,
-        title: postItem.title,
-        content: postItem.content,
-      },
-      });
-    console.log('updatePostItem UPDATED!!!! res: ', res);
-    this.setState({
-      postItem: this.props.postItem,
-      // postItem: {
-      //   userId:
-      //   title: '',
-      //   content: '',
-      //   createdDate: '',
-      // },
-      showEdit: '',
-      readOnly: true,
-    });
-  };
+//     const { postItem } = this.state;
+//     postItem[nam] = val;
+//     this.setState({ postItem });
+//   };
 
-  render() {
-    console.log('PostBlock render -> props', this.props);
-    console.log('PostBlock render -> state', this.state);
-    const {
-      postItem,
-      // showCreate,
-      readOnly,
-      showEdit,
-    } = this.state;
-    console.log('PostBlock render -> state.postItem', postItem);
-    return (
-      <Mutation
-        mutation={UPDATE_POST_MUTATION}
-        variables={{
-          userId: postItem.userId,
-          postId: postItem.id,
-          title: postItem.title,
-          content: postItem.content,
-        }}
-        refetchQueries={() => ['ALL_POSTS_QUERY']}
-      >
-        {(
-          updatePost, { loading: loadingUpdate, error: errorUpdate }
-        ) => {
-            if (errorUpdate) {
-            return (
-              <Message negative>                <Message.Header>Ошибка!</Message.Header>
-              <p>{errorUpdate.message.replace('GraphQL error: ', '')}           </p>
-              </Message>);
-            }
-            return (
-              <>
+//   updatePostItem = async updatePost => {
+//     // console.log('updatePostItem e: ', e);
+//     // console.log('PostList updatePostItem this.state: ', this.state);
+//     const { postItem } = this.state;
+//     console.log(
+//       'PostList updatePostItem this.state.postItem: ',
+//       postItem
+//     );
+//     const res = await updatePost({
+//       variables: {
+//         userId: postItem.userId,
+//         postId: postItem.id,
+//         title: postItem.title,
+//         content: postItem.content,
+//       },
+//       });
+//     console.log('updatePostItem UPDATED!!!! res: ', res);
+//     this.setState({
+//       postItem: this.props.postItem,
+//       // postItem: {
+//       //   userId:
+//       //   title: '',
+//       //   content: '',
+//       //   createdDate: '',
+//       // },
+//       showEdit: '',
+//       readOnly: true,
+//     });
+//   };
 
-            <Segment>
-            {/* <Label attached='top right'>
-            <Icon name='trash alternate outline' size='big' /></Label> */}
+//   render() {
+//     console.log('PostBlock render -> props', this.props);
+//     console.log('PostBlock render -> state', this.state);
+//     const {
+//       postItem,
+//       // showCreate,
+//       readOnly,
+//       showEdit,
+//     } = this.state;
+//     console.log('PostBlock render -> state.postItem', postItem);
+//     return (
+//       <Mutation
+//         mutation={UPDATE_POST_MUTATION}
+//         variables={{
+//           userId: postItem.userId,
+//           postId: postItem.id,
+//           title: postItem.title,
+//           content: postItem.content,
+//         }}
+//         refetchQueries={() => ['ALL_POSTS_QUERY']}
+//       >
+//         {(
+//           updatePost, { loading: loadingUpdate, error: errorUpdate }
+//         ) => {
+//             if (errorUpdate) {
+//             return (
+//               <Message negative>                <Message.Header>Ошибка!</Message.Header>
+//               <p>{errorUpdate.message.replace('GraphQL error: ', '')}           </p>
+//               </Message>);
+//             }
+//             return (
+//               <>
 
-              {/* <Form.Input
-                as='div'
-                fluid
-                name="title"
-                readOnly={readOnly}
-                disabled={loadingUpdate}
-                loading={loadingUpdate}
-                defaultValue={postItem.title}
-                onChange={this.handleChange}
-                // width={required
-              /> */}
-              <input
-              className='title-view'
-                name="title"
-                readOnly={readOnly}
-                disabled={loadingUpdate}
-                defaultValue={postItem.title}
-                onChange={this.handleChange}
-              />
+//             <Segment>
+//             {/* <Label attached='top right'>
+//             <Icon name='trash alternate outline' size='big' /></Label> */}
 
-              <div className="post-meta">
-                <p>{postItem.userId}</p>
-                <p>{postItem.createdDate}</p>
-              </div>
-              {/* <Form.Input
-                fluid
-                name="content"
-                readOnly={readOnly}
-                disabled={loadingUpdate}
-                loading={loadingUpdate}
-                defaultValue={postItem.content}
-                onChange={this.handleChange}
-                // width={8}
-                required
-              /> */}
-              <Form>
-    <TextArea
-    className='post-content'
-                name="content"
-                readOnly={readOnly}
-                disabled={loadingUpdate}
-                loading={loadingUpdate}
-                defaultValue={postItem.content}
-                onChange={this.handleChange}
-    placeholder='Текст поста' />
-  </Form>
+//               {/* <Form.Input
+//                 as='div'
+//                 fluid
+//                 name="title"
+//                 readOnly={readOnly}
+//                 disabled={loadingUpdate}
+//                 loading={loadingUpdate}
+//                 defaultValue={postItem.title}
+//                 onChange={this.handleChange}
+//                 // width={required
+//               /> */}
+//               <input
+//               className='title-view'
+//                 name="title"
+//                 readOnly={readOnly}
+//                 disabled={loadingUpdate}
+//                 defaultValue={postItem.title}
+//                 onChange={this.handleChange}
+//               />
 
-            {showEdit === '' ? (
-              //<Segment attached='bottom'>
-              <Button.Group basic attached='bottom'>
-              <Button
-              icon
-              size="large"
-              onClick={() => this.enableEdit('1')}
-              ><Icon name="edit outline" /></Button>
-              <Button
-              icon size="large"
-              ><Icon name="trash alternate outline" /></Button>
-            </Button.Group>
-                /* <Button
-                  // TODO tooltip
-                  icon
-                  size="large"
-                  onClick={() => this.enableEdit('1')}
-                >
-                  <Icon name="edit outline" />
-                </Button>
-                <Button icon size="large">
-                  <Icon name="trash alternate outline" />
-                </Button> */
-              //</Segment>
-            ) : (
-              <Segment attached='bottom'>
-                <Button
-                  onClick={() => this.updatePostItem(updatePost)}
-                  >
-                  Обнов{loadingUpdate ? 'ление' : 'ить'}
-                </Button>
-                <Button onClick={() => this.enableEdit('')}>Отмена</Button>
-              </Segment>
-            )}
-          </Segment>
-          </>
-            );
-        }}
-      </Mutation>
-    );
-  }
-}
+//               <div className="post-meta">
+//                 <p>{postItem.userId}</p>
+//                 <p>{postItem.createdDate}</p>
+//               </div>
+//               {/* <Form.Input
+//                 fluid
+//                 name="content"
+//                 readOnly={readOnly}
+//                 disabled={loadingUpdate}
+//                 loading={loadingUpdate}
+//                 defaultValue={postItem.content}
+//                 onChange={this.handleChange}
+//                 // width={8}
+//                 required
+//               /> */}
+//               <Form>
+//     <TextArea
+//     className='post-content'
+//                 name="content"
+//                 readOnly={readOnly}
+//                 disabled={loadingUpdate}
+//                 loading={loadingUpdate}
+//                 defaultValue={postItem.content}
+//                 onChange={this.handleChange}
+//     placeholder='Текст поста' />
+//   </Form>
+
+//             {showEdit === '' ? (
+//               //<Segment attached='bottom'>
+//               <Button.Group basic attached='bottom'>
+//               <Button
+//               icon
+//               size="large"
+//               onClick={() => this.enableEdit('1')}
+//               ><Icon name="edit outline" /></Button>
+//               <Button
+//               icon size="large"
+//               ><Icon name="trash alternate outline" /></Button>
+//             </Button.Group>
+//                 /* <Button
+//                   // TODO tooltip
+//                   icon
+//                   size="large"
+//                   onClick={() => this.enableEdit('1')}
+//                 >
+//                   <Icon name="edit outline" />
+//                 </Button>
+//                 <Button icon size="large">
+//                   <Icon name="trash alternate outline" />
+//                 </Button> */
+//               //</Segment>
+//             ) : (
+//               <Segment attached='bottom'>
+//                 <Button
+//                   onClick={() => this.updatePostItem(updatePost)}
+//                   >
+//                   Обнов{loadingUpdate ? 'ление' : 'ить'}
+//                 </Button>
+//                 <Button onClick={() => this.enableEdit('')}>Отмена</Button>
+//               </Segment>
+//             )}
+//           </Segment>
+//           </>
+//             );
+//         }}
+//       </Mutation>
+//     );
+//   }
+// }
 
 export default Post;
