@@ -30,41 +30,6 @@ const CREATE_POST_MUTATION = gql`
   }
 `;
 
-const IndexDiv = styled.div`
-  margin: 52px 0 0;
-`;
-
-const CreateBlock = props => {
-    // return (
-    //   <Query query={CURRENT_USER_QUERY}>
-    //     {({ data, loading }) => {
-
-          return (
-            <IndexDiv>
-              <Grid celled='internally'>
-                <Grid.Row>
-                  {/* <Grid.Column width={3}>
-                  </Grid.Column> */}
-                  <Grid.Column width={13}>
-                  <Header as='h2'>Новый пост</Header>
-                  <ApolloConsumer>
-                    {client => (
-                      <PostCreateForm client={client}/>
-                    )}
-                    </ApolloConsumer>
-                  </Grid.Column>
-                  <Grid.Column width={3}>
-                    <ProfileSide/>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </IndexDiv>
-          );
-      //   }}
-      // </Query>
-      // )
-};
-
 
 class PostCreateForm extends Component {
   // static propTypes = {
@@ -79,7 +44,7 @@ class PostCreateForm extends Component {
 
   state = {
     postItem: {
-      userId: '',
+      userId: this.props.id,
       //postId: '',
       title: '',
       content: '',
@@ -89,21 +54,21 @@ class PostCreateForm extends Component {
     showEdit: '',
   };
 
-  enableEdit = val => {
-    console.log('PostCreateForm enableEdit');
-    if (val === '1') {
-      this.setState({
-        showEdit: '1',
-        readOnly: false,
-      });
-    } else {
-      this.setState({
-        showEdit: '',
-        readOnly: true,
-        postItem: this.props.postItem,
-      });
-    }
-  };
+  // enableEdit = val => {
+  //   console.log('PostCreateForm enableEdit');
+  //   if (val === '1') {
+  //     this.setState({
+  //       showEdit: '1',
+  //       readOnly: false,
+  //     });
+  //   } else {
+  //     this.setState({
+  //       showEdit: '',
+  //       readOnly: true,
+  //       postItem: this.props.postItem,
+  //     });
+  //   }
+  // };
 
   handleChange = (e, data) => {
     const { name, type, value } = e.target;
@@ -128,20 +93,22 @@ class PostCreateForm extends Component {
     this.setState({ postItem });
   };
 
-  createPostItem = async (e, client, createPost) => {
+  // createPostItem = async (e, client, createPost) => {
+    createPostItem = async (e, createPost) => {
     e.preventDefault();
-    const { me } = client.readQuery({ query: CURRENT_USER_QUERY });
+    //const { me } = client.readQuery({ query: CURRENT_USER_QUERY });
     // console.log('createPostItem e: ', e);
     console.log('createPostItem readQuery me.id: ', me.id);
     // console.log('createPostItem createPost this.state: ', this.state);
-    const { title, content } = this.state.postItem;
+    const { userId, title, content } = this.state.postItem;
     console.log(
       'PostCreateForm createPost this.state.postItem: ',
       this.state.postItem
     );
     const res = await createPost({
       variables: {
-        userId: me.id, title, content
+        // userId: me.id, title, content
+        userId, title, content
       },
       refetchQueries: [{
         query: ALL_POSTS_QUERY,
@@ -170,7 +137,7 @@ class PostCreateForm extends Component {
       readOnly,
       showEdit,
     } = this.state;
-    const { client } = this.props;
+    //const { client } = this.props;
     console.log('PostCreateForm render -> state.postItem', postItem);
     return (
 
@@ -195,7 +162,8 @@ class PostCreateForm extends Component {
             <Segment padded>
                 <Form
                   onSubmit={e =>
-                    this.createPostItem(e, client, createPost)
+                    // this.createPostItem(e, client, createPost)
+                    this.createPostItem(e, createPost)
                   }
                   loading={loading}
                   // error={<Error error={error} />}
@@ -285,39 +253,7 @@ class PostCreateForm extends Component {
                     {/* <Icon name="plus circle" /> */}
                     Добавить пост
                   </Button>
-                  {/* <Button animated fluid>
-                    <Button.Content visible>Добавить пост</Button.Content>
-                    <Button.Content hidden>
-                      <Icon name='plus circle' />
-                    </Button.Content>
-                  </Button> */}
                 </Form>
-
-
-                {/* {showEdit === '' ? (
-                  //<Segment attached='bottom'>
-                  <Button.Group basic attached='bottom'>
-                    <Button
-                    icon
-                    size="large"
-                    onClick={() => this.enableEdit('1')}
-                    ><Icon name="edit outline" /></Button>
-                    <Button
-                    icon size="large"
-                    ><Icon name="trash alternate outline" /></Button>
-                  </Button.Group>
-
-                ) : (
-                  <Segment attached='bottom'>
-                    <Button
-                      onClick={() => this.updatePostItem(createPost)}
-                      >
-                      Обнов{loading ? 'ление' : 'ить'}
-                    </Button>
-                    <Button onClick={() => this.enableEdit('')}>Отмена</Button>
-                  </Segment>
-                )
-                } */}
               </Segment>
             </>
           );
@@ -327,5 +263,5 @@ class PostCreateForm extends Component {
   }
 }
 
-export default CreateBlock;
+export default PostCreateForm;
 

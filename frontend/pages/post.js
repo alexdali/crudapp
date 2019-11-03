@@ -1,6 +1,6 @@
 import React from 'react';
 import Post from '../components/Post';
-import CreateBlock from '../components/CreateBlock';
+import UserBlog from '../components/UserBlog';
 
 //const { id } = props.query;
 
@@ -15,7 +15,7 @@ const PostPage = ({ query }) => {
   if (query.id) {
     return <Post  id={query.id}/>;
   }
-  return <CreateBlock />;
+  return <UserBlog />;
 };
 
 //const PostPage = ({ query }) => <Post  id={query.id}/>;
