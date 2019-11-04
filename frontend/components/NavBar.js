@@ -173,7 +173,7 @@ class NavBar extends React.Component {
     };
   }
 
-  handleRes=(res) => {
+  handleRes = (res) => {
     console.log('NavBar handleRes res: ', res);
     if (res) {
       this.setState({

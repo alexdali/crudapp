@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Grid, Segment, Form, Icon, TextArea, Button, Header } from 'semantic-ui-react';
 import { ALL_POSTS_QUERY } from './PostList';
 import User, { CURRENT_USER_QUERY } from './User';
-import ProfileSide from "./ProfileSide";
+//import ProfileSidebar from "./ProfileSidebar";
 //import { Message, Segment, , Icon, Form, , Label} from 'semantic-ui-react';
 
 

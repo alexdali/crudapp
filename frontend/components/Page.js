@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ApolloConsumer } from 'react-apollo';
 import styled, { ThemeProvider, injectGlobal, createGlobalStyle } from 'styled-components';
 import Header from './Header';
 import Meta from './Meta';
@@ -76,12 +77,16 @@ class Page extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <StyledPage>
-          <Meta />
-          <Header />
-          <Inner>{this.props.children}</Inner>
-          <GlobalStyle />
-        </StyledPage>
+        <ApolloConsumer>
+          {client => (
+            <StyledPage>
+              <Meta />
+              <Header />
+              <Inner>{this.props.children}</Inner>
+              <GlobalStyle />
+            </StyledPage>
+          )}
+        </ApolloConsumer>
       </ThemeProvider>
     );
   }

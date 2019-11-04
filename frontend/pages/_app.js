@@ -1,5 +1,5 @@
 import App, { Container } from 'next/app';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider, ApolloConsumer } from 'react-apollo';
 import Page from '../components/Page';
 import withData from '../lib/withData';
 
@@ -21,7 +21,12 @@ class MyApp extends App {
       // <Container>
         <ApolloProvider client={apollo}>
           <Page>
-            <Component {...pageProps} />
+            {/* {client => (
+              <Component client={client} {...pageProps} />
+            )} */}
+
+                <Component {...pageProps} />
+
           </Page>
         </ApolloProvider>
       //</Container>

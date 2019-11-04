@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import { Segment, Image, Icon } from 'semantic-ui-react';
 import { CURRENT_USER_QUERY } from './User';
 
-const ProfileSide = props => {
+const ProfileSidebar = props => {
   return (
     <Query query={CURRENT_USER_QUERY}>
       {({ data, loading }) => {
@@ -11,10 +11,10 @@ const ProfileSide = props => {
         <Segment>
           {loading ?
           <i className="spinner icon"></i> :
-          (data.me &&
+           (data.me &&
             <Segment textAlign='center'>
               <div><Icon name="user outline" circular size='big' /></div>
-              <div>{data.me.name}</div>
+                <div>{data.me.name}</div>
             </Segment>
           )
           }
@@ -28,4 +28,4 @@ const ProfileSide = props => {
   );
 }
 
-export default ProfileSide;
+export default ProfileSidebar;

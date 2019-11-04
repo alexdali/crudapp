@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Grid, Segment, Form, Icon, TextArea, Button, Header } from 'semantic-ui-react';
 import { ALL_POSTS_QUERY } from './PostList';
 import User, { CURRENT_USER_QUERY } from './User';
-import ProfileSide from "./ProfileSide";
+import ProfileSidebar from "./ProfileSidebar";
 import PostCreateForm from './PostCreateForm';
 import PostsByUser from './PostsByUser';
 
@@ -38,7 +38,7 @@ const UserBlog = props => {
                   {/* <Grid.Column width={3}>
                   </Grid.Column> */}
                   <Grid.Column width={13}>
-                  <Header as='h2'>Новый пост</Header>
+                  <Header as='h2'>Добавить новый пост</Header>
                   {/* <ApolloConsumer>
                     {client => ( */}
                       <PostCreateForm id={data.me.id}/>
@@ -52,7 +52,7 @@ const UserBlog = props => {
                     </IndexDiv>
                   </Grid.Column>
                   <Grid.Column width={3}>
-                    <ProfileSide/>
+                    <ProfileSidebar/>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

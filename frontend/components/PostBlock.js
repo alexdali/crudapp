@@ -8,7 +8,28 @@ import styled from 'styled-components';
 //import NProgress from 'nprogress';
 //import CreateFormCategoryTP from './CreateFormCategoryTP';
 import { ALL_POSTS_QUERY } from './PostList';
+import User,{ CURRENT_USER_QUERY } from './User';
 // import Error from './ErrorMessage';
+
+const RowDiv = styled.div`
+  input.title-view {
+    font-size: 2.5em;
+    padding: 0.5em;
+    border: none;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+  }
+  .post-meta {
+    display: flexbox;
+    justify-content: space-between;
+    padding: 1em 2em 0;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+  }
+  .ui.form textarea.post-content {
+    font-size: 1.5em;
+    border: none;
+    /* padding: 0.5em; */
+  }
+`;
 
 const UPDATE_POST_MUTATION = gql`
   mutation UPDATE_POST_MUTATION(
@@ -46,10 +67,35 @@ class PostBlock extends Component {
 
   state = {
     postItem: this.props.postItem,
-    // showCreate: '',
+    currentUserId: '',
     readOnly: true,
     showEdit: '',
   };
+
+
+  componentDidMount() {
+    let {user} = this.context;
+    this.setState({
+      currentUserId: user,
+      });
+  }
+
+  // componentDidMount(){
+  //   // const { client } = this.props;
+  //   // const userData = client.readQuery({ query: CURRENT_USER_QUERY });
+  //   // const userId = userData === undefined ? '' : userData.me.id;
+  //   const {userId} = this.updateCurrentUser();
+  //   console.log('query Post userId: ', userId);
+  // }
+
+  // updateCurrentUser = async ()=> {
+  //   const { client } = this.props;
+  //   const userData = await client.readQuery({ query: CURRENT_USER_QUERY });
+  //   // const user = userData === undefined ? '' : userData.me;
+  //   const user = userData.me;
+  //   console.log('query Post userId: ', user.id);
+  //   return user;
+  // }
 
   enableEdit = val => {
     console.log('PostBlock enableEdit');
@@ -115,11 +161,11 @@ class PostBlock extends Component {
   };
 
   render() {
+    //const { me } = client.readQuery({ query: CURRENT_USER_QUERY });
     console.log('PostBlock render -> props', this.props);
     console.log('PostBlock render -> state', this.state);
     const {
       postItem,
-      // showCreate,
       readOnly,
       showEdit,
     } = this.state;
@@ -146,94 +192,98 @@ class PostBlock extends Component {
               </Message>);
             }
             return (
-            <>
-              <Segment>
-                {/* <Label attached='top right'>
-                <Icon name='trash alternate outline' size='big' /></Label> */}
+              <ApolloConsumer>
+                {client => (
+                  <RowDiv>
+                    <Segment>
+                      {/* <Label attached='top right'>
+                      <Icon name='trash alternate outline' size='big' /></Label> */}
 
-                {/* <Form.Input
-                  as='div'
-                  fluid
-                  name="title"
-                  readOnly={readOnly}
-                  disabled={loadingUpdate}
-                  loading={loadingUpdate}
-                  defaultValue={postItem.title}
-                  onChange={this.handleChange}
-                  // width={required
-                /> */}
-                <input
-                className='title-view'
-                  name="title"
-                  readOnly={readOnly}
-                  disabled={loadingUpdate}
-                  defaultValue={postItem.title}
-                  onChange={this.handleChange}
-                />
+                      {/* <Form.Input
+                        as='div'
+                        fluid
+                        name="title"
+                        readOnly={readOnly}
+                        disabled={loadingUpdate}
+                        loading={loadingUpdate}
+                        defaultValue={postItem.title}
+                        onChange={this.handleChange}
+                        // width={required
+                      /> */}
+                      <input
+                      className='title-view'
+                        name="title"
+                        readOnly={readOnly}
+                        disabled={loadingUpdate}
+                        defaultValue={postItem.title}
+                        onChange={this.handleChange}
+                      />
 
-                <div className="post-meta">
-                  <p>{postItem.userId}</p>
-                  <p>{postItem.createdDate}</p>
-                </div>
-                {/* <Form.Input
-                  fluid
-                  name="content"
-                  readOnly={readOnly}
-                  disabled={loadingUpdate}
-                  loading={loadingUpdate}
-                  defaultValue={postItem.content}
-                  onChange={this.handleChange}
-                  // width={8}
-                  required
-                /> */}
-                <Form>
-                  <TextArea
-                  className='post-content'
-                              name="content"
-                              readOnly={readOnly}
-                              disabled={loadingUpdate}
-                              loading={loadingUpdate}
-                              defaultValue={postItem.content}
-                              onChange={this.handleChange}
-                  placeholder='Текст поста' />
-                </Form>
+                      <div className="post-meta">
+                        <p>{postItem.userId}</p>
+                        <p>{postItem.createdDate}</p>
+                      </div>
+                      {/* <Form.Input
+                        fluid
+                        name="content"
+                        readOnly={readOnly}
+                        disabled={loadingUpdate}
+                        loading={loadingUpdate}
+                        defaultValue={postItem.content}
+                        onChange={this.handleChange}
+                        // width={8}
+                        required
+                      /> */}
+                      <Form>
+                        <TextArea
+                        className='post-content'
+                                    name="content"
+                                    readOnly={readOnly}
+                                    disabled={loadingUpdate}
+                                    //loading={loadingUpdate}
+                                    defaultValue={postItem.content}
+                                    onChange={this.handleChange}
+                        placeholder='Текст поста' />
+                      </Form>
 
-                {showEdit === '' ? (
-                  //<Segment attached='bottom'>
-                  <Button.Group basic attached='bottom'>
-                  <Button
-                  icon
-                  size="large"
-                  onClick={() => this.enableEdit('1')}
-                  ><Icon name="edit outline" /></Button>
-                  <Button
-                  icon size="large"
-                  ><Icon name="trash alternate outline" /></Button>
-                </Button.Group>
-                    /* <Button
-                      // TODO tooltip
-                      icon
-                      size="large"
-                      onClick={() => this.enableEdit('1')}
-                    >
-                      <Icon name="edit outline" />
-                    </Button>
-                    <Button icon size="large">
-                      <Icon name="trash alternate outline" />
-                    </Button> */
-                  //</Segment>
-                ) : (
-                  <Segment attached='bottom'>
-                    <Button
-                      onClick={() => this.updatePostItem(updatePost)}
-                      >
-                      Обнов{loadingUpdate ? 'ление' : 'ить'}
-                    </Button>
-                    <Button onClick={() => this.enableEdit('')}>Отмена</Button>
-                  </Segment>
+                      {showEdit === '' ? (
+                        //<Segment attached='bottom'>
+                        <Button.Group basic attached='bottom'>
+                        <Button
+                        icon
+                        size="large"
+                        onClick={() => this.enableEdit('1')}
+                        ><Icon name="edit outline" /></Button>
+                        <Button
+                        icon size="large"
+                        ><Icon name="trash alternate outline" /></Button>
+                      </Button.Group>
+                          /* <Button
+                            // TODO tooltip
+                            icon
+                            size="large"
+                            onClick={() => this.enableEdit('1')}
+                          >
+                            <Icon name="edit outline" />
+                          </Button>
+                          <Button icon size="large">
+                            <Icon name="trash alternate outline" />
+                          </Button> */
+                        //</Segment>
+                      ) : (
+                        <Segment attached='bottom'>
+                          <Button
+                            onClick={() => this.updatePostItem(updatePost)}
+                            >
+                            Обнов{loadingUpdate ? 'ление' : 'ить'}
+                          </Button>
+                          <Button onClick={() => this.enableEdit('')}>Отмена</Button>
+                        </Segment>
+                      )}
+                    </Segment>
+                  </RowDiv>
                 )}
-              </Segment>
-            </>
+              </ApolloConsumer>
           );
         }}
       </Mutation>

@@ -97,10 +97,10 @@ const ALL_POSTS_QUERY = gql`
 
 const PostList = props => (
   <Query query={ALL_POSTS_QUERY}>
-    {({ data, loading: loadingQuery }) => {
+    {({ data, loading }) => {
       console.log('ALL_POSTS_QUERY data', data);
       return (
-      loadingQuery ? (
+        loading ? (
           <div>
             <p>
             Загрузка...
