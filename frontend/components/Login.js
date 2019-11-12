@@ -304,6 +304,20 @@ class Login extends Component {
       });
   };
 
+  updateCurrentUser = (cache, payload) => {
+    // manually update the cache on the client
+    // 1. Read the cache for the items we want
+    const data = cache.readQuery({ query: CURRENT_USER_QUERY });
+    console.log('updateCurrentUser cache: ', cache);
+    console.log('updateCurrentUser payload:', payload);
+    // 2. Filter the deleted item out of the page
+    //const deleteItemId = payload.data.deleteItem.id;
+    const {me} = payload.data;
+    data.me = { ...me};
+    // 3. Put the items back!
+    cache.writeQuery({ query: CURRENT_USER_QUERY, data });
+  };
+
   createAccount = async (e, signupMutate, currentUser) => {
     e.preventDefault();
     console.log('Login SignUp this.state: ', this.state);
@@ -329,7 +343,7 @@ class Login extends Component {
       );
   };
 
-  signInHandle = async (e, signinMutate, currentUser) => {
+  signInHandle = async (e, signinMutate, updateCurrentUser) => {
     e.preventDefault();
     console.log('Login signInHandle this.state: ', this.state);
     //console.log('Login signInHandle client: ', client);
@@ -337,6 +351,11 @@ class Login extends Component {
     //const login = {email: this.state.email, password: this.state.password,};
       const res = await signinMutate({
         variables:{email, password},
+        // update: (proxy, { data: { User } }) => {
+        //   const data = proxy.readQuery({ query: CURRENT_USER_QUERY });
+        //   data.currentUser = { ...User};
+        //   proxy.writeQuery({ query: CURRENT_USER_QUERY, data });
+        // },
         refetchQueries: [{
           query: CURRENT_USER_QUERY,
         }],
@@ -355,6 +374,8 @@ class Login extends Component {
       }
       );
   };
+
+
 
 
   saveToState = e => {
@@ -473,7 +494,7 @@ class Login extends Component {
                          //   {client => (
                          <Button.Group compact fluid>
                             <Button
-                            onClick={(e) => this.signInHandle(e, signinMutate, currentUser)}
+                            onClick={(e) => this.signInHandle(e, signinMutate)}
                             //type="submit"
                             positive
                             >

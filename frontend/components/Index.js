@@ -2,10 +2,12 @@ import React from 'react';
 import { Query, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
-import { Grid, Segment, Image, Icon } from 'semantic-ui-react';
+import {
+  Grid, Segment, Image, Icon,
+} from 'semantic-ui-react';
 import UserContext from './UserContext';
 import PostList from './PostList';
-import ProfileSidebar from "./ProfileSidebar";
+import ProfileSidebar from './ProfileSidebar';
 import User, { CURRENT_USER_QUERY } from './User';
 
 const IndexDiv = styled.div`
@@ -22,9 +24,9 @@ const withCurrentUserQuery = graphql(gql`
   }
 `, {
   props: ({ data, loading }) => {
-    if(loading || !data.me) return undefined;
-    //console.log('withCurrentUserQuery  data: ', data);
-    if(!loading && data.me) return data.me;
+    if (loading || !data.me) return undefined;
+    // console.log('withCurrentUserQuery  data: ', data);
+    if (!loading && data.me) return data;
     // {
     //   // user: ()=> {
     //   ,
@@ -33,27 +35,34 @@ const withCurrentUserQuery = graphql(gql`
     //   ,
     // }
   },
-}
-);
+});
 
 class IndexHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.props.user,
+      // user: this.props.user,
+      user: '',
     };
   }
 
-  async componentDidMount(){
+  async componentDidMount() {
     // const { client } = this.props;
+    const { me } = this.props;
     // const userData = client.readQuery({ query: CURRENT_USER_QUERY });
     // const userId = userData === undefined ? '' : userData.me.id;
-    //const user = await this.updateCurrentUser();
-    //const user = await this.props.user();
-    //console.log('Index componentDidMount userId: ', user.me);
+    // const user = await this.updateCurrentUser();
+    // const user = await this.props.user();
+    // console.log('Index componentDidMount userId: ', user.me);
     // this.setState({
     //   user,
     // })
+    console.log('Index componentDidMount me: ', me);
+    if (me) {
+      this.setState({
+        user: me,
+      });
+    }
   }
 
   // updateCurrentUser = async ()=> {
@@ -69,17 +78,16 @@ class IndexHome extends React.Component {
   // }
 
 
-
   render() {
     console.log('Index render  this.props: ', this.props);
     console.log('Index render  this.state.user: ', this.state.user);
     return (
       <User>
         {({ data, error, loading }) => {
-          //if (loading) return <p>Loading...</p>;
-          //const { me } = user.data;
-          //if (!me) return null;
-         //console.log('User data', data);
+          // if (loading) return <p>Loading...</p>;
+          // const { me } = user.data;
+          // if (!me) return null;
+          // console.log('User data', data);
           console.log('User loading', loading);
           return (
             loading ? (
@@ -89,10 +97,9 @@ class IndexHome extends React.Component {
               <i className="spinner icon"></i>
               </p>
             </div>
-          )
-          :
-          (
-          /* <ApolloConsumer>
+            )
+              : (
+            /* <ApolloConsumer>
             {client => ( */
               <UserContext.Provider value={{ user: this.state.user }}>
               <IndexDiv>
@@ -116,7 +123,7 @@ class IndexHome extends React.Component {
               </UserContext.Provider>
             /* )}
           </ApolloConsumer> */
-          )
+              )
           );
         }}
       </User>
