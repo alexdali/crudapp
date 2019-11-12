@@ -1,7 +1,10 @@
 import App, { Container } from 'next/app';
 import { ApolloProvider, ApolloConsumer } from 'react-apollo';
 import Page from '../components/Page';
-import withData from '../lib/withData';
+// import withData from '../lib/withData';
+import CreateApolloClient from '../lib/CreateApolloClient';
+
+const client = CreateApolloClient();
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -15,23 +18,20 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, apollo, pageProps } = this.props;
+    // const { Component, apollo, pageProps } = this.props;
+    const { Component, pageProps } = this.props;
 
     return (
-      // <Container>
-        <ApolloProvider client={apollo}>
+    // <Container>
+        <ApolloProvider client={client}>
           <Page>
-            {/* {client => (
-              <Component client={client} {...pageProps} />
-            )} */}
-
                 <Component {...pageProps} />
-
           </Page>
         </ApolloProvider>
-      //</Container>
+    // </Container>
     );
   }
 }
 
-export default withData(MyApp);
+// export default withData(MyApp);
+export default MyApp;
