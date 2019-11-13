@@ -3,10 +3,12 @@ import { Mutation, Query, ApolloConsumer } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Grid, Segment, Form, Icon, TextArea, Button, Header } from 'semantic-ui-react';
+import {
+  Grid, Segment, Form, Icon, TextArea, Button, Header,
+} from 'semantic-ui-react';
 import { ALL_POSTS_QUERY } from './PostList';
 import User, { CURRENT_USER_QUERY } from './User';
-import ProfileSidebar from "./ProfileSidebar";
+import ProfileSidebar from './ProfileSidebar';
 import PostCreateForm from './PostCreateForm';
 import PostsByUser from './PostsByUser';
 
@@ -14,14 +16,12 @@ const IndexDiv = styled.div`
   margin: 52px 0 0;
 `;
 
-const UserBlog = props => {
-     return (
+const UserBlog = (props) => (
       <Query query={CURRENT_USER_QUERY}>
       {({ data, loading }) => {
-
         console.log('ALL_POSTS_QUERY data', data);
-      return (
-        loading ? (
+        return (
+          loading ? (
           <div>
             <p>
             Загрузка...
@@ -29,10 +29,9 @@ const UserBlog = props => {
             {/* <Icon loading name="spinner" /> */}
             </p>
           </div>
-        )
-        :
-        (
-          data.me &&  <IndexDiv>
+          )
+            : (
+              data.me && <IndexDiv>
               <Grid celled='internally'>
                 <Grid.Row>
                   {/* <Grid.Column width={3}>
@@ -57,11 +56,10 @@ const UserBlog = props => {
                 </Grid.Row>
               </Grid>
             </IndexDiv>
-        )
-          );
-         }}
+            )
+        );
+      }}
        </Query>
-       )
-};
+);
 
 export default UserBlog;

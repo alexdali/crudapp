@@ -14,6 +14,7 @@ import {
   // Header,
   Icon,
 } from 'semantic-ui-react';
+import UserContext from './UserContext';
 import User, { CURRENT_USER_QUERY } from './User';
 import SignOut from './SignOut';
 import Login from './Login';
