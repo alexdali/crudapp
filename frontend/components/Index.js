@@ -37,6 +37,27 @@ const withCurrentUserQuery = graphql(gql`
   },
 });
 
+function bodePage () {
+  <IndexDiv>
+                <Grid celled='internally'>
+                  <Grid.Row>
+                    <Grid.Column width={3}>
+                    <Segment>1</Segment>
+                      <Segment>2</Segment>
+                      <Segment>1</Segment>
+                      <Segment>2</Segment>
+                    </Grid.Column>
+                    <Grid.Column width={10}>
+                      <PostList/>
+                    </Grid.Column>
+                    <Grid.Column width={3}>
+                      <ProfileSidebar/>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </IndexDiv>
+}
+
 class IndexHome extends React.Component {
   constructor(props) {
     super(props);
