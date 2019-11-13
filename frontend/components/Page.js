@@ -16,11 +16,11 @@ const theme = {
 
 const StyledPage = styled.div`
   background: white;
-  color: ${props => props.theme.black};
+  color: ${(props) => props.theme.black};
 `;
 
 const Inner = styled.div`
-  max-width: ${props => props.theme.maxWidth};
+  max-width: ${(props) => props.theme.maxWidth};
   margin: 0 auto;
   padding: 2rem;
 `;
@@ -65,7 +65,7 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         font-size: 1.5rem;
         line-height: 2;
-        ${'' /* font-family: 'radnika_next'; */}
+        ${''}
     }
     a {
         text-decoration: none;
@@ -77,8 +77,8 @@ class Page extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <ApolloConsumer>
-          {client => (
+        {/* <ApolloConsumer>
+          {client => ( */}
             <StyledPage>
               <Meta />
               <Header />
@@ -86,7 +86,7 @@ class Page extends Component {
               <GlobalStyle />
             </StyledPage>
           )}
-        </ApolloConsumer>
+        {/* </ApolloConsumer> */}
       </ThemeProvider>
     );
   }

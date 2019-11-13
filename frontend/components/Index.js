@@ -17,18 +17,16 @@ const IndexDiv = styled.div`
 
 const Index = (props) => {
   console.log('Main props: ', props);
-  let user = '';
   return (
-  <User>
-    {({ data, error, loading }) => {
-      if (data) { console.log('Main data: ', data); }
-      if (loading) return <i className="spinner icon"></i>;
-      // if (loading) return <Spinner/>;
-      if (data) {
-        // data.me ? user = me : user = '';
-        if (typeof data.me !== 'undefined' && data.me !== null) { user = data.me; }
-      }
-      return (
+  // <User>
+  //  {({ data, error, loading }) => {
+    <Query query={CURRENT_USER_QUERY}>
+      {({ data, loading }) => {
+        if (data) { console.log('Main data: ', data); }
+        if (loading) return <i className="spinner icon"></i>;
+        const user = data.me ? data.me : '';
+        console.log('Index User Query user: ', user);
+        return (
         <IndexDiv>
                 <Grid celled='internally'>
                   <Grid.Row>
@@ -39,114 +37,22 @@ const Index = (props) => {
                       <Segment>2</Segment>
                     </Grid.Column>
                     <Grid.Column width={10}>
+                      {/* <PostList user={data.me ? data.me : user} /> */}
                       <PostList user={user} />
                     </Grid.Column>
                     <Grid.Column width={3}>
-                      <ProfileSidebar key={user.id} user={user} />
+                      {/* <ProfileSidebar user={data.me ? data.me : user} /> */}
+                      <ProfileSidebar user={user} />
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
         </IndexDiv>);
-    }}
-   </User>
+      }}
+    </Query>
+    // }}
+  // </User>
   );
 };
-
-// class IndexHome extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       // user: this.props.user,
-//       user: '',
-//     };
-//   }
-
-//   async componentDidMount() {
-//     // const { client } = this.props;
-//     const { me } = this.props;
-//     // const userData = client.readQuery({ query: CURRENT_USER_QUERY });
-//     // const userId = userData === undefined ? '' : userData.me.id;
-//     // const user = await this.updateCurrentUser();
-//     // const user = await this.props.user();
-//     // console.log('Index componentDidMount userId: ', user.me);
-//     // this.setState({
-//     //   user,
-//     // })
-//     console.log('Index componentDidMount me: ', me);
-//     if (me) {
-//       this.setState({
-//         user: me,
-//       });
-//     }
-//   }
-
-//   // updateCurrentUser = async ()=> {
-//   //   const { client } = this.props;
-//   //   const userData = await client.readQuery({ query: CURRENT_USER_QUERY }) || '';
-//   //   //console.log('Index updateCurrentUser userData: ', userData);
-//   //   // const user = userData === undefined ? '' : (userData.me ? userData.me : '');
-//   //   // const user = userData.me ? userData.me : '';
-//   //   // //const user = userData.me;
-//   //   // console.log('Index updateCurrentUser userId: ', user.id);
-//   //   // return user;
-//   //   return userData;
-//   // }
-
-
-//   render() {
-//     console.log('Index render  this.props: ', this.props);
-//     console.log('Index render  this.state.user: ', this.state.user);
-//     // const Main = this.getMain();
-//     return (
-//       <User>
-//         {({ data, error, loading }) => {
-//           // if (loading) return <p>Loading...</p>;
-//           // const { me } = user.data;
-//           // if (!me) return null;
-//           // console.log('User data', data);
-//           console.log('User loading', loading);
-//           return (
-//             loading ? (
-//             <div>
-//               <p>
-//               Загрузка...
-//               <i className="spinner icon"></i>
-//               </p>
-//             </div>
-//             )
-//               : (
-//             /* <ApolloConsumer>
-//             {client => ( */
-//               <UserContext.Provider value={{ user: this.state.user }}>
-//               <Main/>
-//               {/* <IndexDiv>
-//                 <Grid celled='internally'>
-//                   <Grid.Row>
-//                     <Grid.Column width={3}>
-//                     <Segment>1</Segment>
-//                       <Segment>2</Segment>
-//                       <Segment>1</Segment>
-//                       <Segment>2</Segment>
-//                     </Grid.Column>
-//                     <Grid.Column width={10}>
-//                       <PostList/>
-//                     </Grid.Column>
-//                     <Grid.Column width={3}>
-//                       <ProfileSidebar/>
-//                     </Grid.Column>
-//                   </Grid.Row>
-//                 </Grid>
-//               </IndexDiv> */}
-//               </UserContext.Provider>
-//             /* )}
-//           </ApolloConsumer> */
-//               )
-//           );
-//         }}
-//       </User>
-//     );
-//   }
-// }
 
 // const Index = withCurrentUserQuery(Main);
 
