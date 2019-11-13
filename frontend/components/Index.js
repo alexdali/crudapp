@@ -37,6 +37,32 @@ const withCurrentUserQuery = graphql(gql`
   },
 });
 
+const Main = (props) => (
+  <User>
+    {({ data, error, loading }) => {
+      console.log('Index props: ', props);
+      return (
+      <IndexDiv>
+        <Grid celled='internally'>
+          <Grid.Row>
+            <Grid.Column width={3}>
+            <Segment>1</Segment>
+              <Segment>2</Segment>
+              <Segment>1</Segment>
+              <Segment>2</Segment>
+            </Grid.Column>
+            <Grid.Column width={10}>
+              <PostList/>
+            </Grid.Column>
+            <Grid.Column width={3}>
+              <ProfileSidebar/>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </IndexDiv>);
+    }}
+  </User>);
+
 class IndexHome extends React.Component {
   constructor(props) {
     super(props);
@@ -81,6 +107,7 @@ class IndexHome extends React.Component {
   render() {
     console.log('Index render  this.props: ', this.props);
     console.log('Index render  this.state.user: ', this.state.user);
+    // const Main = this.getMain();
     return (
       <User>
         {({ data, error, loading }) => {
@@ -102,7 +129,8 @@ class IndexHome extends React.Component {
             /* <ApolloConsumer>
             {client => ( */
               <UserContext.Provider value={{ user: this.state.user }}>
-              <IndexDiv>
+              <Main/>
+              {/* <IndexDiv>
                 <Grid celled='internally'>
                   <Grid.Row>
                     <Grid.Column width={3}>
@@ -119,7 +147,7 @@ class IndexHome extends React.Component {
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
-              </IndexDiv>
+              </IndexDiv> */}
               </UserContext.Provider>
             /* )}
           </ApolloConsumer> */
@@ -131,6 +159,6 @@ class IndexHome extends React.Component {
   }
 }
 
-const Index = withCurrentUserQuery(IndexHome);
+const Index = withCurrentUserQuery(Main);
 
 export default Index;
