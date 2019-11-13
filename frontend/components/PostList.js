@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { Mutation, Query, ApolloConsumer } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-import { Item, Header, Segment, Button, Icon, Form } from 'semantic-ui-react';
+import {
+  Item, Header, Segment, Button, Icon, Form,
+} from 'semantic-ui-react';
 import styled from 'styled-components';
-//import NProgress from 'nprogress';
-//import CreateFormCategoryTP from './CreateFormCategoryTP';
+// import NProgress from 'nprogress';
+// import CreateFormCategoryTP from './CreateFormCategoryTP';
+import Spinner from './Spinner';
 import PostCard from './PostCard';
 // import Error from './ErrorMessage';
 
@@ -51,7 +54,7 @@ const ItemsList = styled.div`
   display: block;
   /* grid-template-columns: 1fr 1fr;
   grid-gap: 60px; */
-  max-width: ${props => props.theme.maxWidth};
+  max-width: ${(props) => props.theme.maxWidth};
   margin: 2.5rem 3rem;
   padding: 0 4em;
   @media (max-width: 700px) {
@@ -95,34 +98,35 @@ const ALL_POSTS_QUERY = gql`
 //   }
 // `;
 
-const PostList = props => (
+const PostList = (props) => {
+  console.log('PostList props: ', props);
+  return (
   <Query query={ALL_POSTS_QUERY}>
     {({ data, loading }) => {
       console.log('ALL_POSTS_QUERY data', data);
       return (
         loading ? (
-          <div>
+          <Spinner/>
+          /* <div>
             <p>
             Загрузка...
             <i className="spinner icon"></i>
-            {/* <Icon loading name="spinner" /> */}
             </p>
-          </div>
+          </div> */
         )
-        :
-        (
+          : (
           <Item.Group divided relaxed='very'>
-            {data.posts.map(post => (
+            {data.posts.map((post) => (
               <Segment key={post.id}>
-                <PostCard postcard={post}  />
+                <PostCard postcard={post} />
               </Segment>
             ))}
           </Item.Group>
-      )
+          )
       );
     }}
-  </Query>
-);
+  </Query>);
+};
 
 export { ALL_POSTS_QUERY };
-export default PostList
+export default PostList;

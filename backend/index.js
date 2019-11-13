@@ -10,19 +10,22 @@ import { ApolloServer } from 'apollo-server-express';
 // import bodyParser from 'body-parser';
 import typeDefs from './graphql/typedef';
 import resolvers from './graphql/resolvers';
-import uri from './mongodb/db';
+//import uri from './mongodb/db';
+import connectDBwithRetry from './mongodb/connectionDB';
 import { getUser } from './mongodb/controllersGet';
 
 require('dotenv').config({ path: 'variables.env' });
 
-mongoose.connect(uri, {
-  useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true,
-});
+// mongoose.connect(uri, {
+//   useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true,
+// });
+//
+//
+// mongoose.connection.once('open', () => {
+//   console.log('connected to MongoDB');
+// }).catch((err) => console.error('error MongoDb', err));
 
-
-mongoose.connection.once('open', () => {
-  console.log('connected to MongoDB');
-}).catch((err) => console.error('error MongoDb', err));
+connectDBwithRetry();
 
 // const corsOptions = {
 //   origin: process.env.FRONTEND_URL,

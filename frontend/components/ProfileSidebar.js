@@ -3,7 +3,9 @@ import { Query } from 'react-apollo';
 import { Segment, Image, Icon } from 'semantic-ui-react';
 import { CURRENT_USER_QUERY } from './User';
 
-const ProfileSidebar = (props) => (
+const ProfileSidebar = (props) => {
+  console.log('ProfileSidebar props: ', props);
+  return (
     <Query query={CURRENT_USER_QUERY}>
       {({ data, loading }) => (
         <Segment>
@@ -21,7 +23,7 @@ const ProfileSidebar = (props) => (
             <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
         </Segment>
       )}
-    </Query>
-);
+    </Query>);
+};
 
 export default ProfileSidebar;
