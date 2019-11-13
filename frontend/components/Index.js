@@ -22,7 +22,7 @@ const Index = (props) => {
   <User>
     {({ data, error, loading }) => {
       if (data) { console.log('Main data: ', data); }
-      // if (loading) return <i className="spinner icon"></i>;
+      if (loading) return <i className="spinner icon"></i>;
       // if (loading) return <Spinner/>;
       if (data) {
         // data.me ? user = me : user = '';
@@ -42,7 +42,7 @@ const Index = (props) => {
                       <PostList user={user} />
                     </Grid.Column>
                     <Grid.Column width={3}>
-                      <ProfileSidebar user={user} />
+                      <ProfileSidebar key={user.id} user={user} />
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
