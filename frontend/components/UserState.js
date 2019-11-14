@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserContext from './UserContext';
 
-class CurrentUser extends Component {
+class UserState extends Component {
   state = {
     user: null,
   };
@@ -24,4 +24,4 @@ class CurrentUser extends Component {
   }
 }
 
-export default CurrentUser;
+export default UserState;

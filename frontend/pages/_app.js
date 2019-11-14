@@ -1,7 +1,7 @@
 import App, { Container } from 'next/app';
 import { ApolloProvider, ApolloConsumer } from 'react-apollo';
 // import UserContext from '../components/UserContext';
-import CurrentUser from '../components/CurrentUser';
+import UserState from '../components/UserState';
 import Page from '../components/Page';
 // import withData from '../lib/withData';
 import CreateApolloClient from '../lib/CreateApolloClient';
@@ -38,13 +38,13 @@ class MyApp extends App {
       // <UserContext.Provider
       //   value={{ user: this.state.user, setCurrentUser: this.setCurrentUser }}
       // >
-      <CurrentUser>
+      <UserState>
         <ApolloProvider client={client}>
           <Page>
                 <Component {...pageProps} />
           </Page>
         </ApolloProvider>
-      </CurrentUser>
+      </UserState>
     /* </UserContext.Provider> */
     );
   }
