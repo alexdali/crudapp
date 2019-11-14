@@ -400,7 +400,7 @@ class Login extends Component {
 
   render() {
     console.log('Login this.props: ', this.props);
-    console.log('Signin this.state: ', this.state);
+    // console.log('Signin this.state: ', this.state);
     const { signup, error } = this.state;
 
     return (

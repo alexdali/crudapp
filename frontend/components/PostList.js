@@ -116,14 +116,14 @@ const PostList = (props) => {
         )
           : (
           <Item.Group divided relaxed='very'>
-            {data.posts ? (
+            {data ? (
               data.posts.map((post) => (
               <Segment key={post.id}>
                 <PostCard postcard={post} />
               </Segment>
               ))
             )
-            : <p>Отсутствует соединение с базой данных</p>
+              : <p>Отсутствует соединение с базой данных</p>
             }
           </Item.Group>
           )

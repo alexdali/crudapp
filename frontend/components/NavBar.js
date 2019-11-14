@@ -14,7 +14,7 @@ import {
   // Header,
   Icon,
 } from 'semantic-ui-react';
-import { UserContext, UserContextConsumer } from './UserContext';
+import { UserContextConsumer } from './UserContext';
 import User, { CURRENT_USER_QUERY } from './User';
 import SignOut from './SignOut';
 import Login from './Login';
@@ -175,7 +175,7 @@ class NavBar extends React.Component {
   }
 
   handleRes = (res) => {
-    console.log('NavBar handleRes res: ', res);
+    // console.log('NavBar handleRes res: ', res);
     if (res) {
       console.log('NavBar handleRes res.data.signIn: ', res.data.signIn);
       this.setState({
@@ -220,7 +220,7 @@ class NavBar extends React.Component {
           <UserContextConsumer>
             {({ user, setCurrentUser }) => {
               console.log('NavBar render UserContextConsumer user: ', user);
-              console.log('NavBar render UserContextConsumer setCurrentUser: ', setCurrentUser);
+              // console.log('NavBar render UserContextConsumer setCurrentUser: ', setCurrentUser);
               /* if (data!==undefined) {
             console.log('NavBar render Query data: ', data);
             console.log('NavBar render Query data loading: ', loading);
@@ -287,8 +287,8 @@ class NavBar extends React.Component {
                           <div className="MenuItem">
                             <Link href="#">
                               <a>
-                              {/* user.name ? <i className="account icon">{user.name}</i> : <i className="account icon"></i> */}
-                              <i className="user outline icon"></i>
+                              <i className="user outline icon">{user ? ' ' && user.name : ''}</i>
+                              {/* <i className="user outline icon"></i> */}
                               </a>
                             </Link>
                           </div>

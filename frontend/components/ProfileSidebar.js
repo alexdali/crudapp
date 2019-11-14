@@ -6,14 +6,14 @@ import { CURRENT_USER_QUERY } from './User';
 // const ProfileSidebar = (props) => {
 class ProfileSidebar extends React.PureComponent {
   state = {
-    user: this.props.user
+    user: this.props.user,
   };
 
   componentDidUpdate(prevProps) {
-    //console.log('ProfileSidebar componentDidUpdate prevProps.user: ', prevProps.user);
-    //console.log('ProfileSidebar componentDidUpdate this.props.user: ', this.props.user);
-    if(prevProps.user.id !== this.props.user.id) {
-      this.setState({user: this.props.user});
+    // console.log('ProfileSidebar componentDidUpdate prevProps.user: ', prevProps.user);
+    // console.log('ProfileSidebar componentDidUpdate this.props.user: ', this.props.user);
+    if (prevProps.user.id !== this.props.user.id) {
+      this.setState({ user: this.props.user });
     }
   }
 
