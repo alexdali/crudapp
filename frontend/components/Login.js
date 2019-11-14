@@ -342,6 +342,7 @@ class Login extends Component {
     },
     () => {
       console.log('Login createAccount this.state: ', this.state);
+
       this.props.handleRes(res);
     });
   };
@@ -363,7 +364,7 @@ class Login extends Component {
         query: CURRENT_USER_QUERY,
       }],
     }).catch((error) => {
-      console.log('signInHandle Error: ', error.message);
+      // console.log('signInHandle Error: ', error.message);
       const errMessage = error.message.replace('GraphQL error: ', '');
       this.setState({
         name: '',
@@ -386,6 +387,7 @@ class Login extends Component {
       },
       () => {
         console.log('Signin signInHandle this.state: ', this.state);
+        this.props.setCurrentUser(res.data.signIn);
         this.props.handleRes(res);
       });
     }
@@ -404,8 +406,8 @@ class Login extends Component {
     return (
           <Composed>
           {({ currentUser, signinMutate, signupMutate }) => {
-            const { loading: loadingsignin, error: errorsignin } = signinMutate;
-            console.log('Login errorsignin: ', errorsignin);
+            const { loading: loadingsignin } = signinMutate;
+            // console.log('Login errorsignin: ', errorsignin);
             return (
           <RowDiv className="login-background">
           <div className="blur">
