@@ -3,11 +3,13 @@ import { Mutation, Query, ApolloConsumer } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Grid, Segment, Form, Icon, TextArea, Button, Header } from 'semantic-ui-react';
+import {
+  Grid, Segment, Form, Icon, TextArea, Button, Header, Message,
+} from 'semantic-ui-react';
 import { ALL_POSTS_QUERY } from './PostList';
 import User, { CURRENT_USER_QUERY } from './User';
-//import ProfileSidebar from "./ProfileSidebar";
-//import { Message, Segment, , Icon, Form, , Label} from 'semantic-ui-react';
+// import ProfileSidebar from "./ProfileSidebar";
+// import { Message, Segment, , Icon, Form, , Label} from 'semantic-ui-react';
 
 
 const CREATE_POST_MUTATION = gql`
@@ -45,7 +47,7 @@ class PostCreateForm extends Component {
   state = {
     postItem: {
       userId: this.props.id,
-      //postId: '',
+      // postId: '',
       title: '',
       content: '',
     },
@@ -73,11 +75,11 @@ class PostCreateForm extends Component {
   handleChange = (e, data) => {
     const { name, type, value } = e.target;
     // console.log(`handleChange: e: `, e);
-    console.log(`handleChange: data: `, data);
+    console.log('handleChange: data: ', data);
     console.log(
       `handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${
         data.checked
-      }, data.name: ${data.name}`
+      }, data.name: ${data.name}`,
     );
 
     let val = value;
@@ -95,51 +97,51 @@ class PostCreateForm extends Component {
 
   // createPostItem = async (e, client, createPost) => {
     createPostItem = async (e, createPost) => {
-    e.preventDefault();
-    //const { me } = client.readQuery({ query: CURRENT_USER_QUERY });
-    // console.log('createPostItem e: ', e);
-    console.log('createPostItem readQuery me.id: ', me.id);
-    // console.log('createPostItem createPost this.state: ', this.state);
-    const { userId, title, content } = this.state.postItem;
-    console.log(
-      'PostCreateForm createPost this.state.postItem: ',
-      this.state.postItem
-    );
-    const res = await createPost({
-      variables: {
+      e.preventDefault();
+      // const { me } = client.readQuery({ query: CURRENT_USER_QUERY });
+      // console.log('createPostItem e: ', e);
+      console.log('createPostItem readQuery me.id: ', me.id);
+      // console.log('createPostItem createPost this.state: ', this.state);
+      const { userId, title, content } = this.state.postItem;
+      console.log(
+        'PostCreateForm createPost this.state.postItem: ',
+        this.state.postItem,
+      );
+      const res = await createPost({
+        variables: {
         // userId: me.id, title, content
-        userId, title, content
-      },
-      refetchQueries: [{
-        query: ALL_POSTS_QUERY,
-      }],
+          userId, title, content,
+        },
+        refetchQueries: [{
+          query: ALL_POSTS_QUERY,
+        }],
       });
-    console.log('PostCreateForm CREATED!!!! res: ', res);
-    this.setState({
-      //postItem: this.props.postItem,
-      postItem: {
-        userId: '',
-        title: '',
-        content: '',
-        createdDate: '',
-      },
-      showEdit: '',
-      readOnly: true,
-    });
-  };
+      console.log('PostCreateForm CREATED!!!! res: ', res);
+      this.setState({
+      // postItem: this.props.postItem,
+        postItem: {
+          userId: '',
+          title: '',
+          content: '',
+          createdDate: '',
+        },
+        showEdit: '',
+        readOnly: true,
+      });
+    };
 
-  render() {
-    console.log('PostCreateForm render -> props', this.props);
-    console.log('PostCreateForm render -> state', this.state);
-    const {
-      postItem,  //: { userId, postId, title, content },
-      // showCreate,
-      readOnly,
-      showEdit,
-    } = this.state;
-    //const { client } = this.props;
-    console.log('PostCreateForm render -> state.postItem', postItem);
-    return (
+    render() {
+      console.log('PostCreateForm render -> props', this.props);
+      console.log('PostCreateForm render -> state', this.state);
+      const {
+        postItem, // : { userId, postId, title, content },
+        // showCreate,
+        readOnly,
+        showEdit,
+      } = this.state;
+      // const { client } = this.props;
+      console.log('PostCreateForm render -> state.postItem', postItem);
+      return (
 
       <Mutation
         mutation={CREATE_POST_MUTATION}
@@ -148,9 +150,9 @@ class PostCreateForm extends Component {
         }}
         refetchQueries={() => ['ALL_POSTS_QUERY']}
       >
-        {( createPost, { loading, error } ) => {
+        {(createPost, { loading, error }) => {
           if (error) {
-          return (
+            return (
             <Message negative>
               <Message.Header>Ошибка!</Message.Header>
               <p>{error.message.replace('GraphQL error: ', '')}</p>
@@ -161,7 +163,7 @@ class PostCreateForm extends Component {
 
             <Segment padded>
                 <Form
-                  onSubmit={e =>
+                  onSubmit={(e) =>
                     // this.createPostItem(e, client, createPost)
                     this.createPostItem(e, createPost)
                   }
@@ -172,8 +174,8 @@ class PostCreateForm extends Component {
 
                   {/* <Form.Group> */}
                       <Form.Input
-                        //className='title-view'
-                        //widths='equal'
+                        // className='title-view'
+                        // widths='equal'
                         fluid
                         name="title"
                         readOnly={readOnly}
@@ -205,12 +207,12 @@ class PostCreateForm extends Component {
                     defaultValue={postItem.title}
                     onChange={this.handleChange}
                   />
-                  </div>*/}
+                  </div> */}
 
-                  {/*<div className="post-meta">
+                  {/* <div className="post-meta">
                      <p>{postItem.userId}</p> */}
                     {/* <p>{postItem.createdDate}</p>
-                  </div>*/}
+                  </div> */}
                   {/* <Form.Input
                     fluid
                     name="content"
@@ -228,7 +230,7 @@ class PostCreateForm extends Component {
                       name="content"
                       readOnly={readOnly}
                       disabled={loading}
-                      //loading={loading}
+                      // loading={loading}
                       placeholder="Текст поста"
                       defaultValue={postItem.content}
                       onChange={this.handleChange}
@@ -248,7 +250,7 @@ class PostCreateForm extends Component {
                   fluid
                   icon
                   labelPosition="left"
-                  //onClick={() => this.createPostItem(createPost)}
+                  // onClick={() => this.createPostItem(createPost)}
                   >
                     {/* <Icon name="plus circle" /> */}
                     Добавить пост
@@ -259,9 +261,8 @@ class PostCreateForm extends Component {
           );
         }}
       </Mutation>
-    );
-  }
+      );
+    }
 }
 
 export default PostCreateForm;
-

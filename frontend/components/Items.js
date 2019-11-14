@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import Item from './PostCard';
-//import Pagination from './Pagination';
-//import { perPage } from '../config';
+// import Pagination from './Pagination';
+// import { perPage } from '../config';
 
 const ALL_USERS_QUERY = gql`
   query ALL_USERS_QUERY {
@@ -38,7 +38,7 @@ const ItemsList = styled.div`
   display: block;
   /* grid-template-columns: 1fr 1fr;
   grid-gap: 60px; */
-  max-width: ${props => props.theme.maxWidth};
+  max-width: ${(props) => props.theme.maxWidth};
   margin: 2.5rem 3rem;
   padding: 0 4em;
   @media (max-width: 700px) {
@@ -65,7 +65,7 @@ class Items extends Component {
             if (error) return <p>Error: {error.message}</p>;
             return (
               <ItemsList>
-                {data.posts.map(post => (
+                {data.posts.map((post) => (
                   <Item item={post} key={post.id} />
                 ))}
               </ItemsList>

@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Link from 'next/link';
 import styled from 'styled-components';
-//import NProgress from 'nprogress';
+// import NProgress from 'nprogress';
 import Router from 'next/router';
 import {
   Input,
@@ -14,7 +14,7 @@ import {
   // Header,
   Icon,
 } from 'semantic-ui-react';
-import UserContext from './UserContext';
+import { UserContext, UserContextConsumer } from './UserContext';
 import User, { CURRENT_USER_QUERY } from './User';
 import SignOut from './SignOut';
 import Login from './Login';
@@ -177,9 +177,14 @@ class NavBar extends React.Component {
   handleRes = (res) => {
     console.log('NavBar handleRes res: ', res);
     if (res) {
+      console.log('NavBar handleRes res.data.signIn: ', res.data.signIn);
       this.setState({
         login: false,
-      });
+      },
+      // () => {
+      //   setCurrentUser(res);
+      // }
+      );
     }
   };
 
@@ -211,9 +216,12 @@ class NavBar extends React.Component {
     const { activeItem, login } = this.state;
     return (
       <Query query={CURRENT_USER_QUERY}>
-        {({ data, loading }) => {
-
-          /* if (data!==undefined) {
+        {({ data, loading }) => (
+          <UserContextConsumer>
+            {({ user, setCurrentUser }) => {
+              console.log('NavBar render UserContextConsumer user: ', user);
+              console.log('NavBar render UserContextConsumer setCurrentUser: ', setCurrentUser);
+              /* if (data!==undefined) {
             console.log('NavBar render Query data: ', data);
             console.log('NavBar render Query data loading: ', loading);
             const {me} = data;
@@ -223,11 +231,9 @@ class NavBar extends React.Component {
             const me = false;
             console.log('NavBar render Query me', me);
             } */
-
-
-          //loading ? const me = false : const me = false;
-          return (
-            <>
+              // loading ? const me = false : const me = false;
+              return (
+                <>
             <MenuDiv>
               <Menu secondary borderless floated="right">
                 <Menu.Menu position="right" as="ul">
@@ -268,27 +274,43 @@ class NavBar extends React.Component {
                     </div>
                   </Menu.Item>
                   { loading
-                    ?
-                    <i className="spinner icon"></i> :
-                    <>
-                  {data.me  &&
-                    (
-                    <Menu.Item
-                      name="logout"
-                      as="li"
-                      onClick={this.handleItemClick}
-                    >
-                      <div className="MenuItem">
-                        <Link href="#">
-                          <a>
-                            <SignOut />
-                          </a>
-                        </Link>
-                      </div>
-                    </Menu.Item>
-                  )}
-                  {!data.me &&
-                  (
+                    ? <i className="spinner icon"></i>
+                    : <>
+                  {data.me
+                    && (
+                      <>
+                          <Menu.Item
+                            name="account"
+                            as="li"
+                            onClick={this.handleItemClick}
+                          >
+                          <div className="MenuItem">
+                            <Link href="#">
+                              <a>
+                              {/* user.name ? <i className="account icon">{user.name}</i> : <i className="account icon"></i> */}
+                              <i className="user outline icon"></i>
+                              </a>
+                            </Link>
+                          </div>
+                          </Menu.Item>
+                          <Menu.Item
+                            name="logout"
+                            as="li"
+                            onClick={this.handleItemClick}
+                          >
+                            <div className="MenuItem">
+                              <Link href="#">
+                                <a>
+                                  <SignOut />
+                                </a>
+                              </Link>
+                            </div>
+                          </Menu.Item>
+                      </>
+                    )
+                  }
+                  {!data.me
+                  && (
                     <Menu.Item
                       name="login"
                       as="li"
@@ -302,16 +324,18 @@ class NavBar extends React.Component {
                     </Menu.Item>
                   )}
                     </>
-                    //<a>{loading ? <i className="spinner icon"></i> : <span>Войти</span>}</a>
+                    // <a>{loading ? <i className="spinner icon"></i> : <span>Войти</span>}</a>
                   }
                 </Menu.Menu>
               </Menu>
             </MenuDiv>
-            {login &&
-            <Login handleRes={this.handleRes}/>}
-            </>
-          );
-          }}
+            {login
+            && <Login handleRes={this.handleRes} setCurrentUser={setCurrentUser} />}
+                </>
+              );
+            }}
+            </UserContextConsumer>
+        )}
       </Query>
     );
   }

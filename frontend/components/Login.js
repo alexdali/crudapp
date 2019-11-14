@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { Mutation, Query, ApolloConsumer, graphql } from 'react-apollo';
+import {
+  Mutation, Query, ApolloConsumer, graphql,
+} from 'react-apollo';
 import gql from 'graphql-tag';
 import { adopt } from 'react-adopt';
-//import CartStyles from './styles/CartStyles';
-//import CloseButton from './styles/CloseButton';
+// import CartStyles from './styles/CartStyles';
+// import CloseButton from './styles/CloseButton';
 import Link from 'next/link';
 import Router from 'next/router';
 import { Button, Loader, Icon } from 'semantic-ui-react';
-//import NProgress from 'nprogress';
+// import NProgress from 'nprogress';
 import styled from 'styled-components';
 import Form from './styles/Form';
-//import Spinner from './styles/Spinner';
-//import Error from './ErrorMessage';
-import User,{ CURRENT_USER_QUERY } from './User';
+// import Spinner from './styles/Spinner';
+import ErrorMessage from './ErrorMessage';
+import User, { CURRENT_USER_QUERY } from './User';
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -24,20 +26,19 @@ const SIGNIN_MUTATION = gql`
   }
 `;
 
-  // const Login = graphql(gql`
-  //     mutation SIGNIN_MUTATION($email: String!, $password: String!) {
-  //   signIn(email: $email, password: $password) {
-  //     id
-  //     email
-  //     name
-  //   }
-  // }`,
-  // {
-  //   options: {
-  //     refetchQueries: () => [ 'CURRENT_USER_QUERY' ]
-  //   },
-  // })(LoginComponent);
-
+// const Login = graphql(gql`
+//     mutation SIGNIN_MUTATION($email: String!, $password: String!) {
+//   signIn(email: $email, password: $password) {
+//     id
+//     email
+//     name
+//   }
+// }`,
+// {
+//   options: {
+//     refetchQueries: () => [ 'CURRENT_USER_QUERY' ]
+//   },
+// })(LoginComponent);
 
 
 const SIGNUP_MUTATION = gql`
@@ -292,74 +293,88 @@ class Login extends Component {
     password: '',
     loading: false,
     signup: false,
+    error: '',
   };
 
   showSignUp = () => {
     console.log('Login showSignUp');
-      this.setState({
-        name: '',
-        email: '',
-        password: '',
-        signup: true,
-      });
+    this.setState({
+      name: '',
+      email: '',
+      password: '',
+      signup: true,
+      error: '',
+    });
   };
 
-  updateCurrentUser = (cache, payload) => {
-    // manually update the cache on the client
-    // 1. Read the cache for the items we want
-    const data = cache.readQuery({ query: CURRENT_USER_QUERY });
-    console.log('updateCurrentUser cache: ', cache);
-    console.log('updateCurrentUser payload:', payload);
-    // 2. Filter the deleted item out of the page
-    //const deleteItemId = payload.data.deleteItem.id;
-    const {me} = payload.data;
-    data.me = { ...me};
-    // 3. Put the items back!
-    cache.writeQuery({ query: CURRENT_USER_QUERY, data });
-  };
+  // updateCurrentUser = (cache, payload) => {
+  //   // manually update the cache on the client
+  //   // 1. Read the cache for the items we want
+  //   const data = cache.readQuery({ query: CURRENT_USER_QUERY });
+  //   console.log('updateCurrentUser cache: ', cache);
+  //   console.log('updateCurrentUser payload:', payload);
+  //   // 2. Filter the deleted item out of the page
+  //   // const deleteItemId = payload.data.deleteItem.id;
+  //   const { me } = payload.data;
+  //   data.me = { ...me };
+  //   // 3. Put the items back!
+  //   cache.writeQuery({ query: CURRENT_USER_QUERY, data });
+  // };
 
-  createAccount = async (e, signupMutate, currentUser) => {
+  createAccount = async (e, signupMutate) => {
     e.preventDefault();
     console.log('Login SignUp this.state: ', this.state);
-    const {name, email, password } = this.state;
-      const res = await signupMutate({
-        variables:{name, email, password},
-        refetchQueries: [{
-          query: CURRENT_USER_QUERY,
-        }],
-      });
-      console.log('createAccount res', res);
+    const { name, email, password } = this.state;
+    const res = await signupMutate({
+      variables: { name, email, password },
+      refetchQueries: [{
+        query: CURRENT_USER_QUERY,
+      }],
+    });
+    console.log('createAccount res', res);
 
+    this.setState({
+      name: '',
+      email: '',
+      password: '',
+      signup: false,
+      error: '',
+    },
+    () => {
+      console.log('Login createAccount this.state: ', this.state);
+      this.props.handleRes(res);
+    });
+  };
+
+  signInHandle = async (e, signinMutate) => {
+    e.preventDefault();
+    console.log('Login signInHandle this.state: ', this.state);
+    // console.log('Login signInHandle client: ', client);
+    const { email, password } = this.state;
+    // const login = {email: this.state.email, password: this.state.password,};
+    const res = await signinMutate({
+      variables: { email, password },
+      // update: (proxy, { data: { User } }) => {
+      //   const data = proxy.readQuery({ query: CURRENT_USER_QUERY });
+      //   data.currentUser = { ...User};
+      //   proxy.writeQuery({ query: CURRENT_USER_QUERY, data });
+      // },
+      refetchQueries: [{
+        query: CURRENT_USER_QUERY,
+      }],
+    }).catch((error) => {
+      console.log('signInHandle Error: ', error.message);
+      const errMessage = error.message.replace('GraphQL error: ', '');
       this.setState({
         name: '',
         email: '',
         password: '',
         signup: false,
-      },
-      ()=>{
-        console.log('Login createAccount this.state: ', this.state);
-        this.props.handleRes(res);
-      }
-      );
-  };
-
-  signInHandle = async (e, signinMutate, updateCurrentUser) => {
-    e.preventDefault();
-    console.log('Login signInHandle this.state: ', this.state);
-    //console.log('Login signInHandle client: ', client);
-    const { email, password } = this.state;
-    //const login = {email: this.state.email, password: this.state.password,};
-      const res = await signinMutate({
-        variables:{email, password},
-        // update: (proxy, { data: { User } }) => {
-        //   const data = proxy.readQuery({ query: CURRENT_USER_QUERY });
-        //   data.currentUser = { ...User};
-        //   proxy.writeQuery({ query: CURRENT_USER_QUERY, data });
-        // },
-        refetchQueries: [{
-          query: CURRENT_USER_QUERY,
-        }],
+        error: errMessage,
       });
+    });
+
+    if (res) {
       console.log('signInHandle res', res);
 
       this.setState({
@@ -367,35 +382,36 @@ class Login extends Component {
         email: '',
         password: '',
         signup: false,
+        error: '',
       },
-      ()=>{
+      () => {
         console.log('Signin signInHandle this.state: ', this.state);
         this.props.handleRes(res);
-      }
-      );
+      });
+    }
   };
 
 
-
-
-  saveToState = e => {
+  saveToState = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   render() {
-    // console.log('Signin this.props: ', this.props);
-    // console.log('Signin this.state: ', this.state);
-    const { signup } = this.state;
+    console.log('Login this.props: ', this.props);
+    console.log('Signin this.state: ', this.state);
+    const { signup, error } = this.state;
+
     return (
           <Composed>
           {({ currentUser, signinMutate, signupMutate }) => {
-            const {loading} = signinMutate;
+            const { loading: loadingsignin, error: errorsignin } = signinMutate;
+            console.log('Login errorsignin: ', errorsignin);
             return (
           <RowDiv className="login-background">
           <div className="blur">
             <FormDiv>
               <Form
-                //method="post"
+                // method="post"
                 // onSubmit={async e => {
                 //   console.log('Signin onSubmit-> e ', e);
                 //   e.preventDefault();
@@ -415,10 +431,11 @@ class Login extends Component {
                 //   });
                 // }}
               >
-                <fieldset disabled={loading} aria-busy={loading}>
+                {error && <ErrorMessage error={error} />}
+                <fieldset disabled={loadingsignin} aria-busy={loadingsignin}>
                   {/* <Error error={error} /> */}
-                  {signup &&
-                    <div className="formItem">
+                  {signup
+                    && <div className="formItem">
                     <label htmlFor="name">
                       <div className="formItem-control">
                         <span className="input-wrapper">
@@ -478,24 +495,24 @@ class Login extends Component {
                       <span className="form-item-children">
 
                         {
-                          signup ?
-                          //<ApolloConsumer>
-                           // {client => (
-                              <Button compact fluid
+                          signup
+                          // <ApolloConsumer>
+                          // {client => (
+                            ? <Button compact fluid
                                 onClick={(e) => this.createAccount(e, signupMutate, currentUser)}
                                 positive
                                 >
                                 <span>Создать аккаунт</span>
                               </Button>
-                           // )}
-                          //</ApolloConsumer>
-                         :
-                         //<ApolloConsumer>
+                          // )}
+                          // </ApolloConsumer>
+                            :
+                         // <ApolloConsumer>
                          //   {client => (
                          <Button.Group compact fluid>
                             <Button
                             onClick={(e) => this.signInHandle(e, signinMutate)}
-                            //type="submit"
+                            // type="submit"
                             positive
                             >
                             <span>Войти</span>
@@ -507,8 +524,8 @@ class Login extends Component {
                             <span>Зарегистрироваться</span>
                             </Button>
                           </Button.Group>
-                          //)}
-                          //</ApolloConsumer>
+                          // )}
+                          // </ApolloConsumer>
                         }
                       </span>
                     </div>
@@ -520,11 +537,11 @@ class Login extends Component {
             </div>
           </RowDiv>
             );
-        }}
+          }}
   </Composed>
     );
   }
 }
 
 export default Login;
-//export { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION };
+// export { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION };
