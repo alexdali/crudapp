@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Query, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-// import UserContext from './UserContext';
-import UserFromCache from './UserFromCache';
 
 const { Provider, Consumer } = React.createContext();
+// import UserContext from './UserContext';
 
 
 const withCurrentUserQuery = graphql(gql`
@@ -73,18 +72,11 @@ class UserState extends Component {
   render() {
     console.log('UserContext render this.state.user: ', this.state.user);
     return (
-      <UserFromCache>
-        {(user) => {
-          console.log('UserContext  UserFromCache user: ', user);
-          return (<Provider
-            value={{ user: this.state.user, setCurrentUser: this.setCurrentUser }}
-          >
-            {this.props.children}
-          </Provider>);
-        }
-        }
-      </UserFromCache>
-
+      <Provider
+        value={{ user: this.state.user, setCurrentUser: this.setCurrentUser }}
+      >
+        {this.props.children}
+      </Provider>
     );
   }
 }

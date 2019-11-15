@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import Spinner from './Spinner';
 import PostCard from './PostCard';
 // import Error from './ErrorMessage';
+import ErrorMessage from './ErrorMessage';
 
 const RowDiv = styled.div`
   margin: 52px 0px;
@@ -123,7 +124,7 @@ const PostList = (props) => {
               </Segment>
               ))
             )
-              : <p>Отсутствует соединение с базой данных</p>
+              : <ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>
             }
           </Item.Group>
           )
