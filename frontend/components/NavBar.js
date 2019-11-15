@@ -10,7 +10,7 @@ import {
   Menu,
   Responsive,
   Image,
-  Dropdown,
+  Label,
   // Header,
   Icon,
 } from 'semantic-ui-react';
@@ -287,8 +287,12 @@ class NavBar extends React.Component {
                           <div className="MenuItem">
                             <Link href="#">
                               <a>
-                              <i className="user outline icon">{user ? ' ' && user.name : ''}</i>
-                              {/* <i className="user outline icon"></i> */}
+                              <Label>
+                                <Icon name='user outline' />
+                                {user ? user.name : ''}
+                              </Label>
+                              {/* <i className="user outline icon">{user ? (' ' && user.name) : ''}</i>
+                               <i className="user outline icon"></i> */}
                               </a>
                             </Link>
                           </div>

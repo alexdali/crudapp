@@ -15,7 +15,10 @@ const withCurrentUserQuery = graphql(gql`
     }
   }
 `, {
-  options: { fetchPolicy: 'cache-only' },
+  options: {
+    fetchPolicy: 'cache-only',
+    notifyOnNetworkStatusChange: true,
+  },
   props: async ({ data, error, loading }) => {
   // props: (payload) => {
     // console.log('withCurrentUserQuery  payload: ', payload);

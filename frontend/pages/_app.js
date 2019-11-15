@@ -6,7 +6,12 @@ import Page from '../components/Page';
 // import withData from '../lib/withData';
 import CreateApolloClient from '../lib/CreateApolloClient';
 
-const client = CreateApolloClient();
+// const client = CreateApolloClient();
+const client = CreateApolloClient({
+  // networkInterface,
+  // initialState: window.__APOLLO_STATE__,
+  ssrForceFetchDelay: 100,
+});
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -53,4 +58,5 @@ class MyApp extends App {
 }
 
 // export default withData(MyApp);
+export { client as apolloClient };
 export default MyApp;
