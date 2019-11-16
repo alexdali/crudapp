@@ -26,6 +26,12 @@ const SIGNIN_MUTATION = gql`
   }
 `;
 
+const CURRENT_USER_MUTATION = gql`
+  mutation CURRENT_USER_MUTATION($id: String!, $name: String!, $email: String!){
+    currentUser(id: $id, name: $name, email: $email) @client
+  }
+`;
+
 // const Login = graphql(gql`
 //     mutation SIGNIN_MUTATION($email: String!, $password: String!) {
 //   signIn(email: $email, password: $password) {
@@ -50,6 +56,7 @@ const SIGNUP_MUTATION = gql`
     }
   }
 `;
+
 
 // const SignupPromt = styled.div`
 //   /* text-align: center;
@@ -282,12 +289,15 @@ const Composed = adopt({
   currentUser: ({render}) => <Query query={CURRENT_USER_QUERY}>{render}</Query>,
   signupMutate: ({render}) => <Mutation mutation={SIGNUP_MUTATION}>{render}</Mutation>,
   signinMutate: ({render}) => <Mutation mutation={SIGNIN_MUTATION}>{render}</Mutation>,
+  currentUserMutate: ({render}) => <Mutation mutation={CURRENT_USER_MUTATION}>{render}</Mutation>,
+
 });
 /* eslint-enable */
 
 
 class Login extends Component {
   state = {
+    // id: '',
     name: '',
     email: '',
     password: '',
@@ -299,6 +309,7 @@ class Login extends Component {
   showSignUp = () => {
     console.log('Login showSignUp');
     this.setState({
+      // id: '',
       name: '',
       email: '',
       password: '',
@@ -334,6 +345,7 @@ class Login extends Component {
     console.log('createAccount res', res);
 
     this.setState({
+      // id: '',
       name: '',
       email: '',
       password: '',
@@ -347,19 +359,58 @@ class Login extends Component {
     });
   };
 
-  signInHandle = async (e, signinMutate) => {
+  // readQuery({
+  //   query: gql`
+  //     query {
+  //     me {
+  //       id
+  //       email
+  //       name
+  //     }
+  //   }
+  //   `,
+  // })
+
+  /* disable eslint(no-underscore-dangle) */
+  signInHandle = async (e, signinMutate, currentUserMutate) => {
     e.preventDefault();
     console.log('Login signInHandle this.state: ', this.state);
     // console.log('Login signInHandle client: ', client);
     const { email, password } = this.state;
     // const login = {email: this.state.email, password: this.state.password,};
+    // const res = await signinMutate({
+    //   variables: { email, password },
+    //   // update: (proxy, { data: { User } }) => {
+    //   //   const data = proxy.readQuery({ query: CURRENT_USER_QUERY });
+    //   //   data.currentUser = { ...User};
+    //   //   proxy.writeQuery({ query: CURRENT_USER_QUERY, data });
+    //   // },
+    //   refetchQueries: [{
+    //     query: CURRENT_USER_QUERY,
+    //   }],
+    // }).catch((error) => {
+    //   // console.log('signInHandle Error: ', error.message);
+    //   const errMessage = error.message.replace('GraphQL error: ', '');
+    //   this.setState({
+    //     name: '',
+    //     email: '',
+    //     password: '',
+    //     signup: false,
+    //     error: errMessage,
+    //   });
+    // });
+
     const res = await signinMutate({
       variables: { email, password },
-      // update: (proxy, { data: { User } }) => {
-      //   const data = proxy.readQuery({ query: CURRENT_USER_QUERY });
-      //   data.currentUser = { ...User};
-      //   proxy.writeQuery({ query: CURRENT_USER_QUERY, data });
-      // },
+      // update: {(cache, { data: { me } }) => {
+      //   const {me} = cache.readQuery({ query: CURRENT_USER_QUERY });
+      //   console.log('signinMutate update me: ', me);
+      //   cache.writeQuery({
+      //     query: CURRENT_USER_QUERY,
+      //     data: { me: me },
+      //   });
+      // }},
+      update: this.update,
       refetchQueries: [{
         query: CURRENT_USER_QUERY,
       }],
@@ -375,6 +426,7 @@ class Login extends Component {
       });
     });
 
+
     if (res) {
       console.log('signInHandle res', res);
 
@@ -385,12 +437,33 @@ class Login extends Component {
         signup: false,
         error: '',
       },
-      () => {
+      async () => {
         console.log('Signin signInHandle this.state: ', this.state);
         this.props.setCurrentUser(res.data.signIn);
         this.props.handleRes(res);
+        const currentUser = res.data.signIn;
+        // currentUser.__typename = 'currentUser';
+        console.log('Signin currentUserMutate currentUser: ', currentUser);
+        await currentUserMutate({
+          variables: { id: currentUser.id, name: currentUser.name, email: currentUser.email },
+        }).catch((error) => {
+          console.log('Signin currentUserMutate Error: ', error.message);
+        });
+        // console.log('Signin currentUserMutate resCache: ', resCache);
       });
     }
+  };
+  /* enable eslint(no-underscore-dangle) */
+
+  update = (cache, { data: { me } }) => {
+    const data = cache.readQuery({ query: CURRENT_USER_QUERY });
+    console.log('signinMutate update data: ', data);
+    console.log('signinMutate update me: ', me);
+    // data.currentUser = { ...me };
+    // cache.writeQuery({
+    //   query: CURRENT_USER_QUERY,
+    //   data,
+    // });
   };
 
 
@@ -405,8 +478,10 @@ class Login extends Component {
 
     return (
           <Composed>
-          {({ currentUser, signinMutate, signupMutate }) => {
-            const { loading: loadingsignin } = signinMutate;
+          {({
+            currentUser, signinMutate, signupMutate, currentUserMutate,
+          }) => {
+            const { loading: loadingsignin, update } = signinMutate;
             // console.log('Login errorsignin: ', errorsignin);
             return (
           <RowDiv className="login-background">
@@ -513,7 +588,7 @@ class Login extends Component {
                          //   {client => (
                          <Button.Group compact fluid>
                             <Button
-                            onClick={(e) => this.signInHandle(e, signinMutate)}
+                            onClick={(e) => this.signInHandle(e, signinMutate, currentUserMutate)}
                             // type="submit"
                             positive
                             >

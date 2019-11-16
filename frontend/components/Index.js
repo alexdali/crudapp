@@ -6,7 +6,7 @@ import {
   Grid, Segment, Image, Icon,
 } from 'semantic-ui-react';
 import Spinner from './Spinner';
-import UserContext from './UserContext';
+// import UserContext from './UserContext';
 import PostList from './PostList';
 import ProfileSidebar from './ProfileSidebar';
 import User, { CURRENT_USER_QUERY } from './User';

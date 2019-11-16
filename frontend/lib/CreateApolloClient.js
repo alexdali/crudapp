@@ -9,6 +9,7 @@ import { HttpLink, createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { endpoint, prodEndpoint } from '../config';
 // import { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION } from '../components/Cart';
+import User, { CURRENT_USER_QUERY } from '../components/User';
 
 const httpLink = createHttpLink({
   uri: endpoint,
@@ -30,7 +31,25 @@ function CreateApolloClient() {
   // const createClient = new ApolloClient({
   // credentials: 'include',
     cache,
-    resolvers: {},
+    // resolvers: {},
+    resolvers: {
+      Mutation: {
+        currentUser: (_root, args, { cache }) => {
+          // read the cartOpen value from the cache
+          const dataCache = cache.readQuery({
+            query: CURRENT_USER_QUERY,
+          });
+          console.log('currentUser cache - data: ', dataCache);
+          console.log('currentUser cache - args: ', args);
+          const user = args;
+          user.__typename = 'currentUser';
+          const data = { data: { currentUser: { ...user } } };
+          // data.currentUser = { ...dataCache.me };
+          cache.writeData(data);
+          return null;
+        },
+      },
+    },
     link: ApolloLink.from([
       authLink,
       onError(({ graphQLErrors, networkError }) => {
@@ -44,6 +63,7 @@ function CreateApolloClient() {
       httpLink,
     ]),
     // cache: new InMemoryCache(),
+
   });
 
   cache.writeData({
