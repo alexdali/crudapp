@@ -9,6 +9,15 @@ class ProfileSidebar extends React.PureComponent {
     user: this.props.user,
   };
 
+  componentDidMount() {
+    //let {user} = this.context;
+    const user = this.props.user ? this.props.user : {
+      id: '',
+      name: '',
+      email: ''};
+    this.setState({ user });
+  }
+
   componentDidUpdate(prevProps) {
     // console.log('ProfileSidebar componentDidUpdate prevProps.user: ', prevProps.user);
     // console.log('ProfileSidebar componentDidUpdate this.props.user: ', this.props.user);
@@ -19,7 +28,10 @@ class ProfileSidebar extends React.PureComponent {
 
   render() {
     console.log('ProfileSidebar render props.user: ', this.props.user);
-    // const { user } = this.props;
+    // const user = this.props.user ? this.props.user : {
+    //   id: '',
+    //   name: '',
+    //   email: ''};
     const { user } = this.state;
     return (
         <Segment>

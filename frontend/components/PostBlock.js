@@ -6,6 +6,7 @@ import { Message, Segment, Button, Icon, Form, TextArea, Label
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 //import NProgress from 'nprogress';
+import withUserContext from '../lib/withUserContext';
 //import CreateFormCategoryTP from './CreateFormCategoryTP';
 import { ALL_POSTS_QUERY } from './PostList';
 import User,{ CURRENT_USER_QUERY } from './User';
@@ -53,6 +54,29 @@ const UPDATE_POST_MUTATION = gql`
   }
 `;
 
+const UpdateBlock =({showEdit, enableEdit, updatePostItem, updatePost})=> {showEdit === '' ? (
+  //<Segment attached='bottom'>
+  <Button.Group basic attached='bottom'>
+    <Button
+      icon
+      size="large"
+      onClick={() => enableEdit('1')}
+    ><Icon name="edit outline" /></Button>
+    <Button
+      icon size="large"
+    ><Icon name="trash alternate outline" /></Button>
+</Button.Group>
+) : (
+  <Segment attached='bottom'>
+    <Button
+      onClick={() => updatePostItem(updatePost)}
+      >
+      Обнов{loadingUpdate ? 'ление' : 'ить'}
+    </Button>
+    <Button onClick={() => enableEdit('')}>Отмена</Button>
+  </Segment>
+)}
+
 
 class PostBlock extends Component {
   static propTypes = {
@@ -67,6 +91,7 @@ class PostBlock extends Component {
 
   state = {
     postItem: this.props.postItem,
+    authorIsCurrentUser: false,
     currentUserId: '',
     readOnly: true,
     showEdit: '',
@@ -74,28 +99,13 @@ class PostBlock extends Component {
 
 
   componentDidMount() {
-    let {user} = this.context;
+    //let {user} = this.context;
+    const { postItem, user } = this.props;
+    if(postItem.userId===user.id)
     this.setState({
-      currentUserId: user,
+      authorIsCurrentUser: true,
       });
   }
-
-  // componentDidMount(){
-  //   // const { client } = this.props;
-  //   // const userData = client.readQuery({ query: CURRENT_USER_QUERY });
-  //   // const userId = userData === undefined ? '' : userData.me.id;
-  //   const {userId} = this.updateCurrentUser();
-  //   console.log('query Post userId: ', userId);
-  // }
-
-  // updateCurrentUser = async ()=> {
-  //   const { client } = this.props;
-  //   const userData = await client.readQuery({ query: CURRENT_USER_QUERY });
-  //   // const user = userData === undefined ? '' : userData.me;
-  //   const user = userData.me;
-  //   console.log('query Post userId: ', user.id);
-  //   return user;
-  // }
 
   enableEdit = val => {
     console.log('PostBlock enableEdit');
@@ -161,14 +171,19 @@ class PostBlock extends Component {
   };
 
   render() {
-    //const { me } = client.readQuery({ query: CURRENT_USER_QUERY });
     console.log('PostBlock render -> props', this.props);
     console.log('PostBlock render -> state', this.state);
+    const user = this.props.user ? this.props.user : {
+      id: '',
+      name: '',
+      email: ''};
     const {
       postItem,
+      authorIsCurrentUser,
       readOnly,
       showEdit,
     } = this.state;
+
     console.log('PostBlock render -> state.postItem', postItem);
     return (
       <Mutation
@@ -245,9 +260,10 @@ class PostBlock extends Component {
                                     onChange={this.handleChange}
                         placeholder='Текст поста' />
                       </Form>
-
-                      {showEdit === '' ? (
-                        //<Segment attached='bottom'>
+                      {authorIsCurrentUser &&
+                      <UpdateBlock showEdit={showEdit} enableEdit={this.enableEdit} updatePostItem={this.updatePostItem} updatePost={updatePost} />
+                      }
+                      {/* {showEdit === '' ? (
                         <Button.Group basic attached='bottom'>
                         <Button
                         icon
@@ -258,18 +274,6 @@ class PostBlock extends Component {
                         icon size="large"
                         ><Icon name="trash alternate outline" /></Button>
                       </Button.Group>
-                          /* <Button
-                            // TODO tooltip
-                            icon
-                            size="large"
-                            onClick={() => this.enableEdit('1')}
-                          >
-                            <Icon name="edit outline" />
-                          </Button>
-                          <Button icon size="large">
-                            <Icon name="trash alternate outline" />
-                          </Button> */
-                        //</Segment>
                       ) : (
                         <Segment attached='bottom'>
                           <Button
@@ -279,7 +283,7 @@ class PostBlock extends Component {
                           </Button>
                           <Button onClick={() => this.enableEdit('')}>Отмена</Button>
                         </Segment>
-                      )}
+                      )}  */}
                     </Segment>
                   </RowDiv>
                 )}
@@ -291,4 +295,4 @@ class PostBlock extends Component {
   }
 }
 
-export default PostBlock;
+export default withUserContext(PostBlock);

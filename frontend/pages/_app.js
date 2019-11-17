@@ -14,6 +14,10 @@ const client = CreateApolloClient({
   ssrForceFetchDelay: 100,
 });
 
+const queryUserSubscription = client.watchQuery({
+  query: CURRENT_USER_QUERY,
+});
+
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
@@ -31,9 +35,9 @@ class MyApp extends App {
 
   componentDidMount() {
     //const { client } = this.props;
-    const queryUserSubscription = client.watchQuery({
-      query: CURRENT_USER_QUERY,
-    });
+    // const queryUserSubscription = client.watchQuery({
+    //   query: CURRENT_USER_QUERY,
+    // });
     queryUserSubscription.subscribe({
       next: ({ data }) => {
         console.log('_app componentDidMount queryUserSubscription data: ', data);
