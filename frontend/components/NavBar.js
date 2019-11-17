@@ -14,6 +14,7 @@ import {
   // Header,
   Icon,
 } from 'semantic-ui-react';
+import withCurrentUser from '../lib/withCurrentUser';
 import { UserContextConsumer } from './UserContext';
 import User, { CURRENT_USER_QUERY } from './User';
 import SignOut from './SignOut';
@@ -174,6 +175,16 @@ class NavBar extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    // console.log('UserState componentDidUpdate prevProps.user: ', prevProps.user);
+    console.log('NavBar componentDidUpdate this.props.user: ', this.props.user);
+    // if (typeof this.props.user !== 'undefined') {
+    //   if (prevProps.user.id !== this.props.user.id) {
+    //     this.setState({ user: this.props.user });
+    //   }
+    // }
+  }
+
   handleRes = (res) => {
     // console.log('NavBar handleRes res: ', res);
     if (res) {
@@ -181,9 +192,9 @@ class NavBar extends React.Component {
       this.setState({
         login: false,
       },
-      // () => {
-      //   setCurrentUser(res);
-      // }
+      () => {
+        this.props.setCurrentUser();
+      }
       );
     }
   };
@@ -214,11 +225,12 @@ class NavBar extends React.Component {
     // console.log('NavBar render this.state: ', this.state);
     // console.log('Header render  this.props: ', this.props.isMobile);
     const { activeItem, login } = this.state;
+    const { user, setCurrentUser } = this.props;
     return (
       <Query query={CURRENT_USER_QUERY}>
-        {({ data, loading }) => (
-          <UserContextConsumer>
-            {({ user, setCurrentUser }) => {
+        {({ data, loading }) => {
+          //<UserContextConsumer>
+          //  {({ user, setCurrentUser }) => {
               console.log('NavBar render UserContextConsumer user: ', user);
               // console.log('NavBar render UserContextConsumer setCurrentUser: ', setCurrentUser);
               /* if (data!==undefined) {
@@ -337,12 +349,12 @@ class NavBar extends React.Component {
             && <Login handleRes={this.handleRes} setCurrentUser={setCurrentUser} />}
                 </>
               );
-            }}
-            </UserContextConsumer>
-        )}
+            // }}
+            //</UserContextConsumer>
+        }}
       </Query>
     );
   }
 }
 
-export default NavBar;
+export default withCurrentUser(NavBar);

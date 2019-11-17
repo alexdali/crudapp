@@ -9,6 +9,15 @@ import { ALL_POSTS_QUERY } from './PostList';
 
 const { Provider, Consumer } = React.createContext();
 
+const CURRENT_USER_STATE_QUERY = gql`
+  query {
+    currentUser @client {
+      id
+      email
+      name
+    }
+  }
+`;
 
 // const withCurrentUserQuery = graphql(gql`
 //   query {
@@ -89,16 +98,42 @@ class UserState extends Component {
     //   },
     // });
     // refetchQueries: [ { query: gql(listComments), variables: { id: xxx-xxx-xxx } } ]
-    // const user = client.readQuery({
-    //   query: CURRENT_USER_QUERY,
-    //   refetchQueries: [CURRENT_USER_QUERY],
-    // });
-    // console.log('UserState fetchUser user: ', user);
-    // this.setState({ user });
+    const {currentUser} = client.readQuery({
+      query: CURRENT_USER_STATE_QUERY,
+      //refetchQueries: [CURRENT_USER_QUERY],
+    });
+    console.log('UserState fetchUser currentUser: ', currentUser);
+    this.setState({ user: { ...currentUser} });
   };
 
   componentDidMount() {
-    this.fetchUser();
+    const { client } = this.props;
+    // const queryUserSubscription = client.watchQuery({
+    //   query: CURRENT_USER_STATE_QUERY,
+    //   // fetchPolicy: 'cache-and-network'
+    // }).subscribe({
+    //   next: ({ data }) => {
+    //     this.fetchUser();
+    //   },
+    //   error: (e) => console.error(e)
+    // });
+    const queryUserSubscription = client.watchQuery({
+      // query: CURRENT_USER_STATE_QUERY,
+      query: CURRENT_USER_QUERY,
+      // fetchPolicy: 'cache-and-network'
+    });
+    queryUserSubscription.subscribe({
+      next: ({ data }) => {
+        console.log('componentDidMount queryUserSubscription');
+        console.log('componentDidMount queryUserSubscription data: ', data);
+        if(data.me!=='undefined')
+        // const user = typeof data.me!=='undefined' ? me : null;
+        this.setState({ user: data.me });
+        //this.fetchUser();
+      },
+      error: (e) => console.error(e)
+    });
+    // this.fetchUser();
   }
 
   componentDidUpdate(prevProps) {
@@ -111,6 +146,11 @@ class UserState extends Component {
     }
   }
 
+  componentWillUnmount () {
+    queryUserSubscription.unsubscribe();
+    console.log('componentWillUnmount queryUserSubscription.unsubscribe');
+}
+
   // componentDidMount = () => {
   //   console.log('componentDidMount  this.props.user: ', this.props.user);
   //   const user = this.props;
@@ -122,11 +162,12 @@ class UserState extends Component {
   // };
 
   setCurrentUser = (user) => {
-    if (user) {
-      this.setState({
-        user,
-      });
-    }
+    this.fetchUser();
+    // if (user) {
+    //   this.setState({
+    //     user,
+    //   });
+    // }
   }
 
   render() {

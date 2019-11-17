@@ -410,7 +410,7 @@ class Login extends Component {
       //     data: { me: me },
       //   });
       // }},
-      update: this.update,
+      //update: this.update,
       refetchQueries: [{
         query: CURRENT_USER_QUERY,
       }],
@@ -439,14 +439,16 @@ class Login extends Component {
       },
       async () => {
         console.log('Signin signInHandle this.state: ', this.state);
-        this.props.setCurrentUser(res.data.signIn);
+        // this.props.setCurrentUser(res.data.signIn);
         this.props.handleRes(res);
         const currentUser = res.data.signIn;
         // currentUser.__typename = 'currentUser';
         console.log('Signin currentUserMutate currentUser: ', currentUser);
         await currentUserMutate({
           variables: { id: currentUser.id, name: currentUser.name, email: currentUser.email },
-        }).catch((error) => {
+        }).then(
+          // this.props.setCurrentUser()
+        ).catch((error) => {
           console.log('Signin currentUserMutate Error: ', error.message);
         });
         // console.log('Signin currentUserMutate resCache: ', resCache);

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Query, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import {
   Grid, Segment, Image, Icon,
 } from 'semantic-ui-react';
+import withCurrentUser from '../lib/withCurrentUser';
 import Spinner from './Spinner';
-// import UserContext from './UserContext';
+//import { UserContextConsumer } from './UserContext';
 import PostList from './PostList';
 import ProfileSidebar from './ProfileSidebar';
 import User, { CURRENT_USER_QUERY } from './User';
@@ -15,8 +16,36 @@ const IndexDiv = styled.div`
   margin: 52px 0 0;
 `;
 
-const Index = (props) => {
-  console.log('Main props: ', props);
+// function withCurrentUser(Component) {
+//   return function ConnectedComponent(props) {
+//     return (
+//       <UserContextConsumer>
+//         {({ user, setCurrentUser }) =>
+//           <Component {...props} user={user} setCurrentUser={setCurrentUser}/>}
+//       </UserContextConsumer>
+//     );
+//   }
+// }
+
+//const Index = (props) => {
+class Index extends Component {
+
+  // componentDidMount() {
+  //   this.props.setCurrentUser();
+  // }
+
+  componentDidUpdate(prevProps) {
+    // console.log('UserState componentDidUpdate prevProps.user: ', prevProps.user);
+    console.log('Index componentDidUpdate this.props.user: ', this.props.user);
+    // if (typeof this.props.user !== 'undefined') {
+    //   if (prevProps.user.id !== this.props.user.id) {
+    //     this.setState({ user: this.props.user });
+    //   }
+    // }
+  }
+
+  render() {
+    console.log('Index props: ', this.props);
   return (
   // <User>
   //  {({ data, error, loading }) => {
@@ -52,8 +81,9 @@ const Index = (props) => {
     // }}
   // </User>
   );
+}
 };
 
 // const Index = withCurrentUserQuery(Main);
 
-export default Index;
+export default withCurrentUser(Index);
