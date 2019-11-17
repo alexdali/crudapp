@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { withApollo } from '@apollo/react-hoc';
 import { Query, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-// import UserContext from './UserContext';
 // import UserFromCache from './UserFromCache';
-import User, { CURRENT_USER_QUERY } from './User';
-import { ALL_POSTS_QUERY } from './PostList';
+import { CURRENT_USER_QUERY } from './User';
 
 const { Provider, Consumer } = React.createContext();
 
@@ -19,37 +17,6 @@ const CURRENT_USER_STATE_QUERY = gql`
   }
 `;
 
-// const withCurrentUserQuery = graphql(gql`
-//   query {
-//     me {
-//       id
-//       email
-//       name
-//     }
-//   }
-// `, {
-//   options: {
-//     fetchPolicy: 'cache-only',
-//     notifyOnNetworkStatusChange: true,
-//   },
-//   props: async ({ data, error, loading }) => {
-//   // props: (payload) => {
-//     // console.log('withCurrentUserQuery  payload: ', payload);
-//     // return payload;
-//     // if (loading || !data.me) return undefined;
-//     // console.log('withCurrentUserQuery  data: ', data);
-//     let user = null;
-//     console.log('withCurrentUserQuery  data.me: ', data.me);
-//     if (typeof data.me !== 'undefined') {
-//       user = data.me;
-//       return user;
-//     }
-//     // const user = data.me !== 'undefined' ? null : data.me;
-//     return user;
-//   },
-// });
-
-// class UserState extends Component {
 class UserState extends Component {
   state = {
     user: this.props.user,
@@ -57,47 +24,6 @@ class UserState extends Component {
 
   fetchUser = async () => {
     const { client } = this.props;
-    // fetchStarwarsHeroData(id).then(
-    //   (result) => setState({ data: result }),
-    //   (e) => console.warn('fetch failure', e),
-    // );
-    // const user = await client.query({
-    //   query: CURRENT_USER_QUERY,
-    //   fetchPolicy: 'cache-only',
-    // });
-    //   const user = await client.query({
-    //     query: CURRENT_USER_QUERY,
-    //     fetchPolicy: 'cache-only',
-    //   }).then(
-    //     ({ data, loading }) => {
-    //       // let result = null;
-    //       console.log('UserState fetchUser data: ', data);
-    //       if (typeof data.me !== 'undefined') {
-    //         console.log('UserState fetchUser data.me: ', data.me);
-    //         return data.me;
-    //       }
-    //       return null;
-    //     },
-    //   ).catch((error) => {
-    //     console.log('error: ', error);
-    //     return null;
-    //   });
-
-    // const user = client.readQuery({
-    //   query: gql`
-    //     query {
-    //     me {
-    //       id
-    //       email
-    //       name
-    //     }
-    //   }
-    //   `,
-    //   variables: {
-    //     id: 'dc0b0e2a-3282-42e3-a0cf-4c7510595989',
-    //   },
-    // });
-    // refetchQueries: [ { query: gql(listComments), variables: { id: xxx-xxx-xxx } } ]
     const {currentUser} = client.readQuery({
       query: CURRENT_USER_STATE_QUERY,
       //refetchQueries: [CURRENT_USER_QUERY],
@@ -172,8 +98,8 @@ class UserState extends Component {
 
   render() {
     console.log('UserContext render this.state.user: ', this.state.user);
-    console.log('UserContext this.props: ', this.props);
-    console.log('UserContext this.props.client.cache.data.data: ', this.props.client.cache.data.data);
+    //console.log('UserContext this.props: ', this.props);
+    //console.log('UserContext this.props.client.cache.data.data: ', this.props.client.cache.data.data);
     // return (
     //   <UserFromCache>
     //     {(user) => {

@@ -177,7 +177,7 @@ class NavBar extends React.Component {
 
   componentDidUpdate(prevProps) {
     // console.log('UserState componentDidUpdate prevProps.user: ', prevProps.user);
-    console.log('NavBar componentDidUpdate this.props.user: ', this.props.user);
+    //console.log('NavBar componentDidUpdate this.props.user: ', this.props.user);
     // if (typeof this.props.user !== 'undefined') {
     //   if (prevProps.user.id !== this.props.user.id) {
     //     this.setState({ user: this.props.user });
@@ -192,9 +192,9 @@ class NavBar extends React.Component {
       this.setState({
         login: false,
       },
-      () => {
-        this.props.setCurrentUser();
-      }
+      // () => {
+      //   this.props.setCurrentUser();
+      // }
       );
     }
   };

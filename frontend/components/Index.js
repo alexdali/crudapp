@@ -16,17 +16,6 @@ const IndexDiv = styled.div`
   margin: 52px 0 0;
 `;
 
-// function withCurrentUser(Component) {
-//   return function ConnectedComponent(props) {
-//     return (
-//       <UserContextConsumer>
-//         {({ user, setCurrentUser }) =>
-//           <Component {...props} user={user} setCurrentUser={setCurrentUser}/>}
-//       </UserContextConsumer>
-//     );
-//   }
-// }
-
 //const Index = (props) => {
 class Index extends Component {
 
@@ -36,7 +25,7 @@ class Index extends Component {
 
   componentDidUpdate(prevProps) {
     // console.log('UserState componentDidUpdate prevProps.user: ', prevProps.user);
-    console.log('Index componentDidUpdate this.props.user: ', this.props.user);
+    //console.log('Index componentDidUpdate this.props.user: ', this.props.user);
     // if (typeof this.props.user !== 'undefined') {
     //   if (prevProps.user.id !== this.props.user.id) {
     //     this.setState({ user: this.props.user });
@@ -83,7 +72,5 @@ class Index extends Component {
   );
 }
 };
-
-// const Index = withCurrentUserQuery(Main);
 
 export default withCurrentUser(Index);

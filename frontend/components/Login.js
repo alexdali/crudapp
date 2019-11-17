@@ -318,20 +318,6 @@ class Login extends Component {
     });
   };
 
-  // updateCurrentUser = (cache, payload) => {
-  //   // manually update the cache on the client
-  //   // 1. Read the cache for the items we want
-  //   const data = cache.readQuery({ query: CURRENT_USER_QUERY });
-  //   console.log('updateCurrentUser cache: ', cache);
-  //   console.log('updateCurrentUser payload:', payload);
-  //   // 2. Filter the deleted item out of the page
-  //   // const deleteItemId = payload.data.deleteItem.id;
-  //   const { me } = payload.data;
-  //   data.me = { ...me };
-  //   // 3. Put the items back!
-  //   cache.writeQuery({ query: CURRENT_USER_QUERY, data });
-  // };
-
   createAccount = async (e, signupMutate) => {
     e.preventDefault();
     console.log('Login SignUp this.state: ', this.state);
@@ -359,46 +345,12 @@ class Login extends Component {
     });
   };
 
-  // readQuery({
-  //   query: gql`
-  //     query {
-  //     me {
-  //       id
-  //       email
-  //       name
-  //     }
-  //   }
-  //   `,
-  // })
-
   /* disable eslint(no-underscore-dangle) */
   signInHandle = async (e, signinMutate, currentUserMutate) => {
     e.preventDefault();
     console.log('Login signInHandle this.state: ', this.state);
     // console.log('Login signInHandle client: ', client);
     const { email, password } = this.state;
-    // const login = {email: this.state.email, password: this.state.password,};
-    // const res = await signinMutate({
-    //   variables: { email, password },
-    //   // update: (proxy, { data: { User } }) => {
-    //   //   const data = proxy.readQuery({ query: CURRENT_USER_QUERY });
-    //   //   data.currentUser = { ...User};
-    //   //   proxy.writeQuery({ query: CURRENT_USER_QUERY, data });
-    //   // },
-    //   refetchQueries: [{
-    //     query: CURRENT_USER_QUERY,
-    //   }],
-    // }).catch((error) => {
-    //   // console.log('signInHandle Error: ', error.message);
-    //   const errMessage = error.message.replace('GraphQL error: ', '');
-    //   this.setState({
-    //     name: '',
-    //     email: '',
-    //     password: '',
-    //     signup: false,
-    //     error: errMessage,
-    //   });
-    // });
 
     const res = await signinMutate({
       variables: { email, password },
@@ -457,16 +409,16 @@ class Login extends Component {
   };
   /* enable eslint(no-underscore-dangle) */
 
-  update = (cache, { data: { me } }) => {
-    const data = cache.readQuery({ query: CURRENT_USER_QUERY });
-    console.log('signinMutate update data: ', data);
-    console.log('signinMutate update me: ', me);
-    // data.currentUser = { ...me };
-    // cache.writeQuery({
-    //   query: CURRENT_USER_QUERY,
-    //   data,
-    // });
-  };
+  // update = (cache, { data: { me } }) => {
+  //   const data = cache.readQuery({ query: CURRENT_USER_QUERY });
+  //   console.log('signinMutate update data: ', data);
+  //   console.log('signinMutate update me: ', me);
+  //   // data.currentUser = { ...me };
+  //   // cache.writeQuery({
+  //   //   query: CURRENT_USER_QUERY,
+  //   //   data,
+  //   // });
+  // };
 
 
   saveToState = (e) => {
@@ -489,27 +441,7 @@ class Login extends Component {
           <RowDiv className="login-background">
           <div className="blur">
             <FormDiv>
-              <Form
-                // method="post"
-                // onSubmit={async e => {
-                //   console.log('Signin onSubmit-> e ', e);
-                //   e.preventDefault();
-                //   // if (loading) {
-                //   //   this.setState({ loading });
-                //   // }
-                //   console.log('Signin this.state: ', this.state);
-                //   const res = await signIn();
-                //   console.log('signIn -> render -> res', res);
-                //   console.log('Signin this.props: ', this.props);
-                //   this.props.handleRes(res);
-                //   this.setState({ email: '', name: '', password: '' }, () => {
-                //     // console.log('TCL: signin -> setState clear');
-                //     // Router.push({
-                //     //   pathname: '/',
-                //     // });
-                //   });
-                // }}
-              >
+              <Form>
                 {error && <ErrorMessage error={error} />}
                 <fieldset disabled={loadingsignin} aria-busy={loadingsignin}>
                   {/* <Error error={error} /> */}

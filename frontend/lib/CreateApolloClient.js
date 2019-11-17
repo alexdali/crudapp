@@ -8,8 +8,7 @@ import { ApolloLink } from 'apollo-link';
 import { HttpLink, createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { endpoint, prodEndpoint } from '../config';
-// import { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION } from '../components/Cart';
-import User, { CURRENT_USER_QUERY } from '../components/User';
+import { CURRENT_USER_QUERY } from '../components/User';
 
 const httpLink = createHttpLink({
   uri: endpoint,
@@ -28,8 +27,6 @@ const cache = new InMemoryCache();
 
 function CreateApolloClient() {
   const client = new ApolloClient({
-  // const createClient = new ApolloClient({
-  // credentials: 'include',
     cache,
     // resolvers: {},
     resolvers: {
@@ -62,8 +59,6 @@ function CreateApolloClient() {
       }),
       httpLink,
     ]),
-    // cache: new InMemoryCache(),
-
   });
 
   cache.writeData({
