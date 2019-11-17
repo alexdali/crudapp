@@ -14,8 +14,9 @@ import {
   // Header,
   Icon,
 } from 'semantic-ui-react';
-import withCurrentUser from '../lib/withCurrentUser';
-import { UserContextConsumer } from './UserContext';
+import withUserContext from '../lib/withUserContext';
+//import { UserContextConsumer } from './UserContext';
+//import UserContext from '../components/UserContext';
 import User, { CURRENT_USER_QUERY } from './User';
 import SignOut from './SignOut';
 import Login from './Login';
@@ -225,7 +226,7 @@ class NavBar extends React.Component {
     // console.log('NavBar render this.state: ', this.state);
     // console.log('Header render  this.props: ', this.props.isMobile);
     const { activeItem, login } = this.state;
-    const { user, setCurrentUser } = this.props;
+    const { user } = this.props;
     return (
       <Query query={CURRENT_USER_QUERY}>
         {({ data, loading }) => {
@@ -346,7 +347,8 @@ class NavBar extends React.Component {
               </Menu>
             </MenuDiv>
             {login
-            && <Login handleRes={this.handleRes} setCurrentUser={setCurrentUser} />}
+            && <Login handleRes={this.handleRes} />
+            }
                 </>
               );
             // }}
@@ -357,4 +359,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default withCurrentUser(NavBar);
+export default withUserContext(NavBar);

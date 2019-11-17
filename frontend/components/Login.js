@@ -555,4 +555,3 @@ class Login extends Component {
 }
 
 export default Login;
-// export { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION };

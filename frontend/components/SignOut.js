@@ -15,11 +15,14 @@ const Signout = props =>
     mutation={SIGN_OUT_MUTATION}
     refetchQueries={[{ query: CURRENT_USER_QUERY }]}
   >
-    {signout => (
+    {(signout, { loading, error }) => {
+      console.log('Signout mutation error: ', error);
+      return (
       <span onClick={signout} role="button">
         Выйти
       </span>
-    )}
+      );
+    }}
   </Mutation>
 ;
 
