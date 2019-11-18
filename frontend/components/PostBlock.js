@@ -54,7 +54,9 @@ const UPDATE_POST_MUTATION = gql`
   }
 `;
 
-const UpdateBlock =({showEdit, enableEdit, updatePostItem, updatePost})=> {showEdit === '' ? (
+const UpdateBlock =({showEdit, enableEdit, updatePostItem, updatePost})=>
+<>
+{showEdit === '' ? (
   //<Segment attached='bottom'>
   <Button.Group basic attached='bottom'>
     <Button
@@ -76,6 +78,7 @@ const UpdateBlock =({showEdit, enableEdit, updatePostItem, updatePost})=> {showE
     <Button onClick={() => enableEdit('')}>Отмена</Button>
   </Segment>
 )}
+</>
 
 
 class PostBlock extends Component {

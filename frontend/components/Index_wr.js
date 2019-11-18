@@ -51,16 +51,21 @@ class Index extends Component {
     //     const user = data.me ? data.me : '';
     //     console.log('Index User Query user: ', user);
     //     return (
-      <Grid celled='internally'>
-        <Grid.Row>
-          <Grid.Column width={3}>
-            <LeftSideBar/>
-          </Grid.Column>
-          <Grid.Column width={13}>
-            <Main/>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+        <IndexDiv>
+          <Grid celled='internally'>
+            <Grid.Row>
+              <Grid.Column width={3}>
+                <LeftSideBar/>
+              </Grid.Column>
+              <Grid.Column width={10}>
+                <Main>{this.props.children}</Main>
+              </Grid.Column>
+              <Grid.Column width={3}>
+                <RightSideBar/>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </IndexDiv>
       );
     //   }}
     // </Query>

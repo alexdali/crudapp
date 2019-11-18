@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 //import { ApolloConsumer } from 'react-apollo';
-import {
-  Grid, Segment, Image, Icon,
-} from 'semantic-ui-react';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import Header from './Header';
 import Meta from './Meta';
-import Main from './Main';
-import LeftSideBar from './LeftSideBar';
-import RightSideBar from './RightSideBar';
-import Index from './Index';
 
 const theme = {
   red: '#FF0000',
@@ -30,10 +23,6 @@ const Inner = styled.div`
   max-width: ${(props) => props.theme.maxWidth};
   margin: 0 auto;
   padding: 2rem;
-`;
-
-const IndexDiv = styled.div`
-  margin: 52px 0 0;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -64,21 +53,7 @@ class Page extends Component {
             <StyledPage>
               <Meta />
               <Header />
-              <IndexDiv>
-                <Grid celled='internally'>
-                  <Grid.Row>
-                    {/* <Grid.Column width={3}>
-                      <LeftSideBar/>
-                    </Grid.Column> */}
-                    <Grid.Column width={13}>
-                      <Inner>{this.props.children}</Inner>
-                    </Grid.Column>
-                    <Grid.Column width={3}>
-                      <RightSideBar/>
-                    </Grid.Column>
-                  </Grid.Row>
-                </Grid>
-              </IndexDiv>
+              <Inner>{this.props.children}</Inner>
               <GlobalStyle />
             </StyledPage>
       </ThemeProvider>

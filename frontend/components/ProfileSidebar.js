@@ -21,18 +21,18 @@ class ProfileSidebar extends React.PureComponent {
   componentDidUpdate(prevProps) {
     // console.log('ProfileSidebar componentDidUpdate prevProps.user: ', prevProps.user);
     // console.log('ProfileSidebar componentDidUpdate this.props.user: ', this.props.user);
-    if (prevProps.user.id !== this.props.user.id) {
-      this.setState({ user: this.props.user });
-    }
+    // if (prevProps.user.id !== this.props.user.id) {
+    //   this.setState({ user: this.props.user });
+    // }
   }
 
   render() {
     console.log('ProfileSidebar render props.user: ', this.props.user);
-    // const user = this.props.user ? this.props.user : {
-    //   id: '',
-    //   name: '',
-    //   email: ''};
-    const { user } = this.state;
+    const user = this.props.user ? this.props.user : {
+      id: '',
+      name: '',
+      email: ''};
+    //const { user } = this.state;
     return (
         <Segment>
           {user.name

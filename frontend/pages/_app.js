@@ -2,6 +2,7 @@ import App, { Container } from 'next/app';
 import { ApolloProvider, ApolloConsumer } from 'react-apollo';
 import UserContext from '../components/UserContext';
 import Page from '../components/Page';
+// import Index from '../components/Index';
 import { CURRENT_USER_QUERY } from '../components/User';
 import CreateApolloClient from '../lib/CreateApolloClient';
 
@@ -72,7 +73,9 @@ class MyApp extends App {
           {/* <UserContext> */}
           <UserContext.Provider value={{ user: this.state.user }}>
             <Page>
-                  <Component {...pageProps} />
+              {/* <Index> */}
+                <Component {...pageProps}/>
+              {/* </Index> */}
             </Page>
             </UserContext.Provider>
           {/* </UserContext> */}
