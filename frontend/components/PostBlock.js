@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Message, Segment, Button, Icon, Form, TextArea, Label
 } from 'semantic-ui-react';
+import TextareaAutosize from "react-textarea-autosize";
 import Router from 'next/router';
 import styled from 'styled-components';
 //import NProgress from 'nprogress';
@@ -28,10 +29,13 @@ const RowDiv = styled.div`
     padding: 1em 2em 0;
     border-bottom: 1px solid rgba(34, 36, 38, 0.15);
   }
-  .ui.form textarea.post-content {
+  .ui.form > div.field.post-content > textarea {
     font-size: 1.5em;
     border: none;
     /* padding: 0.5em; */
+    /* height: auto; */
+    max-height: 100%;
+    resize: none;
   }
 `;
 
@@ -306,7 +310,7 @@ class PostBlock extends Component {
                 <p>{postItem.createdDate}</p>
               </div>
               <Form>
-                <TextArea
+                {/* <TextArea
                   className='post-content'
                   name="content"
                   readOnly={readOnly}
@@ -314,7 +318,24 @@ class PostBlock extends Component {
                   //loading={loadingUpdate}
                   defaultValue={postItem.content}
                   onChange={this.handleChange}
-                  placeholder='Текст поста' />
+                  placeholder='Текст поста' /> */}
+                  <Form.Field
+                    control={TextareaAutosize}
+                    //useCacheForDOMMeasurements
+                    className='post-content'
+                    name="content"
+                    readOnly={readOnly}
+                    disabled={loadingUpdate}
+                    //loading={loadingUpdate}
+                    defaultValue={postItem.content}
+                    onChange={this.handleChange}
+                    placeholder='Текст поста'
+                    // label="About"
+                    // placeholder="Tell us more about you..."
+                    // onChange={e => this.setState({ value: e.target.value })}
+                    // useCacheForDOMMeasurements
+                    // value={this.state.value}
+                  />
               </Form>
               {
                 authorIsCurrentUser &&

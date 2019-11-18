@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import {
   Grid, Segment, Form, Icon, TextArea, Button, Header, Message,
 } from 'semantic-ui-react';
+import Router from 'next/router';
 import { ALL_POSTS_QUERY } from './PostList';
 import User, { CURRENT_USER_QUERY } from './User';
 // import ProfileSidebar from "./ProfileSidebar";
@@ -116,8 +117,9 @@ class PostCreateForm extends Component {
           query: ALL_POSTS_QUERY,
         }],
       });
-      //TO-DO not updated feed after adding new post
-      console.log('PostCreateForm CREATED!!!! res: ', res);
+      //TO-DO update feed after adding new post
+      console.log('PostCreateForm CREATED!!!! res: ', res.data.createPost);
+      const {id} = res.data.createPost;
       this.setState({
       // postItem: this.props.postItem,
         postItem: {
@@ -128,6 +130,13 @@ class PostCreateForm extends Component {
         },
         showEdit: '',
         readOnly: true,
+      },
+      ()=>{
+        //this.props.updateBlog(res);
+        Router.push({
+          pathname: '/post',
+            query: { id },
+        });
       });
     };
 
