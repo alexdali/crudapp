@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import { Mutation, Query, ApolloConsumer } from 'react-apollo';
+import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Message, Segment, Button, Icon, Form, TextArea, Label
 } from 'semantic-ui-react';
+import Router from 'next/router';
 import styled from 'styled-components';
 //import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
 //import CreateFormCategoryTP from './CreateFormCategoryTP';
 import { ALL_POSTS_QUERY } from './PostList';
-import User,{ CURRENT_USER_QUERY } from './User';
+//import User,{ CURRENT_USER_QUERY } from './User';
 // import Error from './ErrorMessage';
 
 const RowDiv = styled.div`
   input.title-view {
+    width: 100%;
     font-size: 2.5em;
     padding: 0.5em;
     border: none;
@@ -54,32 +57,58 @@ const UPDATE_POST_MUTATION = gql`
   }
 `;
 
-const UpdateBlock =({showEdit, enableEdit, updatePostItem, updatePost})=>
-<>
-{showEdit === '' ? (
-  //<Segment attached='bottom'>
-  <Button.Group basic attached='bottom'>
-    <Button
-      icon
-      size="large"
-      onClick={() => enableEdit('1')}
-    ><Icon name="edit outline" /></Button>
-    <Button
-      icon size="large"
-    ><Icon name="trash alternate outline" /></Button>
-</Button.Group>
-) : (
-  <Segment attached='bottom'>
-    <Button
-      onClick={() => updatePostItem(updatePost)}
-      >
-      Обнов{loadingUpdate ? 'ление' : 'ить'}
-    </Button>
-    <Button onClick={() => enableEdit('')}>Отмена</Button>
-  </Segment>
-)}
-</>
+const DELETE_POST_MUTATION = gql`
+  mutation DELETE_POST_MUTATION(
+    $postId: String!
+    $userId: String!
+  ) {
+    deletePost(
+      postId: $postId
+      userId: $userId
+      ) {
+        message
+    }
+  }
+`;
 
+const UpdateBlock =(props)=> {
+  const {showEdit, enableEdit, updatePostItem, updatePost, loadingUpdate, deletePostItem, deletePost} = props.updateProps;
+  return (
+    <>
+      {showEdit === '' ? (
+        //<Segment attached='bottom'>
+        <Button.Group basic attached='bottom'>
+          <Button
+            icon
+            size="large"
+            onClick={() => enableEdit('1')}
+          ><Icon name="edit outline" /></Button>
+          <Button
+            icon size="large"
+            onClick={() => deletePostItem(deletePost)}
+          ><Icon name="trash alternate outline" /></Button>
+      </Button.Group>
+      ) : (
+        <Segment attached='bottom'>
+          <Button
+            onClick={() => updatePostItem(updatePost)}
+            >
+            Обнов{loadingUpdate ? 'ление' : 'ить'}
+          </Button>
+          <Button onClick={() => enableEdit('')}>Отмена</Button>
+        </Segment>
+      )}
+    </>
+  );
+}
+
+/* eslint-disable */
+const Composed = adopt({
+  //currentUser: ({render}) => <Query query={CURRENT_USER_QUERY}>{render}</Query>,
+  updatePostMutate: ({render}) => <Mutation mutation={UPDATE_POST_MUTATION}>{render}</Mutation>,
+  deletePostMutate: ({render}) => <Mutation mutation={DELETE_POST_MUTATION}>{render}</Mutation>,
+});
+/* eslint-enable */
 
 class PostBlock extends Component {
   static propTypes = {
@@ -98,6 +127,8 @@ class PostBlock extends Component {
     currentUserId: '',
     readOnly: true,
     showEdit: '',
+    //updated: false,
+    //deleted: false,
   };
 
 
@@ -154,7 +185,7 @@ class PostBlock extends Component {
     // console.log('PostList updatePostItem this.state: ', this.state);
     const { postItem } = this.state;
     console.log(
-      'PostList updatePostItem this.state.postItem: ',
+      'PostBlock updatePostItem this.state.postItem: ',
       postItem
     );
     const res = await updatePost({
@@ -164,13 +195,50 @@ class PostBlock extends Component {
         title: postItem.title,
         content: postItem.content,
       },
+      refetchQueries: [{
+        query: ALL_POSTS_QUERY,
+      }],
       });
     console.log('updatePostItem UPDATED!!!! res: ', res);
+    //TO-DO update cache
     this.setState({
       postItem: this.props.postItem,
       showEdit: '',
       readOnly: true,
-    });
+    },
+      //this.props.updateBlog(res);
+    );
+  };
+
+  deletePostItem = async deletePost => {
+    // console.log('deletePostItem e: ', e);
+    // console.log('PostList deletePostItem this.state: ', this.state);
+    const { postItem } = this.state;
+    const { user } = this.props;
+    console.log(
+      'PostBlock deletePostItem this.state.postItem: ',
+      postItem
+    );
+    const res = await deletePost({
+      variables: {
+        postId: postItem.id,
+        userId: user.id,
+      }
+      });
+    console.log('deletePostItem DELETED!!!! res: ', res);
+    //TO-DO update cache
+    this.setState({
+      postItem: '',
+      showEdit: '',
+      readOnly: true,
+    },
+      ()=>{
+        //this.props.updateBlog(res);
+        Router.push({
+          pathname: '/post',
+        });
+      }
+    );
   };
 
   render() {
@@ -188,112 +256,99 @@ class PostBlock extends Component {
     } = this.state;
 
     console.log('PostBlock render -> state.postItem', postItem);
+    const updateProps = {showEdit, enableEdit: this.enableEdit, updatePostItem: this.updatePostItem, deletePostItem: this.deletePostItem };
     return (
-      <Mutation
-        mutation={UPDATE_POST_MUTATION}
-        variables={{
-          userId: postItem.userId,
-          postId: postItem.id,
-          title: postItem.title,
-          content: postItem.content,
-        }}
-        refetchQueries={() => ['ALL_POSTS_QUERY']}
-      >
-        {(
-          updatePost, { loading: loadingUpdate, error: errorUpdate }
-        ) => {
-            if (errorUpdate) {
-            return (
-              <Message negative>
-                <Message.Header>Ошибка!</Message.Header>
-                <p>{errorUpdate.message.replace('GraphQL error: ', '')}</p>
-              </Message>);
-            }
-            return (
-              <ApolloConsumer>
-                {client => (
-                  <RowDiv>
-                    <Segment>
-                      {/* <Label attached='top right'>
-                      <Icon name='trash alternate outline' size='big' /></Label> */}
+      // <Mutation
+      //   mutation={UPDATE_POST_MUTATION}
+      //   variables={{
+      //     userId: postItem.userId,
+      //     postId: postItem.id,
+      //     title: postItem.title,
+      //     content: postItem.content,
+      //   }}
+      //   refetchQueries={() => ['ALL_POSTS_QUERY']}
+      // >
+      //   {(
+      //     updatePost, { loading: loadingUpdate, error: errorUpdate }
+      //   ) => {
+      <Composed>
+      {({
+        updatePostMutate, deletePostMutate,
+      }) => {
+        console.log('PostBlock render updatePostMutate', updatePostMutate);
+        console.log('PostBlock render deletePostMutate', deletePostMutate);
+        const {updatePost, loading: loadingUpdate, error: errorUpdate } = updatePostMutate;
+        const {deletePost, loading: loadingDelete, error: errorDelete } = deletePostMutate;
+        updateProps.updatePost=updatePostMutate;
+        updateProps.deletePost=deletePostMutate;
+        if (errorUpdate) {
+        return (
+          <Message negative>
+            <Message.Header>Ошибка!</Message.Header>
+            <p>{errorUpdate.message.replace('GraphQL error: ', '')}</p>
+          </Message>);
+        }
 
-                      {/* <Form.Input
-                        as='div'
-                        fluid
-                        name="title"
-                        readOnly={readOnly}
-                        disabled={loadingUpdate}
-                        loading={loadingUpdate}
-                        defaultValue={postItem.title}
-                        onChange={this.handleChange}
-                        // width={required
-                      /> */}
-                      <input
-                      className='title-view'
-                        name="title"
-                        readOnly={readOnly}
-                        disabled={loadingUpdate}
-                        defaultValue={postItem.title}
-                        onChange={this.handleChange}
-                      />
+        return (
+          <RowDiv>
+            <Segment>
+              <input
+                className='title-view'
+                name="title"
+                readOnly={readOnly}
+                disabled={loadingUpdate}
+                defaultValue={postItem.title}
+                onChange={this.handleChange}
+              />
 
-                      <div className="post-meta">
-                        <p>{postItem.userId}</p>
-                        <p>{postItem.createdDate}</p>
-                      </div>
-                      {/* <Form.Input
-                        fluid
-                        name="content"
-                        readOnly={readOnly}
-                        disabled={loadingUpdate}
-                        loading={loadingUpdate}
-                        defaultValue={postItem.content}
-                        onChange={this.handleChange}
-                        // width={8}
-                        required
-                      /> */}
-                      <Form>
-                        <TextArea
-                        className='post-content'
-                                    name="content"
-                                    readOnly={readOnly}
-                                    disabled={loadingUpdate}
-                                    //loading={loadingUpdate}
-                                    defaultValue={postItem.content}
-                                    onChange={this.handleChange}
-                        placeholder='Текст поста' />
-                      </Form>
-                      {authorIsCurrentUser &&
-                      <UpdateBlock showEdit={showEdit} enableEdit={this.enableEdit} updatePostItem={this.updatePostItem} updatePost={updatePost} />
-                      }
-                      {/* {showEdit === '' ? (
-                        <Button.Group basic attached='bottom'>
-                        <Button
-                        icon
-                        size="large"
-                        onClick={() => this.enableEdit('1')}
-                        ><Icon name="edit outline" /></Button>
-                        <Button
-                        icon size="large"
-                        ><Icon name="trash alternate outline" /></Button>
-                      </Button.Group>
-                      ) : (
-                        <Segment attached='bottom'>
-                          <Button
-                            onClick={() => this.updatePostItem(updatePost)}
-                            >
-                            Обнов{loadingUpdate ? 'ление' : 'ить'}
-                          </Button>
-                          <Button onClick={() => this.enableEdit('')}>Отмена</Button>
-                        </Segment>
-                      )}  */}
-                    </Segment>
-                  </RowDiv>
-                )}
-              </ApolloConsumer>
+              <div className="post-meta">
+                <p>{postItem.userId}</p>
+                <p>{postItem.createdDate}</p>
+              </div>
+              <Form>
+                <TextArea
+                  className='post-content'
+                  name="content"
+                  readOnly={readOnly}
+                  disabled={loadingUpdate}
+                  //loading={loadingUpdate}
+                  defaultValue={postItem.content}
+                  onChange={this.handleChange}
+                  placeholder='Текст поста' />
+              </Form>
+              {
+                authorIsCurrentUser &&
+                <UpdateBlock updateProps={updateProps}
+                //showEdit={showEdit} enableEdit={this.enableEdit} updatePostItem={this.updatePostItem} updatePost={updatePost} loadingUpdate={loadingUpdate} deletePostItem={this.deletePostItem} deletePost={deletePost}
+                />
+              }
+              {/* {showEdit === '' ? (
+                <Button.Group basic attached='bottom'>
+                <Button
+                icon
+                size="large"
+                onClick={() => this.enableEdit('1')}
+                ><Icon name="edit outline" /></Button>
+                <Button
+                icon size="large"
+                ><Icon name="trash alternate outline" /></Button>
+              </Button.Group>
+              ) : (
+                <Segment attached='bottom'>
+                  <Button
+                    onClick={() => this.updatePostItem(updatePost)}
+                    >
+                    Обнов{loadingUpdate ? 'ление' : 'ить'}
+                  </Button>
+                  <Button onClick={() => this.enableEdit('')}>Отмена</Button>
+                </Segment>
+              )}  */}
+            </Segment>
+          </RowDiv>
           );
         }}
-      </Mutation>
+      </Composed>
+      // </Mutation>
     );
   }
 }

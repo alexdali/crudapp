@@ -269,8 +269,8 @@ class NavBar extends React.Component {
                     onClick={this.handleItemClick}
                   >
                     <div className="MenuItem">
-                      <Link href="/tariffs">
-                        <a>Профиль</a>
+                      <Link href="/post">
+                        <a>Мой блог</a>
                       </Link>
                     </div>
                   </Menu.Item>

@@ -111,7 +111,8 @@ const Post = props => {
                         }
 
                         </MyContext.Consumer> */}
-                        <PostBlock postItem={data.post} key={data.post.id} />
+                        {/* <PostBlock postItem={data.post} key={data.post.id} /> */}
+                        <PostBlock postItem={data.post} />
                       </RowDiv>
                     )
                   );

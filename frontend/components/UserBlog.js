@@ -19,7 +19,7 @@ const IndexDiv = styled.div`
 const UserBlog = (props) => (
       <Query query={CURRENT_USER_QUERY}>
       {({ data, loading }) => {
-        console.log('ALL_POSTS_QUERY data', data);
+        console.log('UserBlog CURRENT_USER_QUERY data', data);
         return (
           loading ? (
           <div>
@@ -31,31 +31,24 @@ const UserBlog = (props) => (
           </div>
           )
             : (
-              data.me && <IndexDiv>
-              <Grid celled='internally'>
+              data.me &&
+              <>
+              {/* <Grid celled='internally'>
                 <Grid.Row>
-                  {/* <Grid.Column width={3}>
-                  </Grid.Column> */}
-                  <Grid.Column width={13}>
-                  <Header as='h2'>Добавить новый пост</Header>
-                  {/* <ApolloConsumer>
-                    {client => ( */}
-                      <PostCreateForm id={data.me.id}/>
-                    {/* )}
-                    </ApolloConsumer> */}
+                  <Grid.Column width={13}> */}
+                    <Header as='h2'>Добавить новый пост</Header>
+                    <PostCreateForm id={data.me.id}/>
                     <IndexDiv>
-                    {/* <Segment> */}
-                    <Header as='h2'>Все посты блога</Header>
+                      <Header as='h2'>Все посты блога</Header>
                       <PostsByUser id={data.me.id}/>
-                    {/* </Segment> */}
                     </IndexDiv>
-                  </Grid.Column>
-                  <Grid.Column width={3}>
+                  {/*</Grid.Column>
+                   <Grid.Column width={3}>
                     <ProfileSidebar/>
                   </Grid.Column>
                 </Grid.Row>
-              </Grid>
-            </IndexDiv>
+              </Grid>*/}
+            </>
             )
         );
       }}

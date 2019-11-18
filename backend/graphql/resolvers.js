@@ -325,14 +325,15 @@ const resolvers = {
       const updatedPost = await updatePost(updatePostData);
       return updatedPost;
     },
-    deletePost: async (_, { userId, postId }) => {
-      // console.log(`m deletePost id: ${JSON.stringify(id)}`);
+    deletePost: async (_, { postId, userId }) => {
+      console.log(`m deletePost postId: ${postId}, userId: ${userId} `);
       const delPost = await deletePost({ userId, postId });
       console.log(`m deletePost delPost: ${JSON.stringify(delPost)}`);
       if (delPost !== null) {
         return { message: 'Success' };
       }
       throw new Error('Вы не можете удалять чужие  посты!');
+      // return { message: 'success' };
     },
     createComment: async (_, {
       userId, postId, content,

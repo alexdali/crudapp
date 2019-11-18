@@ -100,7 +100,7 @@ class PostCreateForm extends Component {
       e.preventDefault();
       // const { me } = client.readQuery({ query: CURRENT_USER_QUERY });
       // console.log('createPostItem e: ', e);
-      console.log('createPostItem readQuery me.id: ', me.id);
+      // console.log('createPostItem readQuery me.id: ', me.id);
       // console.log('createPostItem createPost this.state: ', this.state);
       const { userId, title, content } = this.state.postItem;
       console.log(
@@ -116,6 +116,7 @@ class PostCreateForm extends Component {
           query: ALL_POSTS_QUERY,
         }],
       });
+      //TO-DO not updated feed after adding new post
       console.log('PostCreateForm CREATED!!!! res: ', res);
       this.setState({
       // postItem: this.props.postItem,
