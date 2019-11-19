@@ -74,16 +74,17 @@ const CommentDiv = styled.div`
 
 const CommentBlock = (props) => {
   console.log('CommentBlock props: ', props);
-  const { postId, userId } = props;
+  const { post, userId } = props;
   console.log('CommentBlock userId: ', userId);
-  console.log('CommentBlock postId: ', postId);
+  console.log('CommentBlock postId: ', post.id);
+  console.log('CommentBlock numberOfCommentsPost: ', post.numberOfCommentsPost);
   return (
     <CommentDiv>
-      <Header as='h3'>Комментарии {'12'}</Header>
+      <Header as='h3'>Комментарии {post.numberOfCommentsPost}</Header>
       <Divider horizontal></Divider>
       {userId && <CommentCreateForm {...props}/>}
       <Divider horizontal></Divider>
-      <CommentList postId={postId}/>
+      <CommentList postId={post.id}/>
     </CommentDiv>
   );
 };

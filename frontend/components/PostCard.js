@@ -31,7 +31,7 @@ class PostCard extends Component {
 
   render() {
     const {
-      id, userId, title, content, createdDate,
+      id, userId, title, content, createdDate, numberOfCommentsPost,
     } = this.props.postcard;
     console.log('PostCard this.props', this.props);
     return (
@@ -56,7 +56,7 @@ class PostCard extends Component {
               <Divider horizontal></Divider>
               <Item.Extra>
                 <Label size="medium" >
-                  <Icon name='comment alternate outline'/> 12
+                  <Icon name='comment alternate outline'/> {numberOfCommentsPost}
                 </Label>
               </Item.Extra>
             </Item.Content>

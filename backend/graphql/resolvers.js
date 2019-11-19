@@ -62,12 +62,14 @@ const resolvers = {
       const resPost = await getPost(id);
       console.log(`query post id: ${id}`);
       console.log(`query post resPost: ${JSON.stringify(resPost)}`);
+      console.log(`query post resPost.createdDate: ${resPost.createdDate}`);
+      console.log(`query post moment.utc(resPost.createdDate): `, moment.utc(resPost.createdDate));
       const commentsByPost = await getCommentsByPost({ postId: resPost.id });
-      // return resPost;
-      console.log(`query post comments: ${JSON.stringify(commentsByPost)}`);
+      console.log(`q posts commentsByPost.length: `, commentsByPost.length);
+      //console.log(`query post comments: ${JSON.stringify(commentsByPost)}`);
       return {
         ...resPost,
-        // commentsByPost,
+        numberOfCommentsPost: commentsByPost.length,
       };
     },
     // comment: async (_, { id }) => {

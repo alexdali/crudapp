@@ -48,18 +48,18 @@ const RowDiv = styled.div`
 //   }
 // `;
 
-const ItemsList = styled.div`
-  /* display: grid; */
-  display: block;
-  /* grid-template-columns: 1fr 1fr;
-  grid-gap: 60px; */
-  max-width: ${(props) => props.theme.maxWidth};
-  margin: 2.5rem 3rem;
-  padding: 0 4em;
-  @media (max-width: 700px) {
-    margin: 2.5rem 1rem;
-  }
-`;
+// const ItemsList = styled.div`
+//   /* display: grid; */
+//   display: block;
+//   /* grid-template-columns: 1fr 1fr;
+//   grid-gap: 60px; */
+//   max-width: ${(props) => props.theme.maxWidth};
+//   margin: 2.5rem 3rem;
+//   padding: 0 4em;
+//   @media (max-width: 700px) {
+//     margin: 2.5rem 1rem;
+//   }
+// `;
 
 // const perScreen = 5;
 

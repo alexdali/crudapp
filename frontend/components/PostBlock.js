@@ -140,7 +140,7 @@ class PostBlock extends Component {
   state = {
     postItem: this.props.postItem,
     authorIsCurrentUser: false,
-    currentUserId: '',
+    // currentUserId: '',
     readOnly: true,
     showEdit: '',
     // updated: false,
@@ -381,7 +381,7 @@ class PostBlock extends Component {
                 </Segment>
               )}  */}
             </Segment>
-            <CommentBlock postId={postItem.id} userId={user.id} />
+            <CommentBlock post={postItem} userId={user.id} />
             {/* <CommentDiv>
               <Header as='h3'>Комментарии {'12'}</Header>
               <Divider horizontal></Divider>

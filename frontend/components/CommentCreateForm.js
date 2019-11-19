@@ -57,7 +57,7 @@ class CommentCreateForm extends Component {
   state = {
     commentItem: {
       userId: this.props.userId,
-      postId: this.props.postId,
+      postId: this.props.post.id,
       // title: '',
       content: '',
     },
@@ -124,7 +124,7 @@ class CommentCreateForm extends Component {
       });
       // TO-DO update feed after adding new post
       console.log('CommentCreateForm CREATED!!!! res: ', res.data.createComment);
-      const { id } = res.data.createComment;
+      // const { id } = res.data.createComment;
       this.setState({
       // commentItem: this.props.commentItem,
         commentItem: {
@@ -141,7 +141,7 @@ class CommentCreateForm extends Component {
     render() {
       console.log('CommentCreateForm render -> props', this.props);
       console.log('CommentCreateForm render -> state', this.state);
-      console.log('CommentCreateForm render -> props.postId: ', this.props.postId);
+      console.log('CommentCreateForm render -> props.post.id: ', this.props.post.id);
       const {
         commentItem,
         // showCreate,

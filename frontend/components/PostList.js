@@ -107,7 +107,7 @@ const PostList = (props) => {
       }
       if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
       if ((typeof data === 'undefined') || (data.posts.length === 0)) return null;
-      console.log('CommentList data.posts: ', data.posts);
+      console.log('PostList data.posts: ', data.posts);
       return (
           <Item.Group divided relaxed='very'>
             {data.posts.map((post) => (

@@ -3,14 +3,15 @@ import { Mutation, Query, ApolloConsumer } from 'react-apollo';
 import gql from 'graphql-tag';
 import { adopt } from 'react-adopt';
 import PropTypes from 'prop-types';
-import { Message, Segment, Button, Icon, Form, TextArea, Label
+import {
+  Message, Segment, Button, Icon, Form, TextArea, Label,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
-//import NProgress from 'nprogress';
-//import CreateFormCategoryTP from './CreateFormCategoryTP';
-import PostBlock from "./PostBlock";
+// import NProgress from 'nprogress';
+// import CreateFormCategoryTP from './CreateFormCategoryTP';
+import PostBlock from './PostBlock';
 import { ALL_POSTS_QUERY } from './PostList';
-import User,{ CURRENT_USER_QUERY } from './User';
+import User, { CURRENT_USER_QUERY } from './User';
 // import Error from './ErrorMessage';
 
 const RowDiv = styled.div`
@@ -56,6 +57,7 @@ const POST_QUERY = gql`
       userId
       content
       createdDate
+      numberOfCommentsPost
     }
   }
 `;
@@ -68,61 +70,37 @@ const POST_QUERY = gql`
 // });
 // /* eslint-enable */
 
-const Post = props => {
+const Post = (props) => {
   console.log('const Post props: ', props);
   return (
-    //<User>
-      //</User>{({ data: userData, loading: userLoading}) => {
-        /* if(userLoading || userData.me === undefined) {const userId = '';}
-        else {
-          const userId = userData.me.id;
-          //const userId = userData.me.id === undefined ? '' : userData.me.id;
-        } */
-        //const userId = userData === undefined ? '' : (userData.me === undefined ? '' : userData.me);
-        //const userId = userData.me.id || '';
-        //console.log('query Post userId: ', userId);
-        <ApolloConsumer>
-          {client => {
-            {/* const userData = await client.readQuery({ query: CURRENT_USER_QUERY });
-            const userId = userData === undefined ? '' : userData.me.id;
-            console.log('query Post userId: ', userId); */}
-            return (
-              <Query query={POST_QUERY}
-                variables={{ id: props.id, }}
-              >
-                {({ data, loading: loadingQuery }) => {
-                  console.log('query Post data: ', data);
-                  //console.log('query Post me: ', me);
-                  return (
-                  loadingQuery ? (
-                      <div>
-                        <p>
-                        Загрузка...
-                        <i className="spinner icon"></i>
-                        </p>
-                      </div>
-                    )
-                    :
-                    (
-                      <RowDiv>
-                      {/* <MyContext.Consumer>
-                        {user =>
-                          <PostBlock user={user} postItem={data.post} key={data.post.id} />
-                        }
-
-                        </MyContext.Consumer> */}
-                        {/* <PostBlock postItem={data.post} key={data.post.id} /> */}
-                        <PostBlock postItem={data.post} />
-                      </RowDiv>
-                    )
-                  );
-                }}
-              </Query>
-            );
-          }}
-        </ApolloConsumer>
-      //}}
-    //</User>
-  )};
+  // <ApolloConsumer>
+  //   {(client) => (
+      <Query query={POST_QUERY}
+        variables={{ id: props.id }}
+      >
+        {({ data, loading: loadingQuery }) => {
+          console.log('query Post data: ', data);
+          // console.log('query Post me: ', me);
+          return (
+            loadingQuery ? (
+              <div>
+                <p>
+                Загрузка...
+                <i className="spinner icon"></i>
+                </p>
+              </div>
+            )
+              : (
+              <RowDiv>
+                <PostBlock postItem={data.post} />
+              </RowDiv>
+              )
+          );
+        }}
+      </Query>
+  //   )}
+  // </ApolloConsumer>
+  );
+};
 
 export default Post;
