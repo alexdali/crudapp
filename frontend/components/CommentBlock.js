@@ -81,8 +81,8 @@ const CommentBlock = (props) => {
     <CommentDiv>
       <Header as='h3'>Комментарии {'12'}</Header>
       <Divider horizontal></Divider>
-      <CommentCreateForm {...props}/>
-      {/* <Divider horizontal></Divider> */}
+      {userId && <CommentCreateForm {...props}/>}
+      <Divider horizontal></Divider>
       <CommentList postId={postId}/>
     </CommentDiv>
   );

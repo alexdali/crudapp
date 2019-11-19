@@ -167,7 +167,7 @@ class CommentCreateForm extends Component {
           }
           return (
             <CommentCreateDiv>
-              <Segment padded>
+              {/* <Segment padded> */}
                 <Form
                   className='form-comment'
                   onSubmit={(e) => this.createPostItem(e, createComment)
@@ -219,7 +219,7 @@ class CommentCreateForm extends Component {
                     Добавить комментарий
                   </Button>
                 </Form>
-              </Segment>
+              {/* </Segment> */}
             </CommentCreateDiv>
           );
         }}

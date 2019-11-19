@@ -24,6 +24,7 @@ type Post {
   userId: String!
   content: String
   createdDate: DateTime!
+  numberOfCommentsPost: Int!
   # commentsByPost: [Comment]!
 }
 

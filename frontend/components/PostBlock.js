@@ -151,7 +151,7 @@ class PostBlock extends Component {
   componentDidMount() {
     // let {user} = this.context;
     const { postItem, user } = this.props;
-    if (postItem.userId === user.id) {
+    if (user !== null && postItem.userId === user.id) {
       this.setState({
         authorIsCurrentUser: true,
       });

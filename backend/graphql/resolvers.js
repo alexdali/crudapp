@@ -92,19 +92,22 @@ const resolvers = {
     // return postReq[0];
 
     posts: async () => {
-      const result = await getPosts();
+      const posts = await getPosts();
+      console.log(`q posts result: ${JSON.stringify(posts)}`);
       // const resPostsByUser = result;
-      if (result !== []) {
-        return result.map(async (resPost) => {
+      if (posts !== []) {
+        return posts.map(async (resPost) => {
         // const res = resPost;
           const comments = await getCommentsByPost({ postId: resPost.id });
+          console.log(`q posts comments.length: `, comments.length);
           return {
             ...resPost,
-            comments,
+            numberOfCommentsPost: comments.length,
           };
         });
       }
-      return result;
+      console.log(`q posts result + comment.length: ${JSON.stringify(posts)}`);
+      return posts;
     },
     // {
     //   const postsMockReq = postsMock.map((post) => {
@@ -123,10 +126,11 @@ const resolvers = {
         // const res = resPost;
           const comments = await getCommentsByPost({ postId: resPost.id });
           // res.comments = [...comments];
+          //const numberOfCommentsPost = comment.length;
           // return res;
           return {
             ...resPost,
-            comments,
+            numberOfCommentsPost: comments.length,
           };
         });
       }
