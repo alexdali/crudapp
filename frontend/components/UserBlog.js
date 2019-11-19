@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
-  Grid, Segment, Form, Icon, TextArea, Button, Header,
+  Grid, Segment, Form, Icon, TextArea, Button, Divider, Header,
 } from 'semantic-ui-react';
 import { ALL_POSTS_QUERY } from './PostList';
 import User, { CURRENT_USER_QUERY } from './User';
@@ -31,24 +31,27 @@ const UserBlog = (props) => (
           </div>
           )
             : (
-              data.me &&
-              <>
+              data.me
+              && <>
               {/* <Grid celled='internally'>
                 <Grid.Row>
                   <Grid.Column width={13}> */}
-                    <Header as='h2'>Добавить новый пост</Header>
-                    <PostCreateForm id={data.me.id}/>
-                    <IndexDiv>
-                      <Header as='h2'>Все посты блога</Header>
-                      <PostsByUser id={data.me.id}/>
-                    </IndexDiv>
-                  {/*</Grid.Column>
+                  <Header as='h1'>Личный блог</Header>
+                  <Header as='h3'>Владелец: {data.me.name}</Header>
+                  <Divider horizontal></Divider>
+                  <Header as='h2'>Добавить новый пост</Header>
+                  <PostCreateForm id={data.me.id}/>
+                  <IndexDiv>
+                    <Header as='h2'>Все посты блога</Header>
+                    <PostsByUser id={data.me.id}/>
+                  </IndexDiv>
+                  {/* </Grid.Column>
                    <Grid.Column width={3}>
                     <ProfileSidebar/>
                   </Grid.Column>
                 </Grid.Row>
-              </Grid>*/}
-            </>
+              </Grid> */}
+              </>
             )
         );
       }}

@@ -3,17 +3,18 @@ import { Mutation, Query, ApolloConsumer } from 'react-apollo';
 import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-import { Message, Segment, Button, Icon, Form, TextArea, Label
+import {
+  Message, Segment, Button, Icon, Form, TextArea, Label, Header, Divider,
 } from 'semantic-ui-react';
-import TextareaAutosize from "react-textarea-autosize";
+import TextareaAutosize from 'react-textarea-autosize';
 import Router from 'next/router';
 import styled from 'styled-components';
-//import NProgress from 'nprogress';
+// import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
-//import CreateFormCategoryTP from './CreateFormCategoryTP';
 import { ALL_POSTS_QUERY } from './PostList';
-//import User,{ CURRENT_USER_QUERY } from './User';
-// import Error from './ErrorMessage';
+// import User,{ CURRENT_USER_QUERY } from './User';
+import CommentBlock from './CommentBlock';
+// import CommentCreateForm from './CommentCreateForm';
 
 const RowDiv = styled.div`
   input.title-view {
@@ -38,6 +39,16 @@ const RowDiv = styled.div`
     resize: none;
   }
 `;
+
+// const CommentDiv = styled.div`
+//   margin: 2.5em 0 0.5em;
+//   padding: 0.5em;
+//   /*
+//   width: 100%;
+//   font-size: 2.5em;
+//   border: none;
+//   border-bottom: 1px solid rgba(34, 36, 38, 0.15);} */
+// `;
 
 const UPDATE_POST_MUTATION = gql`
   mutation UPDATE_POST_MUTATION(
@@ -75,12 +86,14 @@ const DELETE_POST_MUTATION = gql`
   }
 `;
 
-const UpdateBlock =(props)=> {
-  const {showEdit, enableEdit, updatePostItem, updatePost, loadingUpdate, deletePostItem, deletePost} = props.updateProps;
+const UpdateBlock = (props) => {
+  const {
+    showEdit, enableEdit, updatePostItem, updatePost, loadingUpdate, deletePostItem, deletePost,
+  } = props.updateProps;
   return (
     <>
       {showEdit === '' ? (
-        //<Segment attached='bottom'>
+        // <Segment attached='bottom'>
         <Button.Group basic attached='bottom'>
           <Button
             icon
@@ -104,11 +117,10 @@ const UpdateBlock =(props)=> {
       )}
     </>
   );
-}
+};
 
 /* eslint-disable */
 const Composed = adopt({
-  //currentUser: ({render}) => <Query query={CURRENT_USER_QUERY}>{render}</Query>,
   updatePostMutate: ({render}) => <Mutation mutation={UPDATE_POST_MUTATION}>{render}</Mutation>,
   deletePostMutate: ({render}) => <Mutation mutation={DELETE_POST_MUTATION}>{render}</Mutation>,
 });
@@ -131,21 +143,22 @@ class PostBlock extends Component {
     currentUserId: '',
     readOnly: true,
     showEdit: '',
-    //updated: false,
-    //deleted: false,
+    // updated: false,
+    // deleted: false,
   };
 
 
   componentDidMount() {
-    //let {user} = this.context;
+    // let {user} = this.context;
     const { postItem, user } = this.props;
-    if(postItem.userId===user.id)
-    this.setState({
-      authorIsCurrentUser: true,
+    if (postItem.userId === user.id) {
+      this.setState({
+        authorIsCurrentUser: true,
       });
+    }
   }
 
-  enableEdit = val => {
+  enableEdit = (val) => {
     console.log('PostBlock enableEdit');
     if (val === '1') {
       this.setState({
@@ -164,11 +177,11 @@ class PostBlock extends Component {
   handleChange = (e, data) => {
     const { name, type, value } = e.target;
     // console.log(`handleChange: e: `, e);
-    console.log(`handleChange: data: `, data);
+    console.log('handleChange: data: ', data);
     console.log(
       `handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${
         data.checked
-      }, data.name: ${data.name}`
+      }, data.name: ${data.name}`,
     );
 
     let val = value;
@@ -184,13 +197,13 @@ class PostBlock extends Component {
     this.setState({ postItem });
   };
 
-  updatePostItem = async updatePost => {
+  updatePostItem = async (updatePost) => {
     // console.log('updatePostItem e: ', e);
     // console.log('PostList updatePostItem this.state: ', this.state);
     const { postItem } = this.state;
     console.log(
       'PostBlock updatePostItem this.state.postItem: ',
-      postItem
+      postItem,
     );
     const res = await updatePost({
       variables: {
@@ -202,47 +215,46 @@ class PostBlock extends Component {
       refetchQueries: [{
         query: ALL_POSTS_QUERY,
       }],
-      });
+    });
     console.log('updatePostItem UPDATED!!!! res: ', res);
-    //TO-DO update cache
+    // TO-DO update cache
     this.setState({
       postItem: this.props.postItem,
       showEdit: '',
       readOnly: true,
     },
-      //this.props.updateBlog(res);
+      // this.props.updateBlog(res);
     );
   };
 
-  deletePostItem = async deletePost => {
+  deletePostItem = async (deletePost) => {
     // console.log('deletePostItem e: ', e);
     // console.log('PostList deletePostItem this.state: ', this.state);
     const { postItem } = this.state;
     const { user } = this.props;
     console.log(
       'PostBlock deletePostItem this.state.postItem: ',
-      postItem
+      postItem,
     );
     const res = await deletePost({
       variables: {
         postId: postItem.id,
         userId: user.id,
-      }
-      });
+      },
+    });
     console.log('deletePostItem DELETED!!!! res: ', res);
-    //TO-DO update cache
+    // TO-DO update cache
     this.setState({
       postItem: '',
       showEdit: '',
       readOnly: true,
     },
-      ()=>{
-        //this.props.updateBlog(res);
-        Router.push({
-          pathname: '/post',
-        });
-      }
-    );
+    () => {
+      // this.props.updateBlog(res);
+      Router.push({
+        pathname: '/post',
+      });
+    });
   };
 
   render() {
@@ -251,7 +263,8 @@ class PostBlock extends Component {
     const user = this.props.user ? this.props.user : {
       id: '',
       name: '',
-      email: ''};
+      email: '',
+    };
     const {
       postItem,
       authorIsCurrentUser,
@@ -259,8 +272,11 @@ class PostBlock extends Component {
       showEdit,
     } = this.state;
 
-    console.log('PostBlock render -> state.postItem', postItem);
-    const updateProps = {showEdit, enableEdit: this.enableEdit, updatePostItem: this.updatePostItem, deletePostItem: this.deletePostItem };
+    console.log('PostBlock render -> state.postItem: ', postItem);
+    console.log('PostBlock render -> this.props.user: ', user);
+    const updateProps = {
+      showEdit, enableEdit: this.enableEdit, updatePostItem: this.updatePostItem, deletePostItem: this.deletePostItem,
+    };
     return (
       // <Mutation
       //   mutation={UPDATE_POST_MUTATION}
@@ -279,14 +295,14 @@ class PostBlock extends Component {
       {({
         updatePostMutate, deletePostMutate,
       }) => {
-        console.log('PostBlock render updatePostMutate', updatePostMutate);
-        console.log('PostBlock render deletePostMutate', deletePostMutate);
-        const {updatePost, loading: loadingUpdate, error: errorUpdate } = updatePostMutate;
-        const {deletePost, loading: loadingDelete, error: errorDelete } = deletePostMutate;
-        updateProps.updatePost=updatePostMutate;
-        updateProps.deletePost=deletePostMutate;
+        // console.log('PostBlock render updatePostMutate', updatePostMutate);
+        // console.log('PostBlock render deletePostMutate', deletePostMutate);
+        const { loading: loadingUpdate, error: errorUpdate } = updatePostMutate;
+        const { loading: loadingDelete, error: errorDelete } = deletePostMutate;
+        updateProps.updatePost = updatePostMutate;
+        updateProps.deletePost = deletePostMutate;
         if (errorUpdate) {
-        return (
+          return (
           <Message negative>
             <Message.Header>Ошибка!</Message.Header>
             <p>{errorUpdate.message.replace('GraphQL error: ', '')}</p>
@@ -321,12 +337,12 @@ class PostBlock extends Component {
                   placeholder='Текст поста' /> */}
                   <Form.Field
                     control={TextareaAutosize}
-                    //useCacheForDOMMeasurements
+                    // useCacheForDOMMeasurements
                     className='post-content'
                     name="content"
                     readOnly={readOnly}
                     disabled={loadingUpdate}
-                    //loading={loadingUpdate}
+                    // loading={loadingUpdate}
                     defaultValue={postItem.content}
                     onChange={this.handleChange}
                     placeholder='Текст поста'
@@ -338,9 +354,9 @@ class PostBlock extends Component {
                   />
               </Form>
               {
-                authorIsCurrentUser &&
-                <UpdateBlock updateProps={updateProps}
-                //showEdit={showEdit} enableEdit={this.enableEdit} updatePostItem={this.updatePostItem} updatePost={updatePost} loadingUpdate={loadingUpdate} deletePostItem={this.deletePostItem} deletePost={deletePost}
+                authorIsCurrentUser
+                && <UpdateBlock updateProps={updateProps}
+                // showEdit={showEdit} enableEdit={this.enableEdit} updatePostItem={this.updatePostItem} updatePost={updatePost} loadingUpdate={loadingUpdate} deletePostItem={this.deletePostItem} deletePost={deletePost}
                 />
               }
               {/* {showEdit === '' ? (
@@ -365,9 +381,17 @@ class PostBlock extends Component {
                 </Segment>
               )}  */}
             </Segment>
+            <CommentBlock postId={postItem.id} userId={user.id} />
+            {/* <CommentDiv>
+              <Header as='h3'>Комментарии {'12'}</Header>
+              <Divider horizontal></Divider>
+              <CommentCreateForm userId={user.Id}/>
+              <Divider horizontal></Divider>
+              <CommentList postId={postItem.Id}/>
+            </CommentDiv> */}
           </RowDiv>
-          );
-        }}
+        );
+      }}
       </Composed>
       // </Mutation>
     );

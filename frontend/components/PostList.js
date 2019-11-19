@@ -77,28 +77,6 @@ const ALL_POSTS_QUERY = gql`
   }
 `;
 
-// const UPDATE_POST_MUTATION = gql`
-//   mutation UPDATE_POST_MUTATION(
-//     $userId: String!
-//     $postId: String!
-//     $title: String!
-//     $content: String!
-//   ) {
-//     updatePost(
-//       userId: $userId
-//       postId: $postId
-//       title: $title
-//       content: $content)
-//       {
-//         id
-//         title
-//         userId
-//         content
-//         createdDate
-//     }
-//   }
-// `;
-
 const PostList = (props) => {
   console.log('PostList props: ', props);
   return (

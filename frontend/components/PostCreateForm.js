@@ -117,9 +117,9 @@ class PostCreateForm extends Component {
           query: ALL_POSTS_QUERY,
         }],
       });
-      //TO-DO update feed after adding new post
+      // TO-DO update feed after adding new post
       console.log('PostCreateForm CREATED!!!! res: ', res.data.createPost);
-      const {id} = res.data.createPost;
+      const { id } = res.data.createPost;
       this.setState({
       // postItem: this.props.postItem,
         postItem: {
@@ -131,11 +131,11 @@ class PostCreateForm extends Component {
         showEdit: '',
         readOnly: true,
       },
-      ()=>{
-        //this.props.updateBlog(res);
+      () => {
+        // this.props.updateBlog(res);
         Router.push({
           pathname: '/post',
-            query: { id },
+          query: { id },
         });
       });
     };
@@ -173,9 +173,7 @@ class PostCreateForm extends Component {
 
             <Segment padded>
                 <Form
-                  onSubmit={(e) =>
-                    // this.createPostItem(e, client, createPost)
-                    this.createPostItem(e, createPost)
+                  onSubmit={(e) => this.createPostItem(e, createPost)
                   }
                   loading={loading}
                   // error={<Error error={error} />}

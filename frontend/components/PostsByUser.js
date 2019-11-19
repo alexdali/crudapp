@@ -63,8 +63,8 @@ const ItemsList = styled.div`
 
 // const perScreen = 5;
 
-const ALL_POSTS_BY_USER_QUERY = gql`
-  query ALL_POSTS_BY_USER_QUERY($id: String!) {
+const POSTS_BY_USER_QUERY = gql`
+  query POSTS_BY_USER_QUERY($id: String!) {
     postsByUser(id: $id) {
       id
       title
@@ -76,15 +76,15 @@ const ALL_POSTS_BY_USER_QUERY = gql`
 `;
 
 
-//TO-DO sort by descending
+// TO-DO sort by descending
 
 const PostsByUser = (props) => (
   <Query
-    query={ALL_POSTS_BY_USER_QUERY}
+    query={POSTS_BY_USER_QUERY}
     variables={{ id: props.id }}
   >
     {({ data, loading }) => {
-      console.log('ALL_POSTS_BY_USER_QUERY data', data);
+      console.log('POSTS_BY_USER_QUERY data', data);
       return (
         loading ? (
           <div>
@@ -108,5 +108,5 @@ const PostsByUser = (props) => (
   </Query>
 );
 
-export { ALL_POSTS_BY_USER_QUERY };
+export { POSTS_BY_USER_QUERY };
 export default PostsByUser;

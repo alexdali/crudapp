@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { Card, Header, Icon, Item, Divider, Label } from 'semantic-ui-react';
+import {
+  Card, Header, Icon, Item, Divider, Label,
+} from 'semantic-ui-react';
 // import ItemStyles from './styles/ItemStyles';
-//import BlockStyles from './styles/BlockStyles';
+// import BlockStyles from './styles/BlockStyles';
 
 
 // const Block = styled.div`
@@ -68,14 +70,15 @@ import { Card, Header, Icon, Item, Divider, Label } from 'semantic-ui-react';
 //   }
 // `;
 
-// const Description = styled.p`
-//   text-align: justify;
-//   /* font-size: 12px; */
-//   line-height: 2;
-//   font-weight: 300;
-//   padding: 0 2rem;
-//   font-size: 0.85rem;
-// `;
+const ItemContent = styled.p`
+    max-height: 100px;
+    overflow: hidden;
+  /* text-align: justify;
+  line-height: 2;
+  font-weight: 300;
+  padding: 0 2rem;
+  font-size: 0.85rem; */
+`;
 
 class PostCard extends Component {
   static propTypes = {
@@ -89,14 +92,16 @@ class PostCard extends Component {
   };
 
   render() {
-    const { id, userId, title, content, createdDate } = this.props.postcard;
+    const {
+      id, userId, title, content, createdDate,
+    } = this.props.postcard;
     console.log('PostCard this.props', this.props);
     return (
       <Link
         href={{
-            pathname: './post',
-            query: { id },
-          }}
+          pathname: './post',
+          query: { id },
+        }}
       >
         <a>
           <Item>
@@ -107,10 +112,12 @@ class PostCard extends Component {
                 {createdDate}
               </Label>
               <Item.Meta>{userId}</Item.Meta>
-              <Item.Description><p>{content}</p></Item.Description>
+              <Item.Description>
+                <ItemContent clasName='item-content'>{content}</ItemContent>
+              </Item.Description>
               <Divider horizontal></Divider>
               <Item.Extra>
-                <Label  size="medium" >
+                <Label size="medium" >
                   <Icon name='comment alternate outline'/> 12
                 </Label>
               </Item.Extra>
