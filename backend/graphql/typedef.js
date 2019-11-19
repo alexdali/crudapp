@@ -3,6 +3,12 @@ import { gql } from 'apollo-server-express';
 
 
 const typeDefs = gql`
+
+# enum OrderByCreatedDateInput {
+#   createdDate_ASC
+#   createdDate_DESC
+# }
+
 scalar DateTime
 type Token {
   token: String!

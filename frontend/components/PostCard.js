@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import styled from 'styled-components';
+import moment from 'moment';
 import {
   Card, Header, Icon, Item, Divider, Label,
 } from 'semantic-ui-react';
@@ -47,7 +48,7 @@ class PostCard extends Component {
               <Item.Header as='h3'>{title}</Item.Header>
               <Divider clearing />
               <Label as='span' color='orange' ribbon='right'>
-                {createdDate}
+                {moment(createdDate).format('DD MMMM YYYY')}
               </Label>
               <Item.Meta>{userId}</Item.Meta>
               <Item.Description>

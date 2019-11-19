@@ -30,13 +30,6 @@ const resolvers = {
       if (!context.user) {
         return null;
       }
-      // run query for User by userId from database
-      // return ctx.db.query.user(
-      //   {
-      //     where: { id: ctx.request.userId },
-      //   },
-      //   info
-      // );
       const { id } = context.user;
       const user = await getUser(id);
       console.log(`query me getUser user: ${JSON.stringify(user)}`);
@@ -54,154 +47,80 @@ const resolvers = {
         comments,
       };
     },
-    // const userReq = usersMock.filter((user) => user.id === id);
-    // console.log(`query UserReq: ${userReq}, id: ${id}`);
-    // return userReq[0];
     users: async () => getUsers(),
     post: async (_, { id }) => {
       const resPost = await getPost(id);
       console.log(`query post id: ${id}`);
       console.log(`query post resPost: ${JSON.stringify(resPost)}`);
-      console.log(`query post resPost.createdDate: ${resPost.createdDate}`);
-      console.log(`query post moment.utc(resPost.createdDate): `, moment.utc(resPost.createdDate));
       const commentsByPost = await getCommentsByPost({ postId: resPost.id });
-      console.log(`q posts commentsByPost.length: `, commentsByPost.length);
-      //console.log(`query post comments: ${JSON.stringify(commentsByPost)}`);
+      console.log('q posts commentsByPost.length: ', commentsByPost.length);
+      // console.log(`query post comments: ${JSON.stringify(commentsByPost)}`);
       return {
         ...resPost,
         numberOfCommentsPost: commentsByPost.length,
       };
     },
-    // comment: async (_, { id }) => {
-    //   const resComment = await getComment(id);
-    //   console.log(`query comment resComment: ${JSON.stringify(resComment)}`);
-    //   return resComment;
-    // },
-    // comments: async (_, { postId, userId }) => {
-    //   if (!postId === '') {
-    //     const resCommentsByPost = await getCommentsByPost(postId);
-    //     console.log(`query comments resCommentsByPost: ${JSON.stringify(resCommentsByPost)}`);
-    //     return resComment;
-    //   }
-    // },
-    // const postReq = postsMock.filter((post) => post.id === id);
-    // console.log(`query PostReq: ${postReq}, id: ${id}`);
-    // if (!postReq[0]) {
-    //   return null;
-    // }
-    // postReq[0].comments = commentsMock.filter((comment) => comment.postId === postReq[0].id);
-    // console.log(`query post PostReq: ${JSON.stringify(postReq)}`);
-    // return postReq[0];
-
     posts: async () => {
       const posts = await getPosts();
-      console.log(`q posts result: ${JSON.stringify(posts)}`);
+      console.log(`q posts result getPosts: ${JSON.stringify(posts)}`);
       // const resPostsByUser = result;
-      if (posts !== []) {
-        return posts.map(async (resPost) => {
-        // const res = resPost;
-          const comments = await getCommentsByPost({ postId: resPost.id });
-          console.log(`q posts comments.length: `, comments.length);
-          return {
-            ...resPost,
-            numberOfCommentsPost: comments.length,
-          };
-        });
-      }
-      console.log(`q posts result + comment.length: ${JSON.stringify(posts)}`);
-      return posts;
+      if (posts === []) return posts;
+      const sortPosts = posts.sort((a, b) => {
+        const res = b.createdDate - a.createdDate;
+        // console.log(`q posts sort res b-a: ${res}`);
+        return res;
+      }).map(async (resPost) => {
+        const comments = await getCommentsByPost({ postId: resPost.id });
+        // console.log('q posts comments.length: ', comments.length);
+        return {
+          ...resPost,
+          numberOfCommentsPost: comments.length,
+        };
+      });
+      return sortPosts;
     },
-    // {
-    //   const postsMockReq = postsMock.map((post) => {
-    //     const newItem = { ...post };
-    //     newItem.comments = commentsMock.filter((comment) => comment.postId === newItem.id);
-    //     console.log('query posts');
-    //     return newItem;
-    //   });
-    //   return postsMockReq;
-    // },
     postsByUser: async (_, { id }) => {
       const result = await getPostsByUser({ userId: id });
       // const resPostsByUser = result;
-      if (result !== []) {
-        return result.map(async (resPost) => {
-        // const res = resPost;
+      if (result === []) return result;
+      const sortPosts = result.sort((a, b) => b.createdDate - a.createdDate)
+        .map(async (resPost) => {
           const comments = await getCommentsByPost({ postId: resPost.id });
-          // res.comments = [...comments];
-          //const numberOfCommentsPost = comment.length;
-          // return res;
           return {
             ...resPost,
             numberOfCommentsPost: comments.length,
           };
         });
-      }
-      // if result === [] empty array
-      return result;
-
-      // const resComments = result.map((comment) => {
-      //   const resItem = {
-      //     id: comment._id,
-      //     userId: comment.userId,
-      //     postId: comment.postId,
-      //     content: comment.content,
-      //     createdDate: comment.createdDate,
-      //   };
-      //   console.log(`c getUser resItem: ${JSON.stringify(resItem)}`);
-      //   return resItem;
-      // });
-      // return resComments;
+      return sortPosts;
     },
-    // {
-    //   const postsReq = postsMock.filter((post) => post.userId === id);
-    //   // console.log('query users.filter', comments.id);
-    //   console.log(`query PostsReq: ${postsReq}, id: ${id}`);
-    //   return postsReq;
-    // },
-    // comments: () => getComments(),
-    commentsByPost: async (_, { id }) => getCommentsByPost({ postId: id }), // {
-    // const result = getCommentsByPost({ postId: id });
-    // return result.map((comment) => ({
-    //   id: comment._id,
-    //   userId: comment.userId,
-    //   postId: comment.postId,
-    //   content: comment.content,
-    //   createdDate: comment.createdDate,
-    // }));
-    // return resComments;
-    // }
-
-    // {
-    //   const commentsReq = commentsMock.filter((comment) => comment.postId === id);
-    //   // console.log('query users.filter', comments.id);
-    //   console.log(`query CommentsReq: ${commentsReq}, id: ${id}`);
-    //   return commentsReq;
-    // },
+    // commentsByPost: async (_, { id }) => getCommentsByPost({ postId: id }),
+    commentsByPost: async (_, { id }) => {
+      const comments = await getCommentsByPost({ postId: id });
+      console.log(`q comments result getCommentsByPost: ${JSON.stringify(comments)}`);
+      if (comments === []) return comments;
+      const sortCommens = comments.sort((a, b) => {
+        // console.log(`q comments sort: ${JSON.stringify(a)}`);
+        console.log(`q comments sort.createdDate a: ${a.createdDate}`);
+        // console.log(`q comments sort: ${JSON.stringify(b)}`);
+        console.log(`q comments sort.createdDate b: ${b.createdDate}`);
+        const res = b.createdDate - a.createdDate;
+        console.log(`q comments sort res b-a: ${res}`);
+        return res;
+      });
+      return sortCommens;
+    },
     commentsByUser: async (_, { id }) => getCommentsByUser({ userId: id }),
   },
 
   Mutation: {
-    // createUser: async (_, { firstName, lastName }) => {
-    //   const id = uuidv4();
-    //   const newUserData = {
-    //     id, firstName, lastName,
-    //   };
-    //   console.log(`m createUser dataNewUser: ${JSON.stringify(newUserData)}`);
-
-    //   const newUser = await createUser(newUserData);
-    //   return {
-    //     ...newUser,
-    //     posts: [],
-    //   };
     signUp: async (_, { name, email, password }, context) => {
       // console.log(`m createUser context: ${JSON.stringify(context)}`);
-      console.log(`m createUser context: ${context.secret}`);
+      // console.log(`m createUser context: ${context.secret}`);
       const id = uuidv4();
       const newUserData = {
         id, name, email, password,
       };
       console.log(`m createUser dataNewUser: ${JSON.stringify(newUserData)}`);
-
       const user = await createUser(newUserData);
       const expiresIn = '30m'; // '12h';
       // const jwtToken = await jwt.sign(newUser, context.secret, { expiresIn });
@@ -213,29 +132,13 @@ const resolvers = {
       });
       // return { token: jToken };
       return user;
-      // console.log(`m createUser new: ${newU}`);
-      // return newU;
-      // usersMock.push(newUser);
-      // console.log(`m createUser usersMock len: ${usersMock.length}`);
-      // const newUserReq = usersMock.filter((user) => user.id === id);
-      // console.log(`m createUser newUserReq: ${JSON.stringify(newUserReq[0])}`);
-      // if (!newUserReq[0]) {
-      //   // return reject('error');
-      //   return null;
-      // }
-      // // return resolve(postsMock[len - 1]);
-      // return newUserReq[0];
-      // });
-      // return newUser;
     },
     signIn: async (_, { email, password }, context) => {
-      console.log(`m signIn context.res: ${context.res[0]}`);
+      // console.log(`m signIn context.res: ${context.res[0]}`);
       // console.log(`m signIn context.req.user: ${JSON.stringify(context.req.user)}`);
-      console.log(`m signIn context: ${context.secret}`);
-
+      // console.log(`m signIn context: ${context.secret}`);
       const AuthArg = ['email', email];
-      console.log(`m signIn AuthArg: ${JSON.stringify(AuthArg)}`);
-
+      // console.log(`m signIn AuthArg: ${JSON.stringify(AuthArg)}`);
       const user = await getUserByArg(AuthArg);
       console.log(`m signIn user: ${JSON.stringify(user)}`);
       if (!user) {
@@ -243,19 +146,18 @@ const resolvers = {
           'Пользователя с таким email не существует!',
         );
       }
-
       const isValidPass = await bcrypt.compare(password, user.password);
-      console.log(`m signIn isValidPass: ${isValidPass}`);
+      // console.log(`m signIn isValidPass: ${isValidPass}`);
       if (!isValidPass) {
         throw new Error(
           'Неверный пароль! Попробуйте еще раз.',
         );
       }
       delete user.password;
-      const expiresIn = '30m'; // '12h';
+      // const expiresIn = '30m'; // '12h';
       // const jToken = await jwt.sign(user, context.secret, { expiresIn });
       const jToken = jwt.sign(user, context.secret);
-      console.log(`m signIn jToken: ${JSON.stringify(jToken)}`);
+      // console.log(`m signIn jToken: ${JSON.stringify(jToken)}`);
       // if (!context.response.cookie) context.response.cookie = {};
       // context.response.cookie('token', jToken, {
       context.res.cookie('token', jToken, {
@@ -268,11 +170,9 @@ const resolvers = {
       return user;
     },
     signOut: async (_, args, context) => {
-      console.log(`m signOut args: ${JSON.stringify(args)}`);
-
+      // console.log(`m signOut args: ${JSON.stringify(args)}`);
       context.res.clearCookie('token');
-      console.log(`m signOut cookie context.res: ${context.res}`);
-
+      // console.log(`m signOut cookie context.res: ${context.res}`);
       return { message: 'success' };
     },
     deleteUser: async (_, { id }) => {
@@ -292,27 +192,11 @@ const resolvers = {
         id, title, userId, content, createdDate,
       };
       console.log(`m createPost newPost: ${JSON.stringify(newPostData)}`);
-      // return new Promise((resolve, reject) => {
-      // const len = postsMock.length;
-      // const newLen = postsMock.push(newPost);
-      // return createPost(newPost);
-
       const newPost = await createPost(newPostData);
       return {
         ...newPost,
         comments: [],
       };
-      // postsMock.push(newPost);
-      // console.log(`m createPost postsMock len: ${postsMock.length}`);
-      // const newPostReq = postsMock.filter((post) => post.id === id);
-      // console.log(`m createPost newPostReq: ${JSON.stringify(newPostReq[0])}`);
-      // if (!newPostReq[0]) {
-      //   // return reject('error');
-      //   return null;
-      // }
-      // // return resolve(postsMock[len - 1]);
-      // return newPostReq[0];
-      // });
     },
     updatePost: async (_, {
       userId, postId, title, content,
@@ -339,7 +223,6 @@ const resolvers = {
         return { message: 'Success' };
       }
       throw new Error('Вы не можете удалять чужие  посты!');
-      // return { message: 'success' };
     },
     createComment: async (_, {
       userId, postId, content,
@@ -351,20 +234,7 @@ const resolvers = {
       const newComment = {
         id, userId, postId, content, createdDate,
       };
-      // const len = commentsMock.length;
-      // const newLen = commentsMock.push(newComment);
       return createComment(newComment);
-      // commentsMock.push(newComment);
-      // // if (newLen === len) {
-      // //   return null;
-      // // }
-      // const newCommentReq = commentsMock.filter((comment) => comment.id === id);
-      // console.log(`m createPost newPostReq: ${JSON.stringify(newCommentReq[0])}`);
-      // if (!newCommentReq[0]) {
-      //   // return reject('error');
-      //   return null;
-      // }
-      // return newCommentReq[0];
     },
     deleteComment: async (_, { id, userId }) => {
       // console.log(`m deleteComment id: ${JSON.stringify(id)}`);

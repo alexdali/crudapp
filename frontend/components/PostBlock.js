@@ -9,6 +9,7 @@ import {
 import TextareaAutosize from 'react-textarea-autosize';
 import Router from 'next/router';
 import styled from 'styled-components';
+import moment from 'moment';
 // import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
 import { ALL_POSTS_QUERY } from './PostList';
@@ -323,7 +324,7 @@ class PostBlock extends Component {
 
               <div className="post-meta">
                 <p>{postItem.userId}</p>
-                <p>{postItem.createdDate}</p>
+                <p>{moment(postItem.createdDate).format('DD MMMM YYYY HH:mm')}</p>
               </div>
               <Form>
                 {/* <TextArea

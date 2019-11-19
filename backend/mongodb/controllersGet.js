@@ -134,14 +134,14 @@ const getCommentsByPost = async (arg) => {
     .then((result) => {
       console.log(`c getCommentsByPost find: ${JSON.stringify(result)}`);
       if (result !== []) {
-      return result.map((comment) => ({
-        id: comment._id,
-        userId: comment.userId,
-        postId: comment.postId,
-        content: comment.content,
-        createdDate: comment.createdDate,
-      }));
-    } else {return result};
+        return result.map((comment) => ({
+          id: comment._id,
+          userId: comment.userId,
+          postId: comment.postId,
+          content: comment.content,
+          createdDate: comment.createdDate,
+        }));
+      } else { return result ;}
     })
     .catch((err) => console.error('Error db: ', err));
 };

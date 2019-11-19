@@ -6,10 +6,9 @@ import {
   Item, Header, Segment, Button, Icon, Form, Label, Divider,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
+import moment from 'moment';
 // import NProgress from 'nprogress';
-// import CreateFormCategoryTP from './CreateFormCategoryTP';
 import Spinner from './Spinner';
-// import CommentCard from './CommentCard';
 import ErrorMessage from './ErrorMessage';
 
 // const RowDiv = styled.div`
@@ -99,7 +98,7 @@ const CommentCard = (props) => {
               </Label> */}
               <div className='item-meta'>
                 <Item.Meta>{userId}</Item.Meta>
-                <Item.Meta>{createdDate}</Item.Meta>
+                <Item.Meta>{moment(createdDate).format('DD MMMM YYYY HH:mm')}</Item.Meta>
               </div>
               <div>{content}</div>
               {/* <Item.Description>
