@@ -229,9 +229,19 @@ class NavBar extends React.Component {
     const { user } = this.props;
     return (
       <Query query={CURRENT_USER_QUERY}>
-        {({ data, loading }) => {
+        {({ data, loading, error }) => {
           // <UserContextConsumer>
           //  {({ user, setCurrentUser }) => {
+          // if (loading) {
+          //   return (<div>
+          //       <p>
+          //       Загрузка...
+          //       <i className="spinner icon"></i>
+          //       </p>
+          //     </div>);
+          // }
+          if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
+          if (typeof data === 'undefined') return null;
           console.log('NavBar render UserContextConsumer user: ', user);
           // console.log('NavBar render UserContextConsumer setCurrentUser: ', setCurrentUser);
           /* if (data!==undefined) {

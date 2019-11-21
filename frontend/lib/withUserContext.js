@@ -8,8 +8,8 @@ export default function withUserContext(Component) {
       <UserContext.Consumer>
         {/* {({ user, setCurrentUser }) =>
           <Component {...props} user={user} setCurrentUser={setCurrentUser}/>} */}
-          {({ user }) =>
-          <Component {...props} user={user} />}
+          {({ user, authors }) =>
+          <Component {...props} user={user} authors={authors} />}
       </UserContext.Consumer>
     );
   }

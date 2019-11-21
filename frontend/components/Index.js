@@ -71,4 +71,4 @@ class Index extends Component {
   }
 }
 
-export default withApollo(Index);
+export default withUserContext(Index);

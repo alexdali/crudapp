@@ -10,14 +10,24 @@ import {
 // import BlockStyles from './styles/BlockStyles';
 
 const ItemContent = styled.p`
-    max-height: 100px;
+    max-height: 80px;
     overflow: hidden;
-  /* text-align: justify;
-  line-height: 2;
-  font-weight: 300;
-  padding: 0 2rem;
-  font-size: 0.85rem; */
 `;
+const ItemBlock = styled.div`
+  div.item > div.content > .post-meta {
+      display: flexbox;
+      justify-content: space-between;
+   }
+   .extra {
+      margin-top: 10px;
+    }
+`;
+
+//#__next > div > div.Page__IndexDiv-peqh5w-2.gseUfm > div > div > div.thirteen.wide.column > div > div > div > div.thirteen.wide.column > div > div:nth-child(1) > a > div > div > div.post-meta
+// .post-meta {
+//      display: flexbox;
+//      justify-content: space-between;
+//    }
 
 class PostCard extends Component {
   static propTypes = {
@@ -32,7 +42,7 @@ class PostCard extends Component {
 
   render() {
     const {
-      id, userId, title, content, createdDate, numberOfCommentsPost,
+      id, userId, title, content, createdDate, numberOfCommentsPost, author
     } = this.props.postcard;
     console.log('PostCard this.props', this.props);
     return (
@@ -43,18 +53,30 @@ class PostCard extends Component {
         }}
       >
         <a>
+          <ItemBlock>
           <Item>
             <Item.Content>
               <Item.Header as='h3'>{title}</Item.Header>
               <Divider clearing />
-              <Label as='span' color='orange' ribbon='right'>
-                {moment(createdDate).format('DD MMMM YYYY')}
-              </Label>
-              <Item.Meta>{userId}</Item.Meta>
+              
+              <div className="post-meta">
+                <p><Label  as='span' color='orange'>{author.name}</Label></p>
+                <p><Label as='span' color='orange' ribbon='right'>
+                  {moment(createdDate).format('DD MMMM YYYY')}
+                </Label></p>
+                
+                {/*<Item.Meta>*/}
+                  
+                {/*</Item.Meta>*/}
+              
+
+              </div>
+              
+                
               <Item.Description>
                 <ItemContent clasName='item-content'>{content}</ItemContent>
               </Item.Description>
-              <Divider horizontal></Divider>
+              {/*<Divider horizontal></Divider>*/}
               <Item.Extra>
                 <Label size="medium" >
                   <Icon name='comment alternate outline'/> {numberOfCommentsPost}
@@ -62,6 +84,7 @@ class PostCard extends Component {
               </Item.Extra>
             </Item.Content>
           </Item>
+          </ItemBlock>
         </a>
       </Link>
     );

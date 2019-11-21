@@ -4,6 +4,7 @@ import UserContext from '../components/UserContext';
 import Page from '../components/Page';
 // import Index from '../components/Index';
 import { CURRENT_USER_QUERY } from '../components/User';
+import { ALL_USERS_QUERY } from '../components/LeftSideBar';
 import CreateApolloClient from '../lib/CreateApolloClient';
 
 // const { Provider, Consumer } = React.createContext();
@@ -17,6 +18,9 @@ const client = CreateApolloClient({
 
 const queryUserSubscription = client.watchQuery({
   query: CURRENT_USER_QUERY,
+});
+const queryAuthorsSubscription = client.watchQuery({
+  query: ALL_USERS_QUERY,
 });
 
 class MyApp extends App {
@@ -32,6 +36,7 @@ class MyApp extends App {
 
   state = {
     user: null,
+    authors: null,
 
   };
 
@@ -43,11 +48,19 @@ class MyApp extends App {
       },
       error: (e) => console.error(e),
     });
+    queryAuthorsSubscription.subscribe({
+      next: ({ data }) => {
+        console.log('_app componentDidMount queryAuthorsSubscription data: ', data);
+        if (data.users !== 'undefined') { this.setState({ authors: data.users }); }
+      },
+      error: (e) => console.error(e),
+    });
   }
 
   componentWillUnmount() {
     queryUserSubscription.unsubscribe();
-    console.log('_app componentWillUnmount queryUserSubscription.unsubscribe');
+    queryAuthorsSubscription.unsubscribe();
+    console.log('_app componentWillUnmount Subscription.unsubscribe');
   }
   // setCurrentUser = (user)=>{
   //   this.setState(
@@ -59,7 +72,7 @@ class MyApp extends App {
   render() {
     // const { Component, apollo, pageProps } = this.props;
     const { Component, pageProps } = this.props;
-
+    console.log('_app this.state: ', this.state);
     return (
     // <UserContext.Provider
     //   value={{ user: this.state.user, setCurrentUser: this.setCurrentUser }}
@@ -67,7 +80,7 @@ class MyApp extends App {
 
         <ApolloProvider client={client}>
           {/* <UserContext> */}
-          <UserContext.Provider value={{ user: this.state.user }}>
+          <UserContext.Provider value={{ user: this.state.user, authors: this.state.authors }}>
             <Page>
               {/* <Index> */}
                 <Component {...pageProps}/>

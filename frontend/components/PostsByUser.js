@@ -27,40 +27,6 @@ const RowDiv = styled.div`
   } */
 `;
 
-// const FormTab = styled.div`
-//   form {
-//     > div.inline.fields.radio-buttons {
-//       /* margin: 0 0 1em; */
-//       border: 1px solid rgba(34, 36, 38, 0.15);
-//       padding: 1em 1em;
-//     }
-//     /* div.radio-buttons {
-//       padding: 10px 0;
-//     } */
-//     div.fields.form-group-submit {
-//       /* display: none; */
-//       display: ${props => props.submitShow};
-//     }
-//     div.fields.form-group-edit {
-//       /* display: flex; */
-//       display: ${props => props.editShow};
-//     }
-//   }
-// `;
-
-// const ItemsList = styled.div`
-//   /* display: grid; */
-//   display: block;
-//   /* grid-template-columns: 1fr 1fr;
-//   grid-gap: 60px; */
-//   max-width: ${(props) => props.theme.maxWidth};
-//   margin: 2.5rem 3rem;
-//   padding: 0 4em;
-//   @media (max-width: 700px) {
-//     margin: 2.5rem 1rem;
-//   }
-// `;
-
 // const perScreen = 5;
 
 const POSTS_BY_USER_QUERY = gql`
@@ -71,42 +37,73 @@ const POSTS_BY_USER_QUERY = gql`
       userId
       content
       createdDate
+      numberOfCommentsPost
     }
   }
 `;
 
 
-// TO-DO sort by descending
+// const PostsByUser = (props) => (
+//   <Query
+//     query={POSTS_BY_USER_QUERY}
+//     variables={{ id: props.id }}
+//   >
+//     {({ data, loading, error }) => {
+//       console.log('POSTS_BY_USER_QUERY data', data);
+//       return (
+//         loading ? (
+//           <div>
+//             <p>
+//             Загрузка...
+//             <i className="spinner icon"></i>
+//             </p>
+//           </div>
+//         )
+//           : (
+//           <Item.Group divided relaxed='very'>
+//             {data.postsByUser.map((post) => (
+//               <Segment key={post.id}>
+//                 <PostCard postcard={post} />
+//               </Segment>
+//             ))}
+//           </Item.Group>
+//           )
+//       );
+//     }}
+//   </Query>
+// );
 
 const PostsByUser = (props) => (
   <Query
     query={POSTS_BY_USER_QUERY}
     variables={{ id: props.id }}
   >
-    {({ data, loading }) => {
-      console.log('POSTS_BY_USER_QUERY data', data);
-      return (
-        loading ? (
-          <div>
+    {({ data, loading, error }) => {
+      if (loading) {
+        return (<div>
             <p>
             Загрузка...
             <i className="spinner icon"></i>
             </p>
-          </div>
-        )
-          : (
-          <Item.Group divided relaxed='very'>
-            {data.postsByUser.map((post) => (
-              <Segment key={post.id}>
-                <PostCard postcard={post} />
-              </Segment>
-            ))}
-          </Item.Group>
-          )
+          </div>);
+      }
+      if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
+      if ((typeof data === 'undefined') || (data.postsByUser.length === 0)) return null;
+      console.log('POSTS_BY_USER_QUERY data', data);
+      return (
+        <Item.Group divided relaxed='very'>
+          {data.postsByUser.map((post) => (
+            <Segment key={post.id}>
+              <PostCard postcard={post} />
+            </Segment>
+          ))}
+        </Item.Group>
       );
     }}
   </Query>
 );
+
+
 
 export { POSTS_BY_USER_QUERY };
 export default PostsByUser;

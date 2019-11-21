@@ -74,4 +74,5 @@ class LeftSideBar extends Component {
   }
 }
 
+export { ALL_USERS_QUERY };
 export default withUserContext(LeftSideBar);

@@ -7,7 +7,7 @@ import {
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 // import NProgress from 'nprogress';
-// import CreateFormCategoryTP from './CreateFormCategoryTP';
+import withUserContext from '../lib/withUserContext';
 import Spinner from './Spinner';
 import PostCard from './PostCard';
 // import Error from './ErrorMessage';
@@ -93,6 +93,8 @@ const ALL_POSTS_QUERY = gql`
 
 const PostList = (props) => {
   console.log('PostList props: ', props);
+  let {authors} = props;
+  if(authors===null) authors=[]; 
   return (
   <Query query={ALL_POSTS_QUERY}>
     {({ data, loading, error }) => {
@@ -110,11 +112,23 @@ const PostList = (props) => {
       console.log('PostList data.posts: ', data.posts);
       return (
           <Item.Group divided relaxed='very'>
-            {data.posts.map((post) => (
-              <Segment key={post.id}>
-                <PostCard postcard={post} />
-              </Segment>
-            ))
+            {data.posts.map((item) => {
+              //if(authors!==null) 
+                //const author = authors.filter(el=> el.id===item.userId);
+              const author = authors.find(el=> el.id===item.userId);
+                console.log('PostList post.userId: ', item.userId);
+                console.log('PostList author: ', author);
+                
+                //post.author = { ...author[0]};
+                //return post            
+              const post = { ...item};
+              post.author = { ...author};
+              return (
+                <Segment key={post.id}>
+                  <PostCard postcard={post} />
+                </Segment>
+              );
+            })
             }
           </Item.Group>
       );
@@ -123,4 +137,4 @@ const PostList = (props) => {
 };
 
 export { ALL_POSTS_QUERY };
-export default PostList;
+export default withUserContext(PostList);
