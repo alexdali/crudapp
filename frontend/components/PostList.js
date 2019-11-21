@@ -116,20 +116,17 @@ const PostList = (props) => {
               // if(authors!==null)
               // const author = authors.filter(el=> el.id===item.userId);
               let author = authors.find((el) => el.id === item.userId);
-              if (typeof author === 'undefined') { 
-author = { 
-id: '',
-                name: '',
-                email: '',
-                numberOfPost: 0,
-                numberOfComments: 0  
-}; 
-}
+              if (typeof author === 'undefined') {
+                author = {
+                  id: '',
+                  name: '',
+                  email: '',
+                  numberOfPost: 0,
+                  numberOfComments: 0,
+                };
+              }
               // console.log('PostList post.userId: ', item.userId);
               // console.log('PostList author: ', author);
-
-              // post.author = { ...author[0]};
-              // return post
               const post = { ...item };
               post.author = { ...author };
               return (
