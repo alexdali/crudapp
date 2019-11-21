@@ -115,9 +115,14 @@ const PostList = (props) => {
             {data.posts.map((item) => {
               //if(authors!==null) 
                 //const author = authors.filter(el=> el.id===item.userId);
-              const author = authors.find(el=> el.id===item.userId);
-                console.log('PostList post.userId: ', item.userId);
-                console.log('PostList author: ', author);
+              let author = authors.find(el=> el.id===item.userId); 
+              if (typeof author === 'undefined') author = {id: '',
+                name: '',
+                email: '',
+                numberOfPost: 0,
+                numberOfComments: 0,};
+              console.log('PostList post.userId: ', item.userId);
+              console.log('PostList author: ', author);
                 
                 //post.author = { ...author[0]};
                 //return post            

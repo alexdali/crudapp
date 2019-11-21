@@ -7,7 +7,8 @@ import {
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 // import NProgress from 'nprogress';
-// import CreateFormCategoryTP from './CreateFormCategoryTP';
+import withUserContext from '../lib/withUserContext';
+import ErrorMessage from './ErrorMessage';
 import PostCard from './PostCard';
 // import Error from './ErrorMessage';
 
@@ -73,37 +74,40 @@ const POSTS_BY_USER_QUERY = gql`
 //   </Query>
 // );
 
-const PostsByUser = (props) => (
-  <Query
-    query={POSTS_BY_USER_QUERY}
-    variables={{ id: props.id }}
-  >
-    {({ data, loading, error }) => {
-      if (loading) {
-        return (<div>
-            <p>
-            Загрузка...
-            <i className="spinner icon"></i>
-            </p>
-          </div>);
-      }
-      if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
-      if ((typeof data === 'undefined') || (data.postsByUser.length === 0)) return null;
-      console.log('POSTS_BY_USER_QUERY data', data);
-      return (
-        <Item.Group divided relaxed='very'>
-          {data.postsByUser.map((post) => (
-            <Segment key={post.id}>
-              <PostCard postcard={post} />
-            </Segment>
-          ))}
-        </Item.Group>
-      );
-    }}
-  </Query>
+const PostsByUser = (props) => {
+  console.log('PostsByUser props: ', props);
+  return (
+    <Query
+      query={POSTS_BY_USER_QUERY}
+      variables={{ id: props.id }}
+    >
+      {({ data, loading, error }) => {
+        if (loading) {
+          return (<div>
+              <p>
+              Загрузка...
+              <i className="spinner icon"></i>
+              </p>
+            </div>);
+        }
+        if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
+        if ((typeof data === 'undefined') || (data.postsByUser.length === 0)) return null;
+        console.log('POSTS_BY_USER_QUERY data', data);
+        return (
+          <Item.Group divided relaxed='very'>
+            {data.postsByUser.map((post) => (
+              <Segment key={post.id}>
+                <PostCard postcard={post} />
+              </Segment>
+            ))}
+          </Item.Group>
+        );
+      }}
+    </Query>
 );
+};
 
 
 
 export { POSTS_BY_USER_QUERY };
-export default PostsByUser;
+export default withUserContext(PostsByUser);

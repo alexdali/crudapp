@@ -35,7 +35,15 @@ const resolvers = {
       console.log(`query me getUser user: ${JSON.stringify(user)}`);
       if (!user) return null;
       // console.log(`query me req.user: ${JSON.stringify(context.req.user)}`);
-      return user;
+      const postsByUser = await getPostsByUser({ userId: user.id });
+      const commentsByUser = await getCommentsByUser({ userId: user.id });
+        // console.log('q users postsByUser.length: ', postsByUser.length);
+        // console.log('q users commentsByUser.length: ', commentsByUser.length);
+      return {
+        ...user,
+        numberOfPost: postsByUser.length,
+        numberOfComments: commentsByUser.length,
+      };
     },
     user: async (_, { id }) => {
       const result = await getUser(id);

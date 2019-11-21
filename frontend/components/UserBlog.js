@@ -11,51 +11,75 @@ import User, { CURRENT_USER_QUERY } from './User';
 import ProfileSidebar from './ProfileSidebar';
 import PostCreateForm from './PostCreateForm';
 import PostsByUser from './PostsByUser';
+import ErrorMessage from './ErrorMessage';
 
 const IndexDiv = styled.div`
   margin: 52px 0 0;
 `;
 
-const UserBlog = (props) => (
-      <Query query={CURRENT_USER_QUERY}>
-      {({ data, loading }) => {
-        console.log('UserBlog CURRENT_USER_QUERY data', data);
-        return (
-          loading ? (
-          <div>
-            <p>
-            Загрузка...
-            <i className="spinner icon"></i>
-            {/* <Icon loading name="spinner" /> */}
-            </p>
-          </div>
-          )
-            : (
-              data.me
-              && <>
-              {/* <Grid celled='internally'>
-                <Grid.Row>
-                  <Grid.Column width={13}> */}
-                  <Header as='h1'>Личный блог</Header>
-                  <Header as='h3'>Автор: {data.me.name}</Header>
-                  <Divider horizontal></Divider>
-                  <Header as='h2'>Добавить новый пост</Header>
-                  <PostCreateForm id={data.me.id}/>
-                  <IndexDiv>
-                    <Header as='h2'>Все посты блога</Header>
-                    <PostsByUser id={data.me.id}/>
-                  </IndexDiv>
-                  {/* </Grid.Column>
-                   <Grid.Column width={3}>
-                    <ProfileSidebar/>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid> */}
-              </>
-            )
-        );
-      }}
-       </Query>
-);
+// const UserBlog = (props) => (
+//       <Query query={CURRENT_USER_QUERY}>
+//       {({ data, loading }) => {
+//         console.log('UserBlog CURRENT_USER_QUERY data', data);
+//         return (
+//           loading ? (
+//           <div>
+//             <p>
+//             Загрузка...
+//             <i className="spinner icon"></i>
+//             {/* <Icon loading name="spinner" /> */}
+//             </p>
+//           </div>
+//           )
+//             : (
+//               data.me
+//               && <>
+//               {/* <Grid celled='internally'>
+//                 <Grid.Row>
+//                   <Grid.Column width={13}> */}
+//                   <Header as='h1'>Личный блог</Header>
+//                   <Header as='h3'>Автор: {data.me.name}</Header>
+//                   <Divider horizontal></Divider>
+//                   <Header as='h2'>Добавить новый пост</Header>
+//                   <PostCreateForm id={data.me.id}/>
+//                   <IndexDiv>
+//                     <Header as='h2'>Все посты блога</Header>
+//                     <PostsByUser id={data.me.id}/>
+//                   </IndexDiv>
+//                   {/* </Grid.Column>
+//                    <Grid.Column width={3}>
+//                     <ProfileSidebar/>
+//                   </Grid.Column>
+//                 </Grid.Row>
+//               </Grid> */}
+//               </>
+//             )
+//         );
+//       }}
+//        </Query>
+// );
 
+const UserBlog = (props) => (
+  <Query query={CURRENT_USER_QUERY}>
+    {({ data, loading, error }) => {
+      if (loading) return <div><p>Загрузка...<i className="spinner icon"></i></p></div>;
+      if (error) return <ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>;
+      if ((typeof data === 'undefined') || (data.me === null)) return null;
+      console.log('UserBlog CURRENT_USER_QUERY data', data);
+      return (
+        <>
+          <Header as='h1'>Личный блог</Header>
+          <Header as='h3'>Автор: {data.me.name}</Header>
+          <Divider horizontal></Divider>
+          <Header as='h2'>Добавить новый пост</Header>
+          <PostCreateForm id={data.me.id}/>
+          <IndexDiv>
+            <Header as='h2'>Все посты блога</Header>
+            <PostsByUser id={data.me.id}/>
+          </IndexDiv>
+        </>
+      );
+    }}
+  </Query>
+);
 export default UserBlog;

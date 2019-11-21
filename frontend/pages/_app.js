@@ -73,6 +73,13 @@ class MyApp extends App {
     // const { Component, apollo, pageProps } = this.props;
     const { Component, pageProps } = this.props;
     console.log('_app this.state: ', this.state);
+    const user = this.state.user ? this.state.user : {
+      id: '',
+      name: '',
+      email: '',
+      numberOfPost: 0,
+      numberOfComments: 0,
+      };
     return (
     // <UserContext.Provider
     //   value={{ user: this.state.user, setCurrentUser: this.setCurrentUser }}
@@ -80,7 +87,7 @@ class MyApp extends App {
 
         <ApolloProvider client={client}>
           {/* <UserContext> */}
-          <UserContext.Provider value={{ user: this.state.user, authors: this.state.authors }}>
+          <UserContext.Provider value={{ user, authors: this.state.authors }}>
             <Page>
               {/* <Index> */}
                 <Component {...pageProps}/>

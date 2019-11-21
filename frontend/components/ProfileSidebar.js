@@ -31,19 +31,26 @@ class ProfileSidebar extends React.PureComponent {
     const user = this.props.user ? this.props.user : {
       id: '',
       name: '',
-      email: ''};
+      email: '',
+      numberOfPost: 0,
+      numberOfComments: 0,
+      };
     //const { user } = this.state;
     return (
         <Segment>
           {user.name
-            && <Segment textAlign='center'>
-              <div><Icon name="user outline" circular size='big' /></div>
-                <div>{user.name}</div>
-            </Segment>
+            &&
+              <> 
+                <Segment textAlign='center'>
+                  <div><Icon name="user outline" circular size='big' /></div>
+                  <div>{user.name}</div>
+                </Segment>
+                <Segment>Постов на сайте: {user.numberOfPost}</Segment>
+                <Segment>Комментариев на сайте: {user.numberOfComments}</Segment>
+              </>
           }
-          {/* <Image src='https://react.semantic-ui.com/images/wireframe/image.png' /> */}
-            <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-            <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+          <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+          <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
         </Segment>
     );
   // return (

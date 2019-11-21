@@ -20,6 +20,7 @@ import withUserContext from '../lib/withUserContext';
 import User, { CURRENT_USER_QUERY } from './User';
 import SignOut from './SignOut';
 import Login from './Login';
+import ErrorMessage from './ErrorMessage';
 
 // const handleRouteChangeStart = () => {
 //   NProgress.start();
