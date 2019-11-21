@@ -93,8 +93,8 @@ const ALL_POSTS_QUERY = gql`
 
 const PostList = (props) => {
   console.log('PostList props: ', props);
-  let {authors} = props;
-  if(authors===null) authors=[]; 
+  let { authors } = props;
+  if (authors === null) authors = [];
   return (
   <Query query={ALL_POSTS_QUERY}>
     {({ data, loading, error }) => {
@@ -113,21 +113,25 @@ const PostList = (props) => {
       return (
           <Item.Group divided relaxed='very'>
             {data.posts.map((item) => {
-              //if(authors!==null) 
-                //const author = authors.filter(el=> el.id===item.userId);
-              let author = authors.find(el=> el.id===item.userId); 
-              if (typeof author === 'undefined') author = {id: '',
+              // if(authors!==null)
+              // const author = authors.filter(el=> el.id===item.userId);
+              let author = authors.find((el) => el.id === item.userId);
+              if (typeof author === 'undefined') { 
+author = { 
+id: '',
                 name: '',
                 email: '',
                 numberOfPost: 0,
-                numberOfComments: 0,};
-              console.log('PostList post.userId: ', item.userId);
-              console.log('PostList author: ', author);
-                
-                //post.author = { ...author[0]};
-                //return post            
-              const post = { ...item};
-              post.author = { ...author};
+                numberOfComments: 0  
+}; 
+}
+              // console.log('PostList post.userId: ', item.userId);
+              // console.log('PostList author: ', author);
+
+              // post.author = { ...author[0]};
+              // return post
+              const post = { ...item };
+              post.author = { ...author };
               return (
                 <Segment key={post.id}>
                   <PostCard postcard={post} />
