@@ -37,7 +37,7 @@ const UserBlog = (props) => (
                 <Grid.Row>
                   <Grid.Column width={13}> */}
                   <Header as='h1'>Личный блог</Header>
-                  <Header as='h3'>Владелец: {data.me.name}</Header>
+                  <Header as='h3'>Автор: {data.me.name}</Header>
                   <Divider horizontal></Divider>
                   <Header as='h2'>Добавить новый пост</Header>
                   <PostCreateForm id={data.me.id}/>

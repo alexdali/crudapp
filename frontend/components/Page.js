@@ -27,13 +27,18 @@ const StyledPage = styled.div`
 `;
 
 const Inner = styled.div`
-  max-width: ${(props) => props.theme.maxWidth};
-  margin: 0 auto;
-  padding: 2rem;
+  {/*max-width: ${(props) => props.theme.maxWidth};
+    margin: 0 auto;
+    padding: 2rem;*/}
 `;
 
 const IndexDiv = styled.div`
   margin: 52px 0 0;
+  max-width: ${(props) => props.theme.maxWidth};
+  padding: 2rem;
+  .ui.celled.grid>.row>.column {
+    padding: 0 1rem; 
+}
 `;
 
 const GlobalStyle = createGlobalStyle`

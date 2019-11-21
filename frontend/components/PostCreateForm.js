@@ -146,7 +146,7 @@ class PostCreateForm extends Component {
         // userId: me.id, title, content
           userId, title, content,
         },
-        update: (cache, payload, userId) => this.update(cache, payload, userId),
+        //update: (cache, payload, userId) => this.update(cache, payload, userId),
         // refetchQueries: [{ query: ALL_POSTS_QUERY, }],
       });
       // TO-DO update feed after adding new post
@@ -163,13 +163,13 @@ class PostCreateForm extends Component {
         showEdit: '',
         readOnly: true,
       },
-      // ,
-      // () => {
+      () => {
+        console.log('PostCreateForm CREATED!!!! res: ', res.data.createPost);
       //   Router.push({
       //     pathname: '/post',
       //     query: { id },
       //   });
-        // }
+        }
       );
     };
 
@@ -191,114 +191,82 @@ class PostCreateForm extends Component {
         variables={{
           postItem,
         }}
-        refetchQueries={() => ['ALL_POSTS_QUERY']}
+        refetchQueries={()=>
+          [{
+              query: POSTS_BY_USER_QUERY,
+              variables: { id: this.props.id },    
+          },
+          {
+              query: ALL_POSTS_QUERY,    
+          }
+          ]
+        }
+        //refetchQueries={() => ['ALL_POSTS_QUERY']}
       >
         {(createPost, { loading, error }) => {
           if (error) {
+            if(error.message.includes('GraphQL error'))  {
+              console.log('PostCreateForm Mutation -> error.message', error.message);
+              return (
+              <Message negative>
+                <Message.Header>Ошибка!</Message.Header>
+                <p>Нет соединения с базой данных!</p>
+              </Message>);
+            }
+            console.log('PostCreateForm Mutation -> error.message', error.message);
             return (
-            <Message negative>
-              <Message.Header>Ошибка!</Message.Header>
-              <p>{error.message.replace('GraphQL error: ', '')}</p>
-            </Message>);
+              <Message negative>
+                <Message.Header>Ошибка!</Message.Header>
+                <p>{error.message}</p>
+              </Message>);
           }
           return (
-            <>
-
             <Segment padded>
-                <Form
-                  onSubmit={(e) => this.createPostItem(e, createPost)
-                  }
-                  loading={loading}
-                  // error={<Error error={error} />}
-                  error
-                >
+              <Form
+                onSubmit={(e) => this.createPostItem(e, createPost)
+                }
+                loading={loading}
+                // error={<Error error={error} />}
+                error
+              >
+                <Form.Input
+                  // className='title-view'
+                  // widths='equal'
+                  fluid
+                  name="title"
+                  readOnly={readOnly}
+                  disabled={loading}
+                  placeholder="Заголовок поста"
+                  //defaultValue={postItem.title}
+                  value={postItem.title}
+                  onChange={this.handleChange}
+                  required
+                />
+                    
+                <Form.TextArea
+                  className='post-content'
+                  name="content"
+                  readOnly={readOnly}
+                  disabled={loading}
+                  // loading={loading}
+                  placeholder="Текст поста"
+                  //defaultValue={postItem.content}
+                  value={postItem.content}
+                  onChange={this.handleChange}
+                />
 
-                  {/* <Form.Group> */}
-                      <Form.Input
-                        // className='title-view'
-                        // widths='equal'
-                        fluid
-                        name="title"
-                        readOnly={readOnly}
-                        disabled={loading}
-                        placeholder="Заголовок поста"
-                        defaultValue={postItem.title}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    {/* </Form.Group> */}
-                  {/* <Form.Input
-                    as='div'
-                    fluid
-                    name="title"
-                    readOnly={readOnly}
-                    disabled={loading}
-                    loading={loading}
-                    defaultValue={postItem.title}
-                    onChange={this.handleChange}
-                    // width={required
-                  />
-                  <div>
-                  <input
-                  className='title-view'
-                    name="title"
-                    readOnly={readOnly}
-                    disabled={loading}
-                    placeholder="Заголовок поста"
-                    defaultValue={postItem.title}
-                    onChange={this.handleChange}
-                  />
-                  </div> */}
-
-                  {/* <div className="post-meta">
-                     <p>{postItem.userId}</p> */}
-                    {/* <p>{postItem.createdDate}</p>
-                  </div> */}
-                  {/* <Form.Input
-                    fluid
-                    name="content"
-                    readOnly={readOnly}
-                    disabled={loading}
-                    loading={loading}
-                    defaultValue={postItem.content}
-                    onChange={this.handleChange}
-                    // width={8}
-                    required
-                  /> */}
-
-                  <Form.TextArea
-                      className='post-content'
-                      name="content"
-                      readOnly={readOnly}
-                      disabled={loading}
-                      // loading={loading}
-                      placeholder="Текст поста"
-                      defaultValue={postItem.content}
-                      onChange={this.handleChange}
-                    />
-
-                  {/* <Form.Button
-                    floated="right"
-                    icon
-                    labelPosition="left"
-                    onClick={() => this.createPostItem(createPost)}
-                  >
-                    <Icon name="plus circle" /> Добавить пост
-                  </Form.Button> */}
-                  <Button
+                <Button
                   type="submit"
                   loading={loading}
                   fluid
                   icon
                   labelPosition="left"
                   // onClick={() => this.createPostItem(createPost)}
-                  >
-                    {/* <Icon name="plus circle" /> */}
-                    Добавить пост
-                  </Button>
-                </Form>
-              </Segment>
-            </>
+                >
+                  Добавить пост
+                </Button>
+              </Form>
+            </Segment>
           );
         }}
       </Mutation>

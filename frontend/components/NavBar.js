@@ -262,7 +262,7 @@ class NavBar extends React.Component {
                     </div>
                   </Menu.Item>
 
-                  <Menu.Item
+                  {/*<Menu.Item
                     name="tools"
                     as="li"
 
@@ -273,7 +273,7 @@ class NavBar extends React.Component {
                         <a>Сервисы</a>
                       </Link>
                     </div>
-                  </Menu.Item>
+                  </Menu.Item>*/}
                   { loading
                     ? <i className="spinner icon"></i>
                     : <>

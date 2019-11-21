@@ -37,7 +37,7 @@ class Index extends Component {
   // }
 
   render() {
-    console.log('Index props: ', this.props);
+    //console.log('Index props: ', this.props);
     // const { user} = this.props;
     // const user = this.props.user ? this.props.user : {
     //   id: '',

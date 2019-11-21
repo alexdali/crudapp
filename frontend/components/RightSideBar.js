@@ -13,6 +13,9 @@ import ProfileSidebar from './ProfileSidebar';
 // const IndexDiv = styled.div`
 //   margin: 52px 0 0;
 // `;
+const Inner = styled.div`
+  {/*padding: 2rem;*/}
+`;
 
 //consRightftSideBar = (props) => {
 class RightSideBar extends Component {
@@ -38,7 +41,11 @@ class RightSideBar extends Component {
       id: '',
       name: '',
       email: ''};
-  return <ProfileSidebar user={user} />;
+  return (
+    <Inner>
+      <ProfileSidebar user={user} />
+    </Inner>
+    );
 }
 };
 

@@ -24,6 +24,8 @@ import NavBar from './NavBar';
 // Router.events.on('routeChangeComplete', handleRouteChangeCompleteAndError);
 // Router.events.on('routeChangeError', handleRouteChangeCompleteAndError);
 
+//#__next > div > div.Header__HeaderDiv-ypfh50-0.fKRRzD > div > header > img
+
 const HeaderDiv = styled.div`
   background: #fff;
   width: 100%;
@@ -44,8 +46,7 @@ const HeaderDiv = styled.div`
     position: relative;
     margin: auto;
     /* will-change: transform; */
-  }
-  .logo {
+    .logo {
     /* display: inline-block;
     position: relative;
     width: 100px;
@@ -55,10 +56,11 @@ const HeaderDiv = styled.div`
     cursor: pointer;
     }
      /* font-size: 3em; */
-    img.image {
-      /* width: 160px; */
-      width: 11rem;
+    img {
+      width: 7rem;
+      margin-top: 0.5rem;
     }
+  }
   }
   .ui.floated.header {
     /* margin-top: 5px; */
@@ -161,8 +163,9 @@ class HeaderBar extends React.Component {
                 src="/logo.jpg"
                 avatar
                 size="tiny"
-              /> */}
-              <img src="/logo.jpg" width="50px" alt="logo" />
+              /> 
+              <img src="/logo.png" width="50px" alt="logo" />*/}
+              <img src="/logo.png" alt="logo" />
               {/* <a>LOGO</a> */}
             </Link>
           </header>
