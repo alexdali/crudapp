@@ -8,6 +8,7 @@ import {
 } from 'semantic-ui-react';
 import Router from 'next/router';
 import { ALL_POSTS_QUERY } from './PostList';
+import { POSTS_BY_USER_QUERY } from './PostsByUser';
 import User, { CURRENT_USER_QUERY } from './User';
 // import ProfileSidebar from "./ProfileSidebar";
 // import { Message, Segment, , Icon, Form, , Label} from 'semantic-ui-react';
@@ -76,24 +77,56 @@ class PostCreateForm extends Component {
   handleChange = (e, data) => {
     const { name, type, value } = e.target;
     // console.log(`handleChange: e: `, e);
-    console.log('handleChange: data: ', data);
-    console.log(
-      `handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${
-        data.checked
-      }, data.name: ${data.name}`,
-    );
+    // console.log('handleChange: data: ', data);
+    // console.log(`handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${        data.checked}, data.name: ${data.name}`,);
 
-    let val = value;
-    let nam = name;
+    const val = value;
+    const nam = name;
 
-    if (data.name === 'isActive') {
-      val = data.checked;
-      nam = data.name;
-    }
+    // if (data.name === 'isActive') {
+    //   val = data.checked;
+    //   nam = data.name;
+    // }
 
     const { postItem } = this.state;
     postItem[nam] = val;
     this.setState({ postItem });
+  };
+
+  // update: (store, { data: { submitComment } }) => {
+  //   // Read the data from our cache for this query.
+  //   const data = store.readQuery({ query: CommentAppQuery });
+  //   // Add our comment from the mutation to the end.
+  //   data.comments = [ ...data.comments, submitComment];
+  //   // Write our data back to the cache.
+  //   store.writeQuery({ query: CommentAppQuery, data });
+  // },
+  update = (cache, payload, userId) => {
+    // manually update the cache on the client, so it matches the server
+    // 1. Read the cache for the posts we want
+    console.log('update cache: ', cache);
+    console.log('update payload: ', payload);
+    const { postsByUser } = cache.readQuery({
+      query: POSTS_BY_USER_QUERY,
+      variables: {
+        id: userId,
+      },
+    });
+    console.log('update postsByUser: ', postsByUser);
+    // 2. Push the new post to data
+    const newPost = payload.data.createPost;
+    // data.posts.push(newPost);
+    // data.posts = [...data.posts, newPost];
+    // data = { posts: posts.concat([newPost]) };
+    // console.log('update after push postsByUser: ', postsByUser);
+    // 3. Put the items back!
+    cache.writeQuery({
+      query: POSTS_BY_USER_QUERY,
+      variables: {
+        id: userId,
+      },
+      data: { postsByUser: postsByUser.concat([newPost]) },
+    });
   };
 
   // createPostItem = async (e, client, createPost) => {
@@ -113,9 +146,8 @@ class PostCreateForm extends Component {
         // userId: me.id, title, content
           userId, title, content,
         },
-        refetchQueries: [{
-          query: ALL_POSTS_QUERY,
-        }],
+        update: (cache, payload, userId) => this.update(cache, payload, userId),
+        // refetchQueries: [{ query: ALL_POSTS_QUERY, }],
       });
       // TO-DO update feed after adding new post
       console.log('PostCreateForm CREATED!!!! res: ', res.data.createPost);
@@ -131,13 +163,14 @@ class PostCreateForm extends Component {
         showEdit: '',
         readOnly: true,
       },
-      () => {
-        // this.props.updateBlog(res);
-        Router.push({
-          pathname: '/post',
-          query: { id },
-        });
-      });
+      // ,
+      // () => {
+      //   Router.push({
+      //     pathname: '/post',
+      //     query: { id },
+      //   });
+        // }
+      );
     };
 
     render() {

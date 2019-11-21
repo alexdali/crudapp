@@ -6,7 +6,7 @@ import Page from '../components/Page';
 import { CURRENT_USER_QUERY } from '../components/User';
 import CreateApolloClient from '../lib/CreateApolloClient';
 
-//const { Provider, Consumer } = React.createContext();
+// const { Provider, Consumer } = React.createContext();
 
 // const client = CreateApolloClient();
 const client = CreateApolloClient({
@@ -31,28 +31,24 @@ class MyApp extends App {
   }
 
   state = {
-    user: null
+    user: null,
+
   };
 
   componentDidMount() {
-    //const { client } = this.props;
-    // const queryUserSubscription = client.watchQuery({
-    //   query: CURRENT_USER_QUERY,
-    // });
     queryUserSubscription.subscribe({
       next: ({ data }) => {
         console.log('_app componentDidMount queryUserSubscription data: ', data);
-        if(data.me!=='undefined')
-        this.setState({ user: data.me });
+        if (data.me !== 'undefined') { this.setState({ user: data.me }); }
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     queryUserSubscription.unsubscribe();
     console.log('_app componentWillUnmount queryUserSubscription.unsubscribe');
-}
+  }
   // setCurrentUser = (user)=>{
   //   this.setState(
   //     {
@@ -87,7 +83,7 @@ class MyApp extends App {
 }
 
 // export default withData(MyApp);
-//export { Consumer as UserContextConsumer };
-//export default UserContext
+// export { Consumer as UserContextConsumer };
+// export default UserContext
 export { client as apolloClient };
 export default MyApp;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withApollo } from '@apollo/react-hoc';
 import { Query, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
@@ -19,31 +20,32 @@ const IndexDiv = styled.div`
   margin: 52px 0 0;
 `;
 
-//const Index = (props) => {
+// const Index = (props) => {
 class Index extends Component {
-
   // componentDidMount() {
   //   this.props.setCurrentUser();
   // }
 
-  componentDidUpdate(prevProps) {
-    // console.log('UserState componentDidUpdate prevProps.user: ', prevProps.user);
-    //console.log('Index componentDidUpdate this.props.user: ', this.props.user);
-    // if (typeof this.props.user !== 'undefined') {
-    //   if (prevProps.user.id !== this.props.user.id) {
-    //     this.setState({ user: this.props.user });
-    //   }
-    // }
-  }
+  // componentDidUpdate(prevProps) {
+  // console.log('UserState componentDidUpdate prevProps.user: ', prevProps.user);
+  // console.log('Index componentDidUpdate this.props.user: ', this.props.user);
+  // if (typeof this.props.user !== 'undefined') {
+  //   if (prevProps.user.id !== this.props.user.id) {
+  //     this.setState({ user: this.props.user });
+  //   }
+  // }
+  // }
 
   render() {
     console.log('Index props: ', this.props);
-    //const { user} = this.props;
-    const user = this.props.user ? this.props.user : {
-      id: '',
-      name: '',
-      email: ''};
-  return (
+    // const { user} = this.props;
+    // const user = this.props.user ? this.props.user : {
+    //   id: '',
+    //   name: '',
+    //   email: '',
+    // };
+    // const { client } = this.props;
+    return (
     // <Query query={CURRENT_USER_QUERY}>
     //   {({ data, loading }) => {
     //     if (data) { console.log('Main data: ', data); }
@@ -57,15 +59,16 @@ class Index extends Component {
             <LeftSideBar/>
           </Grid.Column>
           <Grid.Column width={13}>
-            <Main/>
+          <Main />
+            {/* <Main client={client}/> */}
           </Grid.Column>
         </Grid.Row>
       </Grid>
-      );
+    );
     //   }}
     // </Query>
-  //);
+  // );
+  }
 }
-};
 
-export default withUserContext(Index);
+export default withApollo(Index);

@@ -56,15 +56,15 @@ const getUsers = async () => User.find()
 
 // Get all posts
 const getPosts = async () => Post.find()
-  .then((result) => {
-    console.log(`c getPosts find: ${JSON.stringify(result)}`);
-    return result.map((post) => ({
+  .then((result) => 
+    //console.log(`c getPosts find: ${JSON.stringify(result)}`);
+     result.map((post) => ({
       id: post._id,
       title: post.title,
       userId: post.userId,
       content: post.content,
       createdDate: post.createdDate,
-    }));
+    }))
     // const argPosts = posts.map((post) => {
     //   const newItem = { ...post };
     //   newItem.comments = Comment.find({ postId: newItem.id })
@@ -73,7 +73,7 @@ const getPosts = async () => Post.find()
     //   return newItem;
     // });
     // return argPosts;
-  })
+  )
   .catch((err) => console.error('Error db: ', err));
 
 // Get single Post
@@ -106,18 +106,18 @@ const getComment = async (arg) => Comment.findById(arg)
 
 // Get all posts by User
 const getPostsByUser = async (arg) => Post.find({ userId: arg.userId })
-  .then((result) => {
-    console.log(`c getPostsByUser find: ${JSON.stringify(result)}`);
-    return result.map((post) => ({
+  .then((result) => 
+    //console.log(`c getPostsByUser find: ${JSON.stringify(result)}`);
+     result.map((post) => ({
       id: post._id,
       title: post.title,
       userId: post.userId,
       content: post.content,
       createdDate: post.createdDate,
-    }));
+    }))
     // console.log(`c getPostsByUser newPost: ${JSON.stringify(newPost)}`);
     // return newPost;
-  })
+  )
   .catch((err) => console.error('Error db: ', err));
 
 // Get all comments
@@ -141,7 +141,7 @@ const getCommentsByPost = async (arg) => {
           content: comment.content,
           createdDate: comment.createdDate,
         }));
-      } else { return result ;}
+      }  return result ;
     })
     .catch((err) => console.error('Error db: ', err));
 };

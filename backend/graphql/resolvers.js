@@ -47,7 +47,23 @@ const resolvers = {
         comments,
       };
     },
-    users: async () => getUsers(),
+    users: async () => {
+      const users = await getUsers();
+      console.log(`q users result getUsers: ${JSON.stringify(users)}`);
+      if (users === []) return users;
+      const usersWithInfo = users.map(async (resUser) => {
+        const postsByUser = await getPostsByUser({ userId: resUser.id });
+        const commentsByUser = await getCommentsByUser({ userId: resUser.id });
+        console.log('q users postsByUser.length: ', postsByUser.length);
+        console.log('q users commentsByUser.length: ', commentsByUser.length);
+        return {
+          ...resUser,
+          numberOfPost: postsByUser.length,
+          numberOfComments: commentsByUser.length,
+        };
+      });
+      return usersWithInfo;
+    },
     post: async (_, { id }) => {
       const resPost = await getPost(id);
       console.log(`query post id: ${id}`);
@@ -62,8 +78,7 @@ const resolvers = {
     },
     posts: async () => {
       const posts = await getPosts();
-      console.log(`q posts result getPosts: ${JSON.stringify(posts)}`);
-      // const resPostsByUser = result;
+      // console.log(`q posts result getPosts: ${JSON.stringify(posts)}`);
       if (posts === []) return posts;
       const sortPosts = posts.sort((a, b) => {
         const res = b.createdDate - a.createdDate;
@@ -81,7 +96,6 @@ const resolvers = {
     },
     postsByUser: async (_, { id }) => {
       const result = await getPostsByUser({ userId: id });
-      // const resPostsByUser = result;
       if (result === []) return result;
       const sortPosts = result.sort((a, b) => b.createdDate - a.createdDate)
         .map(async (resPost) => {

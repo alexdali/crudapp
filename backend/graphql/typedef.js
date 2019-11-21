@@ -21,7 +21,9 @@ type User {
   name: String!
   email: String!
   password: String!
-  posts: [Post]
+  numberOfPost: Int!
+  numberOfComments: Int!
+  # posts: [Post]
 }
 
 type Post {

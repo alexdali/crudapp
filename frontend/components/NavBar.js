@@ -15,8 +15,8 @@ import {
   Icon,
 } from 'semantic-ui-react';
 import withUserContext from '../lib/withUserContext';
-//import { UserContextConsumer } from './UserContext';
-//import UserContext from '../components/UserContext';
+// import { UserContextConsumer } from './UserContext';
+// import UserContext from '../components/UserContext';
 import User, { CURRENT_USER_QUERY } from './User';
 import SignOut from './SignOut';
 import Login from './Login';
@@ -178,7 +178,7 @@ class NavBar extends React.Component {
 
   componentDidUpdate(prevProps) {
     // console.log('UserState componentDidUpdate prevProps.user: ', prevProps.user);
-    //console.log('NavBar componentDidUpdate this.props.user: ', this.props.user);
+    // console.log('NavBar componentDidUpdate this.props.user: ', this.props.user);
     // if (typeof this.props.user !== 'undefined') {
     //   if (prevProps.user.id !== this.props.user.id) {
     //     this.setState({ user: this.props.user });
@@ -230,11 +230,11 @@ class NavBar extends React.Component {
     return (
       <Query query={CURRENT_USER_QUERY}>
         {({ data, loading }) => {
-          //<UserContextConsumer>
+          // <UserContextConsumer>
           //  {({ user, setCurrentUser }) => {
-              console.log('NavBar render UserContextConsumer user: ', user);
-              // console.log('NavBar render UserContextConsumer setCurrentUser: ', setCurrentUser);
-              /* if (data!==undefined) {
+          console.log('NavBar render UserContextConsumer user: ', user);
+          // console.log('NavBar render UserContextConsumer setCurrentUser: ', setCurrentUser);
+          /* if (data!==undefined) {
             console.log('NavBar render Query data: ', data);
             console.log('NavBar render Query data loading: ', loading);
             const {me} = data;
@@ -244,9 +244,9 @@ class NavBar extends React.Component {
             const me = false;
             console.log('NavBar render Query me', me);
             } */
-              // loading ? const me = false : const me = false;
-              return (
-                <>
+          // loading ? const me = false : const me = false;
+          return (
+            <>
             <MenuDiv>
               <Menu secondary borderless floated="right">
                 <Menu.Menu position="right" as="ul">
@@ -262,18 +262,6 @@ class NavBar extends React.Component {
                     </div>
                   </Menu.Item>
 
-                  <Menu.Item
-                    name="tariffs"
-                    as="li"
-
-                    onClick={this.handleItemClick}
-                  >
-                    <div className="MenuItem">
-                      <Link href="/post">
-                        <a>Мой блог</a>
-                      </Link>
-                    </div>
-                  </Menu.Item>
                   <Menu.Item
                     name="tools"
                     as="li"
@@ -292,6 +280,18 @@ class NavBar extends React.Component {
                   {data.me
                     && (
                       <>
+                        <Menu.Item
+                            name="myblog"
+                            as="li"
+
+                            onClick={this.handleItemClick}
+                          >
+                            <div className="MenuItem">
+                              <Link href="/post">
+                                <a>Мой блог</a>
+                              </Link>
+                            </div>
+                          </Menu.Item>
                           <Menu.Item
                             name="account"
                             as="li"
@@ -349,10 +349,10 @@ class NavBar extends React.Component {
             {login
             && <Login handleRes={this.handleRes} />
             }
-                </>
-              );
-            // }}
-            //</UserContextConsumer>
+            </>
+          );
+          // }}
+          // </UserContextConsumer>
         }}
       </Query>
     );

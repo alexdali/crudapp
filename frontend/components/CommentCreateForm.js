@@ -47,7 +47,8 @@ const CommentCreateDiv = styled.div`
 
 class CommentCreateForm extends Component {
   static propTypes = {
-    postId: PropTypes.string.isRequired,
+    // postId: PropTypes.string.isRequired,
+    post: PropTypes.object.isRequired,
     userId: PropTypes.string.isRequired,
     // title: PropTypes.string,
     // content: PropTypes.string,
