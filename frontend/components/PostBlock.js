@@ -13,21 +13,24 @@ import moment from 'moment';
 // import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
 import { ALL_POSTS_QUERY } from './PostList';
-// import User,{ CURRENT_USER_QUERY } from './User';
 import CommentBlock from './CommentBlock';
-// import CommentCreateForm from './CommentCreateForm';
+
 
 const RowDiv = styled.div`
-  input.title-view {
+  div.field.title-view > textarea {
     width: 100%;
+    max-height: 100%;
     font-size: 2.5em;
     padding: 0.5em;
     border: none;
     border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+    resize: none;
   }
   .post-meta {
     display: flexbox;
     justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: 600;
     padding: 1em 2em 0;
     border-bottom: 1px solid rgba(34, 36, 38, 0.15);
   }
@@ -40,16 +43,6 @@ const RowDiv = styled.div`
     resize: none;
   }
 `;
-
-// const CommentDiv = styled.div`
-//   margin: 2.5em 0 0.5em;
-//   padding: 0.5em;
-//   /*
-//   width: 100%;
-//   font-size: 2.5em;
-//   border: none;
-//   border-bottom: 1px solid rgba(34, 36, 38, 0.15);} */
-// `;
 
 const UPDATE_POST_MUTATION = gql`
   mutation UPDATE_POST_MUTATION(
@@ -100,18 +93,22 @@ const UpdateBlock = (props) => {
             icon
             size="large"
             onClick={() => enableEdit('1')}
-          ><Icon name="edit outline" /></Button>
+          >
+            <Icon name="edit outline" />
+          </Button>
           <Button
             icon size="large"
             onClick={() => deletePostItem(deletePost)}
-          ><Icon name="trash alternate outline" /></Button>
-      </Button.Group>
+          >
+            <Icon name="trash alternate outline" />
+          </Button>
+        </Button.Group>
       ) : (
         <Segment attached='bottom'>
           <Button
             onClick={() => updatePostItem(updatePost)}
             >
-            Обнов{loadingUpdate ? 'ление' : 'ить'}
+              Обнов{loadingUpdate ? 'ление' : 'ить'}
           </Button>
           <Button onClick={() => enableEdit('')}>Отмена</Button>
         </Segment>
@@ -279,19 +276,6 @@ class PostBlock extends Component {
       showEdit, enableEdit: this.enableEdit, updatePostItem: this.updatePostItem, deletePostItem: this.deletePostItem,
     };
     return (
-      // <Mutation
-      //   mutation={UPDATE_POST_MUTATION}
-      //   variables={{
-      //     userId: postItem.userId,
-      //     postId: postItem.id,
-      //     title: postItem.title,
-      //     content: postItem.content,
-      //   }}
-      //   refetchQueries={() => ['ALL_POSTS_QUERY']}
-      // >
-      //   {(
-      //     updatePost, { loading: loadingUpdate, error: errorUpdate }
-      //   ) => {
       <Composed>
       {({
         updatePostMutate, deletePostMutate,
@@ -313,7 +297,8 @@ class PostBlock extends Component {
         return (
           <RowDiv>
             <Segment>
-              <input
+              <Form.Field
+                control={TextareaAutosize}
                 className='title-view'
                 name="title"
                 readOnly={readOnly}
@@ -323,78 +308,33 @@ class PostBlock extends Component {
               />
 
               <div className="post-meta">
-                <p>{postItem.userId}</p>
+                <p>{postItem.author.name}</p>
                 <p>{moment(postItem.createdDate).format('DD MMMM YYYY HH:mm')}</p>
               </div>
+
               <Form>
-                {/* <TextArea
+                <Form.Field
+                  control={TextareaAutosize}
                   className='post-content'
                   name="content"
                   readOnly={readOnly}
                   disabled={loadingUpdate}
-                  //loading={loadingUpdate}
+                  // loading={loadingUpdate}
                   defaultValue={postItem.content}
                   onChange={this.handleChange}
-                  placeholder='Текст поста' /> */}
-                  <Form.Field
-                    control={TextareaAutosize}
-                    // useCacheForDOMMeasurements
-                    className='post-content'
-                    name="content"
-                    readOnly={readOnly}
-                    disabled={loadingUpdate}
-                    // loading={loadingUpdate}
-                    defaultValue={postItem.content}
-                    onChange={this.handleChange}
-                    placeholder='Текст поста'
-                    // label="About"
-                    // placeholder="Tell us more about you..."
-                    // onChange={e => this.setState({ value: e.target.value })}
-                    // useCacheForDOMMeasurements
-                    // value={this.state.value}
-                  />
+                  placeholder='Текст поста'
+                />
               </Form>
               {
                 authorIsCurrentUser
-                && <UpdateBlock updateProps={updateProps}
-                // showEdit={showEdit} enableEdit={this.enableEdit} updatePostItem={this.updatePostItem} updatePost={updatePost} loadingUpdate={loadingUpdate} deletePostItem={this.deletePostItem} deletePost={deletePost}
-                />
+                && <UpdateBlock updateProps={updateProps} />
               }
-              {/* {showEdit === '' ? (
-                <Button.Group basic attached='bottom'>
-                <Button
-                icon
-                size="large"
-                onClick={() => this.enableEdit('1')}
-                ><Icon name="edit outline" /></Button>
-                <Button
-                icon size="large"
-                ><Icon name="trash alternate outline" /></Button>
-              </Button.Group>
-              ) : (
-                <Segment attached='bottom'>
-                  <Button
-                    onClick={() => this.updatePostItem(updatePost)}
-                    >
-                    Обнов{loadingUpdate ? 'ление' : 'ить'}
-                  </Button>
-                  <Button onClick={() => this.enableEdit('')}>Отмена</Button>
-                </Segment>
-              )}  */}
             </Segment>
             <CommentBlock post={postItem} userId={user.id} />
-            {/* <CommentDiv>
-              <Header as='h3'>Комментарии {'12'}</Header>
-              <Divider horizontal></Divider>
-              <CommentCreateForm userId={user.Id}/>
-              <Divider horizontal></Divider>
-              <CommentList postId={postItem.Id}/>
-            </CommentDiv> */}
           </RowDiv>
         );
       }}
       </Composed>
-      // </Mutation>
     );
   }
 }

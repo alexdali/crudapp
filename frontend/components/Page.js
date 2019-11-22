@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 //import { ApolloConsumer } from 'react-apollo';
 import {
-  Grid, Segment, Image, Icon,
+  Grid, Segment, Image, Icon, Sticky
 } from 'semantic-ui-react';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import Header from './Header';
@@ -79,7 +79,7 @@ class Page extends Component {
                       <Inner>{this.props.children}</Inner>
                     </Grid.Column>
                     <Grid.Column width={3}>
-                      <RightSideBar/>
+                        <RightSideBar/>
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>

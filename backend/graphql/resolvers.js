@@ -17,6 +17,8 @@ import {
 
 /* eslint no-underscore-dangle: [1, { "allow": ["__id"] }] */
 
+
+//TO-DO: do request throw Promise for catch MongoDB error
 const resolvers = {
   DateTime: GraphQLDateTime,
   Query: {
@@ -31,6 +33,7 @@ const resolvers = {
         return null;
       }
       const { id } = context.user;
+      //TO-DO do request throw Promise for catch MongoDB error
       const user = await getUser(id);
       console.log(`query me getUser user: ${JSON.stringify(user)}`);
       if (!user) return null;

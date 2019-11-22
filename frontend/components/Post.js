@@ -8,15 +8,15 @@ import {
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 // import NProgress from 'nprogress';
-// import CreateFormCategoryTP from './CreateFormCategoryTP';
+import withUserContext from '../lib/withUserContext';
 import PostBlock from './PostBlock';
 import { ALL_POSTS_QUERY } from './PostList';
 import User, { CURRENT_USER_QUERY } from './User';
-// import Error from './ErrorMessage';
+import ErrorMessage from './ErrorMessage';
 
 const RowDiv = styled.div`
-  margin: 52px 0px;
-  padding: 30px 10px;
+  /* margin: 52px 0px;*/
+  /* padding: 30px 10px;*/
   /* border: 1px solid rgba(34, 36, 38, 0.15);
   border-radius: 0.28571429rem; */
   /* box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15); */
@@ -62,45 +62,50 @@ const POST_QUERY = gql`
   }
 `;
 
-// /* eslint-disable */
-// const Composed = adopt({
-//   currentUser: ({render}) => <Query query={CURRENT_USER_QUERY}>{render}</Query>,
-//   postQuery: ({render}) => <Query query={POST_QUERY} variables={{ id: props.id }}>{render}</Query>,
-//   // signinMutate: ({render}) => <Mutation mutation={SIGNIN_MUTATION}>{render}</Mutation>,
-// });
-// /* eslint-enable */
-
 const Post = (props) => {
   console.log('const Post props: ', props);
+  let { authors } = props;
+  if (authors === null) authors = [];
   return (
-  // <ApolloConsumer>
-  //   {(client) => (
-      <Query query={POST_QUERY}
-        variables={{ id: props.id }}
-      >
-        {({ data, loading: loadingQuery }) => {
-          console.log('query Post data: ', data);
-          // console.log('query Post me: ', me);
-          return (
-            loadingQuery ? (
-              <div>
-                <p>
-                Загрузка...
-                <i className="spinner icon"></i>
-                </p>
-              </div>
-            )
-              : (
-              <RowDiv>
-                <PostBlock postItem={data.post} />
-              </RowDiv>
-              )
-          );
-        }}
-      </Query>
-  //   )}
-  // </ApolloConsumer>
+    <Query query={POST_QUERY}
+      variables={{ id: props.id }}
+    >
+      {({ data, loading, error }) => {
+        if (loading) {
+          return (<div>
+              <p>
+              Загрузка...
+              <i className="spinner icon"></i>
+              </p>
+            </div>);
+        }
+        if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
+        if ((typeof data === 'undefined') || (data.post === null)) return null;
+        console.log('query Post data: ', data);
+        let author = authors.find((el) => el.id === data.post.userId);
+          if (typeof author === 'undefined') {
+            author = {
+              id: '',
+              name: '',
+              email: '',
+              numberOfPost: 0,
+              numberOfComments: 0,
+            };
+          }
+          console.log('Post post.userId: ', data.post.userId);
+          console.log('Post author: ', author);
+          const post = { ...data.post };
+          post.author = { ...author };
+          console.log('Post post: ', post);
+        return (
+            <RowDiv>
+              <PostBlock postItem={post} />
+            </RowDiv>
+        );
+      }}
+    </Query>
   );
 };
 
-export default Post;
+export {POST_QUERY};
+export default withUserContext(Post);

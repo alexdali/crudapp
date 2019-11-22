@@ -80,6 +80,7 @@ class MyApp extends App {
       numberOfPost: 0,
       numberOfComments: 0,
       };
+      const authors = this.state.authors ? this.state.authors : [];
     return (
     // <UserContext.Provider
     //   value={{ user: this.state.user, setCurrentUser: this.setCurrentUser }}
@@ -87,7 +88,7 @@ class MyApp extends App {
 
         <ApolloProvider client={client}>
           {/* <UserContext> */}
-          <UserContext.Provider value={{ user, authors: this.state.authors }}>
+          <UserContext.Provider value={{ user, authors }}>
             <Page>
               {/* <Index> */}
                 <Component {...pageProps}/>

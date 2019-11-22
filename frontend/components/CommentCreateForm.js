@@ -9,7 +9,7 @@ import {
 import Router from 'next/router';
 import { COMMENTS_BY_POST_QUERY } from './CommentList';
 import User, { CURRENT_USER_QUERY } from './User';
-// import ProfileSidebar from "./ProfileSidebar";
+import { POST_QUERY } from './Post';
 // import { Message, Segment, , Icon, Form, , Label} from 'semantic-ui-react';
 
 
@@ -59,24 +59,12 @@ class CommentCreateForm extends Component {
     commentItem: {
       userId: this.props.userId,
       postId: this.props.post.id,
-      // title: '',
       content: '',
     },
-    // showCreate: '',
     readOnly: false,
     showEdit: '',
   };
 
-  // componentDidMount() {
-  //   // let {user} = this.context;
-  //   const { userId, postId } = this.props;
-  //   if (postId !== 'undefined' && userId !== 'undefined') {
-  //     this.setState({
-  //       userId: this.props.userId,
-  //       postId: this.props.postId,
-  //     });
-  //   }
-  // }
 
   handleChange = (e, data) => {
     const { name, type, value } = e.target;
@@ -89,10 +77,6 @@ class CommentCreateForm extends Component {
     const val = value;
     const nam = name;
 
-    // if (data.name === 'isActive') {
-    //   val = data.checked;
-    //   nam = data.name;
-    // }
 
     const { commentItem } = this.state;
     commentItem[nam] = val;
@@ -118,10 +102,19 @@ class CommentCreateForm extends Component {
         // userId: me.id, title, content
           userId, postId, content,
         },
-        refetchQueries: [{
+        refetchQueries: [
+        {
           query: COMMENTS_BY_POST_QUERY,
           variables: { id: postId },
-        }],
+        },
+        {
+          query: POST_QUERY,
+          variables: { id: postId },
+        },
+        {
+          query: CURRENT_USER_QUERY,
+        }
+        ],
       });
       // TO-DO update feed after adding new post
       console.log('CommentCreateForm CREATED!!!! res: ', res.data.createComment);

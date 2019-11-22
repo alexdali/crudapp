@@ -11,12 +11,9 @@ import {
   Responsive,
   Image,
   Label,
-  // Header,
   Icon,
 } from 'semantic-ui-react';
 import withUserContext from '../lib/withUserContext';
-// import { UserContextConsumer } from './UserContext';
-// import UserContext from '../components/UserContext';
 import User, { CURRENT_USER_QUERY } from './User';
 import SignOut from './SignOut';
 import Login from './Login';
@@ -152,21 +149,6 @@ const MenuDiv = styled.div`
   }
 `;
 
-// function Authenticator({ apiKey, render }) {
-//   return (
-//     <Mutation mutation={AUTH_MUTATION} variables={{ apiKey }}>
-//       {(login, { data, error }) => {
-//         const token = (data && data.login.token) || undefined;
-//         return (
-//           <CallLogin login={login}>
-//             {render({ error, token })}
-//           </CallLogin>
-//         )
-//       }}
-//     </Mutation>
-//   );
-// }
-
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -177,18 +159,7 @@ class NavBar extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    // console.log('UserState componentDidUpdate prevProps.user: ', prevProps.user);
-    // console.log('NavBar componentDidUpdate this.props.user: ', this.props.user);
-    // if (typeof this.props.user !== 'undefined') {
-    //   if (prevProps.user.id !== this.props.user.id) {
-    //     this.setState({ user: this.props.user });
-    //   }
-    // }
-  }
-
   handleRes = (res) => {
-    // console.log('NavBar handleRes res: ', res);
     if (res) {
       console.log('NavBar handleRes res.data.signIn: ', res.data.signIn);
       this.setState({
@@ -210,52 +181,18 @@ class NavBar extends React.Component {
         login: true,
       });
     }
-    if (name === 'logout') {
-      // this.setState({
-      //   login: e,
-      // });
-    }
-    if (name === 'taxservice') {
-      // Router.push({
-      //   pathname: '/categorytplist',
-      // });
-    }
   };
 
 
   render() {
-    // console.log('NavBar render this.state: ', this.state);
-    // console.log('Header render  this.props: ', this.props.isMobile);
     const { activeItem, login } = this.state;
     const { user } = this.props;
     return (
       <Query query={CURRENT_USER_QUERY}>
         {({ data, loading, error }) => {
-          // <UserContextConsumer>
-          //  {({ user, setCurrentUser }) => {
-          // if (loading) {
-          //   return (<div>
-          //       <p>
-          //       Загрузка...
-          //       <i className="spinner icon"></i>
-          //       </p>
-          //     </div>);
-          // }
           if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
           if (typeof data === 'undefined') return null;
           console.log('NavBar render UserContextConsumer user: ', user);
-          // console.log('NavBar render UserContextConsumer setCurrentUser: ', setCurrentUser);
-          /* if (data!==undefined) {
-            console.log('NavBar render Query data: ', data);
-            console.log('NavBar render Query data loading: ', loading);
-            const {me} = data;
-            }
-          else {
-            console.log('NavBar render Query me loading: ', loading);
-            const me = false;
-            console.log('NavBar render Query me', me);
-            } */
-          // loading ? const me = false : const me = false;
           return (
             <>
             <MenuDiv>
@@ -273,18 +210,6 @@ class NavBar extends React.Component {
                     </div>
                   </Menu.Item>
 
-                  {/*<Menu.Item
-                    name="tools"
-                    as="li"
-
-                    onClick={this.handleItemClick}
-                  >
-                    <div className="MenuItem">
-                      <Link href="/tools">
-                        <a>Сервисы</a>
-                      </Link>
-                    </div>
-                  </Menu.Item>*/}
                   { loading
                     ? <i className="spinner icon"></i>
                     : <>
@@ -294,7 +219,6 @@ class NavBar extends React.Component {
                         <Menu.Item
                             name="myblog"
                             as="li"
-
                             onClick={this.handleItemClick}
                           >
                             <div className="MenuItem">
@@ -315,8 +239,6 @@ class NavBar extends React.Component {
                                 <Icon name='user outline' />
                                 {user ? user.name : ''}
                               </Label>
-                              {/* <i className="user outline icon">{user ? (' ' && user.name) : ''}</i>
-                               <i className="user outline icon"></i> */}
                               </a>
                             </Link>
                           </div>
@@ -352,7 +274,6 @@ class NavBar extends React.Component {
                     </Menu.Item>
                   )}
                     </>
-                    // <a>{loading ? <i className="spinner icon"></i> : <span>Войти</span>}</a>
                   }
                 </Menu.Menu>
               </Menu>
@@ -362,8 +283,6 @@ class NavBar extends React.Component {
             }
             </>
           );
-          // }}
-          // </UserContextConsumer>
         }}
       </Query>
     );

@@ -4,17 +4,15 @@ import {
 } from 'react-apollo';
 import gql from 'graphql-tag';
 import { adopt } from 'react-adopt';
-// import CartStyles from './styles/CartStyles';
-// import CloseButton from './styles/CloseButton';
 import Link from 'next/link';
 import Router from 'next/router';
 import { Button, Loader, Icon } from 'semantic-ui-react';
 // import NProgress from 'nprogress';
 import styled from 'styled-components';
 import Form from './styles/Form';
-// import Spinner from './styles/Spinner';
 import ErrorMessage from './ErrorMessage';
 import User, { CURRENT_USER_QUERY } from './User';
+import { ALL_USERS_QUERY } from './LeftSideBar';
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -32,21 +30,6 @@ const CURRENT_USER_MUTATION = gql`
   }
 `;
 
-// const Login = graphql(gql`
-//     mutation SIGNIN_MUTATION($email: String!, $password: String!) {
-//   signIn(email: $email, password: $password) {
-//     id
-//     email
-//     name
-//   }
-// }`,
-// {
-//   options: {
-//     refetchQueries: () => [ 'CURRENT_USER_QUERY' ]
-//   },
-// })(LoginComponent);
-
-
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION($name: String!, $email: String!, $password: String!) {
     signUp(name: $name, email: $email, password: $password) {
@@ -56,24 +39,6 @@ const SIGNUP_MUTATION = gql`
     }
   }
 `;
-
-
-// const SignupPromt = styled.div`
-//   /* text-align: center;
-//   font-size: 1rem;
-//   margin: 1rem 0;
-//   p {
-//     margin: 0;
-//   }
-//   a {
-//     background: lightgrey;
-//     text-transform: uppercase;
-//     font-weight: 800;
-//     font-size: 1em;
-//     cursor: pointer;
-//     color: ${props => props.theme.black};
-//   } */
-// `;
 
 const RowDiv = styled.div`
 position: fixed;
@@ -294,10 +259,10 @@ const Composed = adopt({
 });
 /* eslint-enable */
 
+//TO-DO: button to close sign form
 
 class Login extends Component {
   state = {
-    // id: '',
     name: '',
     email: '',
     password: '',
@@ -309,7 +274,6 @@ class Login extends Component {
   showSignUp = () => {
     console.log('Login showSignUp');
     this.setState({
-      // id: '',
       name: '',
       email: '',
       password: '',
@@ -324,25 +288,43 @@ class Login extends Component {
     const { name, email, password } = this.state;
     const res = await signupMutate({
       variables: { name, email, password },
-      refetchQueries: [{
+      refetchQueries: [
+      {
         query: CURRENT_USER_QUERY,
-      }],
+      },
+      {
+        query: ALL_USERS_QUERY,
+      }
+      ],
+    }).catch((error) => {
+      console.log('signInHandle createAccount Error: ', error.message);
+      const errMessage = error.message.replace('GraphQL error: ', '');
+      this.setState({
+        name: '',
+        email: '',
+        password: '',
+        signup: false,
+        error: errMessage,
+      });
     });
-    console.log('createAccount res', res);
 
-    this.setState({
-      // id: '',
-      name: '',
-      email: '',
-      password: '',
-      signup: false,
-      error: '',
-    },
-    () => {
-      console.log('Login createAccount this.state: ', this.state);
+    if (res) {
+      console.log('signInHandle createAccount res', res);
 
-      this.props.handleRes(res);
-    });
+      this.setState({
+        // id: '',
+        name: '',
+        email: '',
+        password: '',
+        signup: false,
+        error: '',
+      },
+      () => {
+        console.log('Login createAccount this.state: ', this.state);
+
+        this.props.handleRes(res);
+      });
+    }
   };
 
   /* disable eslint(no-underscore-dangle) */
@@ -367,15 +349,15 @@ class Login extends Component {
         query: CURRENT_USER_QUERY,
       }],
     }).catch((error) => {
-      // console.log('signInHandle Error: ', error.message);
-      const errMessage = error.message.replace('GraphQL error: ', '');
-      this.setState({
-        name: '',
-        email: '',
-        password: '',
-        signup: false,
-        error: errMessage,
-      });
+        console.log('signInHandle Error: ', error.message);
+        const errMessage = error.message.replace('GraphQL error: ', '');
+        this.setState({
+          name: '',
+          email: '',
+          password: '',
+          signup: false,
+          error: errMessage,
+        });
     });
 
 
@@ -389,22 +371,24 @@ class Login extends Component {
         signup: false,
         error: '',
       },
-      async () => {
-        console.log('Signin signInHandle this.state: ', this.state);
-        // this.props.setCurrentUser(res.data.signIn);
-        this.props.handleRes(res);
-        const currentUser = res.data.signIn;
-        // currentUser.__typename = 'currentUser';
-        console.log('Signin currentUserMutate currentUser: ', currentUser);
-        await currentUserMutate({
-          variables: { id: currentUser.id, name: currentUser.name, email: currentUser.email },
-        }).then(
-          // this.props.setCurrentUser()
-        ).catch((error) => {
-          console.log('Signin currentUserMutate Error: ', error.message);
-        });
-        // console.log('Signin currentUserMutate resCache: ', resCache);
-      });
+      // async () => {
+      //   console.log('Signin signInHandle this.state: ', this.state);
+      //   // this.props.setCurrentUser(res.data.signIn);
+      //   this.props.handleRes(res);
+      //   const currentUser = res.data.signIn;
+      //   // currentUser.__typename = 'currentUser';
+      //   console.log('Signin currentUserMutate currentUser: ', currentUser);
+      //   await currentUserMutate({
+      //     variables: { id: currentUser.id, name: currentUser.name, email: currentUser.email },
+      //   }).then(
+      //     // this.props.setCurrentUser()
+      //   ).catch((error) => {
+      //     console.log('Signin currentUserMutate Error: ', error.message);
+      //   });
+      //   // console.log('Signin currentUserMutate resCache: ', resCache);
+    //    }
+    );
+    this.props.handleRes(res);
     }
   };
   /* enable eslint(no-underscore-dangle) */
@@ -431,125 +415,115 @@ class Login extends Component {
     const { signup, error } = this.state;
 
     return (
-          <Composed>
-          {({
-            currentUser, signinMutate, signupMutate, currentUserMutate,
-          }) => {
-            const { loading: loadingsignin, update } = signinMutate;
-            // console.log('Login errorsignin: ', errorsignin);
-            return (
-          <RowDiv className="login-background">
-          <div className="blur">
-            <FormDiv>
-              <Form>
-                {error && <ErrorMessage error={error} />}
-                <fieldset disabled={loadingsignin} aria-busy={loadingsignin}>
-                  {/* <Error error={error} /> */}
-                  {signup
-                    && <div className="formItem">
-                    <label htmlFor="name">
-                      <div className="formItem-control">
-                        <span className="input-wrapper">
-                          <span className="input-prefix">
-                            <Icon name="user outline" />
-                          </span>
-                          <input
-                            type="text"
-                            name="name"
-                            placeholder="имя"
-                            value={this.state.name}
-                            onChange={this.saveToState}
-                          />
-                        </span>
+      <Composed>
+        {({
+          currentUser, signinMutate, signupMutate, currentUserMutate,
+        }) => {
+          const { loading: loadingsignin, update } = signinMutate;
+          // console.log('Login errorsignin: ', errorsignin);
+          return (
+            <RowDiv className="login-background">
+              <div className="blur">
+                <FormDiv>
+                  <Form>
+                    {error && <ErrorMessage error={error} />}
+                    <fieldset disabled={loadingsignin} aria-busy={loadingsignin}>
+                      {/* <Error error={error} /> */}
+                      {signup
+                        && <div className="formItem">
+                            <label htmlFor="name">
+                              <div className="formItem-control">
+                                <span className="input-wrapper">
+                                  <span className="input-prefix">
+                                    <Icon name="user outline" />
+                                  </span>
+                                  <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="имя"
+                                    value={this.state.name}
+                                    onChange={this.saveToState}
+                                  />
+                                </span>
+                              </div>
+                            </label>
+                          </div>
+                      }
+                      <div className="formItem">
+                        <label htmlFor="email">
+                          <div className="formItem-control">
+                            <span className="input-wrapper">
+                              <span className="input-prefix">
+                                <Icon name="mail" />
+                              </span>
+                              <input
+                                type="text"
+                                name="email"
+                                placeholder="email"
+                                value={this.state.email}
+                                onChange={this.saveToState}
+                              />
+                            </span>
+                          </div>
+                        </label>
                       </div>
-                    </label>
-                  </div>
-                  }
-                  <div className="formItem">
-                    <label htmlFor="email">
-                      <div className="formItem-control">
-                        <span className="input-wrapper">
-                          <span className="input-prefix">
-                            <Icon name="mail" />
-                          </span>
-                          <input
-                            type="text"
-                            name="email"
-                            placeholder="email"
-                            value={this.state.email}
-                            onChange={this.saveToState}
-                          />
-                        </span>
+                      <div className="formItem">
+                        <label htmlFor="password">
+                          <div className="formItem-control">
+                            <span className="input-wrapper">
+                              <span className="input-prefix">
+                                <Icon name="lock" />
+                              </span>
+                              <input
+                                type="password"
+                                name="password"
+                                placeholder="пароль"
+                                value={this.state.password}
+                                onChange={this.saveToState}
+                              />
+                            </span>
+                          </div>
+                        </label>
                       </div>
-                    </label>
-                  </div>
-                  <div className="formItem">
-                    <label htmlFor="password">
-                      <div className="formItem-control">
-                        <span className="input-wrapper">
-                          <span className="input-prefix">
-                            <Icon name="lock" />
+                      <div className="formItem">
+                        <div className="formItem-control">
+                          <span className="form-item-children">
+                            {
+                              signup
+                                ? <Button compact fluid
+                                    onClick={(e) => this.createAccount(e, signupMutate, currentUser)}
+                                    positive
+                                    >
+                                    <span>Создать аккаунт</span>
+                                  </Button>
+                                :
+                                  <Button.Group compact fluid>
+                                    <Button
+                                      onClick={(e) => this.signInHandle(e, signinMutate, currentUserMutate)}
+                                      positive
+                                    >
+                                      <span>Войти</span>
+                                    </Button>
+                                    <Button.Or text=' ' />
+                                    <Button
+                                      onClick={() => this.showSignUp()}
+                                    >
+                                      <span>Зарегистрироваться</span>
+                                    </Button>
+                                  </Button.Group>
+                            }
                           </span>
-                          <input
-                            type="password"
-                            name="password"
-                            placeholder="пароль"
-                            value={this.state.password}
-                            onChange={this.saveToState}
-                          />
-                        </span>
+                        </div>
                       </div>
-                    </label>
-                  </div>
-                  <div className="formItem">
-                    <div className="formItem-control">
-                      <span className="form-item-children">
+                    </fieldset>
 
-                        {
-                          signup
-                          // <ApolloConsumer>
-                          // {client => (
-                            ? <Button compact fluid
-                                onClick={(e) => this.createAccount(e, signupMutate, currentUser)}
-                                positive
-                                >
-                                <span>Создать аккаунт</span>
-                              </Button>
-                          // )}
-                          // </ApolloConsumer>
-                            :
-                         // <ApolloConsumer>
-                         //   {client => (
-                         <Button.Group compact fluid>
-                            <Button
-                            onClick={(e) => this.signInHandle(e, signinMutate, currentUserMutate)}
-                            // type="submit"
-                            positive
-                            >
-                            <span>Войти</span>
-                            </Button>
-                            <Button.Or text=' ' />
-                              <Button
-                            onClick={() => this.showSignUp()}
-                            >
-                            <span>Зарегистрироваться</span>
-                            </Button>
-                          </Button.Group>
-                          // )}
-                          // </ApolloConsumer>
-                        }
-                      </span>
-                    </div>
-                  </div>
-                </fieldset>
-
-              </Form>
-            </FormDiv>
-            </div>
-          </RowDiv>
-            );
-          }}
-  </Composed>
+                  </Form>
+                </FormDiv>
+              </div>
+            </RowDiv>
+          );
+        }}
+</Composed>
     );
   }
 }

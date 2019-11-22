@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { Query, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import {
-  Grid, Segment, Image, Icon,
+  Grid, Segment, Image, Icon, Sticky, Rail, Ref
 } from 'semantic-ui-react';
 import withUserContext from '../lib/withUserContext';
 import Spinner from './Spinner';
 import ErrorMessage from './ErrorMessage';
-// import User, { CURRENT_USER_QUERY } from './User';
 
 const ALL_USERS_QUERY = gql`
   query ALL_USERS_QUERY {
@@ -22,33 +21,9 @@ const ALL_USERS_QUERY = gql`
   }
 `;
 
-// const IndexDiv = styled.div`
-//   margin: 52px 0 0;
-// `;
-
-// const LeftSideBar = (props) => {
 class LeftSideBar extends Component {
-  // componentDidMount() {
-  //   this.props.setCurrentUser();
-  // }
-
-  // componentDidUpdate(prevProps) {
-  // console.log('UserState componentDidUpdate prevProps.user: ', prevProps.user);
-  // console.log('LeftSideBar componentDidUpdate this.props.user: ', this.props.user);
-  // if (typeof this.props.user !== 'undefined') {
-  //   if (prevProps.user.id !== this.props.user.id) {
-  //     this.setState({ user: this.props.user });
-  //   }
-  // }
-  // }
-
-  render() {
+    render() {
     console.log('LeftSideBar props: ', this.props);
-    // const user = this.props.user ? this.props.user : {
-    //   id: '',
-    //   name: '',
-    //   email: '',
-    // };
     return (
       <Query query={ALL_USERS_QUERY}>
       {({ data, loading, error }) => {
@@ -65,7 +40,6 @@ class LeftSideBar extends Component {
             <Segment>Зарегистрировано пользователей: {data.users.length}</Segment>
             <Segment>Постов на сайте: {totalPosts}</Segment>
             <Segment>Комментариев на сайте: {totalComments}</Segment>
-            {/* <Segment>2</Segment> */}
           </>
         );
       }}
