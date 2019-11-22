@@ -24,7 +24,6 @@ import NavBar from './NavBar';
 // Router.events.on('routeChangeComplete', handleRouteChangeCompleteAndError);
 // Router.events.on('routeChangeError', handleRouteChangeCompleteAndError);
 
-//#__next > div > div.Header__HeaderDiv-ypfh50-0.fKRRzD > div > header > img
 
 const HeaderDiv = styled.div`
   background: #fff;
@@ -129,44 +128,18 @@ const HeaderDiv = styled.div`
 
 
 class HeaderBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // activeItem: 'home',
-      // activeItem: '',
-    };
-  }
-
-  // handleItemClick = (e, { name }) => {
-  //   console.log('HeaderBar handleItemClick: ', e);
-  //   console.log('HeaderBar handleItemClick: ', name);
-  //   // this.setState({ activeItem: name });
-  // };
-  // componentDidMount() {
-  //   // For phone screen
-  //   enquireScreen(b => {
-  //     this.setState({ isMobile: !!b });
-  //   });
-  //   // console.log('Header this.state: ', this.state);
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //   };
   // }
-
   render() {
-    // console.log('Header render this.state: ', this.state.isMobile);
-    // console.log('Header render  this.props: ', this.props.isMobile);
-    // const { activeItem } = this.state;
     return (
       <HeaderDiv>
         <div className="home-page">
           <header className="logo">
-            <Link href="/">
-              {/* <Image
-                src="/logo.jpg"
-                avatar
-                size="tiny"
-              /> 
-              <img src="/logo.png" width="50px" alt="logo" />*/}
+            <Link href="/"> 
               <img src="/logo.png" alt="logo" />
-              {/* <a>LOGO</a> */}
             </Link>
           </header>
           <NavBar />

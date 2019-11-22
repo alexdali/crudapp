@@ -9,7 +9,7 @@ import Spinner from './Spinner';
 import ProfileSidebar from './ProfileSidebar';
 
 const Inner = styled.div`
-  {/*padding: 2rem;*/}
+  
 `;
 
 
@@ -20,14 +20,14 @@ class RightSideBar extends Component {
       id: '',
       name: '',
       email: ''};
-  return (
-    <Inner>
-      <Sticky enabled top={20}>
-        <ProfileSidebar user={user} />
-      </Sticky>       
-    </Inner>
+    return (
+      <Inner>
+        <Sticky enabled top={20}>
+          <ProfileSidebar user={user} />
+        </Sticky>       
+      </Inner>
     );
-}
+  }
 };
 
 export default withUserContext(RightSideBar);

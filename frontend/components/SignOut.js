@@ -18,9 +18,9 @@ const Signout = props =>
     {(signout, { loading, error }) => {
       console.log('Signout mutation error: ', error);
       return (
-      <span onClick={signout} role="button">
-        Выйти
-      </span>
+        <span onClick={signout} role="button">
+          Выйти
+        </span>
       );
     }}
   </Mutation>

@@ -11,8 +11,6 @@ import CreateApolloClient from '../lib/CreateApolloClient';
 
 // const client = CreateApolloClient();
 const client = CreateApolloClient({
-  // networkInterface,
-  // initialState: window.__APOLLO_STATE__,
   ssrForceFetchDelay: 100,
 });
 
@@ -82,29 +80,16 @@ class MyApp extends App {
       };
       const authors = this.state.authors ? this.state.authors : [];
     return (
-    // <UserContext.Provider
-    //   value={{ user: this.state.user, setCurrentUser: this.setCurrentUser }}
-    // >
-
         <ApolloProvider client={client}>
-          {/* <UserContext> */}
           <UserContext.Provider value={{ user, authors }}>
             <Page>
-              {/* <Index> */}
-                <Component {...pageProps}/>
-              {/* </Index> */}
+              <Component {...pageProps}/>
             </Page>
             </UserContext.Provider>
-          {/* </UserContext> */}
         </ApolloProvider>
-
-    /* </UserContext.Provider> */
     );
   }
 }
 
-// export default withData(MyApp);
-// export { Consumer as UserContextConsumer };
-// export default UserContext
 export { client as apolloClient };
 export default MyApp;

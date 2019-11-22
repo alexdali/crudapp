@@ -43,37 +43,6 @@ const POSTS_BY_USER_QUERY = gql`
   }
 `;
 
-
-// const PostsByUser = (props) => (
-//   <Query
-//     query={POSTS_BY_USER_QUERY}
-//     variables={{ id: props.id }}
-//   >
-//     {({ data, loading, error }) => {
-//       console.log('POSTS_BY_USER_QUERY data', data);
-//       return (
-//         loading ? (
-//           <div>
-//             <p>
-//             Загрузка...
-//             <i className="spinner icon"></i>
-//             </p>
-//           </div>
-//         )
-//           : (
-//           <Item.Group divided relaxed='very'>
-//             {data.postsByUser.map((post) => (
-//               <Segment key={post.id}>
-//                 <PostCard postcard={post} />
-//               </Segment>
-//             ))}
-//           </Item.Group>
-//           )
-//       );
-//     }}
-//   </Query>
-// );
-
 const PostsByUser = (props) => {
   console.log('PostsByUser props: ', props);
   let { authors } = props;
@@ -126,7 +95,6 @@ const PostsByUser = (props) => {
     </Query>
   );
 };
-
 
 export { POSTS_BY_USER_QUERY };
 export default withUserContext(PostsByUser);

@@ -87,7 +87,6 @@ const UpdateBlock = (props) => {
   return (
     <>
       {showEdit === '' ? (
-        // <Segment attached='bottom'>
         <Button.Group basic attached='bottom'>
           <Button
             icon
@@ -174,7 +173,6 @@ class PostBlock extends Component {
 
   handleChange = (e, data) => {
     const { name, type, value } = e.target;
-    // console.log(`handleChange: e: `, e);
     console.log('handleChange: data: ', data);
     console.log(
       `handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${
@@ -226,7 +224,6 @@ class PostBlock extends Component {
   };
 
   deletePostItem = async (deletePost) => {
-    // console.log('deletePostItem e: ', e);
     // console.log('PostList deletePostItem this.state: ', this.state);
     const { postItem } = this.state;
     const { user } = this.props;
@@ -280,8 +277,6 @@ class PostBlock extends Component {
       {({
         updatePostMutate, deletePostMutate,
       }) => {
-        // console.log('PostBlock render updatePostMutate', updatePostMutate);
-        // console.log('PostBlock render deletePostMutate', deletePostMutate);
         const { loading: loadingUpdate, error: errorUpdate } = updatePostMutate;
         const { loading: loadingDelete, error: errorDelete } = deletePostMutate;
         updateProps.updatePost = updatePostMutate;

@@ -10,7 +10,6 @@ import styled from 'styled-components';
 import withUserContext from '../lib/withUserContext';
 import Spinner from './Spinner';
 import PostCard from './PostCard';
-// import Error from './ErrorMessage';
 import ErrorMessage from './ErrorMessage';
 
 const RowDiv = styled.div`
@@ -29,19 +28,6 @@ const RowDiv = styled.div`
   } */
 `;
 
-// const ItemsList = styled.div`
-//   /* display: grid; */
-//   display: block;
-//   /* grid-template-columns: 1fr 1fr;
-//   grid-gap: 60px; */
-//   max-width: ${(props) => props.theme.maxWidth};
-//   margin: 2.5rem 3rem;
-//   padding: 0 4em;
-//   @media (max-width: 700px) {
-//     margin: 2.5rem 1rem;
-//   }
-// `;
-
 // const perScreen = 5;
 
 const ALL_POSTS_QUERY = gql`
@@ -57,39 +43,6 @@ const ALL_POSTS_QUERY = gql`
   }
 `;
 
-// const PostList = (props) => {
-//   console.log('PostList props: ', props);
-//   return (
-//   <Query query={ALL_POSTS_QUERY}>
-//     {({ data, loading }) => {
-//       console.log('ALL_POSTS_QUERY data', data);
-//       return (
-//         loading ? (
-//           <Spinner/>
-//           /* <div>
-//             <p>
-//             Загрузка...
-//             <i className="spinner icon"></i>
-//             </p>
-//           </div> */
-//         )
-//           : (
-//           <Item.Group divided relaxed='very'>
-//             {data ? (
-//               data.posts.map((post) => (
-//               <Segment key={post.id}>
-//                 <PostCard postcard={post} />
-//               </Segment>
-//               ))
-//             )
-//               : <ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>
-//             }
-//           </Item.Group>
-//           )
-//       );
-//     }}
-//   </Query>);
-// };
 
 const PostList = (props) => {
   console.log('PostList props: ', props);
@@ -111,32 +64,32 @@ const PostList = (props) => {
       if ((typeof data === 'undefined') || (data.posts.length === 0)) return null;
       console.log('PostList data.posts: ', data.posts);
       return (
-          <Item.Group divided relaxed='very'>
-            {data.posts.map((item) => {
-              // if(authors!==null)
-              // const author = authors.filter(el=> el.id===item.userId);
-              let author = authors.find((el) => el.id === item.userId);
-              if (typeof author === 'undefined') {
-                author = {
-                  id: '',
-                  name: '',
-                  email: '',
-                  numberOfPost: 0,
-                  numberOfComments: 0,
-                };
-              }
-              // console.log('PostList post.userId: ', item.userId);
-              // console.log('PostList author: ', author);
-              const post = { ...item };
-              post.author = { ...author };
-              return (
-                <Segment key={post.id}>
-                  <PostCard postcard={post} />
-                </Segment>
-              );
-            })
+        <Item.Group divided relaxed='very'>
+          {data.posts.map((item) => {
+            // if(authors!==null)
+            // const author = authors.filter(el=> el.id===item.userId);
+            let author = authors.find((el) => el.id === item.userId);
+            if (typeof author === 'undefined') {
+              author = {
+                id: '',
+                name: '',
+                email: '',
+                numberOfPost: 0,
+                numberOfComments: 0,
+              };
             }
-          </Item.Group>
+            // console.log('PostList post.userId: ', item.userId);
+            // console.log('PostList author: ', author);
+            const post = { ...item };
+            post.author = { ...author };
+            return (
+              <Segment key={post.id}>
+                <PostCard postcard={post} />
+              </Segment>
+            );
+          })
+          }
+        </Item.Group>
       );
     }}
   </Query>);

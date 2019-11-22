@@ -1,12 +1,10 @@
-// import withApollo from 'next-with-apollo';
 import { ApolloClient } from 'apollo-client';
-import 'cross-fetch/polyfill';
-// import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink, createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
+import 'cross-fetch/polyfill';
 import { endpoint, prodEndpoint } from '../config';
 import { CURRENT_USER_QUERY } from '../components/User';
 
@@ -41,7 +39,6 @@ function CreateApolloClient() {
           const user = args;
           user.__typename = 'currentUser';
           const data = { data: { currentUser: { ...user } } };
-          // data.currentUser = { ...dataCache.me };
           cache.writeData(data);
           return null;
         },

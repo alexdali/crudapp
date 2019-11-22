@@ -10,8 +10,6 @@ import Router from 'next/router';
 import { ALL_POSTS_QUERY } from './PostList';
 import { POSTS_BY_USER_QUERY } from './PostsByUser';
 import User, { CURRENT_USER_QUERY } from './User';
-// import ProfileSidebar from "./ProfileSidebar";
-// import { Message, Segment, , Icon, Form, , Label} from 'semantic-ui-react';
 
 
 const CREATE_POST_MUTATION = gql`
@@ -58,35 +56,14 @@ class PostCreateForm extends Component {
     showEdit: '',
   };
 
-  // enableEdit = val => {
-  //   console.log('PostCreateForm enableEdit');
-  //   if (val === '1') {
-  //     this.setState({
-  //       showEdit: '1',
-  //       readOnly: false,
-  //     });
-  //   } else {
-  //     this.setState({
-  //       showEdit: '',
-  //       readOnly: true,
-  //       postItem: this.props.postItem,
-  //     });
-  //   }
-  // };
 
   handleChange = (e, data) => {
     const { name, type, value } = e.target;
-    // console.log(`handleChange: e: `, e);
     // console.log('handleChange: data: ', data);
     // console.log(`handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${        data.checked}, data.name: ${data.name}`,);
 
     const val = value;
     const nam = name;
-
-    // if (data.name === 'isActive') {
-    //   val = data.checked;
-    //   nam = data.name;
-    // }
 
     const { postItem } = this.state;
     postItem[nam] = val;
@@ -129,13 +106,8 @@ class PostCreateForm extends Component {
     });
   };
 
-  // createPostItem = async (e, client, createPost) => {
     createPostItem = async (e, createPost) => {
       e.preventDefault();
-      // const { me } = client.readQuery({ query: CURRENT_USER_QUERY });
-      // console.log('createPostItem e: ', e);
-      // console.log('createPostItem readQuery me.id: ', me.id);
-      // console.log('createPostItem createPost this.state: ', this.state);
       const { userId, title, content } = this.state.postItem;
       console.log(
         'PostCreateForm createPost this.state.postItem: ',
@@ -143,7 +115,6 @@ class PostCreateForm extends Component {
       );
       const res = await createPost({
         variables: {
-        // userId: me.id, title, content
           userId, title, content,
         },
         //update: (cache, payload, userId) => this.update(cache, payload, userId),
@@ -153,7 +124,6 @@ class PostCreateForm extends Component {
       console.log('PostCreateForm CREATED!!!! res: ', res.data.createPost);
       const { id } = res.data.createPost;
       this.setState({
-      // postItem: this.props.postItem,
         postItem: {
           userId: '',
           title: '',
@@ -178,11 +148,9 @@ class PostCreateForm extends Component {
       console.log('PostCreateForm render -> state', this.state);
       const {
         postItem, // : { userId, postId, title, content },
-        // showCreate,
         readOnly,
         showEdit,
       } = this.state;
-      // const { client } = this.props;
       console.log('PostCreateForm render -> state.postItem', postItem);
       return (
 
@@ -201,7 +169,6 @@ class PostCreateForm extends Component {
           }
           ]
         }
-        //refetchQueries={() => ['ALL_POSTS_QUERY']}
       >
         {(createPost, { loading, error }) => {
           if (error) {
@@ -230,8 +197,6 @@ class PostCreateForm extends Component {
                 error
               >
                 <Form.Input
-                  // className='title-view'
-                  // widths='equal'
                   fluid
                   name="title"
                   readOnly={readOnly}
@@ -261,7 +226,6 @@ class PostCreateForm extends Component {
                   fluid
                   icon
                   labelPosition="left"
-                  // onClick={() => this.createPostItem(createPost)}
                 >
                   Добавить пост
                 </Button>

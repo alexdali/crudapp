@@ -72,9 +72,6 @@ class Page extends Component {
               <IndexDiv>
                 <Grid celled='internally'>
                   <Grid.Row>
-                    {/* <Grid.Column width={3}>
-                      <LeftSideBar/>
-                    </Grid.Column> */}
                     <Grid.Column width={13}>
                       <Inner>{this.props.children}</Inner>
                     </Grid.Column>

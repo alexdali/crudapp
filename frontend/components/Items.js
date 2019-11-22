@@ -46,10 +46,6 @@ const ItemsList = styled.div`
   }
 `;
 
-// const DynamicComponentWithNoSSR = dynamic(
-//   () => import('../components/Item'),
-//   { ssr: false }
-// )
 
 class Items extends Component {
   render() {

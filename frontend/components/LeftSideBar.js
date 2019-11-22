@@ -34,7 +34,6 @@ class LeftSideBar extends Component {
         const { users } = data;
         const totalPosts = users.reduce((sum, item) => sum + item.numberOfPost, 0);
         const totalComments = users.reduce((sum, item) => sum + item.numberOfComments, 0);
-        // console.log('Index User Query user: ', user);
         return (
           <>
             <Segment>Зарегистрировано пользователей: {data.users.length}</Segment>
