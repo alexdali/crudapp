@@ -7,11 +7,9 @@ import {
   Grid, Segment, Form, Icon, TextArea, Button, Header, Message,
 } from 'semantic-ui-react';
 import Router from 'next/router';
-import { COMMENTS_BY_POST_QUERY } from './CommentList';
+import { COMMENTS_BY_POST_QUERY } from './CommentBlock';
 import User, { CURRENT_USER_QUERY } from './User';
 import { POST_QUERY } from './Post';
-// import { Message, Segment, , Icon, Form, , Label} from 'semantic-ui-react';
-
 
 const CREATE_COMMENT_MUTATION = gql`
   mutation CREATE_COMMENT_MUTATION(
@@ -85,18 +83,12 @@ class CommentCreateForm extends Component {
 
     createPostItem = async (e, createComment) => {
       e.preventDefault();
-      // const { me } = client.readQuery({ query: CURRENT_USER_QUERY });
-      // console.log('createPostItem e: ', e);
-      // console.log('createPostItem readQuery me.id: ', me.id);
       console.log('createPostItem createComment this.state: ', this.state);
       const { userId, postId, content } = this.state.commentItem;
       console.log(
         'CommentCreateForm createComment this.state.commentItem: ',
         this.state.commentItem,
       );
-      // console.log(
-      //   'CommentCreateForm createComment postId: ', postId,
-      // );
       const res = await createComment({
         variables: {
         // userId: me.id, title, content
@@ -120,7 +112,6 @@ class CommentCreateForm extends Component {
       console.log('CommentCreateForm CREATED!!!! res: ', res.data.createComment);
       // const { id } = res.data.createComment;
       this.setState({
-      // commentItem: this.props.commentItem,
         commentItem: {
           userId: '',
           postId: '',
@@ -138,9 +129,6 @@ class CommentCreateForm extends Component {
       console.log('CommentCreateForm render -> props.post.id: ', this.props.post.id);
       const {
         commentItem,
-        // showCreate,
-        // readOnly,
-        // showEdit,
       } = this.state;
       console.log('CommentCreateForm render -> state.commentItem', commentItem);
       return (
@@ -149,7 +137,6 @@ class CommentCreateForm extends Component {
         variables={{
           commentItem,
         }}
-        // refetchQueries={() => ['ALL_POSTS_QUERY']}
       >
         {(createComment, { loading, error }) => {
           if (error) {
@@ -161,7 +148,6 @@ class CommentCreateForm extends Component {
           }
           return (
             <CommentCreateDiv>
-              {/* <Segment padded> */}
                 <Form
                   className='form-comment'
                   onSubmit={(e) => this.createPostItem(e, createComment)
@@ -170,19 +156,7 @@ class CommentCreateForm extends Component {
                   // error={<Error error={error} />}
                   // error
                 >
-                  {/* </Form.Group> */}
-                  {/* <Form.Input
-                    fluid
-                    name="content"
-                    readOnly={readOnly}
-                    disabled={loading}
-                    loading={loading}
-                    defaultValue={commentItem.content}
-                    onChange={this.handleChange}
-                    // width={8}
-                    required
-                  /> */}
-
+                  
                   <Form.TextArea
                       className='comment-content'
                       name="content"
@@ -190,30 +164,21 @@ class CommentCreateForm extends Component {
                       disabled={loading}
                       // loading={loading}
                       placeholder="Комментарий"
-                      defaultValue={commentItem.content}
+                      //defaultValue={commentItem.content}
+                      value={commentItem.content}
                       onChange={this.handleChange}
                     />
 
-                  {/* <Form.Button
-                    floated="right"
-                    icon
-                    labelPosition="left"
-                    onClick={() => this.createPostItem(createComment)}
-                  >
-                    <Icon name="plus circle" /> Добавить пост
-                  </Form.Button> */}
                   <Button
                     type="submit"
                     loading={loading}
                     fluid
                     icon
                     labelPosition="left"
-                    // onClick={() => this.createPostItem(createComment)}
                   >
                     Добавить комментарий
                   </Button>
                 </Form>
-              {/* </Segment> */}
             </CommentCreateDiv>
           );
         }}

@@ -103,17 +103,7 @@ const CommentDiv = styled.div`
 //   );
 // };
 
-// const CommentList = (arr) => {
-//   console.log('CommentList arr: ', arr);
-//   // const { postId } = props;
-//   // console.log('CommentList postId: ', postId);
-//   // console.log('CommentList data.commentsByPost: ', data.commentsByPost);
-//   return (
-//     <Item.Group divided relaxed='very'>
-//       {arr.map((item) => <CommentCard key={item.id} comment={item} />)}
-//     </Item.Group>
-//   );
-// };
+//TO-DO: pagination
 
 const CommentBlock = (props) => {
   console.log('CommentBlock props: ', props);
@@ -183,7 +173,5 @@ const CommentBlock = (props) => {
     );
 };
 
-//<Header as='h3'>Комментарии {commentsByPost.length}</Header>
-//            <Divider horizontal></Divider>
-
+export { COMMENTS_BY_POST_QUERY };
 export default withUserContext(CommentBlock);
