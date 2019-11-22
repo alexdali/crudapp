@@ -4,7 +4,7 @@ import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import {
-  Message, Segment, Button, Icon, Form, TextArea, Label, Header, Divider, Item
+  Message, Segment, Button, Icon, Form, TextArea, Label, Header, Divider, Item,
 } from 'semantic-ui-react';
 import TextareaAutosize from 'react-textarea-autosize';
 import moment from 'moment';
@@ -13,7 +13,7 @@ import styled from 'styled-components';
 // import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
 import CommentCreateForm from './CommentCreateForm';
-//import CommentList from './CommentList';
+// import CommentList from './CommentList';
 import ErrorMessage from './ErrorMessage';
 
 const COMMENTS_BY_POST_QUERY = gql`
@@ -46,7 +46,7 @@ const CommentDiv = styled.div`
   }
  `;
 
- const ItemDiv = styled.div`
+const ItemDiv = styled.div`
   margin: 1.5em 2em 0em;
   border: none;
    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
@@ -57,7 +57,7 @@ const CommentDiv = styled.div`
   }
 `;
 
- const CommentCard = (props) => {
+const CommentCard = (props) => {
   console.log('CommentCard props: ', props);
   // static propTypes = {
   //   comment: PropTypes.shape({
@@ -103,15 +103,15 @@ const CommentDiv = styled.div`
 //   );
 // };
 
-//TO-DO: pagination
+// TO-DO: pagination
 
 const CommentBlock = (props) => {
   console.log('CommentBlock props: ', props);
   const { post, userId, authors } = props;
   console.log('CommentBlock post.id: ', post.id);
-  //let commentsByPost= [];
+  // let commentsByPost= [];
   return (
-    
+
     <Query
       query={COMMENTS_BY_POST_QUERY}
       variables={{ id: post.id }}
@@ -128,9 +128,9 @@ const CommentBlock = (props) => {
         }
         if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
         const commentsByPost = ((typeof data === 'undefined') || (data.commentsByPost.length === 0)) ? [] : data.commentsByPost;
-        //console.log('CommentBlock data.commentsByPost: ', data.commentsByPost);
-        //const {commentsByPost}= data;
-        //commentsByPost= data.commentsByPost;
+        // console.log('CommentBlock data.commentsByPost: ', data.commentsByPost);
+        // const {commentsByPost}= data;
+        // commentsByPost= data.commentsByPost;
         console.log('CommentBlock commentsByPost: ', commentsByPost);
         return (
           <CommentDiv>
@@ -144,7 +144,7 @@ const CommentBlock = (props) => {
             <Divider horizontal></Divider>
               <Item.Group divided relaxed='very'>
                 {
-                  commentsByPost.map(item => {
+                  commentsByPost.map((item) => {
                     let author = authors.find((el) => el.id === item.userId);
                     if (typeof author === 'undefined') {
                       author = {
@@ -169,8 +169,8 @@ const CommentBlock = (props) => {
         );
       }}
     </Query>
-    
-    );
+
+  );
 };
 
 export { COMMENTS_BY_POST_QUERY };

@@ -8,6 +8,7 @@ import {
 import styled from 'styled-components';
 // import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
+import LoadingBar from './LoadingBar';
 import Spinner from './Spinner';
 import PostCard from './PostCard';
 import ErrorMessage from './ErrorMessage';
@@ -51,18 +52,19 @@ const PostList = (props) => {
   return (
   <Query query={ALL_POSTS_QUERY}>
     {({ data, loading, error }) => {
-      console.log('ALL_POSTS_QUERY data', data);
+      // console.log('ALL_POSTS_QUERY data', data);
       if (loading) {
-        return (<div>
+        return <LoadingBar count={10}/>;
+        /* (<div>
             <p>
             Загрузка...
             <i className="spinner icon"></i>
             </p>
-          </div>);
+          </div>) */
       }
       if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
       if ((typeof data === 'undefined') || (data.posts.length === 0)) return null;
-      console.log('PostList data.posts: ', data.posts);
+      // console.log('PostList data.posts: ', data.posts);
       return (
         <Item.Group divided relaxed='very'>
           {data.posts.map((item) => {

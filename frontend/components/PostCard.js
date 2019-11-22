@@ -34,9 +34,9 @@ class PostCard extends Component {
 
   render() {
     const {
-      id, userId, title, content, createdDate, numberOfCommentsPost, author
+      id, userId, title, content, createdDate, numberOfCommentsPost, author,
     } = this.props.postcard;
-    //console.log('PostCard this.props', this.props);
+    // console.log('PostCard this.props', this.props);
     return (
       <Link
         href={{
@@ -50,14 +50,14 @@ class PostCard extends Component {
             <Item.Content>
               <Item.Header as='h3'>{title}</Item.Header>
               <Divider clearing />
-              
+
               <div className="post-meta">
-                <p><Label  as='span' color='orange'>{author.name}</Label></p>
+                <p><Label as='span' color='orange'>{author.name}</Label></p>
                 <p><Label as='span' color='orange' ribbon='right'>
                   {moment(createdDate).format('DD MMMM YYYY')}
                 </Label></p>
               </div>
-              
+
               <Item.Description>
                 <ItemContent clasName='item-content'>{content}</ItemContent>
               </Item.Description>
