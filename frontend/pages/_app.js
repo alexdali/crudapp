@@ -77,8 +77,8 @@ class MyApp extends App {
       email: '',
       numberOfPost: 0,
       numberOfComments: 0,
-      };
-      const authors = this.state.authors ? this.state.authors : [];
+    };
+    const authors = this.state.authors ? this.state.authors : [];
     return (
         <ApolloProvider client={client}>
           <UserContext.Provider value={{ user, authors }}>

@@ -4,7 +4,7 @@ import UserBlog from '../components/UserBlog';
 
 const PostPage = ({ query }) => {
   if (query.id) {
-    return <Post  id={query.id}/>;
+    return <Post id={query.id}/>;
   }
   return <UserBlog />;
 };

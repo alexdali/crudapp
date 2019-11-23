@@ -181,11 +181,16 @@ class NavBar extends React.Component {
         login: true,
       });
     }
+    if (name === 'logout') {
+      Router.push({
+        pathname: '/',
+      });
+    }
   };
 
 
   render() {
-    const { activeItem, login } = this.state;
+    const { login } = this.state;
     const { user } = this.props;
     return (
       <Query query={CURRENT_USER_QUERY}>

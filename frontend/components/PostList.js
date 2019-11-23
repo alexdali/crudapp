@@ -9,7 +9,7 @@ import styled from 'styled-components';
 // import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
 import LoadingBar from './LoadingBar';
-import Spinner from './Spinner';
+// import Spinner from './Spinner';
 import PostCard from './PostCard';
 import ErrorMessage from './ErrorMessage';
 

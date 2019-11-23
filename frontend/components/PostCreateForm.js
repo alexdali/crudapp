@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import {
   Grid, Segment, Form, Icon, TextArea, Button, Header, Message,
 } from 'semantic-ui-react';
-import Router from 'next/router';
+// import Router from 'next/router';
 import { ALL_POSTS_QUERY } from './PostList';
 import { POSTS_BY_USER_QUERY } from './PostsByUser';
 import User, { CURRENT_USER_QUERY } from './User';
@@ -117,7 +117,7 @@ class PostCreateForm extends Component {
         variables: {
           userId, title, content,
         },
-        //update: (cache, payload, userId) => this.update(cache, payload, userId),
+        // update: (cache, payload, userId) => this.update(cache, payload, userId),
         // refetchQueries: [{ query: ALL_POSTS_QUERY, }],
       });
       // TO-DO update feed after adding new post
@@ -139,15 +139,14 @@ class PostCreateForm extends Component {
       //     pathname: '/post',
       //     query: { id },
       //   });
-        }
-      );
+      });
     };
 
     render() {
       console.log('PostCreateForm render -> props', this.props);
       console.log('PostCreateForm render -> state', this.state);
       const {
-        postItem, // : { userId, postId, title, content },
+        postItem,
         readOnly,
         showEdit,
       } = this.state;
@@ -159,20 +158,19 @@ class PostCreateForm extends Component {
         variables={{
           postItem,
         }}
-        refetchQueries={()=>
-          [{
-              query: POSTS_BY_USER_QUERY,
-              variables: { id: this.props.id },    
-          },
-          {
-              query: ALL_POSTS_QUERY,    
-          }
-          ]
+        refetchQueries={() => [{
+          query: POSTS_BY_USER_QUERY,
+          variables: { id: this.props.id },
+        },
+        {
+          query: ALL_POSTS_QUERY,
+        },
+        ]
         }
       >
         {(createPost, { loading, error }) => {
           if (error) {
-            if(error.message.includes('GraphQL error'))  {
+            if (error.message.includes('GraphQL error')) {
               console.log('PostCreateForm Mutation -> error.message', error.message);
               return (
               <Message negative>
@@ -202,12 +200,12 @@ class PostCreateForm extends Component {
                   readOnly={readOnly}
                   disabled={loading}
                   placeholder="Заголовок поста"
-                  //defaultValue={postItem.title}
+                  // defaultValue={postItem.title}
                   value={postItem.title}
                   onChange={this.handleChange}
                   required
                 />
-                    
+
                 <Form.TextArea
                   className='post-content'
                   name="content"
@@ -215,7 +213,7 @@ class PostCreateForm extends Component {
                   disabled={loading}
                   // loading={loading}
                   placeholder="Текст поста"
-                  //defaultValue={postItem.content}
+                  // defaultValue={postItem.content}
                   value={postItem.content}
                   onChange={this.handleChange}
                 />
