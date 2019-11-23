@@ -4,7 +4,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import moment from 'moment';
 import {
-  Card, Header, Icon, Item, Divider, Label,
+  Icon, Item, Divider, Label,
 } from 'semantic-ui-react';
 
 const ItemContent = styled.p`

@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import {
-  Mutation, Query, ApolloConsumer, graphql,
-} from 'react-apollo';
+import { Mutation, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { adopt } from 'react-adopt';
-import Link from 'next/link';
+// import Link from 'next/link';
 import Router from 'next/router';
-import { Button, Loader, Icon } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 // import NProgress from 'nprogress';
 import styled from 'styled-components';
 import Form from './styles/Form';
 import ErrorMessage from './ErrorMessage';
-import User, { CURRENT_USER_QUERY } from './User';
+import { CURRENT_USER_QUERY } from './User';
 import { ALL_USERS_QUERY } from './LeftSideBar';
 
 const SIGNIN_MUTATION = gql`
@@ -51,21 +49,6 @@ overflow: hidden;
     width: 300px;
     height: 100vh;
     z-index: 100;
-    /* color: #fff;
-    text-align: center;
-    text-shadow: 0 0 5px rgba(0,0,0,.5); */
-    /* .login-background {
-    transition: .6s filter;
-    }
-    .login-background.de-emphasized {
-    filter: blur(5px);
-    } */
-    /* .blur {
-    z-index: 99;
-    background-image: url(image.png);
-    background-size: cover;
-    background-repeat: no-repeat; */
-}
 `;
 
 const FormDiv = styled.div`
@@ -259,7 +242,7 @@ const Composed = adopt({
 });
 /* eslint-enable */
 
-//TO-DO: button to close sign form
+// TO-DO: button to close sign form
 
 class Login extends Component {
   state = {
@@ -272,7 +255,7 @@ class Login extends Component {
   };
 
   showSignUp = () => {
-    console.log('Login showSignUp');
+    // console.log('Login showSignUp');
     this.setState({
       name: '',
       email: '',
@@ -284,20 +267,20 @@ class Login extends Component {
 
   createAccount = async (e, signupMutate) => {
     e.preventDefault();
-    console.log('Login SignUp this.state: ', this.state);
+    // console.log('Login SignUp this.state: ', this.state);
     const { name, email, password } = this.state;
     const res = await signupMutate({
       variables: { name, email, password },
       refetchQueries: [
-      {
-        query: CURRENT_USER_QUERY,
-      },
-      {
-        query: ALL_USERS_QUERY,
-      }
+        {
+          query: CURRENT_USER_QUERY,
+        },
+        {
+          query: ALL_USERS_QUERY,
+        },
       ],
     }).catch((error) => {
-      console.log('signInHandle createAccount Error: ', error.message);
+      // console.log('signInHandle createAccount Error: ', error.message);
       const errMessage = error.message.replace('GraphQL error: ', '');
       this.setState({
         name: '',
@@ -309,7 +292,7 @@ class Login extends Component {
     });
 
     if (res) {
-      console.log('signInHandle createAccount res', res);
+      // console.log('signInHandle createAccount res', res);
 
       this.setState({
         // id: '',
@@ -320,8 +303,7 @@ class Login extends Component {
         error: '',
       },
       () => {
-        console.log('Login createAccount this.state: ', this.state);
-
+        // console.log('Login createAccount this.state: ', this.state);
         this.props.handleRes(res);
       });
     }
@@ -330,10 +312,9 @@ class Login extends Component {
   /* disable eslint(no-underscore-dangle) */
   signInHandle = async (e, signinMutate, currentUserMutate) => {
     e.preventDefault();
-    console.log('Login signInHandle this.state: ', this.state);
+    // console.log('Login signInHandle this.state: ', this.state);
     // console.log('Login signInHandle client: ', client);
     const { email, password } = this.state;
-
     const res = await signinMutate({
       variables: { email, password },
       // update: {(cache, { data: { me } }) => {
@@ -344,26 +325,25 @@ class Login extends Component {
       //     data: { me: me },
       //   });
       // }},
-      //update: this.update,
+      // update: this.update,
       refetchQueries: [{
         query: CURRENT_USER_QUERY,
       }],
     }).catch((error) => {
-        console.log('signInHandle Error: ', error.message);
-        const errMessage = error.message.replace('GraphQL error: ', '');
-        this.setState({
-          name: '',
-          email: '',
-          password: '',
-          signup: false,
-          error: errMessage,
-        });
+      // console.log('signInHandle Error: ', error.message);
+      const errMessage = error.message.replace('GraphQL error: ', '');
+      this.setState({
+        name: '',
+        email: '',
+        password: '',
+        signup: false,
+        error: errMessage,
+      });
     });
 
 
     if (res) {
-      console.log('signInHandle res', res);
-
+      // console.log('signInHandle res', res);
       this.setState({
         name: '',
         email: '',
@@ -386,9 +366,9 @@ class Login extends Component {
       //     console.log('Signin currentUserMutate Error: ', error.message);
       //   });
       //   // console.log('Signin currentUserMutate resCache: ', resCache);
-    //    }
-    );
-    this.props.handleRes(res);
+        //    }
+      );
+      this.props.handleRes(res);
     }
   };
   /* enable eslint(no-underscore-dangle) */
@@ -410,10 +390,9 @@ class Login extends Component {
   };
 
   render() {
-    console.log('Login this.props: ', this.props);
+    // console.log('Login this.props: ', this.props);
     // console.log('Signin this.state: ', this.state);
     const { signup, error } = this.state;
-
     return (
       <Composed>
         {({
@@ -496,8 +475,7 @@ class Login extends Component {
                                     >
                                     <span>Создать аккаунт</span>
                                   </Button>
-                                :
-                                  <Button.Group compact fluid>
+                                : <Button.Group compact fluid>
                                     <Button
                                       onClick={(e) => this.signInHandle(e, signinMutate, currentUserMutate)}
                                       positive

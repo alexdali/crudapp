@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import {
-  Grid, Segment, Image, Icon,
-} from 'semantic-ui-react';
 import Sticky from 'react-stickynode';
 import withUserContext from '../lib/withUserContext';
-import Spinner from './Spinner';
 import ProfileSidebar from './ProfileSidebar';
 
 const Inner = styled.div`
-  
 `;
-
 
 class RightSideBar extends Component {
   render() {
@@ -19,15 +13,16 @@ class RightSideBar extends Component {
     const user = this.props.user ? this.props.user : {
       id: '',
       name: '',
-      email: ''};
+      email: '',
+    };
     return (
       <Inner>
         <Sticky enabled top={20}>
           <ProfileSidebar user={user} />
-        </Sticky>       
+        </Sticky>
       </Inner>
     );
   }
-};
+}
 
 export default withUserContext(RightSideBar);

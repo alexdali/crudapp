@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-//import NProgress from 'nprogress';
-import Router from 'next/router';
-import {
-  Responsive,
-  Image,
-  // Header,
-  // Segment,
-} from 'semantic-ui-react';
-
+// import NProgress from 'nprogress';
+// import Router from 'next/router';
+// import { Responsive, Image} from 'semantic-ui-react';
 import NavBar from './NavBar';
 
 // const handleRouteChangeStart = () => {
@@ -30,21 +24,13 @@ const HeaderDiv = styled.div`
   width: 100%;
   z-index: 1;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  /* position: relative; */
   position: absolute;
   top: 0;
-  /* display: flex; */
-  /* margin: 3px 0 1px 0; */
-  /* justify-content: space-between; */
-  /* height: min-content; */
-  /* border-bottom: 1px solid grey; */
-  /* overflow: hidden; */
   .home-page {
     height: 100%;
     max-width: 1200px;
     position: relative;
     margin: auto;
-    /* will-change: transform; */
     .logo {
     /* display: inline-block;
     position: relative;
@@ -54,12 +40,10 @@ const HeaderDiv = styled.div`
     margin: 0 25px 0;
     cursor: pointer;
     }
-     /* font-size: 3em; */
     img {
       width: 7rem;
       margin-top: 0.5rem;
     }
-  }
   }
   .ui.floated.header {
     /* margin-top: 5px; */
@@ -70,7 +54,6 @@ const HeaderDiv = styled.div`
       'Arial';
   }
   .ui.right.floated.menu {
-    /* margin: 10px 0 0 0.5rem; */
     margin: 0.8rem 2rem 0 0.5rem;
   }
   .ui.secondary.menu .dropdown.item:hover,
@@ -82,7 +65,7 @@ const HeaderDiv = styled.div`
     cursor: pointer;
     &:after {
       height: 2px;
-      background: #1ab394;
+      background: #;
       content: '';
       width: 0;
       position: absolute;
@@ -96,7 +79,7 @@ const HeaderDiv = styled.div`
     &:focus {
       background: none;
       outline: none;
-      color: #1ab394;
+      color: #;
       font-weight: 600;
       &:after {
         width: calc(100% - 10px);
@@ -117,36 +100,25 @@ const HeaderDiv = styled.div`
       background: none;
       border: 0;
       cursor: pointer;
-      /* color: #1ab394; */
+      /* color: #; */
       @media (max-width: 700px) {
-        /* font-size: 10px; */
         padding: 0 10px;
       }
     }
   }
 `;
 
-
-class HeaderBar extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //   };
-  // }
-  render() {
-    return (
+const HeaderBar = () => (
       <HeaderDiv>
         <div className="home-page">
           <header className="logo">
-            <Link href="/"> 
+            <Link href="/">
               <img src="/logo.png" alt="logo" />
             </Link>
           </header>
           <NavBar />
         </div>
       </HeaderDiv>
-    );
-  }
-}
+);
 
 export default HeaderBar;

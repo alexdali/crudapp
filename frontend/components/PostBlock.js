@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Mutation, Query, ApolloConsumer } from 'react-apollo';
+import { Mutation, Query } from 'react-apollo';
 import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
@@ -37,8 +37,6 @@ const RowDiv = styled.div`
   .ui.form > div.field.post-content > textarea {
     font-size: 1.5em;
     border: none;
-    /* padding: 0.5em; */
-    /* height: auto; */
     max-height: 100%;
     resize: none;
   }
@@ -173,20 +171,20 @@ class PostBlock extends Component {
 
   handleChange = (e, data) => {
     const { name, type, value } = e.target;
-    console.log('handleChange: data: ', data);
-    console.log(
-      `handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${
-        data.checked
-      }, data.name: ${data.name}`,
-    );
+    // console.log('handleChange: data: ', data);
+    // console.log(
+    //   `handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${
+    //     data.checked
+    //   }, data.name: ${data.name}`,
+    // );
 
     let val = value;
     let nam = name;
 
-    if (data.name === 'isActive') {
-      val = data.checked;
-      nam = data.name;
-    }
+    // if (data.name === 'isActive') {
+    //   val = data.checked;
+    //   nam = data.name;
+    // }
 
     const { postItem } = this.state;
     postItem[nam] = val;
@@ -227,17 +225,17 @@ class PostBlock extends Component {
     // console.log('PostList deletePostItem this.state: ', this.state);
     const { postItem } = this.state;
     const { user } = this.props;
-    console.log(
-      'PostBlock deletePostItem this.state.postItem: ',
-      postItem,
-    );
+    // console.log(
+    //   'PostBlock deletePostItem this.state.postItem: ',
+    //   postItem,
+    // );
     const res = await deletePost({
       variables: {
         postId: postItem.id,
         userId: user.id,
       },
     });
-    console.log('deletePostItem DELETED!!!! res: ', res);
+    //console.log('deletePostItem DELETED!!!! res: ', res);
     // TO-DO update cache
     this.setState({
       postItem: '',
@@ -253,8 +251,8 @@ class PostBlock extends Component {
   };
 
   render() {
-    console.log('PostBlock render -> props', this.props);
-    console.log('PostBlock render -> state', this.state);
+    // console.log('PostBlock render -> props', this.props);
+    // console.log('PostBlock render -> state', this.state);
     const user = this.props.user ? this.props.user : {
       id: '',
       name: '',
@@ -267,8 +265,8 @@ class PostBlock extends Component {
       showEdit,
     } = this.state;
 
-    console.log('PostBlock render -> state.postItem: ', postItem);
-    console.log('PostBlock render -> this.props.user: ', user);
+    // console.log('PostBlock render -> state.postItem: ', postItem);
+    // console.log('PostBlock render -> this.props.user: ', user);
     const updateProps = {
       showEdit, enableEdit: this.enableEdit, updatePostItem: this.updatePostItem, deletePostItem: this.deletePostItem,
     };
@@ -278,7 +276,7 @@ class PostBlock extends Component {
         updatePostMutate, deletePostMutate,
       }) => {
         const { loading: loadingUpdate, error: errorUpdate } = updatePostMutate;
-        const { loading: loadingDelete, error: errorDelete } = deletePostMutate;
+        //const { loading: loadingDelete, error: errorDelete } = deletePostMutate;
         updateProps.updatePost = updatePostMutate;
         updateProps.deletePost = deletePostMutate;
         if (errorUpdate) {
@@ -314,7 +312,6 @@ class PostBlock extends Component {
                   name="content"
                   readOnly={readOnly}
                   disabled={loadingUpdate}
-                  // loading={loadingUpdate}
                   defaultValue={postItem.content}
                   onChange={this.handleChange}
                   placeholder='Текст поста'

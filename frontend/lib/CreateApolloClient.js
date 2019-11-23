@@ -34,8 +34,8 @@ function CreateApolloClient() {
           const dataCache = cache.readQuery({
             query: CURRENT_USER_QUERY,
           });
-          console.log('currentUser cache - data: ', dataCache);
-          console.log('currentUser cache - args: ', args);
+          // console.log('currentUser cache - data: ', dataCache);
+          // console.log('currentUser cache - args: ', args);
           const user = args;
           user.__typename = 'currentUser';
           const data = { data: { currentUser: { ...user } } };

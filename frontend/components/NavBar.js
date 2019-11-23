@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 import Link from 'next/link';
 import styled from 'styled-components';
 // import NProgress from 'nprogress';
 import Router from 'next/router';
-import {
-  Input,
-  Menu,
-  Responsive,
-  Image,
-  Label,
-  Icon,
-} from 'semantic-ui-react';
+import { Menu, Label, Icon } from 'semantic-ui-react';
 import withUserContext from '../lib/withUserContext';
-import User, { CURRENT_USER_QUERY } from './User';
+import { CURRENT_USER_QUERY } from './User';
 import SignOut from './SignOut';
 import Login from './Login';
 import ErrorMessage from './ErrorMessage';
@@ -31,118 +23,16 @@ import ErrorMessage from './ErrorMessage';
 // Router.events.on('routeChangeComplete', handleRouteChangeCompleteAndError);
 // Router.events.on('routeChangeError', handleRouteChangeCompleteAndError);
 
-const RowDiv = styled.div`
-  .logo {
-    float: left;
-    margin: 0 25px 0;
-    /* font-size: 3em; */
-    img.image {
-      /* width: 160px; */
-      width: 11rem;
-    }
-  }
-  .ui.floated.header {
-    /* margin-top: 5px; */
-    /* margin-top: 0.3em; */
-  }
-
-  .ui.menu {
-    font-family: 'Montserrat Alternates', 'Roboto', 'Open Sans', sans-serif,
-      'Arial';
-  }
-
-  /* .ui.secondary.menu .dropdown.item > .dropdown-sub-menu {
-    margin-top: 0;
-  } */
-  .ui.right.floated.menu {
-    /* margin: 10px 0 0 0.5rem; */
-    margin: 0.8rem 2rem 0 0.5rem;
-  }
-
-  /* .ui.secondary.menu .dropdown.item:hover,
-  .ui.secondary.menu .link.item:hover,
-  .ui.secondary.menu a.item:hover {
-    background: none;
-  } */
-
-  .ui.secondary.menu {
-    /* .right.menu {
-      .item.dropdown > .menu {
-        margin-top: 0;
-      }
-    } */
-
-    .dropdown.item:hover,
-    .link.item:hover,
-    a.item:hover {
-      background: none;
-    }
-    .ui.menu .ui.dropdown .menu > .item:hover {
-      background: none !important;
-    }
-    .dropdown-sub-menu:active {
-      display: none;
-    }
-  }
-  .MenuItem {
-    cursor: pointer;
-    &:after {
-      height: 2px;
-      background: #1ab394;
-      content: '';
-      width: 0;
-      position: absolute;
-      transform: translateX(-50%);
-      transition: width 0.4s;
-      transition-timing-function: cubic-bezier(1, -0.65, 0, 2.31);
-      left: 50%;
-      margin-top: 0.5rem;
-    }
-    &:hover,
-    &:focus {
-      background: none;
-      outline: none;
-      color: #1ab394;
-      font-weight: 600;
-      &:after {
-        width: calc(100% - 10px);
-      }
-      @media (max-width: 700px) {
-        width: calc(100% - 10px);
-      }
-    }
-    a {
-      padding: 0 0.5rem;
-      display: flex;
-      align-items: center;
-      position: relative;
-      /* text-transform: uppercase; */
-      /* font-weight: 900; */
-      /* font-weight: 600; */
-      /* font-size: 1em; */
-      background: none;
-      border: 0;
-      cursor: pointer;
-      /* color: #1ab394; */
-      @media (max-width: 700px) {
-        /* font-size: 10px; */
-        padding: 0 10px;
-      }
-    }
-  }
-`;
 const MenuDiv = styled.div`
   .ui.simple.dropdown .menu {
     opacity: 0;
   }
-
   .ui.simple.active.dropdown > .menu,
   .ui.simple.dropdown:hover > .menu {
     opacity: 1;
     top: 95% !important;
     margin-top: 0;
   }
-
   .ui.menu .ui.dropdown .menu > .selected.item:active {
     /* background: rgba(0, 0, 0, 0.05) !important;*/
     color: rgba(0, 0, 0, 0.95) !important;
@@ -161,7 +51,7 @@ class NavBar extends React.Component {
 
   handleRes = (res) => {
     if (res) {
-      console.log('NavBar handleRes res.data.signIn: ', res.data.signIn);
+      // console.log('NavBar handleRes res.data.signIn: ', res.data.signIn);
       this.setState({
         login: false,
       },
@@ -174,7 +64,7 @@ class NavBar extends React.Component {
 
   handleItemClick = (e, data) => {
     // console.log('NavBar handleItemClick: e', e);
-    console.log('NavBar handleItemClick data: ', data);
+    // console.log('NavBar handleItemClick data: ', data);
     const { name } = data;
     if (name === 'login') {
       this.setState({
@@ -197,7 +87,7 @@ class NavBar extends React.Component {
         {({ data, loading, error }) => {
           if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
           if (typeof data === 'undefined') return null;
-          console.log('NavBar render UserContextConsumer user: ', user);
+          // console.log('NavBar render UserContextConsumer user: ', user);
           return (
             <>
             <MenuDiv>

@@ -1,35 +1,13 @@
 import React, { Component } from 'react';
-import { Mutation, Query, ApolloConsumer } from 'react-apollo';
+import { Mutation, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-import {
-  Item, Header, Segment, Button, Icon, Form,
-} from 'semantic-ui-react';
-import styled from 'styled-components';
+import { Item, Segment } from 'semantic-ui-react';
 // import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
 import LoadingBar from './LoadingBar';
-// import Spinner from './Spinner';
 import PostCard from './PostCard';
 import ErrorMessage from './ErrorMessage';
-
-const RowDiv = styled.div`
-  margin: 52px 0px;
-  padding: 30px 10px;
-  /* border: 1px solid rgba(34, 36, 38, 0.15);
-  border-radius: 0.28571429rem; */
-  /* box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15); */
-  /* .menu-account-info {
-    font-family: 'Montserrat Alternates', 'Roboto', 'Open Sans', sans-serif,
-      'Arial';
-  }
-  .segment.segment-bottom {
-    display: flex;
-    justify-content: space-between;
-  } */
-`;
-
-// const perScreen = 5;
 
 const ALL_POSTS_QUERY = gql`
   query ALL_POSTS_QUERY {
@@ -53,15 +31,13 @@ const PostList = (props) => {
   <Query query={ALL_POSTS_QUERY}>
     {({ data, loading, error }) => {
       // console.log('ALL_POSTS_QUERY data', data);
-      if (loading) {
-        return <LoadingBar count={10}/>;
-        /* (<div>
+      if (loading) return <LoadingBar count={10}/>;
+      /* { (<div>
             <p>
             Загрузка...
             <i className="spinner icon"></i>
             </p>
-          </div>) */
-      }
+          </div>) } */
       if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
       if ((typeof data === 'undefined') || (data.posts.length === 0)) return null;
       // console.log('PostList data.posts: ', data.posts);

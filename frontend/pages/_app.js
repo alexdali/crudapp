@@ -1,5 +1,5 @@
 import App, { Container } from 'next/app';
-import { ApolloProvider, ApolloConsumer } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo';
 import UserContext from '../components/UserContext';
 import Page from '../components/Page';
 // import Index from '../components/Index';
@@ -9,7 +9,6 @@ import CreateApolloClient from '../lib/CreateApolloClient';
 
 // const { Provider, Consumer } = React.createContext();
 
-// const client = CreateApolloClient();
 const client = CreateApolloClient({
   ssrForceFetchDelay: 100,
 });

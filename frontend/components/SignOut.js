@@ -10,8 +10,7 @@ const SIGN_OUT_MUTATION = gql`
   }
 `;
 
-const Signout = props =>
-  <Mutation
+const Signout = (props) => <Mutation
     mutation={SIGN_OUT_MUTATION}
     refetchQueries={[{ query: CURRENT_USER_QUERY }]}
   >
@@ -23,8 +22,6 @@ const Signout = props =>
         </span>
       );
     }}
-  </Mutation>
-;
-
+  </Mutation>;
 export default Signout;
 export { SIGN_OUT_MUTATION };

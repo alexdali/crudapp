@@ -1,32 +1,13 @@
 import React, { Component } from 'react';
-import { Mutation, Query, ApolloConsumer } from 'react-apollo';
+import { Mutation, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-import {
-  Item, Header, Segment, Button, Icon, Form,
-} from 'semantic-ui-react';
+import { Item, Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 // import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
 import ErrorMessage from './ErrorMessage';
 import PostCard from './PostCard';
-// import Error from './ErrorMessage';
-
-const RowDiv = styled.div`
-  margin: 52px 0px;
-  padding: 30px 10px;
-  /* border: 1px solid rgba(34, 36, 38, 0.15);
-  border-radius: 0.28571429rem; */
-  /* box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15); */
-  /* .menu-account-info {
-    font-family: 'Montserrat Alternates', 'Roboto', 'Open Sans', sans-serif,
-      'Arial';
-  }
-  .segment.segment-bottom {
-    display: flex;
-    justify-content: space-between;
-  } */
-`;
 
 // const perScreen = 5;
 

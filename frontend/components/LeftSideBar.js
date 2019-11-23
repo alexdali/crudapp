@@ -1,5 +1,5 @@
-import React, { Component, createRef } from 'react';
-import { Query, graphql } from 'react-apollo';
+import React, { Component } from 'react';
+import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Segment } from 'semantic-ui-react';
 import withUserContext from '../lib/withUserContext';

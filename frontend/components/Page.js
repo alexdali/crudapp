@@ -1,15 +1,9 @@
 import React, { Component, createRef } from 'react';
-//import { ApolloConsumer } from 'react-apollo';
-import {
-  Grid, Segment, Image, Icon, Sticky
-} from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import Header from './Header';
 import Meta from './Meta';
-import Main from './Main';
-import LeftSideBar from './LeftSideBar';
 import RightSideBar from './RightSideBar';
-import Index from './Index';
 
 const theme = {
   red: '#FF0000',
@@ -37,7 +31,7 @@ const IndexDiv = styled.div`
   max-width: ${(props) => props.theme.maxWidth};
   padding: 2rem;
   .ui.celled.grid>.row>.column {
-    padding: 0 1rem; 
+    padding: 0 1rem;
 }
 `;
 
@@ -66,23 +60,23 @@ class Page extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-            <StyledPage>
-              <Meta />
-              <Header />
-              <IndexDiv>
-                <Grid celled='internally'>
-                  <Grid.Row>
-                    <Grid.Column width={13}>
-                      <Inner>{this.props.children}</Inner>
-                    </Grid.Column>
-                    <Grid.Column width={3}>
-                        <RightSideBar/>
-                    </Grid.Column>
-                  </Grid.Row>
-                </Grid>
-              </IndexDiv>
-              <GlobalStyle />
-            </StyledPage>
+        <StyledPage>
+          <Meta />
+          <Header />
+          <IndexDiv>
+            <Grid celled='internally'>
+              <Grid.Row>
+                <Grid.Column width={13}>
+                  <Inner>{this.props.children}</Inner>
+                </Grid.Column>
+                <Grid.Column width={3}>
+                  <RightSideBar/>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </IndexDiv>
+          <GlobalStyle />
+        </StyledPage>
       </ThemeProvider>
     );
   }

@@ -1,47 +1,36 @@
 import React, { Component } from 'react';
-import { Mutation, Query, ApolloConsumer } from 'react-apollo';
-import { adopt } from 'react-adopt';
+import { Mutation, Query } from 'react-apollo';
+// import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import {
-  Message, Segment, Button, Icon, Form, TextArea, Label, Header, Divider, Item,
+  Icon, Header, Divider, Item,
 } from 'semantic-ui-react';
-import TextareaAutosize from 'react-textarea-autosize';
 import moment from 'moment';
-import Router from 'next/router';
 import styled from 'styled-components';
 // import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
 import CommentCreateForm from './CommentCreateForm';
-// import CommentList from './CommentList';
+import { COMMENTS_BY_POST_QUERY } from './CommentsPostQueries';
+import LoadingBar from './LoadingBar';
 import ErrorMessage from './ErrorMessage';
 
-const COMMENTS_BY_POST_QUERY = gql`
-  query COMMENTS_BY_POST_QUERY ($id: String!) {
-    commentsByPost(id: $id) {
-      id
-      postId
-      userId
-      content
-      createdDate
-    }
-  }
-`;
+// const COMMENTS_BY_POST_QUERY = gql`
+//   query COMMENTS_BY_POST_QUERY ($id: String!) {
+//     commentsByPost(id: $id) {
+//       id
+//       postId
+//       userId
+//       content
+//       createdDate
+//     }
+//   }
+// `;
 
 const CommentDiv = styled.div`
    margin: 2.5em 0 0.5em;
    padding: 0.5em;
-   /*
-   width: 100%;
-   font-size: 2.5em;
-   border: none;
-   border-bottom: 1px solid rgba(34, 36, 38, 0.15);} */
    form > div.field.comment-content > textarea {
-    /* font-size: 1.5em;
-    border: none;
-    /* padding: 0.5em; */
-    /* height: auto;
-    max-height: 100%; */
     resize: none;
   }
  `;
@@ -85,30 +74,12 @@ const CommentCard = (props) => {
   );
 };
 
-
-// const CommentBlock = (props) => {
-//   console.log('CommentBlock props: ', props);
-//   const { post, userId } = props;
-//   console.log('CommentBlock userId: ', userId);
-//   console.log('CommentBlock postId: ', post.id);
-//   console.log('CommentBlock numberOfCommentsPost: ', post.numberOfCommentsPost);
-//   return (
-//     <CommentDiv>
-//       <Header as='h3'>Комментарии {post.numberOfCommentsPost}</Header>
-//       <Divider horizontal></Divider>
-//       {userId && <CommentCreateForm {...props}/>}
-//       <Divider horizontal></Divider>
-//       <CommentList postId={post.id}/>
-//     </CommentDiv>
-//   );
-// };
-
 // TO-DO: pagination
 
 const CommentBlock = (props) => {
-  console.log('CommentBlock props: ', props);
+  // console.log('CommentBlock props: ', props);
   const { post, userId, authors } = props;
-  console.log('CommentBlock post.id: ', post.id);
+  // console.log('CommentBlock post.id: ', post.id);
   // let commentsByPost= [];
   return (
 
@@ -117,21 +88,22 @@ const CommentBlock = (props) => {
       variables={{ id: post.id }}
     >
       {({ data, loading, error }) => {
-        console.log('COMMENTS_BY_POST_QUERY data', data);
-        if (loading) {
+        // console.log('COMMENTS_BY_POST_QUERY data', data);
+        /* if (loading) {
           return (<div>
               <p>
               Загрузка...
               <i className="spinner icon"></i>
               </p>
             </div>);
-        }
+        } */
+        if (loading) return <LoadingBar count={2}/>;
         if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
         const commentsByPost = ((typeof data === 'undefined') || (data.commentsByPost.length === 0)) ? [] : data.commentsByPost;
         // console.log('CommentBlock data.commentsByPost: ', data.commentsByPost);
         // const {commentsByPost}= data;
         // commentsByPost= data.commentsByPost;
-        console.log('CommentBlock commentsByPost: ', commentsByPost);
+        // console.log('CommentBlock commentsByPost: ', commentsByPost);
         return (
           <CommentDiv>
             <Divider horizontal>
@@ -155,12 +127,11 @@ const CommentBlock = (props) => {
                         numberOfComments: 0,
                       };
                     }
-                    console.log('commentsByPost item.userId: ', item.userId);
-                    console.log('commentsByPost author: ', author);
+                    /* console.log('commentsByPost item.userId: ', item.userId);
+                    console.log('commentsByPost author: ', author); */
                     const comment = { ...item };
                     comment.author = { ...author };
-                    console.log('commentsByPost comment: ', comment);
-
+                    /* console.log('commentsByPost comment: ', comment); */
                     return (<CommentCard key={comment.id} comment={comment} />);
                   })
                 }
