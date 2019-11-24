@@ -91,7 +91,7 @@ class CommentCreateForm extends Component {
           },
         ],
       });
-      // TO-DO update feed after adding new post
+      // TO-DO handle key press: Enter
       console.log('CommentCreateForm CREATED!!!! res: ', res.data.createComment);
       // const { id } = res.data.createComment;
       this.setState({

@@ -51,6 +51,7 @@ overflow: hidden;
     z-index: 100;
 `;
 
+
 const FormDiv = styled.div`
   /* max-width: 300px; */
   box-sizing: border-box;
@@ -71,6 +72,11 @@ const FormDiv = styled.div`
     font-size: 1.5rem;
     line-height: 1.5;
     font-weight: 600;
+    .close-icon {
+      display: block;
+      margin-left: auto;
+      cursor: pointer;
+    }
     fieldset::before {
       height: 1px;
       margin-bottom: 25px;
@@ -304,7 +310,8 @@ class Login extends Component {
       },
       () => {
         // console.log('Login createAccount this.state: ', this.state);
-        this.props.handleRes(res);
+        // this.props.handleRes(res);
+        this.props.closeLoginForm();
       });
     }
   };
@@ -368,7 +375,8 @@ class Login extends Component {
       //   // console.log('Signin currentUserMutate resCache: ', resCache);
         //    }
       );
-      this.props.handleRes(res);
+      // this.props.handleRes(res);
+      this.props.closeLoginForm();
     }
   };
   /* enable eslint(no-underscore-dangle) */
@@ -389,6 +397,10 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  closeForm=() => {
+    this.props.closeLoginForm();
+  }
+
   render() {
     // console.log('Login this.props: ', this.props);
     // console.log('Signin this.state: ', this.state);
@@ -405,6 +417,10 @@ class Login extends Component {
               <div className="blur">
                 <FormDiv>
                   <Form>
+                  <Icon className="close-icon" name='close' onClick={this.closeForm} />
+                    {/* <Button icon>
+                      <Icon name='close' />
+                    </Button> */}
                     {error && <ErrorMessage error={error} />}
                     <fieldset disabled={loadingsignin} aria-busy={loadingsignin}>
                       {/* <Error error={error} /> */}

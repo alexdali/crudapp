@@ -6,6 +6,8 @@ import withUserContext from '../lib/withUserContext';
 import Main from './Main';
 import LeftSideBar from './LeftSideBar';
 
+// TO-DO replace react-stickynode: old method componentWillReceiveProps
+
 const Index = () => (
       <Grid celled='internally'>
         <Grid.Row>

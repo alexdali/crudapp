@@ -2,7 +2,7 @@ import App, { Container } from 'next/app';
 import { ApolloProvider } from 'react-apollo';
 import UserContext from '../components/UserContext';
 import Page from '../components/Page';
-// import Index from '../components/Index';
+import ErrorBoundary from '../components/ErrorBoundary';
 import { CURRENT_USER_QUERY } from '../components/User';
 import { ALL_USERS_QUERY } from '../components/LeftSideBar';
 import CreateApolloClient from '../lib/CreateApolloClient';
@@ -13,12 +13,12 @@ const client = CreateApolloClient({
   ssrForceFetchDelay: 100,
 });
 
-const queryUserSubscription = client.watchQuery({
-  query: CURRENT_USER_QUERY,
-});
-const queryAuthorsSubscription = client.watchQuery({
-  query: ALL_USERS_QUERY,
-});
+// const queryUserSubscription = client.watchQuery({
+//   query: CURRENT_USER_QUERY,
+// });
+// const queryAuthorsSubscription = client.watchQuery({
+//   query: ALL_USERS_QUERY,
+// });
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -37,15 +37,22 @@ class MyApp extends App {
 
   };
 
-  componentDidMount() {
-    queryUserSubscription.subscribe({
+  subscriptionUser() {
+    return client.watchQuery({
+      query: CURRENT_USER_QUERY,
+    }).subscribe({
       next: ({ data }) => {
         console.log('_app componentDidMount queryUserSubscription data: ', data);
         if (data.me !== 'undefined') { this.setState({ user: data.me }); }
       },
       error: (e) => console.error(e),
     });
-    queryAuthorsSubscription.subscribe({
+  }
+
+  subscriptionAuthors() {
+    return client.watchQuery({
+      query: ALL_USERS_QUERY,
+    }).subscribe({
       next: ({ data }) => {
         console.log('_app componentDidMount queryAuthorsSubscription data: ', data);
         if (data.users !== 'undefined') { this.setState({ authors: data.users }); }
@@ -54,10 +61,31 @@ class MyApp extends App {
     });
   }
 
+  componentDidMount() {
+    // queryUserSubscription.subscribe({
+    //   next: ({ data }) => {
+    //     console.log('_app componentDidMount queryUserSubscription data: ', data);
+    //     if (data.me !== 'undefined') { this.setState({ user: data.me }); }
+    //   },
+    //   error: (e) => console.error(e),
+    // });
+    this.subscriptionUser();
+    // queryAuthorsSubscription.subscribe({
+    //   next: ({ data }) => {
+    //     console.log('_app componentDidMount queryAuthorsSubscription data: ', data);
+    //     if (data.users !== 'undefined') { this.setState({ authors: data.users }); }
+    //   },
+    //   error: (e) => console.error(e),
+    // });
+    this.subscriptionAuthors();
+  }
+
   componentWillUnmount() {
-    queryUserSubscription.unsubscribe();
-    queryAuthorsSubscription.unsubscribe();
-    console.log('_app componentWillUnmount Subscription.unsubscribe');
+    // queryUserSubscription.unsubscribe();
+    this.subscriptionUser.unsubscribe();
+    // queryAuthorsSubscription.unsubscribe();
+    this.subscriptionAuthors.unsubscribe();
+    // console.log('_app componentWillUnmount Subscription.unsubscribe');
   }
   // setCurrentUser = (user)=>{
   //   this.setState(
@@ -79,6 +107,7 @@ class MyApp extends App {
     };
     const authors = this.state.authors ? this.state.authors : [];
     return (
+    <ErrorBoundary>
         <ApolloProvider client={client}>
           <UserContext.Provider value={{ user, authors }}>
             <Page>
@@ -86,6 +115,7 @@ class MyApp extends App {
             </Page>
             </UserContext.Provider>
         </ApolloProvider>
+    </ErrorBoundary>
     );
   }
 }

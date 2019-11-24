@@ -62,6 +62,13 @@ class NavBar extends React.Component {
     }
   };
 
+  closeLoginForm = () => {
+    console.log('NavBar closeLoginForm');
+    this.setState({
+      login: false,
+    });
+  };
+
   handleItemClick = (e, data) => {
     // console.log('NavBar handleItemClick: e', e);
     // console.log('NavBar handleItemClick data: ', data);
@@ -174,7 +181,7 @@ class NavBar extends React.Component {
               </Menu>
             </MenuDiv>
             {login
-            && <Login handleRes={this.handleRes} />
+            && <Login handleRes={this.handleRes} closeLoginForm={this.closeLoginForm}/>
             }
             </>
           );
