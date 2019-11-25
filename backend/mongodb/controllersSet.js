@@ -38,6 +38,34 @@ const createUser = async (arg) => {
     .catch((err) => console.error('Error db: ', err));
 };
 
+// Update Password
+const updatePassword = async (arg) => {
+  const {
+    id: _id, password: newPassword,
+  } = arg;
+
+  //const hashPassword = await bcrypt.hash(password, 10);
+  const password = await bcrypt.hash(newPassword, 10);
+    
+  console.log(`c updatePassword arg: ${JSON.stringify(arg)}`);
+  const filter = { _id };
+  return Post.findOneAndUpdate(filter, { password },
+    // If `new` isn't true, `findOneAndUpdate()` will return the
+    // document as it was _before_ it was updated.
+    { new: true })
+    .then((result) => {
+      console.log(`c updatePassword findOneAndUpdate: ${JSON.stringify(result)}`);
+      const updatedUser = {
+        id: result._id,
+        name: result.name,
+        email: result.email,
+      };
+      // console.log(`c updatePassword updatedUser: ${JSON.stringify(updatedUser)}`);
+      return updatedUser;
+    })
+    .catch((err) => console.error('Error db: ', err));
+};
+
 // Delete User
 const deleteUser = async (arg) => {
   console.log(`c deleteUser arg: ${JSON.stringify(arg)}`);
@@ -180,5 +208,5 @@ const deleteComment = async (arg) => {
 
 
 export {
-  createUser, deleteUser, createPost, updatePost, deletePost, createComment, deleteComment,
+  createUser, updatePassword, deleteUser, createPost, updatePost, deletePost, createComment, deleteComment,
 };

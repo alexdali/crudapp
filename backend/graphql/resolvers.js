@@ -12,7 +12,7 @@ import {
   getUsers, getUser, getUserByArg, getPosts, getPost, getComment, getPostsByUser, getCommentsByPost, getCommentsByUser,
 } from '../mongodb/controllersGet';
 import {
-  createUser, deleteUser, createPost, updatePost, deletePost, createComment, deleteComment,
+  createUser, updatePassword, deleteUser, createPost, updatePost, deletePost, createComment, deleteComment,
 } from '../mongodb/controllersSet';
 
 /* eslint no-underscore-dangle: [1, { "allow": ["__id"] }] */
@@ -200,8 +200,67 @@ const resolvers = {
       // console.log(`m signOut cookie context.res: ${context.res}`);
       return { message: 'success' };
     },
-    deleteUser: async (_, { id }) => {
+    updatePassword: async (_, { password }, context) => {
+      console.log(`m updatePassword context.res: ${context.res[0]}`);
+      console.log(`m updatePassword context.req.user: ${JSON.stringify(context.req.user)}`);
+      console.log(`m updatePassword context: ${context.secret}`);
+      if (!context.user) {
+        return null;
+      }
+      const { id } = context.user;
+      //TO-DO do request throw Promise for catch MongoDB error
+      const user = await getUser(id);
+      console.log(`m updatePassword getUser user: ${JSON.stringify(user)}`);
+      if (!user) {
+        throw new Error(
+          'Пользователя не существует!',
+        );
+      }
+      const isValidPass = await bcrypt.compare(password, user.password);
+      // console.log(`m updatePassword isValidPass: ${isValidPass}`);
+      if (!isValidPass) {
+        throw new Error(
+          'Неверный пароль! Попробуйте еще раз.',
+        );
+      }
+      const newUserData = {
+        id, password,
+      };
+      const updatedUser = await updatePassword(newUserData);
+      // const expiresIn = '30m'; // '12h';
+      // const jToken = await jwt.sign(user, context.secret, { expiresIn });
+      const jToken = jwt.sign(updatedUser, context.secret);
+      // console.log(`m updatePassword jToken: ${JSON.stringify(jToken)}`);
+      context.res.cookie('token', jToken, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 * 31, // Expiry - 1 year
+      });
+      console.log(`m updatePassword cookie context.res: ${context.res}`);
+      // console.log(`m updatePassword context.req: ${JSON.stringify(context.req)}`);
+      // return { token: jToken };
+      return updatedUser;
+    },
+    deleteUser: async (_, { id, password }, context) => {
       // console.log(`m deleteUser id: ${JSON.stringify(id)}`);
+      if (!context.user) {
+        return null;
+      }
+      //const userId  = context.user.id;
+      //TO-DO do request throw Promise for catch MongoDB error
+      const user = await getUser(context.user.id);
+      console.log(`m deleteUser getUser user: ${JSON.stringify(user)}`);
+      if (!user) {
+        throw new Error(
+          'Пользователя не существует!',
+        );
+      }
+      const isValidPass = await bcrypt.compare(password, user.password);
+      // console.log(`m deleteUser isValidPass: ${isValidPass}`);
+      if (!isValidPass) {
+        throw new Error(
+          'Неверный пароль! Попробуйте еще раз.',
+        );
+      }
       const delUser = await deleteUser(id);
       console.log(`m deleteUser delUser: ${JSON.stringify(delUser)}`);
       if (delUser) return { message: 'Success' };

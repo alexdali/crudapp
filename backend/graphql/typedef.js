@@ -59,7 +59,8 @@ type Mutation {
   signUp(name: String!, email: String!, password: String!): User!
   signIn(email: String!, password: String!): User
   signOut: SuccessMessage
-  deleteUser(id: String!): SuccessMessage
+  updatePassword(password: String!): SuccessMessage
+  deleteUser(id: String!, password: String!): SuccessMessage
   createPost(userId: String!, title: String!, content: String!): Post!
   updatePost(userId: String!, postId: String!, title: String!, content: String!): Post!
   deletePost(postId: String!, userId: String!): SuccessMessage
