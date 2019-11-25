@@ -4,16 +4,15 @@ import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import {
-  Message, Segment, Button, Icon, Form, TextArea, Label, Header, Divider,
+  Message, Segment, Button, Icon, Form, Item, Label, Header, Divider,
 } from 'semantic-ui-react';
 import TextareaAutosize from 'react-textarea-autosize';
 import Router from 'next/router';
 import styled from 'styled-components';
 import moment from 'moment';
-// import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
-import { ALL_POSTS_QUERY } from './PostList';
-import CommentBlock from './CommentBlock';
+// import { ALL_POSTS_QUERY } from './PostList';
+// import CommentBlock from './CommentBlock';
 
 
 const RowDiv = styled.div`
@@ -42,129 +41,104 @@ const RowDiv = styled.div`
   }
 `;
 
-const UPDATE_POST_MUTATION = gql`
-  mutation UPDATE_POST_MUTATION(
-    $userId: String!
-    $postId: String!
-    $title: String!
-    $content: String!
-  ) {
-    updatePost(
-      userId: $userId
-      postId: $postId
-      title: $title
-      content: $content
-      ) {
-        id
-        title
-        userId
-        content
-        createdDate
-    }
-  }
-`;
+// const UPDATE_PASSWORD_MUTATION = gql`
+//   mutation UPDATE_PASSWORD_MUTATION(
+//     $userId: String!
+//     $password: String!
+//   ) {
+//     updatePassword(
+//       userId: $userId
+//       password: $password
+//       ) {
+//     }
+//   }
+// `;
 
-const DELETE_POST_MUTATION = gql`
-  mutation DELETE_POST_MUTATION(
-    $postId: String!
+const DELETE_USER_MUTATION = gql`
+  mutation DELETE_USER_MUTATION(
     $userId: String!
+    $password: String!
   ) {
-    deletePost(
-      postId: $postId
+    deleteUser(
       userId: $userId
+      password: $password
       ) {
         message
     }
   }
 `;
 
-const UpdateBlock = (props) => {
+const Profile = (props) => {
+  console.log('Profile props: ', props);
+  // static propTypes = {
   const {
-    showEdit, enableEdit, updatePostItem, updatePost, loadingUpdate, deletePostItem, deletePost,
-  } = props.updateProps;
+    id, name, email,
+  } = props.user;
   return (
-    <>
-      {showEdit === '' ? (
-        <Button.Group basic attached='bottom'>
-          <Button
-            icon
-            size="large"
-            onClick={() => enableEdit('1')}
-          >
-            <Icon name="edit outline" />
-          </Button>
-          <Button
-            icon size="large"
-            onClick={() => deletePostItem(deletePost)}
-          >
-            <Icon name="trash alternate outline" />
-          </Button>
-        </Button.Group>
-      ) : (
-        <Segment attached='bottom'>
-          <Button
-            onClick={() => updatePostItem(updatePost)}
-            >
-              Обнов{loadingUpdate ? 'ление' : 'ить'}
-          </Button>
-          <Button onClick={() => enableEdit('')}>Отмена</Button>
-        </Segment>
-      )}
-    </>
+    <RowDiv>
+      <div>
+        <Item.Content>
+          <div className='item-meta'>
+            <Item.Meta>{name}</Item.Meta>
+            <Item.Meta>{email}</Item.Meta>
+            {/* <Item.Meta>{moment(createdDate).format('DD MMMM YYYY HH:mm')}</Item.Meta> */}
+          </div>
+          {/* <div>{content}</div> */}
+        </Item.Content>
+      </div>
+      {id && <DeleteBlock user={props.user}/>}
+    </RowDiv>
   );
 };
 
-/* eslint-disable */
-const Composed = adopt({
-  updatePostMutate: ({render}) => <Mutation mutation={UPDATE_POST_MUTATION}>{render}</Mutation>,
-  deletePostMutate: ({render}) => <Mutation mutation={DELETE_POST_MUTATION}>{render}</Mutation>,
-});
-/* eslint-enable */
 
-class PostBlock extends Component {
-  static propTypes = {
-    postItem: PropTypes.shape({
-      id: PropTypes.string,
-      userId: PropTypes.string,
-      title: PropTypes.string,
-      content: PropTypes.string,
-      createdDate: PropTypes.string,
-    }).isRequired,
-  };
-
-  state = {
-    postItem: this.props.postItem,
-    authorIsCurrentUser: false,
-    // currentUserId: '',
-    readOnly: true,
-    showEdit: '',
-    // updated: false,
-    // deleted: false,
-  };
-
-
-  componentDidMount() {
-    // let {user} = this.context;
-    const { postItem, user } = this.props;
-    if (user !== null && postItem.userId === user.id) {
-      this.setState({
-        authorIsCurrentUser: true,
-      });
+class DeleteBlock extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {
+        id: '', 
+        name: '', 
+        email: '',
+        password: '',
+      },
+      readOnly: true,
+      showDelete: false
     }
   }
+  // state = {
+  //   user: this.props.user,
+  //   readOnly: true,
+  //   showDelete: false,
+  // };
 
-  enableEdit = (val) => {
-    console.log('PostBlock enableEdit');
-    if (val === '1') {
+
+  // componentDidMount() {
+  // let {user} = this.context;
+  // const { postItem, user } = this.props;
+  // if (user !== null && postItem.userId === user.id) {
+  //   this.setState({
+  //     authorIsCurrentUser: true,
+  //   });
+  // }
+  // }
+
+  enableDelete = (val) => {
+    console.log('PostBlock enableDelete');
+    const { user } = this.props;
+    if (val) {
       this.setState({
-        showEdit: '1',
+        user: { ...user, password: '', },
+        //user.password: '',
+        // user: this.props.user,
+        showDelete: true,
         readOnly: false,
       });
     } else {
       this.setState({
-        showEdit: '',
+        showDelete: false,
         readOnly: true,
-        postItem: this.props.postItem,
+        user: this.props.user,
       });
     }
   };
@@ -172,163 +146,148 @@ class PostBlock extends Component {
   handleChange = (e, data) => {
     const { name, type, value } = e.target;
     // console.log('handleChange: data: ', data);
+    console.log(`handleChange: name: ${name}, type: ${type}, value: ${value}`);
     // console.log(
     //   `handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${
     //     data.checked
     //   }, data.name: ${data.name}`,
     // );
 
-    let val = value;
-    let nam = name;
+    const val = value;
+    const nam = name;
 
     // if (data.name === 'isActive') {
     //   val = data.checked;
     //   nam = data.name;
     // }
 
-    const { postItem } = this.state;
-    postItem[nam] = val;
-    this.setState({ postItem });
+    const { user } = this.state;
+    user[nam] = val;
+    this.setState({ user });
   };
 
-  updatePostItem = async (updatePost) => {
-    // console.log('updatePostItem e: ', e);
-    // console.log('PostList updatePostItem this.state: ', this.state);
-    const { postItem } = this.state;
-    console.log(
-      'PostBlock updatePostItem this.state.postItem: ',
-      postItem,
-    );
-    const res = await updatePost({
-      variables: {
-        userId: postItem.userId,
-        postId: postItem.id,
-        title: postItem.title,
-        content: postItem.content,
-      },
-      refetchQueries: [{
-        query: ALL_POSTS_QUERY,
-      }],
-    });
-    console.log('updatePostItem UPDATED!!!! res: ', res);
-    // TO-DO update cache
-    this.setState({
-      postItem: this.props.postItem,
-      showEdit: '',
-      readOnly: true,
-    },
-      // this.props.updateBlog(res);
-    );
-  };
+  // updatePassword = async (updatePassword) => { };
 
-  deletePostItem = async (deletePost) => {
-    // console.log('PostList deletePostItem this.state: ', this.state);
-    const { postItem } = this.state;
-    const { user } = this.props;
+  deleteUserFn = async (deleteUser) => {
+    // console.log('PostList deleteUserFn this.state: ', this.state);
+    const { user } = this.state;
+    // const { user } = this.props;
     // console.log(
-    //   'PostBlock deletePostItem this.state.postItem: ',
+    //   'PostBlock deleteUserFn this.state.postItem: ',
     //   postItem,
     // );
-    const res = await deletePost({
+    const res = await deleteUser({
       variables: {
-        postId: postItem.id,
         userId: user.id,
+        password: user.password,
       },
     });
-    //console.log('deletePostItem DELETED!!!! res: ', res);
-    // TO-DO update cache
+    console.log('deleteUser DELETED!!!! res: ', res);
+
     this.setState({
-      postItem: '',
-      showEdit: '',
+      user: '',
+      showDelete: '',
       readOnly: true,
     },
     () => {
-      // this.props.updateBlog(res);
-      Router.push({
-        pathname: '/post',
-      });
+      console.log('DeleteBlock render -> state.user: ', user);
+      // Router.push({
+      //   pathname: '/',
+      // });
     });
   };
 
   render() {
-    // console.log('PostBlock render -> props', this.props);
-    // console.log('PostBlock render -> state', this.state);
-    const user = this.props.user ? this.props.user : {
-      id: '',
-      name: '',
-      email: '',
-    };
+    console.log('DeleteBlock render -> props', this.props);
+    // console.log('Profile render -> state', this.state);
+    // const user = this.props.user ? this.props.user : {
+    //   id: '',
+    //   name: '',
+    //   email: '',
+    // };
     const {
-      postItem,
-      authorIsCurrentUser,
+      user,
+      // authorIsCurrentUser,
       readOnly,
-      showEdit,
+      showDelete,
     } = this.state;
 
-    // console.log('PostBlock render -> state.postItem: ', postItem);
-    // console.log('PostBlock render -> this.props.user: ', user);
-    const updateProps = {
-      showEdit, enableEdit: this.enableEdit, updatePostItem: this.updatePostItem, deletePostItem: this.deletePostItem,
-    };
+    console.log('DeleteBlock render -> state.user: ', user);
+    console.log('DeleteBlock render -> this.props.user: ', this.props.user);
+    // const deleteProps = {
+    //    showDelete, enableDelete: this.enableDelete, deleteUserFn: this.deleteUserFn, deleteUser
+    // };
     return (
-      <Composed>
-      {({
-        updatePostMutate, deletePostMutate,
-      }) => {
-        const { loading: loadingUpdate, error: errorUpdate } = updatePostMutate;
-        //const { loading: loadingDelete, error: errorDelete } = deletePostMutate;
-        updateProps.updatePost = updatePostMutate;
-        updateProps.deletePost = deletePostMutate;
-        if (errorUpdate) {
+      <Mutation
+        mutation={DELETE_USER_MUTATION}
+        variables={{
+          userId: user.id,
+          password: user.password,
+        }}
+      >
+      {(deleteUser, { loading, error }) => {
+        if (error) {
           return (
           <Message negative>
             <Message.Header>Ошибка!</Message.Header>
-            <p>{errorUpdate.message.replace('GraphQL error: ', '')}</p>
+            <p>{error.message.replace('GraphQL error: ', '')}</p>
           </Message>);
         }
 
         return (
           <RowDiv>
             <Segment>
-              <Form.Field
-                control={TextareaAutosize}
-                className='title-view'
-                name="title"
-                readOnly={readOnly}
-                disabled={loadingUpdate}
-                defaultValue={postItem.title}
-                onChange={this.handleChange}
-              />
 
-              <div className="post-meta">
-                <p>{postItem.author.name}</p>
-                <p>{moment(postItem.createdDate).format('DD MMMM YYYY HH:mm')}</p>
-              </div>
+                {!showDelete ? (
+                  <Button.Group basic attached='bottom'>
+                    <Button
+                      icon
+                      size="large"
+                      onClick={() => this.enableDelete(true)}
+                    >
+                      {/* <Icon name="edit outline" /> */}
+                      Удалить аккаунт
+                    </Button>
+                    {/* <Button
+                      icon size="large"
+                      onClick={() => deleteUserFn(deleteUser)}
+                    >
+                      <Icon name="trash alternate outline" />
+                    </Button> */}
+                  </Button.Group>
+                ) : (
+                  <Segment attached='bottom'>
 
-              <Form>
-                <Form.Field
-                  control={TextareaAutosize}
-                  className='post-content'
-                  name="content"
-                  readOnly={readOnly}
-                  disabled={loadingUpdate}
-                  defaultValue={postItem.content}
-                  onChange={this.handleChange}
-                  placeholder='Текст поста'
-                />
-              </Form>
-              {
-                authorIsCurrentUser
-                && <UpdateBlock updateProps={updateProps} />
-              }
+                    <Form.Input
+                      fluid
+                      type="password"
+                      name="password"
+                      placeholder="пароль"
+                      readOnly={readOnly}
+                      disabled={loading}
+                      value={user.password}
+                      onChange={this.handleChange}
+                      required
+                    />
+
+                    <Button
+                      icon size="large"
+                      onClick={() => this.deleteUserFn(deleteUser)}
+                    >
+                      <Icon name="trash alternate outline" />
+                    </Button>
+                    <Button onClick={() => this.enableDelete(false)}>Отмена</Button>
+
+                  </Segment>
+                )}
+
             </Segment>
-            <CommentBlock post={postItem} userId={user.id} />
           </RowDiv>
         );
       }}
-      </Composed>
+      </Mutation>
     );
   }
 }
 
-export default withUserContext(PostBlock);
+export default withUserContext(Profile);

@@ -240,14 +240,21 @@ const resolvers = {
       // return { token: jToken };
       return updatedUser;
     },
-    deleteUser: async (_, { id, password }, context) => {
-      // console.log(`m deleteUser id: ${JSON.stringify(id)}`);
+    deleteUser: async (_, arg, context) => {
+      console.log(`m deleteUser arg: ${JSON.stringify(arg)}`);
+      console.log(`m deleteUser context.secret: ${context.secret}`);
+      console.log(`m deleteUser context.user: ${JSON.stringify(context.user)}`);
+      console.log(`m deleteUser context.user.id: ${context.user.id}`);
       if (!context.user) {
         return null;
       }
       //const userId  = context.user.id;
+      const { userId: id, password } = arg;
       //TO-DO do request throw Promise for catch MongoDB error
-      const user = await getUser(context.user.id);
+      const AuthArg = ['_id', id];
+      // console.log(`m signIn AuthArg: ${JSON.stringify(AuthArg)}`);
+      const user = await getUserByArg(AuthArg);
+      //const user = await getUser(context.user.id);
       console.log(`m deleteUser getUser user: ${JSON.stringify(user)}`);
       if (!user) {
         throw new Error(

@@ -135,7 +135,7 @@ class NavBar extends React.Component {
                             onClick={this.handleItemClick}
                           >
                           <div className="MenuItem">
-                            <Link href="#">
+                            <Link href="/profile">
                               <a>
                               <Label>
                                 <Icon name='user outline' />
