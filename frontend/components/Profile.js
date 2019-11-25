@@ -4,15 +4,15 @@ import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import {
-  Message, Segment, Button, Icon, Form, Item, Label, Header, Divider,
+  Message, Segment, Button, Icon, Form, Item, Label, Header, Divider, Card, Image, 
 } from 'semantic-ui-react';
 import TextareaAutosize from 'react-textarea-autosize';
 import Router from 'next/router';
 import styled from 'styled-components';
 import moment from 'moment';
 import withUserContext from '../lib/withUserContext';
-// import { ALL_POSTS_QUERY } from './PostList';
-// import CommentBlock from './CommentBlock';
+import { SIGN_OUT_MUTATION } from './SignOut';
+import { CURRENT_USER_QUERY } from './User';
 
 
 const RowDiv = styled.div`
@@ -72,20 +72,37 @@ const Profile = (props) => {
   console.log('Profile props: ', props);
   // static propTypes = {
   const {
-    id, name, email,
+    id, name, email, numberOfComments, numberOfPost, 
   } = props.user;
   return (
     <RowDiv>
-      <div>
-        <Item.Content>
-          <div className='item-meta'>
-            <Item.Meta>{name}</Item.Meta>
-            <Item.Meta>{email}</Item.Meta>
-            {/* <Item.Meta>{moment(createdDate).format('DD MMMM YYYY HH:mm')}</Item.Meta> */}
-          </div>
-          {/* <div>{content}</div> */}
-        </Item.Content>
-      </div>
+      <Segment>
+      <Card>
+      <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+      <Card.Content>
+        <Card.Header>Имя: {name}</Card.Header>
+        <Card.Meta>
+          <span className='date'>
+          email: {email}</span>
+        </Card.Meta>
+        <Card.Description>
+          I'm writer and musician, living in Nashville.
+        </Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+        <a>
+            <Icon name='wordpress forms' />
+            Постов: {numberOfPost}
+        </a>
+        </Card.Content>
+        <Card.Content extra>
+        <a>
+          <Icon name='comment alternate outline' />
+          Комментариев: {numberOfComments}
+        </a>
+      </Card.Content>
+    </Card>
+    </Segment>
       {id && <DeleteBlock user={props.user}/>}
     </RowDiv>
   );
@@ -147,19 +164,9 @@ class DeleteBlock extends Component {
     const { name, type, value } = e.target;
     // console.log('handleChange: data: ', data);
     console.log(`handleChange: name: ${name}, type: ${type}, value: ${value}`);
-    // console.log(
-    //   `handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${
-    //     data.checked
-    //   }, data.name: ${data.name}`,
-    // );
 
     const val = value;
     const nam = name;
-
-    // if (data.name === 'isActive') {
-    //   val = data.checked;
-    //   nam = data.name;
-    // }
 
     const { user } = this.state;
     user[nam] = val;
@@ -172,15 +179,20 @@ class DeleteBlock extends Component {
     // console.log('PostList deleteUserFn this.state: ', this.state);
     const { user } = this.state;
     // const { user } = this.props;
-    // console.log(
-    //   'PostBlock deleteUserFn this.state.postItem: ',
-    //   postItem,
-    // );
+
     const res = await deleteUser({
       variables: {
         userId: user.id,
         password: user.password,
       },
+      refetchQueries: [
+          // {
+          //   query: CURRENT_USER_QUERY,
+          // },
+          {
+            mutation: SIGN_OUT_MUTATION,
+          },
+        ]
     });
     console.log('deleteUser DELETED!!!! res: ', res);
 
@@ -191,9 +203,9 @@ class DeleteBlock extends Component {
     },
     () => {
       console.log('DeleteBlock render -> state.user: ', user);
-      // Router.push({
-      //   pathname: '/',
-      // });
+      Router.push({
+        pathname: '/',
+      });
     });
   };
 
@@ -214,9 +226,6 @@ class DeleteBlock extends Component {
 
     console.log('DeleteBlock render -> state.user: ', user);
     console.log('DeleteBlock render -> this.props.user: ', this.props.user);
-    // const deleteProps = {
-    //    showDelete, enableDelete: this.enableDelete, deleteUserFn: this.deleteUserFn, deleteUser
-    // };
     return (
       <Mutation
         mutation={DELETE_USER_MUTATION}
@@ -248,12 +257,6 @@ class DeleteBlock extends Component {
                       {/* <Icon name="edit outline" /> */}
                       Удалить аккаунт
                     </Button>
-                    {/* <Button
-                      icon size="large"
-                      onClick={() => deleteUserFn(deleteUser)}
-                    >
-                      <Icon name="trash alternate outline" />
-                    </Button> */}
                   </Button.Group>
                 ) : (
                   <Segment attached='bottom'>
@@ -274,7 +277,8 @@ class DeleteBlock extends Component {
                       icon size="large"
                       onClick={() => this.deleteUserFn(deleteUser)}
                     >
-                      <Icon name="trash alternate outline" />
+                      {/*<Icon name="trash alternate outline" />*/}
+                      Удалить аккаунт
                     </Button>
                     <Button onClick={() => this.enableDelete(false)}>Отмена</Button>
 
