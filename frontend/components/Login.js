@@ -274,7 +274,18 @@ class Login extends Component {
   createAccount = async (e, signupMutate) => {
     e.preventDefault();
     // console.log('Login SignUp this.state: ', this.state);
-    const { name, email, password } = this.state;
+    const { name, email, password, loading } = this.state;
+    await this.setState({
+        loading: true,
+      },
+      // () => {
+      //   // console.log('Login createAccount this.state: ', this.state);
+      //   // this.props.handleRes(res);
+      //   this.props.closeLoginForm();
+      // }
+      );
+    
+    //TO-DO spiner for await
     const res = await signupMutate({
       variables: { name, email, password },
       refetchQueries: [
@@ -306,6 +317,7 @@ class Login extends Component {
         email: '',
         password: '',
         signup: false,
+        loading: false,
         error: '',
       },
       () => {
@@ -404,14 +416,17 @@ class Login extends Component {
   render() {
     // console.log('Login this.props: ', this.props);
     // console.log('Signin this.state: ', this.state);
-    const { signup, error } = this.state;
+    const { signup, error, loading } = this.state;
+    console.log('Login this.state.loading: ', loading);
     return (
       <Composed>
         {({
-          currentUser, signinMutate, signupMutate, currentUserMutate,
+          currentUser, signinMutate, signupMutate, currentUserMutate, 
         }) => {
-          const { loading: loadingsignin, update } = signinMutate;
-          // console.log('Login errorsignin: ', errorsignin);
+
+          // const { loading: loadingsignin, update: signinupdate } = signinMutate;
+          // const { loading: loadingsignup, update: updatesignup } = signupMutate;
+          // console.log('Login signupMutate: ', signupMutate);
           return (
             <RowDiv className="login-background">
               <div className="blur">
@@ -422,7 +437,8 @@ class Login extends Component {
                       <Icon name='close' />
                     </Button> */}
                     {error && <ErrorMessage error={error} />}
-                    <fieldset disabled={loadingsignin} aria-busy={loadingsignin}>
+                    {/*<fieldset disabled={loading} aria-busy={loading}>*/}
+                    <fieldset>
                       {/* <Error error={error} /> */}
                       {signup
                         && <div className="formItem">
@@ -436,6 +452,8 @@ class Login extends Component {
                                     type="text"
                                     name="name"
                                     placeholder="имя"
+                                    disabled={loading}
+                                    readOnly={loading}
                                     value={this.state.name}
                                     onChange={this.saveToState}
                                   />
@@ -452,9 +470,11 @@ class Login extends Component {
                                 <Icon name="mail" />
                               </span>
                               <input
-                                type="text"
+                                type="email"
                                 name="email"
                                 placeholder="email"
+                                disabled={loading}
+                                readOnly={loading}
                                 value={this.state.email}
                                 onChange={this.saveToState}
                               />
@@ -473,6 +493,8 @@ class Login extends Component {
                                 type="password"
                                 name="password"
                                 placeholder="пароль"
+                                disabled={loading}
+                                readOnly={loading}
                                 value={this.state.password}
                                 onChange={this.saveToState}
                               />
@@ -488,12 +510,16 @@ class Login extends Component {
                                 ? <Button compact fluid
                                     onClick={(e) => this.createAccount(e, signupMutate, currentUser)}
                                     positive
+                                    loading={loading}
                                     >
                                     <span>Создать аккаунт</span>
                                   </Button>
-                                : <Button.Group compact fluid>
+                                : 
+                                
+                                  <Button.Group compact fluid>
                                     <Button
                                       onClick={(e) => this.signInHandle(e, signinMutate, currentUserMutate)}
+                                      loading={loading}
                                       positive
                                     >
                                       <span>Войти</span>
@@ -505,6 +531,7 @@ class Login extends Component {
                                       <span>Зарегистрироваться</span>
                                     </Button>
                                   </Button.Group>
+                                  
                             }
                           </span>
                         </div>
