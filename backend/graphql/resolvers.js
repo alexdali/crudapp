@@ -270,7 +270,16 @@ const resolvers = {
       }
       const delUser = await deleteUser(id);
       console.log(`m deleteUser delUser: ${JSON.stringify(delUser)}`);
-      if (delUser) return { message: 'Success' };
+      if (!delUser) {
+        throw new Error(
+          'Ошибка при удалении аккаунта!',
+        );
+      }
+      if (delUser) {
+        context.res.clearCookie('token');
+        console.log(`m deleteUser clearCookie context.res: ${context.res}`);
+        return { message: 'Success' };
+      }
     },
     createPost: async (_, {
       userId, title, content,
