@@ -1,33 +1,36 @@
-import React, { Component } from 'react';
-import { withApollo } from '@apollo/react-hoc';
-import { Grid } from 'semantic-ui-react';
-import Sticky from 'react-stickynode';
+import App, { Container } from 'next/app';
+import { ApolloProvider } from 'react-apollo';
 import UserContext from '../components/UserContext';
+import Page from '../components/Page';
+import ErrorBoundary from '../components/ErrorBoundary';
 import { CURRENT_USER_QUERY } from '../components/User';
 import { ALL_USERS_QUERY } from '../components/LeftSideBar';
-// import withUserContext from '../lib/withUserContext';
-import Main from './Main';
-import LeftSideBar from './LeftSideBar';
+import CreateApolloClient from '../lib/CreateApolloClient';
 
-// TO-DO replace react-stickynode: old method componentWillReceiveProps
+// const { Provider, Consumer } = React.createContext();
 
-// const Index = () => (
-//       <Grid celled='internally'>
-//         <Grid.Row>
-//           <Grid.Column width={3}>
-//             <Sticky enabled top={20}>
-//               <LeftSideBar />
-//             </Sticky>
-//           </Grid.Column>
-//           <Grid.Column width={13}>
-//             <Main />
-//           </Grid.Column>
-//         </Grid.Row>
-//       </Grid>
-// );
+const client = CreateApolloClient({
+  ssrForceFetchDelay: 100,
+});
 
+// const queryUserSubscription = client.watchQuery({
+//   query: CURRENT_USER_QUERY,
+// });
+// const queryAuthorsSubscription = client.watchQuery({
+//   query: ALL_USERS_QUERY,
+// });
 
-  class Index extends Component {
+class MyApp extends App {
+  static async getInitialProps({ Component, ctx }) {
+    let pageProps = {};
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+    // this exposes the query to the user
+    pageProps.query = ctx.query;
+    return { pageProps };
+  }
+
   state = {
     user: null,
     authors: null,
@@ -35,7 +38,7 @@ import LeftSideBar from './LeftSideBar';
   };
 
   subscriptionUser() {
-    return this.props.client.watchQuery({
+    return client.watchQuery({
       query: CURRENT_USER_QUERY,
     }).subscribe({
       next: ({ data }) => {
@@ -47,7 +50,7 @@ import LeftSideBar from './LeftSideBar';
   }
 
   subscriptionAuthors() {
-    return this.props.client.watchQuery({
+    return client.watchQuery({
       query: ALL_USERS_QUERY,
     }).subscribe({
       next: ({ data }) => {
@@ -84,8 +87,16 @@ import LeftSideBar from './LeftSideBar';
     this.subscriptionAuthors.unsubscribe();
     // console.log('_app componentWillUnmount Subscription.unsubscribe');
   }
+  // setCurrentUser = (user)=>{
+  //   this.setState(
+  //     {
+  //       user: {...user}
+  //     });
+  // }
 
   render() {
+    // const { Component, apollo, pageProps } = this.props;
+    const { Component, pageProps } = this.props;
     console.log('_app this.state: ', this.state);
     const user = this.state.user ? this.state.user : {
       id: '',
@@ -96,22 +107,18 @@ import LeftSideBar from './LeftSideBar';
     };
     const authors = this.state.authors ? this.state.authors : [];
     return (
-    <UserContext.Provider value={{ user, authors }}>
-      <Grid celled='internally'>
-        <Grid.Row>
-          <Grid.Column width={3}>
-            <Sticky enabled top={20}>
-              <LeftSideBar />
-            </Sticky>
-          </Grid.Column>
-          <Grid.Column width={13}>
-            <Main />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </UserContext.Provider>
-);
-    }
+    <ErrorBoundary>
+        <ApolloProvider client={client}>
+          <UserContext.Provider value={{ user, authors }}>
+            <Page>
+              <Component {...pageProps}/>
+            </Page>
+            </UserContext.Provider>
+        </ApolloProvider>
+    </ErrorBoundary>
+    );
+  }
 }
 
-export default withApollo(Index);
+export { client as apolloClient };
+export default MyApp;
