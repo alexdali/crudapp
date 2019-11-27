@@ -27,7 +27,7 @@ module.exports = withCSS({
      * Returns environment variables as an object
      */
     const env = Object.keys(process.env).reduce((acc, curr) => {
-      console.log('webpack:config process.env[curr]: ', process.env[curr]);
+      // console.log('webpack:config process.env[curr]: ', process.env[curr]);
       acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);
       return acc;
     }, {});
