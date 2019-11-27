@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next -p 3333",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "next start -p 3333",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "next build"
   },
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/alexdali/crudapp.git"
   },
-  "author": "alextas (alexdali@gmail.com)",
+  "author": "alextas",
   "license": "ISC",
   "dependencies": {
     "@apollo/react-hoc": "^3.1.3",
@@ -29,6 +29,7 @@
     "babel-core": "^6.26.3",
     "babel-plugin-styled-components": "^1.10.6",
     "cross-fetch": "^3.0.4",
+    "dotenv": "^8.2.0",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "moment": "^2.24.0",

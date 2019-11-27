@@ -1,7 +1,12 @@
 # crudapp
-frontend stack:
 
-backend stack:
+tech stack:
+- Next.js (frontend)
+- GraphQL (frontend, backend)
+- Node.js (backend)
+- Apollo Client/Server (frontend, backend)
+- MongoDB (backend)
+
 
 TO-DO:
 FRONTEND
