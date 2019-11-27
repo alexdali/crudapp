@@ -60,7 +60,7 @@ const corsOptions = {
   credentials: true,
 };
 
-
+// cors
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
