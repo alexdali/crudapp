@@ -99,7 +99,7 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
     console.log('_app this.state: ', this.state);
     // console.log('_app process.env.ENDPOINT: ', process.env.ENDPOINT);
-    // console.log('_app process.env.PROD_ENDPOINT: ', process.env.PROD_ENDPOINT);
+    console.log('_app process.env.PROD_ENDPOINT: ', process.env.PROD_ENDPOINT);
     const user = this.state.user ? this.state.user : {
       id: '',
       name: '',
