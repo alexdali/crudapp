@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next -p 3333",
     "build": "next build",
-    "start": "next start -p 3333",
+    "start": "next start -p $PORT",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "next build"
   },
