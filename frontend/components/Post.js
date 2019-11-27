@@ -29,7 +29,7 @@ const RowDiv = styled.div`
 // `;
 
 const Post = (props) => {
-  // console.log('const Post props: ', props);
+  console.log('const Post props: ', props);
   let { authors } = props;
   if (authors === null) authors = [];
   return (

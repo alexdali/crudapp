@@ -31,84 +31,89 @@ class MyApp extends App {
     return { pageProps };
   }
 
-  // state = {
-  //   user: null,
-  //   authors: null,
+  state = {
+    user: null,
+    authors: null,
 
-  // };
+  };
 
-  // subscriptionUser() {
-  //   return client.watchQuery({
-  //     query: CURRENT_USER_QUERY,
-  //   }).subscribe({
-  //     next: ({ data }) => {
-  //       console.log('_app componentDidMount queryUserSubscription data: ', data);
-  //       if (data.me !== 'undefined') { this.setState({ user: data.me }); }
-  //     },
-  //     error: (e) => console.error(e),
-  //   });
+  subscriptionUser() {
+    return client.watchQuery({
+      query: CURRENT_USER_QUERY,
+    }).subscribe({
+      next: ({ data }) => {
+        console.log('_app componentDidMount queryUserSubscription data: ', data);
+        if (data.me !== 'undefined') { this.setState({ user: data.me }); }
+      },
+      error: (e) => console.error(e),
+    });
+  }
+
+  subscriptionAuthors() {
+    return client.watchQuery({
+      query: ALL_USERS_QUERY,
+    }).subscribe({
+      next: ({ data }) => {
+        console.log('_app componentDidMount queryAuthorsSubscription data: ', data);
+        if (data.users !== 'undefined') { this.setState({ authors: data.users }); }
+      },
+      error: (e) => console.error(e),
+    });
+  }
+
+  componentDidMount() {
+    // queryUserSubscription.subscribe({
+    //   next: ({ data }) => {
+    //     console.log('_app componentDidMount queryUserSubscription data: ', data);
+    //     if (data.me !== 'undefined') { this.setState({ user: data.me }); }
+    //   },
+    //   error: (e) => console.error(e),
+    // });
+    this.subscriptionUser();
+    // queryAuthorsSubscription.subscribe({
+    //   next: ({ data }) => {
+    //     console.log('_app componentDidMount queryAuthorsSubscription data: ', data);
+    //     if (data.users !== 'undefined') { this.setState({ authors: data.users }); }
+    //   },
+    //   error: (e) => console.error(e),
+    // });
+    this.subscriptionAuthors();
+  }
+
+  componentWillUnmount() {
+    // queryUserSubscription.unsubscribe();
+    this.subscriptionUser().unsubscribe();
+    // queryAuthorsSubscription.unsubscribe();
+    this.subscriptionAuthors().unsubscribe();
+    console.log('_app componentWillUnmount Subscription.unsubscribe');
+  }
+  // setCurrentUser = (user)=>{
+  //   this.setState(
+  //     {
+  //       user: {...user}
+  //     });
   // }
-
-  // subscriptionAuthors() {
-  //   return client.watchQuery({
-  //     query: ALL_USERS_QUERY,
-  //   }).subscribe({
-  //     next: ({ data }) => {
-  //       console.log('_app componentDidMount queryAuthorsSubscription data: ', data);
-  //       if (data.users !== 'undefined') { this.setState({ authors: data.users }); }
-  //     },
-  //     error: (e) => console.error(e),
-  //   });
-  // }
-
-  // componentDidMount() {
-  //   // queryUserSubscription.subscribe({
-  //   //   next: ({ data }) => {
-  //   //     console.log('_app componentDidMount queryUserSubscription data: ', data);
-  //   //     if (data.me !== 'undefined') { this.setState({ user: data.me }); }
-  //   //   },
-  //   //   error: (e) => console.error(e),
-  //   // });
-  //   this.subscriptionUser();
-  //   // queryAuthorsSubscription.subscribe({
-  //   //   next: ({ data }) => {
-  //   //     console.log('_app componentDidMount queryAuthorsSubscription data: ', data);
-  //   //     if (data.users !== 'undefined') { this.setState({ authors: data.users }); }
-  //   //   },
-  //   //   error: (e) => console.error(e),
-  //   // });
-  //   this.subscriptionAuthors();
-  // }
-
-  // componentWillUnmount() {
-  //   // queryUserSubscription.unsubscribe();
-  //   this.subscriptionUser.unsubscribe();
-  //   // queryAuthorsSubscription.unsubscribe();
-  //   this.subscriptionAuthors.unsubscribe();
-  //   // console.log('_app componentWillUnmount Subscription.unsubscribe');
-  // }
-
 
   render() {
     // const { Component, apollo, pageProps } = this.props;
     const { Component, pageProps } = this.props;
     console.log('_app this.state: ', this.state);
-    // const user = this.state.user ? this.state.user : {
-    //   id: '',
-    //   name: '',
-    //   email: '',
-    //   numberOfPost: 0,
-    //   numberOfComments: 0,
-    // };
-    // const authors = this.state.authors ? this.state.authors : [];
+    const user = this.state.user ? this.state.user : {
+      id: '',
+      name: '',
+      email: '',
+      numberOfPost: 0,
+      numberOfComments: 0,
+    };
+    const authors = this.state.authors ? this.state.authors : [];
     return (
     <ErrorBoundary>
         <ApolloProvider client={client}>
-          {/*<UserContext.Provider value={{ user, authors }}>*/}
+          <UserContext.Provider value={{ user, authors }}>
             <Page>
               <Component {...pageProps}/>
             </Page>
-            {/*</UserContext.Provider>*/}
+            </UserContext.Provider>
         </ApolloProvider>
     </ErrorBoundary>
     );
