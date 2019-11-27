@@ -12,9 +12,8 @@ import { CURRENT_USER_QUERY } from '../components/User';
 const httpLink = createHttpLink({
   // uri: endpoint,
   // uri: prodEndpoint,
-  // uri: 'https://crudapp-backend-heroku.herokuapp.com/',
-  // uri: process.env.PROD_ENDPOINT,
-  uri: process.env.NODE_ENV === 'development' ? process.env.ENDPOINT : process.env.PROD_ENDPOINT,
+  uri: process.env.PROD_ENDPOINT,
+  // uri: process.env.NODE_ENV === 'development' ? process.env.ENDPOINT : process.env.PROD_ENDPOINT,
   credentials: 'include',
 });
 
