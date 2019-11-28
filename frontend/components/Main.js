@@ -4,7 +4,6 @@ import PostList from './PostList';
 
 class Main extends Component {
   render() {
-    console.log('Main props: ', this.props);
     const user = this.props.user ? this.props.user : {
       id: '',
       name: '',

@@ -34,13 +34,12 @@ const MenuDiv = styled.div`
     margin-top: 0;
   }
   .ui.menu .ui.dropdown .menu > .selected.item:active {
-    /* background: rgba(0, 0, 0, 0.05) !important;*/
     color: rgba(0, 0, 0, 0.95) !important;
   }
 `;
 
 
-class NavBar extends React.Component {
+class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,27 +50,19 @@ class NavBar extends React.Component {
 
   handleRes = (res) => {
     if (res) {
-      // console.log('NavBar handleRes res.data.signIn: ', res.data.signIn);
       this.setState({
         login: false,
-      },
-      // () => {
-      //   this.props.setCurrentUser();
-      // }
-      );
+      });
     }
   };
 
   closeLoginForm = () => {
-    console.log('NavBar closeLoginForm');
     this.setState({
       login: false,
     });
   };
 
   handleItemClick = (e, data) => {
-    // console.log('NavBar handleItemClick: e', e);
-    // console.log('NavBar handleItemClick data: ', data);
     const { name } = data;
     if (name === 'login') {
       this.setState({
@@ -94,7 +85,6 @@ class NavBar extends React.Component {
         {({ data, loading, error }) => {
           if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
           if (typeof data === 'undefined') return null;
-          // console.log('NavBar render UserContextConsumer user: ', user);
           return (
             <>
             <MenuDiv>

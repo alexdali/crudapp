@@ -1,28 +1,19 @@
-import React from 'react';
-// import { Query } from 'react-apollo';
+import React, { Component } from 'react';
 import Router, { withRouter } from 'next/router';
 import {
   Segment, Image, Icon, Button,
 } from 'semantic-ui-react';
 import LoadingBar from './LoadingBar';
 
-class ProfileSidebar extends React.PureComponent {
-  // state = {
-  //   user: this.props.user,
-  // };
-
+class ProfileSidebar extends Component {
    handleClick = () => {
-     console.log('ProfileSidebar handleClick');
      Router.push({
        pathname: '/post',
      });
    };
 
    render() {
-     // console.log('ProfileSidebar render props.user: ', this.props.user);
      const { asPath } = this.props.router;
-     // console.log('ProfileSidebar render asPath: ', asPath);
-     // console.log('ProfileSidebar render this.props: ', this.props);
      const user = this.props.user ? this.props.user : {
        id: '',
        name: '',

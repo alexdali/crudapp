@@ -15,18 +15,6 @@ import { COMMENTS_BY_POST_QUERY } from './CommentsPostQueries';
 import LoadingBar from './LoadingBar';
 import ErrorMessage from './ErrorMessage';
 
-// const COMMENTS_BY_POST_QUERY = gql`
-//   query COMMENTS_BY_POST_QUERY ($id: String!) {
-//     commentsByPost(id: $id) {
-//       id
-//       postId
-//       userId
-//       content
-//       createdDate
-//     }
-//   }
-// `;
-
 const CommentDiv = styled.div`
    margin: 2.5em 0 0.5em;
    padding: 0.5em;
@@ -60,7 +48,6 @@ const CommentCard = (props) => {
   const {
     id, userId, postId, content, createdDate,
   } = props.comment;
-  console.log('CommentCard props', props);
   return (
     <ItemDiv>
       <Item.Content>
@@ -77,33 +64,17 @@ const CommentCard = (props) => {
 // TO-DO: pagination
 
 const CommentBlock = (props) => {
-  // console.log('CommentBlock props: ', props);
   const { post, userId, authors } = props;
-  // console.log('CommentBlock post.id: ', post.id);
-  // let commentsByPost= [];
   return (
-
     <Query
       query={COMMENTS_BY_POST_QUERY}
       variables={{ id: post.id }}
     >
       {({ data, loading, error }) => {
-        // console.log('COMMENTS_BY_POST_QUERY data', data);
-        /* if (loading) {
-          return (<div>
-              <p>
-              Загрузка...
-              <i className="spinner icon"></i>
-              </p>
-            </div>);
-        } */
         if (loading) return <LoadingBar count={2}/>;
+        // TO-DO handlers errors from server side
         if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
         const commentsByPost = ((typeof data === 'undefined') || (data.commentsByPost.length === 0)) ? [] : data.commentsByPost;
-        // console.log('CommentBlock data.commentsByPost: ', data.commentsByPost);
-        // const {commentsByPost}= data;
-        // commentsByPost= data.commentsByPost;
-        // console.log('CommentBlock commentsByPost: ', commentsByPost);
         return (
           <CommentDiv>
             <Divider horizontal>
@@ -127,11 +98,8 @@ const CommentBlock = (props) => {
                         numberOfComments: 0,
                       };
                     }
-                    /* console.log('commentsByPost item.userId: ', item.userId);
-                    console.log('commentsByPost author: ', author); */
                     const comment = { ...item };
                     comment.author = { ...author };
-                    /* console.log('commentsByPost comment: ', comment); */
                     return (<CommentCard key={comment.id} comment={comment} />);
                   })
                 }
@@ -140,9 +108,7 @@ const CommentBlock = (props) => {
         );
       }}
     </Query>
-
   );
 };
 
-export { COMMENTS_BY_POST_QUERY };
 export default withUserContext(CommentBlock);

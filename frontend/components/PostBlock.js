@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { Mutation, Query } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import {
-  Message, Segment, Button, Icon, Form, TextArea, Label, Header, Divider,
+  Message, Segment, Button, Icon, Form,
 } from 'semantic-ui-react';
 import TextareaAutosize from 'react-textarea-autosize';
 import Router from 'next/router';
 import styled from 'styled-components';
 import moment from 'moment';
-// import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
 import { ALL_POSTS_QUERY } from './PostList';
+import { CURRENT_USER_QUERY } from './User';
 import CommentBlock from './CommentBlock';
 
 
@@ -135,16 +135,12 @@ class PostBlock extends Component {
   state = {
     postItem: this.props.postItem,
     authorIsCurrentUser: false,
-    // currentUserId: '',
     readOnly: true,
     showEdit: '',
-    // updated: false,
-    // deleted: false,
   };
 
 
   componentDidMount() {
-    // let {user} = this.context;
     const { postItem, user } = this.props;
     if (user !== null && postItem.userId === user.id) {
       this.setState({
@@ -154,7 +150,6 @@ class PostBlock extends Component {
   }
 
   enableEdit = (val) => {
-    console.log('PostBlock enableEdit');
     if (val === '1') {
       this.setState({
         showEdit: '1',
@@ -171,20 +166,8 @@ class PostBlock extends Component {
 
   handleChange = (e, data) => {
     const { name, type, value } = e.target;
-    // console.log('handleChange: data: ', data);
-    // console.log(
-    //   `handleChange: name: ${name}, type: ${type}, value: ${value}, data.checked: ${
-    //     data.checked
-    //   }, data.name: ${data.name}`,
-    // );
-
-    let val = value;
-    let nam = name;
-
-    // if (data.name === 'isActive') {
-    //   val = data.checked;
-    //   nam = data.name;
-    // }
+    const val = value;
+    const nam = name;
 
     const { postItem } = this.state;
     postItem[nam] = val;
@@ -192,13 +175,7 @@ class PostBlock extends Component {
   };
 
   updatePostItem = async (updatePost) => {
-    // console.log('updatePostItem e: ', e);
-    // console.log('PostList updatePostItem this.state: ', this.state);
     const { postItem } = this.state;
-    console.log(
-      'PostBlock updatePostItem this.state.postItem: ',
-      postItem,
-    );
     const res = await updatePost({
       variables: {
         userId: postItem.userId,
@@ -210,49 +187,37 @@ class PostBlock extends Component {
         query: ALL_POSTS_QUERY,
       }],
     });
-    console.log('updatePostItem UPDATED!!!! res: ', res);
-    // TO-DO update cache
     this.setState({
       postItem: this.props.postItem,
       showEdit: '',
       readOnly: true,
-    },
-      // this.props.updateBlog(res);
-    );
+    });
   };
 
   deletePostItem = async (deletePost) => {
-    // console.log('PostList deletePostItem this.state: ', this.state);
     const { postItem } = this.state;
     const { user } = this.props;
-    // console.log(
-    //   'PostBlock deletePostItem this.state.postItem: ',
-    //   postItem,
-    // );
     const res = await deletePost({
       variables: {
         postId: postItem.id,
         userId: user.id,
       },
+      refetchQueries: [{
+        query: ALL_POSTS_QUERY,
+      },
+      {
+        query: CURRENT_USER_QUERY,
+      }],
     });
-    //console.log('deletePostItem DELETED!!!! res: ', res);
-    // TO-DO update cache
-    this.setState({
-      postItem: '',
-      showEdit: '',
-      readOnly: true,
-    },
-    () => {
-      // this.props.updateBlog(res);
+
+    if (res) {
       Router.push({
         pathname: '/post',
       });
-    });
+    }
   };
 
   render() {
-    // console.log('PostBlock render -> props', this.props);
-    // console.log('PostBlock render -> state', this.state);
     const user = this.props.user ? this.props.user : {
       id: '',
       name: '',
@@ -264,9 +229,6 @@ class PostBlock extends Component {
       readOnly,
       showEdit,
     } = this.state;
-
-    // console.log('PostBlock render -> state.postItem: ', postItem);
-    // console.log('PostBlock render -> this.props.user: ', user);
     const updateProps = {
       showEdit, enableEdit: this.enableEdit, updatePostItem: this.updatePostItem, deletePostItem: this.deletePostItem,
     };
@@ -276,7 +238,6 @@ class PostBlock extends Component {
         updatePostMutate, deletePostMutate,
       }) => {
         const { loading: loadingUpdate, error: errorUpdate } = updatePostMutate;
-        //const { loading: loadingDelete, error: errorDelete } = deletePostMutate;
         updateProps.updatePost = updatePostMutate;
         updateProps.deletePost = deletePostMutate;
         if (errorUpdate) {

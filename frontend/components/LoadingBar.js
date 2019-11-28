@@ -1,6 +1,8 @@
 import React from 'react';
 import { Segment, Placeholder } from 'semantic-ui-react';
 
+// function return placeholder component
+// arg: count - specifies the number of rendered components
 const loop = (count) => {
   const arr = [];
   for (let i = 0; i < count; i++) {

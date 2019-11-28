@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
-import { Mutation, Query } from 'react-apollo';
+import React from 'react';
+import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Item, Segment } from 'semantic-ui-react';
-import styled from 'styled-components';
-// import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
 import ErrorMessage from './ErrorMessage';
 import PostCard from './PostCard';
@@ -25,7 +23,6 @@ const POSTS_BY_USER_QUERY = gql`
 `;
 
 const PostsByUser = (props) => {
-  console.log('PostsByUser props: ', props);
   let { authors } = props;
   if (authors === null) authors = [];
   return (
@@ -44,12 +41,9 @@ const PostsByUser = (props) => {
         }
         if (error) return (<ErrorMessage error={'Ошибка! Отсутствует соединение с базой данных'}/>);
         if ((typeof data === 'undefined') || (data.postsByUser.length === 0)) return null;
-        console.log('POSTS_BY_USER_QUERY data', data);
         return (
           <Item.Group divided relaxed='very'>
             {data.postsByUser.map((item) => {
-              // if(authors!==null)
-              // const author = authors.filter(el=> el.id===item.userId);
               let author = authors.find((el) => el.id === item.userId);
               if (typeof author === 'undefined') {
                 author = {
@@ -60,8 +54,6 @@ const PostsByUser = (props) => {
                   numberOfComments: 0,
                 };
               }
-              // console.log('PostsByUser post.userId: ', item.userId);
-              // console.log('PostsByUser author: ', author);
               const post = { ...item };
               post.author = { ...author };
               return (

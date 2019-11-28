@@ -6,14 +6,12 @@ import { HttpLink, createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import 'cross-fetch/polyfill';
 import dotenv from 'dotenv';
-// import { endpoint, prodEndpoint } from '../config';
 import { CURRENT_USER_QUERY } from '../components/User';
 
 const httpLink = createHttpLink({
-  // uri: endpoint,
-  // uri: prodEndpoint,
-  uri: process.env.PROD_ENDPOINT,
-  // uri: process.env.NODE_ENV === 'development' ? process.env.ENDPOINT : process.env.PROD_ENDPOINT,
+  // uri: process.env.PROD_ENDPOINT,
+  // uri: process.env.ENDPOINT,
+  uri: process.env.NODE_ENV === 'development' ? process.env.ENDPOINT : process.env.PROD_ENDPOINT,
   credentials: 'include',
 });
 
@@ -30,7 +28,7 @@ const cache = new InMemoryCache();
 function CreateApolloClient() {
   const client = new ApolloClient({
     cache,
-    // resolvers: {},
+    // resolver of mutation for local cache
     resolvers: {
       Mutation: {
         currentUser: (_root, args, { cache }) => {
@@ -38,8 +36,6 @@ function CreateApolloClient() {
           const dataCache = cache.readQuery({
             query: CURRENT_USER_QUERY,
           });
-          // console.log('currentUser cache - data: ', dataCache);
-          // console.log('currentUser cache - args: ', args);
           const user = args;
           user.__typename = 'currentUser';
           const data = { data: { currentUser: { ...user } } };
@@ -62,6 +58,7 @@ function CreateApolloClient() {
     ]),
   });
 
+  // add initial state for local cache
   cache.writeData({
     data: {
       currentUser: {

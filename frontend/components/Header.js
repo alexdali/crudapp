@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import styled from 'styled-components';
 // import NProgress from 'nprogress';
 // import Router from 'next/router';
-// import { Responsive, Image} from 'semantic-ui-react';
 import NavBar from './NavBar';
+import HeaderDiv from './styles/HeaderStyle';
 
 // const handleRouteChangeStart = () => {
 //   NProgress.start();
@@ -17,96 +16,6 @@ import NavBar from './NavBar';
 // Router.events.on('routeChangeStart', handleRouteChangeStart);
 // Router.events.on('routeChangeComplete', handleRouteChangeCompleteAndError);
 // Router.events.on('routeChangeError', handleRouteChangeCompleteAndError);
-
-
-const HeaderDiv = styled.div`
-  background: #fff;
-  width: 100%;
-  z-index: 1;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  position: absolute;
-  top: 0;
-  .home-page {
-    height: 100%;
-    max-width: 1200px;
-    position: relative;
-    margin: auto;
-    .logo {
-    /* display: inline-block;
-    position: relative;
-    width: 100px;
-    line-height: 64px; */
-    float: left;
-    margin: 0 25px 0;
-    cursor: pointer;
-    }
-    img {
-      width: 7rem;
-      margin-top: 0.5rem;
-    }
-  }
-  .ui.floated.header {
-    /* margin-top: 5px; */
-    /* margin-top: 0.3em; */
-  }
-  .ui.menu {
-    font-family: 'Montserrat Alternates', 'Roboto', 'Open Sans', sans-serif,
-      'Arial';
-  }
-  .ui.right.floated.menu {
-    margin: 0.8rem 2rem 0 0.5rem;
-  }
-  .ui.secondary.menu .dropdown.item:hover,
-  .ui.secondary.menu .link.item:hover,
-  .ui.secondary.menu a.item:hover {
-    background: none;
-  }
-  .MenuItem {
-    cursor: pointer;
-    &:after {
-      height: 2px;
-      background: #;
-      content: '';
-      width: 0;
-      position: absolute;
-      transform: translateX(-50%);
-      transition: width 0.4s;
-      transition-timing-function: cubic-bezier(1, -0.65, 0, 2.31);
-      left: 50%;
-      margin-top: 0.5rem;
-    }
-    &:hover,
-    &:focus {
-      background: none;
-      outline: none;
-      color: #;
-      font-weight: 600;
-      &:after {
-        width: calc(100% - 10px);
-      }
-      @media (max-width: 700px) {
-        width: calc(100% - 10px);
-      }
-    }
-    a {
-      padding: 0 0.5rem;
-      display: flex;
-      align-items: center;
-      position: relative;
-      /* text-transform: uppercase; */
-      /* font-weight: 900; */
-      /* font-weight: 600; */
-      /* font-size: 1em; */
-      background: none;
-      border: 0;
-      cursor: pointer;
-      /* color: #; */
-      @media (max-width: 700px) {
-        padding: 0 10px;
-      }
-    }
-  }
-`;
 
 const HeaderBar = () => (
       <HeaderDiv>

@@ -10,18 +10,16 @@ const SIGN_OUT_MUTATION = gql`
   }
 `;
 
-const Signout = (props) => <Mutation
+const Signout = () => <Mutation
     mutation={SIGN_OUT_MUTATION}
     refetchQueries={[{ query: CURRENT_USER_QUERY }]}
   >
-    {(signout, { loading, error }) => {
-      console.log('Signout mutation error: ', error);
-      return (
+    {(signout, { loading, error }) => (
         <span onClick={signout} role="button">
           Выйти
         </span>
-      );
-    }}
+    )}
   </Mutation>;
-export default Signout;
+
 export { SIGN_OUT_MUTATION };
+export default Signout;

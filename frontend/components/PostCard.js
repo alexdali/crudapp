@@ -36,7 +36,6 @@ class PostCard extends Component {
     const {
       id, userId, title, content, createdDate, numberOfCommentsPost, author,
     } = this.props.postcard;
-    // console.log('PostCard this.props', this.props);
     return (
       <Link
         href={{
