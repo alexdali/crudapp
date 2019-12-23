@@ -69,30 +69,6 @@ class PostCreateForm extends Component {
     this.setState({ postItem });
   };
 
-  // update = (cache, payload, userId) => {
-  //   // manually update the cache on the client, so it matches the server
-  //   // 1. Read the cache for the posts we want
-  //   const { postsByUser } = cache.readQuery({
-  //     query: POSTS_BY_USER_QUERY,
-  //     variables: {
-  //       id: userId,
-  //     },
-  //   });
-  //   // 2. Push the new post to data
-  //   const newPost = payload.data.createPost;
-  //   // data.posts.push(newPost);
-  //   // data.posts = [...data.posts, newPost];
-  //   // data = { posts: posts.concat([newPost]) };
-  //   // 3. Put the items back!
-  //   cache.writeQuery({
-  //     query: POSTS_BY_USER_QUERY,
-  //     variables: {
-  //       id: userId,
-  //     },
-  //     data: { postsByUser: postsByUser.concat([newPost]) },
-  //   });
-  // };
-
     createPostItem = async (e, createPost) => {
       e.preventDefault();
       const { userId, title, content } = this.state.postItem;
@@ -110,9 +86,7 @@ class PostCreateForm extends Component {
         {
           query: CURRENT_USER_QUERY,
         }],
-        // update: (cache, payload, userId) => this.update(cache, payload, userId),
       });
-      // const { id } = res.data.createPost;
       this.setState({
         postItem: {
           userId: '',

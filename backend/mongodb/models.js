@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 
-// const { ObjectId } = mongoose.Schema.Types;
-
 const User = mongoose.model('User', new mongoose.Schema({
   _id: String,
   name: String,

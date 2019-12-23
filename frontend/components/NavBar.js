@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import Link from 'next/link';
 import styled from 'styled-components';
-// import NProgress from 'nprogress';
 import Router from 'next/router';
 import { Menu, Label, Icon } from 'semantic-ui-react';
 import withUserContext from '../lib/withUserContext';
@@ -11,17 +10,6 @@ import SignOut from './SignOut';
 import Login from './Login';
 import ErrorMessage from './ErrorMessage';
 
-// const handleRouteChangeStart = () => {
-//   NProgress.start();
-// };
-
-// const handleRouteChangeCompleteAndError = () => {
-//   NProgress.done();
-// };
-
-// Router.events.on('routeChangeStart', handleRouteChangeStart);
-// Router.events.on('routeChangeComplete', handleRouteChangeCompleteAndError);
-// Router.events.on('routeChangeError', handleRouteChangeCompleteAndError);
 
 const MenuDiv = styled.div`
   .ui.simple.dropdown .menu {

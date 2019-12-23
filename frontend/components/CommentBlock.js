@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
-// import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import {
@@ -8,7 +7,6 @@ import {
 } from 'semantic-ui-react';
 import moment from 'moment';
 import styled from 'styled-components';
-// import NProgress from 'nprogress';
 import withUserContext from '../lib/withUserContext';
 import CommentCreateForm from './CommentCreateForm';
 import { COMMENTS_BY_POST_QUERY } from './CommentsPostQueries';

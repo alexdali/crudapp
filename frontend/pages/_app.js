@@ -7,18 +7,9 @@ import { CURRENT_USER_QUERY } from '../components/User';
 import { ALL_USERS_QUERY } from '../components/LeftSideBar';
 import CreateApolloClient from '../lib/CreateApolloClient';
 
-// const { Provider, Consumer } = React.createContext();
-
 const client = CreateApolloClient({
   ssrForceFetchDelay: 100,
 });
-
-// const queryUserSubscription = client.watchQuery({
-//   query: CURRENT_USER_QUERY,
-// });
-// const queryAuthorsSubscription = client.watchQuery({
-//   query: ALL_USERS_QUERY,
-// });
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -62,40 +53,16 @@ class MyApp extends App {
   }
 
   componentDidMount() {
-    // queryUserSubscription.subscribe({
-    //   next: ({ data }) => {
-    //     console.log('_app componentDidMount queryUserSubscription data: ', data);
-    //     if (data.me !== 'undefined') { this.setState({ user: data.me }); }
-    //   },
-    //   error: (e) => console.error(e),
-    // });
     this.subscriptionUser();
-    // queryAuthorsSubscription.subscribe({
-    //   next: ({ data }) => {
-    //     console.log('_app componentDidMount queryAuthorsSubscription data: ', data);
-    //     if (data.users !== 'undefined') { this.setState({ authors: data.users }); }
-    //   },
-    //   error: (e) => console.error(e),
-    // });
     this.subscriptionAuthors();
   }
 
   componentWillUnmount() {
-    // queryUserSubscription.unsubscribe();
     this.subscriptionUser().unsubscribe();
-    // queryAuthorsSubscription.unsubscribe();
     this.subscriptionAuthors().unsubscribe();
-    console.log('_app componentWillUnmount Subscription.unsubscribe');
   }
-  // setCurrentUser = (user)=>{
-  //   this.setState(
-  //     {
-  //       user: {...user}
-  //     });
-  // }
 
   render() {
-    // const { Component, apollo, pageProps } = this.props;
     const { Component, pageProps } = this.props;
     console.log('_app this.state: ', this.state);
     console.log('_app process.env.ENDPOINT: ', process.env.ENDPOINT);

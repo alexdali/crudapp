@@ -4,7 +4,6 @@ import { User, Post, Comment } from './models';
 /* eslint no-underscore-dangle: [1, { "allow": ["__id"] }] */
 // Create User
 const createUser = async (arg) => {
-  console.log(`c createUser arg: ${JSON.stringify(arg)}`);
   const {
     id, name, email, password,
   } = arg;
@@ -23,16 +22,13 @@ const createUser = async (arg) => {
   const user = new User({
     _id: id, name, email, password: hashPassword,
   });
-  console.log(`c createUser user: ${JSON.stringify(user)}`);
   return user.save()
     .then((result) => {
-      console.log(`c createUser SaveOne: ${JSON.stringify(result)}`);
       const newUser = {
         id: result._id,
         name: result.name,
         email: result.email,
       };
-      console.log(`c createUser newUser: ${JSON.stringify(newUser)}`);
       return newUser;
     })
     .catch((err) => console.error('Error db: ', err));
@@ -46,21 +42,17 @@ const updatePassword = async (arg) => {
 
   //const hashPassword = await bcrypt.hash(password, 10);
   const password = await bcrypt.hash(newPassword, 10);
-    
-  console.log(`c updatePassword arg: ${JSON.stringify(arg)}`);
   const filter = { _id };
   return Post.findOneAndUpdate(filter, { password },
     // If `new` isn't true, `findOneAndUpdate()` will return the
     // document as it was _before_ it was updated.
     { new: true })
     .then((result) => {
-      console.log(`c updatePassword findOneAndUpdate: ${JSON.stringify(result)}`);
       const updatedUser = {
         id: result._id,
         name: result.name,
         email: result.email,
       };
-      // console.log(`c updatePassword updatedUser: ${JSON.stringify(updatedUser)}`);
       return updatedUser;
     })
     .catch((err) => console.error('Error db: ', err));
@@ -68,19 +60,15 @@ const updatePassword = async (arg) => {
 
 // Delete User
 const deleteUser = async (arg) => {
-  console.log(`c deleteUser arg: ${JSON.stringify(arg)}`);
   return User.findByIdAndRemove(arg)
     .then(async (result) => {
-      console.log(`c deleteUser findByIdAndRemove: ${JSON.stringify(result)}`);
       // delete all posts by the userId
       if (result !== null) {
         const { _id } = result;
         const delPostsByUser = await Post.deleteMany({ userId: _id });
-        console.log(`c deleteUser delPostsByUser: ${JSON.stringify(delPostsByUser)}`);
 
         // delete all comments by the userId
         const delCommentsByUser = await Comment.deleteMany({ userId: _id });
-        console.log(`c deleteUser delCommentsByUser: ${JSON.stringify(delCommentsByUser)}`);
       }
       return result;
     })
@@ -97,7 +85,6 @@ const createPost = async (arg) => {
   });
   return post.save()
     .then((result) => {
-      console.log(`c createUser SaveOne: ${JSON.stringify(result)}`);
       const newPost = {
         id: result._id,
         title: result.title,
@@ -105,7 +92,6 @@ const createPost = async (arg) => {
         content: result.content,
         createdDate: result.createdDate,
       };
-      console.log(`c createPost newPost: ${JSON.stringify(newPost)}`);
       return newPost;
     })
     .catch((err) => console.error('Error db: ', err));
@@ -116,14 +102,12 @@ const updatePost = async (arg) => {
   const {
     postId: _id, title, userId, content, createdDate,
   } = arg;
-  console.log(`c updatePost arg: ${JSON.stringify(arg)}`);
   const filter = { _id };
   return Post.findOneAndUpdate(filter, { title, content, createdDate },
     // If `new` isn't true, `findOneAndUpdate()` will return the
     // document as it was _before_ it was updated.
     { new: true })
     .then((result) => {
-      console.log(`c updatePost findOneAndUpdate: ${JSON.stringify(result)}`);
       const updatedPost = {
         id: result._id,
         title: result.title,
@@ -131,34 +115,19 @@ const updatePost = async (arg) => {
         content: result.content,
         createdDate: result.createdDate,
       };
-      // console.log(`c updatePost updatedPost: ${JSON.stringify(updatedPost)}`);
       return updatedPost;
     })
     .catch((err) => console.error('Error db: ', err));
-
-  // return post.findById(id, (err, doc) => {
-  //   if (err) return err;
-  //   // if (userId !== post.userId) return err.messages('Вы')
-  //   const post = new Post({
-  //     _id: id, title, userId, content, createdDate,
-  //   });
-  //   doc.title = title;
-  //   doc.content = content;
-  //   return doc.save();
-  // });
 };
 
 // Delete Post
 const deletePost = async (arg) => {
-  console.log(`c deletePost arg: ${JSON.stringify(arg)}`);
   const { userId, postId } = arg;
   return Post.findOneAndDelete({ userId, _id: postId })
     .then(async (result) => {
-      console.log(`c deletePost findOneAndDelete: ${JSON.stringify(result)}`);
       // delete all comments by the postId
       if (result !== null) {
         const delCommentByPost = await Comment.deleteMany({ postId: result._id });
-        console.log(`c deletePost delCommentByPost: ${JSON.stringify(delCommentByPost)}`);
       }
       return result;
     })
@@ -167,20 +136,11 @@ const deletePost = async (arg) => {
 
 // Create Comment
 const createComment = async (arg) => {
-  console.log(`c createComment arg: ${JSON.stringify(arg)}`);
-  // const {
-  //   id, userId, postId, content, createdDate,
-  // } = arg;
-  // const comment = new Comment({
-  //   _id: id, userId, postId, content, createdDate,
-  // });
   const comment = new Comment({
     _id: arg.id, ...arg,
   });
-  console.log(`c createComment comment: ${JSON.stringify(comment)}`);
   return comment.save()
     .then((result) => {
-      console.log(`c createComment SaveOne: ${JSON.stringify(result)}`);
       const newComment = {
         id: result._id,
         userId: result.userId,
@@ -188,7 +148,6 @@ const createComment = async (arg) => {
         content: result.content,
         createdDate: result.createdDate,
       };
-      console.log(`c createComment newComment: ${JSON.stringify(newComment)}`);
       return newComment;
     })
     .catch((err) => console.error('Error db: ', err));
@@ -196,16 +155,13 @@ const createComment = async (arg) => {
 
 // Delete Comment
 const deleteComment = async (arg) => {
-  console.log(`c deleteComment arg: ${JSON.stringify(arg)}`);
   const { id, userId } = arg;
   return Comment.findOneAndDelete({ userId, _id: id })
     .then((result) => {
-      console.log(`c deleteComment findByIdAndRemove: ${JSON.stringify(result)}`);
       return result;
     })
     .catch((err) => console.error('Error db: ', err));
 };
-
 
 export {
   createUser, updatePassword, deleteUser, createPost, updatePost, deletePost, createComment, deleteComment,

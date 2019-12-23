@@ -23,11 +23,6 @@ const resolvers = {
   DateTime: GraphQLDateTime,
   Query: {
     me: async (parent, arg, context, resolveInfo) => {
-      // console.log('Query:  me -> ctx.request.userId', ctx.request.userId);
-      // console.log('Query: me -> context', context);
-      console.log(`query me ctx.user: ${JSON.stringify(context.user)}`);
-      // console.log(`query me ctx.req: ${JSON.stringify(ctx.req)}`);
-      // console.log(`query me ctx.request: ${JSON.stringify(ctx.request)}`);
       // check if there is a current userId in request
       if (!context.user) {
         return null;
@@ -35,13 +30,9 @@ const resolvers = {
       const { id } = context.user;
       //TO-DO do request throw Promise for catch MongoDB error
       const user = await getUser(id);
-      console.log(`query me getUser user: ${JSON.stringify(user)}`);
       if (!user) return null;
-      // console.log(`query me req.user: ${JSON.stringify(context.req.user)}`);
       const postsByUser = await getPostsByUser({ userId: user.id });
       const commentsByUser = await getCommentsByUser({ userId: user.id });
-        // console.log('q users postsByUser.length: ', postsByUser.length);
-        // console.log('q users commentsByUser.length: ', commentsByUser.length);
       return {
         ...user,
         numberOfPost: postsByUser.length,
@@ -60,13 +51,10 @@ const resolvers = {
     },
     users: async () => {
       const users = await getUsers();
-      console.log(`q users result getUsers: ${JSON.stringify(users)}`);
       if (users === []) return users;
       const usersWithInfo = users.map(async (resUser) => {
         const postsByUser = await getPostsByUser({ userId: resUser.id });
         const commentsByUser = await getCommentsByUser({ userId: resUser.id });
-        console.log('q users postsByUser.length: ', postsByUser.length);
-        console.log('q users commentsByUser.length: ', commentsByUser.length);
         return {
           ...resUser,
           numberOfPost: postsByUser.length,
@@ -77,11 +65,7 @@ const resolvers = {
     },
     post: async (_, { id }) => {
       const resPost = await getPost(id);
-      console.log(`query post id: ${id}`);
-      console.log(`query post resPost: ${JSON.stringify(resPost)}`);
       const commentsByPost = await getCommentsByPost({ postId: resPost.id });
-      console.log('q posts commentsByPost.length: ', commentsByPost.length);
-      // console.log(`query post comments: ${JSON.stringify(commentsByPost)}`);
       return {
         ...resPost,
         numberOfCommentsPost: commentsByPost.length,
@@ -89,15 +73,12 @@ const resolvers = {
     },
     posts: async () => {
       const posts = await getPosts();
-      // console.log(`q posts result getPosts: ${JSON.stringify(posts)}`);
       if (posts === []) return posts;
       const sortPosts = posts.sort((a, b) => {
         const res = b.createdDate - a.createdDate;
-        // console.log(`q posts sort res b-a: ${res}`);
         return res;
       }).map(async (resPost) => {
         const comments = await getCommentsByPost({ postId: resPost.id });
-        // console.log('q posts comments.length: ', comments.length);
         return {
           ...resPost,
           numberOfCommentsPost: comments.length,
@@ -121,15 +102,9 @@ const resolvers = {
     // commentsByPost: async (_, { id }) => getCommentsByPost({ postId: id }),
     commentsByPost: async (_, { id }) => {
       const comments = await getCommentsByPost({ postId: id });
-      console.log(`q comments result getCommentsByPost: ${JSON.stringify(comments)}`);
       if (comments === []) return comments;
       const sortCommens = comments.sort((a, b) => {
-        // console.log(`q comments sort: ${JSON.stringify(a)}`);
-        console.log(`q comments sort.createdDate a: ${a.createdDate}`);
-        // console.log(`q comments sort: ${JSON.stringify(b)}`);
-        console.log(`q comments sort.createdDate b: ${b.createdDate}`);
         const res = b.createdDate - a.createdDate;
-        console.log(`q comments sort res b-a: ${res}`);
         return res;
       });
       return sortCommens;
@@ -139,13 +114,10 @@ const resolvers = {
 
   Mutation: {
     signUp: async (_, { name, email, password }, context) => {
-      // console.log(`m createUser context: ${JSON.stringify(context)}`);
-      // console.log(`m createUser context: ${context.secret}`);
       const id = uuidv4();
       const newUserData = {
         id, name, email, password,
       };
-      console.log(`m createUser dataNewUser: ${JSON.stringify(newUserData)}`);
       const user = await createUser(newUserData);
       const expiresIn = '30m'; // '12h';
       // const jwtToken = await jwt.sign(newUser, context.secret, { expiresIn });
@@ -159,20 +131,14 @@ const resolvers = {
       return user;
     },
     signIn: async (_, { email, password }, context) => {
-      // console.log(`m signIn context.res: ${context.res[0]}`);
-      // console.log(`m signIn context.req.user: ${JSON.stringify(context.req.user)}`);
-      // console.log(`m signIn context: ${context.secret}`);
       const AuthArg = ['email', email];
-      // console.log(`m signIn AuthArg: ${JSON.stringify(AuthArg)}`);
       const user = await getUserByArg(AuthArg);
-      console.log(`m signIn user: ${JSON.stringify(user)}`);
       if (!user) {
         throw new Error(
           'Пользователя с таким email не существует!',
         );
       }
       const isValidPass = await bcrypt.compare(password, user.password);
-      // console.log(`m signIn isValidPass: ${isValidPass}`);
       if (!isValidPass) {
         throw new Error(
           'Неверный пароль! Попробуйте еще раз.',
@@ -182,42 +148,32 @@ const resolvers = {
       // const expiresIn = '30m'; // '12h';
       // const jToken = await jwt.sign(user, context.secret, { expiresIn });
       const jToken = jwt.sign(user, context.secret);
-      // console.log(`m signIn jToken: ${JSON.stringify(jToken)}`);
       // if (!context.response.cookie) context.response.cookie = {};
       // context.response.cookie('token', jToken, {
       context.res.cookie('token', jToken, {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 31, // Expiry - 1 year
       });
-      console.log(`m signIn cookie context.res: ${context.res}`);
-      // console.log(`m signIn context.req: ${JSON.stringify(context.req)}`);
       // return { token: jToken };
       return user;
     },
     signOut: async (_, args, context) => {
-      // console.log(`m signOut args: ${JSON.stringify(args)}`);
       context.res.clearCookie('token');
-      // console.log(`m signOut cookie context.res: ${context.res}`);
       return { message: 'success' };
     },
     updatePassword: async (_, { password }, context) => {
-      console.log(`m updatePassword context.res: ${context.res[0]}`);
-      console.log(`m updatePassword context.req.user: ${JSON.stringify(context.req.user)}`);
-      console.log(`m updatePassword context: ${context.secret}`);
       if (!context.user) {
         return null;
       }
       const { id } = context.user;
       //TO-DO do request throw Promise for catch MongoDB error
       const user = await getUser(id);
-      console.log(`m updatePassword getUser user: ${JSON.stringify(user)}`);
       if (!user) {
         throw new Error(
           'Пользователя не существует!',
         );
       }
       const isValidPass = await bcrypt.compare(password, user.password);
-      // console.log(`m updatePassword isValidPass: ${isValidPass}`);
       if (!isValidPass) {
         throw new Error(
           'Неверный пароль! Попробуйте еще раз.',
@@ -235,16 +191,10 @@ const resolvers = {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 31, // Expiry - 1 year
       });
-      console.log(`m updatePassword cookie context.res: ${context.res}`);
-      // console.log(`m updatePassword context.req: ${JSON.stringify(context.req)}`);
       // return { token: jToken };
       return updatedUser;
     },
     deleteUser: async (_, arg, context) => {
-      console.log(`m deleteUser arg: ${JSON.stringify(arg)}`);
-      console.log(`m deleteUser context.secret: ${context.secret}`);
-      console.log(`m deleteUser context.user: ${JSON.stringify(context.user)}`);
-      console.log(`m deleteUser context.user.id: ${context.user.id}`);
       if (!context.user) {
         return null;
       }
@@ -255,21 +205,18 @@ const resolvers = {
       // console.log(`m signIn AuthArg: ${JSON.stringify(AuthArg)}`);
       const user = await getUserByArg(AuthArg);
       //const user = await getUser(context.user.id);
-      console.log(`m deleteUser getUser user: ${JSON.stringify(user)}`);
       if (!user) {
         throw new Error(
           'Пользователя не существует!',
         );
       }
       const isValidPass = await bcrypt.compare(password, user.password);
-      // console.log(`m deleteUser isValidPass: ${isValidPass}`);
       if (!isValidPass) {
         throw new Error(
           'Неверный пароль! Попробуйте еще раз.',
         );
       }
       const delUser = await deleteUser(id);
-      console.log(`m deleteUser delUser: ${JSON.stringify(delUser)}`);
       if (!delUser) {
         throw new Error(
           'Ошибка при удалении аккаунта!',
@@ -277,7 +224,6 @@ const resolvers = {
       }
       if (delUser) {
         context.res.clearCookie('token');
-        console.log(`m deleteUser clearCookie context.res: ${context.res}`);
         return { message: 'Success' };
       }
     },
@@ -287,11 +233,9 @@ const resolvers = {
       const id = uuidv4();
       // const createdDate = new Date().toISOString;
       const createdDate = moment.utc().format();
-      console.log(`m createPost createdDate: ${createdDate}`);
       const newPostData = {
         id, title, userId, content, createdDate,
       };
-      console.log(`m createPost newPost: ${JSON.stringify(newPostData)}`);
       const newPost = await createPost(newPostData);
       return {
         ...newPost,
@@ -307,18 +251,14 @@ const resolvers = {
       }
       // const createdDate = new Date().toISOString;
       const createdDate = moment.utc().format();
-      console.log(`m updatePost createdDate: ${createdDate}`);
       const updatePostData = {
         postId, title, userId, content, createdDate,
       };
-      console.log(`m updatePost updatePostData: ${JSON.stringify(updatePostData)}`);
       const updatedPost = await updatePost(updatePostData);
       return updatedPost;
     },
     deletePost: async (_, { postId, userId }) => {
-      console.log(`m deletePost postId: ${postId}, userId: ${userId} `);
       const delPost = await deletePost({ userId, postId });
-      console.log(`m deletePost delPost: ${JSON.stringify(delPost)}`);
       if (delPost !== null) {
         return { message: 'Success' };
       }
@@ -330,16 +270,13 @@ const resolvers = {
       const id = uuidv4();
       // const createdDate = new Date().toISOString;
       const createdDate = moment.utc().format();
-      console.log(`m createPost createdDate: ${createdDate}`);
       const newComment = {
         id, userId, postId, content, createdDate,
       };
       return createComment(newComment);
     },
     deleteComment: async (_, { id, userId }) => {
-      // console.log(`m deleteComment id: ${JSON.stringify(id)}`);
       const delComment = await deleteComment({ id, userId });
-      console.log(`m deleteComment delComment: ${JSON.stringify(delComment)}`);
       if (delComment !== null) {
         return { message: 'Success' };
       }

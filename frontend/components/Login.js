@@ -54,7 +54,6 @@ const Composed = adopt({
   currentUser: ({render}) => <Query query={CURRENT_USER_QUERY}>{render}</Query>,
   signupMutate: ({render}) => <Mutation mutation={SIGNUP_MUTATION}>{render}</Mutation>,
   signinMutate: ({render}) => <Mutation mutation={SIGNIN_MUTATION}>{render}</Mutation>,
-  // currentUserMutate: ({render}) => <Mutation mutation={CURRENT_USER_MUTATION}>{render}</Mutation>,
 });
 /* eslint-enable */
 
@@ -125,7 +124,6 @@ class Login extends Component {
         error: '',
       },
       () => {
-        // this.props.handleRes(res);
         this.props.closeLoginForm();
       });
     }
@@ -168,24 +166,7 @@ class Login extends Component {
         signup: false,
         error: '',
       },
-      // async () => {
-      //   console.log('Signin signInHandle this.state: ', this.state);
-      //   // this.props.setCurrentUser(res.data.signIn);
-      //   this.props.handleRes(res);
-      //   const currentUser = res.data.signIn;
-      //   // currentUser.__typename = 'currentUser';
-      //   console.log('Signin currentUserMutate currentUser: ', currentUser);
-      //   await currentUserMutate({
-      //     variables: { id: currentUser.id, name: currentUser.name, email: currentUser.email },
-      //   }).then(
-      //     // this.props.setCurrentUser()
-      //   ).catch((error) => {
-      //     console.log('Signin currentUserMutate Error: ', error.message);
-      //   });
-      //   // console.log('Signin currentUserMutate resCache: ', resCache);
-        //    }
       );
-      // this.props.handleRes(res);
       this.props.closeLoginForm();
     }
   };
@@ -303,7 +284,6 @@ class Login extends Component {
                                     <span>Зарегистрироваться</span>
                                   </Button>
                                 </Button.Group>
-
                           }
                         </span>
                       </div>

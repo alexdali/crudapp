@@ -34,8 +34,7 @@ const PostsByUser = (props) => {
         if (loading) {
           return (<div>
               <p>
-              Загрузка...
-              <i className="spinner icon"></i>
+              Загрузка... <i className="spinner icon"></i>
               </p>
             </div>);
         }
