@@ -1,7 +1,9 @@
 # CRUD app
 
 Simple CRUD app: another "Medium".
+
 Implemented functionality: Signin/Signout, Add/Delete account, Add/Update/Delete post, Add comment
+
 Layout: Main page, Page of one post, Page of user blog, Page of user profile
 
 tech stack:
