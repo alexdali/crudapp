@@ -15,7 +15,6 @@ tech stack:
 
 TO-DO:
 
-COMMON
 - refactoring
 - optimization
 - performance improvement
