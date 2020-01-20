@@ -1,6 +1,7 @@
 # CRUD app
 
 Simple CRUD app: another "Medium".
+Demo: https://crudapp-next-heroku.herokuapp.com/
 
 Implemented functionality: Signin/Signout, Add/Delete account, Add/Update/Delete post, Add comment
 
